@@ -16,15 +16,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.open.capacity.security.filter.TokenFilter;
+import com.open.capacity.security.service.TokenService;
 
-/**
+/** 
  * spring security配置
- * 
- * @author owen 624191343@qq.com
- * 
- *         2017年10月16日
- *
- */
+* @author 作者 owen E-mail: wang.wen@neusoft.com
+* @version 创建时间：2018年1月13日 上午10:15:43 
+* 类说明 
+*/
+//开启spring security 注解
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -38,8 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private AuthenticationEntryPoint authenticationEntryPoint;
 	@Autowired
 	private UserDetailsService userDetailsService;
+	 
 	@Autowired
-	private TokenFilter tokenFilter;
+	private TokenService tokenService;
 
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -66,6 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable();
 		http.headers().cacheControl();
 
+		//新增token过滤器
+		TokenFilter tokenFilter = new TokenFilter();
+		tokenFilter.setTokenService(tokenService);
+		tokenFilter.setUserDetailsService(userDetailsService);
+		tokenFilter.afterPropertiesSet();
 		http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 

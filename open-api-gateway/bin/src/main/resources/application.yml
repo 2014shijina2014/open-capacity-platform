@@ -12,8 +12,8 @@ spring:
 #      filters: stat,wall
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
-#      url: jdbc:mysql://130.75.131.211:3306/auth2.0-shiro?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8
-      url: jdbc:mysql://192.168.3.150:3306/auth2.0-shiro?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://130.75.131.211:3306/oauth2-security?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8
+#      url: jdbc:mysql://192.168.3.150:3306/oauth2-security?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8
       username: root
       password: 1q2w3e4r
       filters: stat,wall
@@ -24,10 +24,12 @@ spring:
 #    host: 192.168.153.129
 #    port: 6379    
 ################### redis 单机版 end ##########################    
-    cluster:
-      nodes: 192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
-        #130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
-        #192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
+    host: 127.0.0.1
+    port: 6379
+#    cluster:
+#      nodes: 192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
+#        #130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
+#        #192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
    
    
     timeout: 1000 # 连接超时时间（毫秒）
@@ -68,4 +70,16 @@ hystrix:
 zuul:
   ignored-services: "*"
   sensitive-headers:
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka/
+      #http://192.168.3.170:1111/eureka,http://192.168.3.171:1111/eureka,http://192.168.3.173:1111/eureka
+      #http://130.75.131.243:1111/eureka/,http://130.75.131.244:1111/eureka/,http://130.75.131.245:1111/eureka/   
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5
+  
   

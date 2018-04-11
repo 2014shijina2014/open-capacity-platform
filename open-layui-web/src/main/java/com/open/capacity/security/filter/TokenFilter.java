@@ -25,16 +25,32 @@ import com.open.capacity.security.service.TokenService;
  *
  *         2017年10月14日
  */
-@Component
 public class TokenFilter extends OncePerRequestFilter {
 
 	private static final String TOKEN_KEY = "token";
 
-	@Autowired
 	private TokenService tokenService;
-	@Autowired
 	private UserDetailsService userDetailsService;
 	private static final Long MINUTES_10 = 10 * 60 * 1000L;
+	
+	
+	
+
+	public TokenService getTokenService() {
+		return tokenService;
+	}
+
+	public void setTokenService(TokenService tokenService) {
+		this.tokenService = tokenService;
+	}
+
+	public UserDetailsService getUserDetailsService() {
+		return userDetailsService;
+	}
+
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

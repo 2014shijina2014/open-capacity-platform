@@ -20,7 +20,6 @@
 	<modules>
 		<!-- 阿波罗配置中心 -->
 		<module>apollo</module>
-		<!-- 阿波罗配置中心演示程序 -->
 		<module>open-apollo-gateway</module>
 
 		<!-- db基础模块 -->
@@ -41,9 +40,6 @@
 		<!-- layui后台管理无session模块 -->
 		<module>open-layui-web</module>
 
- 
- 
-  	<!-- oauth2模块 -->
 		<module>open-oauth-center</module>
 	</modules>
 	<dependencies>

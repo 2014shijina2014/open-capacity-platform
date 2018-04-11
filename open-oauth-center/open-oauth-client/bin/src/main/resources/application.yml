@@ -1,8 +1,8 @@
 server:
-  port: 8000
+  port: 8100
 spring:
   application:
-    name: open-oauth-server
+    name: open-auth-client
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
 #      driver-class-name:  oracle.jdbc.OracleDriver
