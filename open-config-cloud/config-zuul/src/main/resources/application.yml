@@ -1,0 +1,14 @@
+server:
+  port: 5555
+  
+management:
+  security:
+    enabled: false 
+
+spring:
+  application:
+    name: unieap-eureka-config-zuul
+test:            
+ user:
+  name: li 
+  

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../layui/css/layui.css">
+</head>
+<body>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<fieldset>
+			<input type="hidden" id="id" name="id">
+			<div class="form-group">
+				<label class="col-md-2 control-label">title</label>
+				<div class="col-md-10">
+					<input class="form-control" placeholder="title" type="text" name="title" id="title">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">内容</label>
+				<div class="col-md-10">
+					<textarea class="layui-textarea" id="demo" style="display: none">  
+					</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">状态</label>
+				<div class="col-md-10" style="width: 100px">
+					<select class="form-control input-sm" name="status" id="status">
+					</select>
+				</div>
+			</div>
+
+			<div class="form-actions">
+				<div class="row" align="center">
+					<div class="col-md-12">
+					    <button class="btn btn-primary" onclick="location.href='noticeList.html'">返回</button>
+						<button class="btn btn-primary" type="submit" onclick="update(this)">
+							<i class="fa fa-save"></i> 保存
+						</button>
+					</div>
+				</div>
+			</div>
+
+		</fieldset>
+	</div>
+
+	<script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../../js/jq.js"></script>
+	<script type="text/javascript" src="../../layui/layui.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/dict.js"></script>
+	<script type="text/javascript">
+	showDictSelect("status", "noticeStatus");
+	initData();
+	
+	function initData(){
+		var id = getUrlParam("id");
+		if(id != ""){
+			$.ajax({
+				type : 'get',
+				url : '/notices/'+id,
+				async : false,
+				success : function(data) {
+					$("#id").val(data.id);
+					$("#title").val(data.title);
+					$("#status").val(data.status);
+					$("#demo").text(data.content);
+					
+				}
+			});
+			
+		}
+	}
+	
+		var pro = window.location.protocol;
+		var host = window.location.host;
+		var domain = pro + "//" + host;
+		
+		var layedit, index;
+		layui.use('layedit', function(){
+		  layedit = layui.layedit;
+		  layedit.set({
+              uploadImage: {
+            	  url: '/files/layui?domain=' + domain+"&token="+localStorage.getItem("token"),
+                type: 'post'
+              }
+            });
+		  index = layedit.build('demo');
+		});
+		
+		
+		
+		function update(obj) {
+			var title = $("#title").val();
+			var status = $("#status").val();
+		    if(title.trim() == ""){
+		       layer.msg("title不能为空")
+			   return;
+		    }
+		    if(status.trim() == ""){
+		       layer.msg("状态不能为空")
+			   return;
+		    }
+		    $(obj).attr("disabled",true);
+		    
+		    var formdata = $("#form").serializeObject();
+		    formdata.id = $("#id").val();
+		    formdata.title = title;
+		    formdata.status = status;
+		    formdata.content = layedit.getContent(index);
+
+			$.ajax({
+				type : 'put',
+				url : '/notices',
+				contentType: "application/json; charset=utf-8",  
+				data : JSON.stringify(formdata),
+				success : function(data) {
+					layer.msg("修改成功", {shift: -1, time: 1000}, function(){
+                        location.href = "noticeList.html";
+                    });
+				}
+			});
+		}
+		
+	</script>
+</body>
+</html>

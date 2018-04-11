@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+</head>
+<body>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<form class="form-horizontal" id="form" method="post" action="/excels" onsubmit="return false" enctype="multipart/form-data">
+			<fieldset>
+				<input id="token" name="token" hidden="true">
+				<div class="form-group">
+					<label class="col-md-2 control-label">sql</label>
+					<div class="col-md-10 form-inline">
+						<textarea rows="8" cols="120" name="sql" id="sql">
+SELECT 
+	id, 
+	username '用户名', 
+	nickname '昵称' 
+FROM 
+	sys_user t 
+						</textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label">导出文件名</label>
+					<div class="col-md-10">
+						<input class="form-control" placeholder="文件名" type="text"
+							maxlength="200" name="fileName" id="fileName">
+					</div>
+				</div>
+
+				<div class="form-actions">
+					<div class="row" align="center">
+						<div class="col-md-12">
+							<button class='btn btn-primary' permission="excel:down" type="submit" onclick="download()">
+								<i class='layui-icon'>&#xe601;</i>导出
+							</button>
+							<button class='btn btn-primary' permission="excel:show:datas" type="submit" onclick="showDatas()">
+								<i class='layui-icon'>&#xe62d;</i>页面显示数据
+							</button>
+						</div>
+					</div>
+				</div>
+				
+				<div id="datas">
+					<table class="table">
+					</table>
+				</div>
+
+			</fieldset>
+		</form>
+	</div>
+	<script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../../js/jq.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../layui/layui.js"></script>
+	<script type="text/javascript" src="../../js/my/permission.js"></script>
+	<script type="text/javascript">
+		var pers = checkPermission();
+		layui.use([ 'layer' ], function() {
+			var layer = layui.layer;
+		});
+		$("#datas").hide();
+		
+		function checkSql() {
+			var sql = $("#sql").val();
+			var flag = false;
+			if (sql.trim() == "") {
+				layer.msg("sql不能为空", {
+					shift : -1,
+					time : 1000
+				}, function() {
+				});
+			} else {
+				$.ajax({
+					type : 'post',
+					async:false,
+					url : '/excels/sql-count?sql='+sql,
+					contentType: "application/json; charset=utf-8",  
+					success : function(data) {
+						if(data == 0){
+							layer.msg("0条数据，请检查sql", {shift: -1, time: 1000}, function(){});
+						}
+						flag = true;
+					}
+				});
+			}
+			return flag;
+		}
+
+		function download() {
+			if(!checkSql()){
+				return;
+			}
+			
+			$("#token").val(localStorage.getItem("token"));
+			$("#form").attr("onsubmit", "return true");
+			$("#form").submit();
+			$("#form").attr("onsubmit", "return false");
+		}
+		
+		function showDatas(){
+			if(!checkSql()){
+				return;
+			}
+			
+			$.ajax({
+				type : 'post',
+				async:false,
+				url : '/excels/show-datas?sql='+$("#sql").val(),
+				contentType: "application/json; charset=utf-8",  
+				success : function(data) {
+					var size = data.length;
+					if(size == 0){
+						layer.msg("0条数据", {shift: -1, time: 1000}, function(){});
+					}else{
+						$("#datas").show();
+						var table = $("#datas table");
+						table.empty();
+						for(var i=0;i<size;i++){
+							var tr = $("<tr></tr>");
+							var ds = data[i];
+							for(var t=0;t<ds.length;t++){
+								var d = ds[t];
+								if(d == null){
+									d = "";
+								}
+								tr.append("<td>"+d+"</td>")
+							}
+							
+							table.append(tr);
+						}
+					}
+				}
+			});
+		}
+	</script>
+</body>
+</html>

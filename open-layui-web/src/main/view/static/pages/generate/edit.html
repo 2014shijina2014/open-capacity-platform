@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
+</head>
+<body>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <form class="form-horizontal" onsubmit="return false" id="form">
+        <fieldset>
+            <div class="form-group">
+                <label class="col-md-2 control-label">表名</label>
+                <div class="col-md-10">
+                    <input class="form-control" placeholder="表名" type="text" name="tableName" id="tableName" value="sys_user"
+                        data-bv-notempty="true"
+                        data-bv-notempty-message="表名 不能为空">
+                    <button id="showInfo" class="btn btn-primary">预览代码</button>
+                    <button id="save" class="btn btn-primary">保存代码</button>
+                </div>
+            </div>
+        </fieldset>
+        <div id="detail">
+	        <fieldset>
+	           <table class="table">
+                  <caption>基本配置</caption>
+                  <tbody>
+                    <tr>
+                      <td width="10%">路径</td>
+                      <td>
+                        <input class="form-control" placeholder="路径" type="text" name="path" id="path" value="d:/generate"
+                                data-bv-notempty="true"
+                                data-bv-notempty-message="路径 不能为空">
+                      </td>
+                      <td width="10%"></td>
+                      <td width="15%"></td>
+                      <td width="5%"></td>
+                      <td></td>
+                      <td width="5%"></td>
+                      <td width="15%"></td>
+                    </tr>
+                    <tr>
+                      <td>bean包名</td>
+                      <td>
+                        <input class="form-control" placeholder="bean包名" type="text" name="beanPackageName" id="beanPackageName" value="com.boot.security.server.model"
+                                data-bv-notempty="true"
+                                data-bv-notempty-message="bean包名 不能为空">
+                      </td>
+                      <td>bean类名</td>
+                      <td>
+                        <input class="form-control" placeholder="bean类名" type="text" name="beanName" id="beanName" value="BeanTest"
+                                data-bv-notempty="true"
+                                data-bv-notempty-message="bean类名 不能为空">
+                      </td>
+                      <td>dao包名</td>
+                      <td>
+                        <input class="form-control" placeholder="dao包名" type="text" name="daoPackageName" id="daoPackageName" value="com.boot.security.server.dao"
+                                data-bv-notempty="true"
+                                data-bv-notempty-message="dao包名 不能为空">
+                      </td>
+                      <td>dao类名</td>
+                      <td>
+                        <input class="form-control" placeholder="dao类名" type="text" name="daoName" id="daoName" value="BeanTestDao"
+                                data-bv-notempty="true"
+                                data-bv-notempty-message="dao类名 不能为空">
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>controller包名</td>
+	                    <td>
+	                        <input class="form-control" placeholder="controller包名" type="text" name="controllerPkgName" id="controllerPkgName" value="com.boot.security.server.controller"
+	                                data-bv-notempty="true"
+	                                data-bv-notempty-message="bean包名 不能为空">
+	                    </td>
+                        <td>controller类名</td>
+                        <td>
+                         <input class="form-control" placeholder="controller类名" type="text" name="controllerName" id="controllerName" value="ControllerTest"
+                                data-bv-notempty="true"
+                                data-bv-notempty-message="bean类名 不能为空">
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+	        </fieldset>
+            <table class="table">
+                <caption>字段详情</caption>
+                <thead>
+                    <tr>
+                        <th>表字段名</th>
+                        <th>表类型</th>
+                        <th>字段描述</th>
+                        <th>java字段名</th>
+                        <th>java字段类型</th>
+                        <th>默认值</th>
+                    </tr>
+                </thead>
+                <tbody id="beanFields">
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+    <script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jq.js"></script>
+    <script type="text/javascript" src="../../layui/layui.js"></script>
+	<script type="text/javascript" src="../../js/plugin/bootstrapvalidator/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript">
+    layui.use('layer', function(){
+	    var layer = layui.layer;
+	});
+    
+    $('#form').bootstrapValidator();
+    $("#detail").hide();
+    $("#save").hide();
+    
+    $("#showInfo").click(function(){
+        var bootstrapValidator = $("#form").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(!bootstrapValidator.isValid()){
+           return;
+        }
+        var beanFields = $("#beanFields");
+        beanFields.html("");
+        $.ajax({
+            type : 'get',
+            url : '/generate',
+            data : "tableName=" + $("#tableName").val(),
+            success : function(data) {
+                $("#detail").show();
+                $("#save").show();
+                
+                var beanName = data.beanName;
+                $("#beanName").val(beanName);
+                $("#daoName").val(beanName + "Dao");
+                $("#controllerName").val(beanName + "Controller");
+                var fields = data.fields;
+                var length = fields.length;
+                
+                for(var i=0;i<length;i++){
+                    var f = fields[i];
+                    var tr = $("<tr></tr>");
+                    
+                    var columnName = f['columnName'];
+                    var columnNameInput = "<input type='hidden' name='columnNames' value='" + columnName +"'>"
+                    
+                    tr.append("<td>" + columnNameInput + columnName + "</td>");
+                    tr.append("<td>" + f['columnType'] + "</td>");
+                    tr.append("<td>" + f['columnComment'] + "</td>");
+                    var name = f['name'];
+                    var nameInput = "<input name='beanFieldName' class='form-control' value='" + name +"'>";
+                    tr.append("<td>" + nameInput + "</td>");
+                    
+                    var type = f['type'];
+                    var typeInput = "<input name='beanFieldType' class='form-control' value='" + type +"'>"
+                    tr.append("<td>" + typeInput + "</td>");
+                    
+                    var val = f['columnDefault'];
+                    var valInput = "<input name='beanFieldValue' class='form-control' value='" + val +"'>"
+                    tr.append("<td>" + valInput + "</td>");
+                    
+                    beanFields.append(tr);
+                }
+            }
+        });
+    });
+    
+    $("#save").click(function(){
+        var bootstrapValidator = $("#form").data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(!bootstrapValidator.isValid()){
+           return;
+        }
+        if($("#detail").is(':hidden')) {
+           return;
+        }
+        
+        var formdata = $("#form").serializeObject();
+        $.ajax({
+            type : 'post',
+            url : '/generate',
+            contentType: "application/json; charset=utf-8",  
+            data : JSON.stringify(formdata),
+            success : function(data) {
+                $("#detail").hide();
+                $("#save").hide();
+                layer.msg("生成成功");
+            }
+        });
+    });
+
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../layui/css/layui.css">
+</head>
+<body>
+    <div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <header style="height: 100%">
+                    <div align="left">
+	                    <table style="width: 100%">
+	                   		<tr>
+	                   			<td>
+									<form class="form-inline" onsubmit="return false">
+										<div class="form-group">
+											title：
+											<input id="title" type="text" class="form-control" placeholder="title">
+											时间：
+											<input type="text" class="form-control" placeholder="开始时间" id="beginTime">
+											<input type="text" class="form-control" placeholder="结束时间" id="endTime">
+											状态：
+											<select class="form-control input-sm" id="isRead">
+											</select>
+											<button id="searchBt" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe615;</i>搜索</button>
+										</div>
+									</form>
+								</td>
+	                   		</tr> 
+	                    </table>
+					</div>
+                </header>
+                
+                <div>
+                    <div class="widget-body no-padding">
+                        <table id="dt-table" class="table table-striped table-bordered table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                </tr>                       
+                                <tr>
+                                    <th>title</th>
+                                    <th>发布时间</th>
+                                    <th>状态</th>
+                                    <th>阅读时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../js/jq.js"></script>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="../../js/plugin/datatables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../js/plugin/datatables/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/dict.js"></script>
+<script type="text/javascript">
+layui.use(['layer','laydate'], function(){
+    var layer = layui.layer;
+    var laydate = layui.laydate;
+    laydate.render({
+       elem: '#beginTime'
+    });
+    laydate.render({
+       elem: '#endTime'
+    });
+});
+
+var isRead = showDictSelect("isRead", "isRead", true);
+
+var example;
+function init(){
+	example = 
+    	$('#dt-table').DataTable({
+        	"searching": false,
+        	"processing": false,
+        	"serverSide" : true,
+        	"language": {
+                "url": "/js/plugin/datatables/Chinese.lang"
+            },
+        	"ajax": {
+        		"url" : "/notices/published",
+        		"type":"get",
+        		"data":function(d){
+    				d.title = $('#title').val();
+    				d.beginTime = $('#beginTime').val();
+    				d.endTime = $('#endTime').val();
+    				d.isRead = $('#isRead').val();
+    			}
+        	},
+        	"dom": "<'dt-toolbar'r>t<'dt-toolbar-footer'<'col-sm-10 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-10' p v>>",	
+            "columns": [
+                { "data": "title", "defaultContent": ""},
+                { "data": "updateTime", "defaultContent": ""},
+                { 
+                	"data": "", 
+                	"defaultContent": "",
+                	"render": function (data, type, row) {
+                		var isRead = row['isRead'];
+                		if(isRead){
+                			return "已读";
+                		}
+                        return "<span style='color:red'>未读</span>";
+                     }
+                },
+                { "data": "readTime", "defaultContent": ""},
+                { 
+                	"data": "", 
+                	"defaultContent": "",
+                	"orderable":false,
+                	"render": function (data, type, row) {
+                		var id = row['id'];
+                		return "<button class='layui-btn layui-btn-xs' title='详情' onclick='showDetail(this,\"" + id +"\")'><i class='layui-icon'>&#xe65f;</i></button>";
+                    }
+                },
+            ],
+            "order": [[ 2, "asc" ],[1, "desc"]]
+        } );
+}
+
+function showDetail(obj,id){
+	var tr = $(obj).parents("tr")[0];
+	var td = $(tr).find("td").eq(2);
+	var v = $(td).text();
+	var isRead = (v == "已读");
+	if(!isRead){
+		$(td).text("已读");
+	}
+	
+	layer.open({
+		  type: 2,
+		  title: false,
+		  area: ['800px', '400px'],
+		  shadeClose: true,
+		  content: ['detail.html?id='+id]
+		});
+
+	if(!isRead) {
+		parent.$("[unreadNotice]").each(function(){
+			var n = $(this).text();
+			if(!isNaN(n) && n>0) {
+				n = n-1;
+				if(n>0){
+					$(this).html("<span class='layui-badge'>"+n+"</span>");
+				}else{
+					$(this).html("");
+				}
+			}
+		});
+	}
+}
+
+function del(id){
+    layer.confirm('确定要删除吗？', {
+        btn : [ '确定', '取消' ]
+    }, function() {
+        $.ajax({
+            type : 'delete',
+            url : '/notices/'+id,
+            success : function(data) {
+                example.ajax.reload();
+                layer.msg("删除成功");
+            }
+        });
+        
+        layer.close(1);
+    });
+}
+
+$("#searchBt").click(function(){
+	example.ajax.reload();
+});
+
+init();
+</script>

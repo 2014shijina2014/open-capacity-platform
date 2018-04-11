@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: apollo-configservice
+  profiles:
+    active: ${apollo_profile}
+
+ctrip:
+  appid: 100003171
+  
+server:
+  port: 8080
+  
+logging:
+  level:
+    com.ctrip: INFO  

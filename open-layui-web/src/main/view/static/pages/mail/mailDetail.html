@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../layui/css/layui.css">
+</head>
+<body>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<fieldset>
+			<input type="hidden" id="id" name="id">
+			<div class="form-group">
+				<label class="col-md-2 control-label">标题</label>
+				<div class="col-md-10" id="subject" align="left">
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<div class="form-group">
+				<label class="col-md-2 control-label"></label>
+				<div class="col-md-10">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>收件人</th>
+								<th>投递状态</th>
+							</tr>
+						</thead>
+						<tbody id="toUsers">
+						
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<div class="form-group">
+				<label class="col-md-2 control-label">内容</label>
+				<div class="col-md-10" id="content">
+					
+				</div>
+			</div>
+
+			<div class="form-actions">
+				<div class="row" align="center">
+					<div class="col-md-12">
+					    <button class="btn btn-primary" onclick="location.href='mailList.html'">返回</button>
+					</div>
+				</div>
+			</div>
+
+		</fieldset>
+	</div>
+
+	<script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../../js/jq.js"></script>
+	<script type="text/javascript" src="../../layui/layui.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript">
+	
+	initData();
+	
+	function initData(){
+		var id = getUrlParam("id");
+		if(id != ""){
+			$.ajax({
+				type : 'get',
+				url : '/mails/'+id,
+				success : function(data) {
+					$("#subject").html(data.subject);
+					$("#content").html(data.content);
+					
+				}
+			});
+			
+			$.ajax({
+				type : 'get',
+				url : '/mails/'+id+"/to",
+				success : function(data) {
+					var length = data.length;
+					for(var i=0;i<length;i++){
+						var tr = $("<tr></tr>");
+						tr.append("<td>" + data[i]['toUser'] + "</td>");
+						
+						var status = data[i]['status'];
+						tr.append("<td>" + (status ? "投递成功":"<span style='color:red'>投递失败</span>") + "</td>");
+						$("#toUsers").append(tr);
+					}
+					
+					
+				}
+			});
+			
+		}
+	}
+	
+	</script>
+</body>
+</html>

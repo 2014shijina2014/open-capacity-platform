@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>登录</title>
+<link href="css/login.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="login">
+		<div class="message">后台管理系统</div>
+		<div id="darkbannerwrap"></div>
+
+		<form id="login-form" method="post" onsubmit="return false;">
+			<input id="username" name="username" placeholder="用户名" type="text"
+				autocomplete="off">
+			<hr class="hr15">
+			<input id="password" name="password" placeholder="密码" type="password"
+				autocomplete="off">
+			<hr class="hr15">
+			<button style="width: 100%;" type="submit"
+				onclick="login(this)">登录</button>
+			<hr class="hr20">
+			<span id="info" style="color: red"></span>
+		</form>
+
+
+	</div>
+
+</body>
+<script src="js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	if (top != self) {
+		parent.location.href = '/login.html';
+	}
+	
+	var token = localStorage.getItem("token");
+	if (token != null && token.trim().length != 0) {
+		$.ajax({
+			type : 'get',
+			url : '/users/current?token=' + token,
+			success : function(data) {
+				location.href = '/index.html';
+			},
+			error : function(xhr, textStatus, errorThrown) {
+				var msg = xhr.responseText;
+				var response = JSON.parse(msg);
+				var code = response.code;
+				var message = response.message;
+				if (code == 401) {
+					localStorage.removeItem("token");
+				}
+			}
+		});
+	}
+
+	function login(obj) {
+		$(obj).attr("disabled", true);
+
+		var username = $.trim($('#username').val());
+		var password = $.trim($('#password').val());
+		if (username == "" || password == "") {
+			$("#info").html('用户名或者密码不能为空');
+			$(obj).attr("disabled", false);
+		} else {
+			$.ajax({
+				type : 'post',
+				url : '/login',
+				data : $("#login-form").serialize(),
+				success : function(data) {
+					localStorage.setItem("token", data.token);
+					location.href = '/index.html';
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					var msg = xhr.responseText;
+					var response = JSON.parse(msg);
+					$("#info").html(response.message);
+					$(obj).attr("disabled", false);
+				}
+			});
+
+		}
+	}
+</script>
+</html>

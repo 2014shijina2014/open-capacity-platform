@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<configuration>
+	<springProperty name="logFile" source="log.file" />
+	<springProperty name="rootlevel" source="log.level.root" />
+	<springProperty name="mylevel" source="log.level.my" />
+	<springProperty name="maxFileSize" source="log.maxsize" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{50} -[%file:%line]- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="adminLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logFile}</file>
+		<encoder>
+			<pattern>%d [%thread] %-5level -[%file:%line]- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logFile}.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<maxFileSize>${maxFileSize}</maxFileSize>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="errorLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logFile}.error</file>
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{36} -[%file:%line]- %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logFile}.error.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<maxFileSize>${maxFileSize}</maxFileSize>
+		</rollingPolicy>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>error</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="sqlLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logFile}.sql</file>
+		<encoder>
+			<pattern>%d [%thread] %msg%n
+			</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logFile}.sql.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<maxFileSize>${maxFileSize}</maxFileSize>
+		</rollingPolicy>
+	</appender>
+
+	<logger name="adminLogger" level="${mylevel}" additivity="true">
+		<appender-ref ref="adminLog" />
+	</logger>
+
+	<logger name="com.boot.security.server.dao" level="DEBUG" additivity="true">
+		<appender-ref ref="sqlLog" />
+	</logger>
+
+	<root level="${rootlevel}">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="errorLog" />
+	</root>
+
+</configuration>

@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    config:
+#     uri: http://127.0.0.1:8888    测试可以通过uri指向服务注册中心服务端地址
+      discovery:
+        enabled: true
+        service-id: eureka-config-server    #生产环境需要使用config server配置在eureka中的负载均衡serviceId
+      name: zuulservice  #拉取的信息为 zuulservice1-dev.yml  
+      profile: dev #拉取的信息为 zuulservice-dev.yml    config.name +config.profile  组成客户端需要的文件名称
+   
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://127.0.0.1:1111/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../layui/css/layui.css">
+</head>
+<body>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<fieldset>
+			<div class="form-group">
+				<label class="col-md-2 control-label">title</label>
+				<div class="col-md-10">
+					<p id="title"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">内容</label>
+				<div class="col-md-10">
+					<textarea class="layui-textarea" id="demo" style="display: none">  
+					</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">时间</label>
+				<div class="col-md-10">
+					<span id="updateTime"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">已读人员</label>
+				<div class="col-md-10">
+				<ul class="layui-tab-title" id="users"></ul>
+				</div>
+			</div>
+
+		</fieldset>
+	</div>
+
+	<script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../../layui/layui.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/jq.js"></script>
+	<script type="text/javascript">
+	
+	initData();
+	
+	function initData(){
+		var id = getUrlParam("id");
+		if(id != ""){
+			$.ajax({
+				type : 'get',
+				url : '/notices?id='+id,
+				async : false,
+				success : function(data) {
+					var notice = data.notice;
+					if(notice != null){
+						$("#title").text(notice.title);
+						$("#status").val(notice.status);
+						$("#demo").text(notice.content);
+						$("#updateTime").text(notice.updateTime);
+					}
+					
+					var users = data.users;
+					if(users != null){
+						for(var i=0;i<users.length;i++){
+							var u = users[i];
+							$("#users").append("<li>"+u.nickname+"</li>");
+						}
+					}
+				}
+			});
+			
+		}
+	}
+	
+		var layedit, index;
+		layui.use('layedit', function(){
+		  layedit = layui.layedit;
+		  index = layedit.build('demo', {
+			  tool: ['strong']
+		  });
+		});
+		
+	</script>
+</body>
+</html>

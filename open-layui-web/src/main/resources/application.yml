@@ -1,0 +1,83 @@
+spring:
+  application:
+    name: open-layui-web
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  mvc:
+    servlet:
+      load-on-startup: 1  
+  jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      joda-date-time-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8   
+  mail:
+    host: smtp.163.com
+    username: 18579068155@163.com
+    password: 1q2w3e4r
+    properties:
+        mail.smtp.auth : true
+        mail.smtp.timeout : 2000
+        mail.smtp.starttls.enable : true
+        mail.smtp.starttls.required : true      
+  http:
+    encoding:
+      charset:  utf8
+      force: true
+      enabled: true
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+#      driver-class-name:  oracle.jdbc.OracleDriver
+#      url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
+#      username: crm_owner_user
+#      password: bss_crm_test
+#      filters: stat,wall
+################## mysql start ############################
+      driver-class-name:  com.mysql.jdbc.Driver
+      #     192.168.3.150   130.75.131.211
+      url: jdbc:mysql://192.168.3.150:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      username: root
+      password: 1q2w3e4r
+      filters: stat,wall
+################### mysq end l##########################
+  redis:
+    database: 1
+################### redis 单机版 start ########################## 
+    host: 127.0.0.1
+    port: 6379    
+################### redis 单机版 end ##########################   
+#    cluster:
+#      nodes: 192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
+##        #130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
+#        #192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
+#    timeout: 1000 # 连接超时时间（毫秒）
+#    pool:
+#      max-active: 10  # 连接池最大连接数（使用负值表示没有限制）
+#      max-idle: 8     # 连接池中的最大空闲连接
+#      min-idle: 2     # 连接池中的最小空闲连接
+#      max-wait: 100   # 连接池最大阻塞等待时间（使用负值表示没有限制）       
+    
+    
+
+mybatis:
+  config-location: classpath:mybatis.cfg.xml
+  mapper-locations: classpath*:com/open/**/dao/*.xml  
+files:
+  path: ${file-path:d:/files}
+logging:
+  config: classpath:logback-admin.xml
+log:
+  level:
+    root: info
+    com.open: debug
+  file: logs/admin-server.log
+  maxsize: 30MB
+token:
+  expire:
+    seconds: 7200
+  jwtSecret: open-layui-web
+server:
+  port: 9999
+  
+ 

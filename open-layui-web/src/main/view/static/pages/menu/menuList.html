@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/treetable/jquery.treetable.css" />
+<link rel="stylesheet" href="../../css/treetable/jquery.treetable.theme.default.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../../layui/css/layui.css">
+</head>
+<body>
+    <div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <header style="height: 100%">
+                    <div align="left">
+	                    <table style="width: 100%">
+	                   		<tr>
+	                   			<td>
+								</td>
+								<td align="right">
+	                   				<button class="layui-btn layui-btn-sm" onclick="location.href='addMenu.html'" permission="sys:menu:add">
+                                      <i class="layui-icon">&#xe608;</i> 添加
+                                    </button>
+	                   			</td>
+	                   		</tr> 
+	                    </table>
+					</div>
+                </header>
+                
+                <div>
+                    <div class="widget-body no-padding">
+                        <table id="dt-table" class="table table-striped table-bordered table-hover" style="width:100%">
+                             <tr>
+                                 <th width="20%">名称</th>
+                                 <th width="5%">id</th>
+								 <th>href</th>     
+								 <th width="15%">permission</th>     
+								 <th width="5%">sort</th>     
+								 <th>操作</th>
+                             </tr>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../js/jq.js"></script>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="../../js/my/permission.js"></script>
+<script src="../../js/libs/jquery.treetable.js"></script>
+<script type="text/javascript">
+var pers = checkPermission();
+initMenuList();
+
+function initMenuList(){
+	$.ajax({
+		type : 'get',
+		url : '/permissions',
+		contentType: "application/json; charset=utf-8",  
+		async:false,
+		success : function(data) {
+			var length = data.length;
+			for(var i=0; i<length; i++){
+				var d = data[i];
+				var tr = "<tr data-tt-id='" + d['id'] + "' data-tt-parent-id='" + d['parentId'] + "'>";
+				var td1 = "<td>" + d['name'] +"</td>";
+				tr += td1;
+				var id = "<td>" + d['id'] +"</td>";
+				tr += id;
+				var href = "";
+				if(d['href'] != null){
+					href = d['href'];
+				}
+				var td2 = "<td>" + href +"</td>";
+				tr += td2;
+				
+				var permission = d['permission'];
+				if(permission == null){
+					permission = "";
+				}
+				
+				var td3 = "<td>" + permission +"</td>";
+				tr += td3;
+				
+				var sort = d['sort'];
+				if(sort == 0){
+					sort = "";
+				}
+				
+				var td4 = "<td>" + sort +"</td>";
+				tr += td4;
+				
+				var id = d['id'];
+				var href = "updateMenu.html?id=" + id;
+				var edit = buttonEdit(href, "sys:menu:add", pers);
+				var del = buttonDel(id, "sys:menu:del", pers);
+                tr += "<td>"+edit + del+"</td>";
+				tr += "</tr>"
+				$("#dt-table").append(tr);
+			}
+		}
+	});
+}
+
+layui.use('layer', function(){
+    var layer = layui.layer;
+});
+
+function del(id){
+	layer.confirm('确定要删除吗？', {
+        btn : [ '确定', '取消' ]
+    }, function() {
+        $.ajax({
+            type : 'delete',
+            url : '/permissions/' + id,
+            success : function(data) {
+                location.reload();
+            }
+        });
+    });
+}
+
+	var option = {
+		expandable : true,
+		clickableNodeNames : true,
+		onNodeExpand : function() {
+			var d = this;
+			console.log(d['id']);
+			console.log(d['parentId']);
+		},
+		onNodeCollapse : function() {
+			var d = this;
+			console.log(d['id'] + "Collapse");
+			console.log(d['parentId'] + "Collapse");
+		}
+
+	};
+
+	$("#dt-table").treetable(option);
+</script>

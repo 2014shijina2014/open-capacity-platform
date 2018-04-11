@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" media="screen" href="../../layui/css/layui.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../css/bootstrap.min.css">
+</head>
+<body>
+	<button type="button" class="layui-btn" id="test1">
+	  <i class="layui-icon">&#xe67c;</i>上传头像
+	</button>
+    <div id="headImgDiv">
+    </div>
+
+	<script type="text/javascript" src="../../js/libs/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../../js/jq.js"></script>
+	<script type="text/javascript" src="../../layui/layui.js"></script>
+	<script type="text/javascript">
+	var pro = window.location.protocol;
+    var host = window.location.host;
+    var domain = pro + "//" + host;
+    
+	initData();
+	
+	function initData(){
+		$.ajax({
+			type : 'get',
+			url : '/users/current',
+			async : false,
+			success : function(data) {
+				var url = data.headImgUrl;
+				if(url!=null && url!=""){
+					var src = domain + "/statics" + url;
+                    var a = "<a target='_blank' href='" + src +"'><img src='" + src + "'></img></a>";
+					$("#headImgDiv").html(a);
+				}
+			}
+		});
+	}
+	
+	layui.use(['upload','layer'], function(){
+	  var layer = layui.layer;
+	  var upload = layui.upload;
+	  upload.render({
+	    elem: '#test1' //绑定元素
+	    ,accept: 'images' //允许上传的文件类型
+	    ,url: '/files' //上传接口
+	    ,done: function(res, index, upload){
+	    	var url = res.url;
+			  $.ajax({
+		            type : 'put',
+		            url : '/users?headImgUrl='+url,
+		            async : false,
+		            success : function(data) {
+		            	 layer.msg("上传成功");
+		                 var src = domain + "/statics" + url;
+		                 var a = "<a target='_blank' href='" + src +"'><img src='" + src + "'></img></a>";
+		                 $("#headImgDiv").html(a);
+		                 
+		                 var img = parent.$(".admin-header-user img");
+		     			 img.attr("src", src);
+		            }
+		        });
+	    }
+	  });
+	});
+	
+	</script>
+</body>
+</html>
