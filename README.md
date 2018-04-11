@@ -1,0 +1,2 @@
+# open-capacity-platform
+spring cloud 实战核心接入平台 非核心业务组件包括quartz分布式集群，mybatis集成，服务注册中心，配置中心，zipkin链路跟踪 ，kafka集群推送zipkin的链路信息存储elasticsearch，oauth2统一认证授权 ，layui后台管理采用的是springsecurity后台认证授权方式整合layui，star人数超100录制视频分析，谢谢 qq交流群：196287927
