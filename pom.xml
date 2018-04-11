@@ -41,7 +41,7 @@
 		<!-- layui后台管理无session模块 -->
 		<module>open-layui-web</module>
 
-		<module>open-ui-core</module>
+ 
  
   	<!-- oauth2模块 -->
 		<module>open-oauth-center</module>
