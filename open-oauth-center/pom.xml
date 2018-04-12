@@ -49,8 +49,9 @@
   
     <modules>
     	<module>open-oauth-server</module>
-    	<module>open-oauth2-client</module>
     	<module>open-oauth-client</module>
-    	<module>open-capacity-client-two</module>
+    	<module>open-oauth-client-two</module>
+    	<module>open-oauth-gateway</module>
+    	
     </modules>
 </project>
