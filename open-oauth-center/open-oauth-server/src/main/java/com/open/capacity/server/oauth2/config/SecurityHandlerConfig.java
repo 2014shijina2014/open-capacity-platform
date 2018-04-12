@@ -174,8 +174,8 @@ public class SecurityHandlerConfig {
 	}
 
 	/**
-	 * 未登录，返回401 装配此bean不支持授权码模式
-	 * 
+	 * 未登录，返回401 装配此bean不支持授权码模式,
+	 * 注释此bean可以支持授权码,放开必须支持session
 	 * @return
 	 */
 	@Bean
