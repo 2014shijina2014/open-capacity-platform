@@ -30,33 +30,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private AuthenticationSuccessHandler authenticationSuccessHandler;
 	@Autowired
 	private AuthenticationFailureHandler authenticationFailureHandler;
-//	@Autowired
-//	private LogoutSuccessHandler logoutSuccessHandler;
-	@Autowired
+	// @Autowired
+	// private LogoutSuccessHandler logoutSuccessHandler;
+	@Autowired(required=false)
 	private AuthenticationEntryPoint authenticationEntryPoint;
 	@Autowired
 	private UserDetailsService userDetailsService;
- 
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-
-	 
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 
-		// 基于token，所以不需要session
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		
+		http.authorizeRequests().antMatchers("/user/token").permitAll().antMatchers("/oauth/authorize").permitAll()
+				.anyRequest().authenticated();
+		http.formLogin().loginProcessingUrl("/user/token").successHandler(authenticationSuccessHandler)
+				.failureHandler(authenticationFailureHandler);
+		
+		// 基于密码 等模式可以无session
+		if(authenticationEntryPoint!=null){
+			http.exceptionHandling()
+			.authenticationEntryPoint(authenticationEntryPoint);
+			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		http.authorizeRequests()
-//			.antMatchers("/oauth/token").denyAll() 
-		.anyRequest().authenticated();
-		http.formLogin().loginProcessingUrl("/user/token")
-				.successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler).and()
-				.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-//		http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
+		}else{
+			//授权码模式单独处理
+			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+		}
+		
+		
+		// http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 		// 解决不允许显示在iframe的问题
 		http.headers().frameOptions().disable();
 		http.headers().cacheControl();

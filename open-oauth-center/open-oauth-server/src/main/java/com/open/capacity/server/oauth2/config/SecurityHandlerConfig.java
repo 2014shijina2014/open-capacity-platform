@@ -23,6 +23,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.security.oauth2.common.exceptions.RedirectMismatchException;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedResponseTypeException;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -36,6 +37,7 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,75 +57,80 @@ public class SecurityHandlerConfig {
 	private AuthorizationServerTokenServices authorizationServerTokenServices;
 
 	@Autowired
-	private ClientDetailsService clientDetailsService ;
-	
+	private ClientDetailsService clientDetailsService;
+
+	@Autowired(required = false)
+	private AuthenticationEntryPoint authenticationEntryPoint;
+
 	/**
-	 * 登陆成功，返回Token
+	 * 登陆成功，返回Token 装配此bean不支持授权码模式
 	 * 
 	 * @return
 	 */
 	@Bean
 	public AuthenticationSuccessHandler loginSuccessHandler() {
-		return new AuthenticationSuccessHandler() {
+		return new SavedRequestAwareAuthenticationSuccessHandler() {
 
 			@Override
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 					Authentication authentication) throws IOException, ServletException {
 
-				String clientId = request.getHeader("client_id");
-				String clientSecret = request.getHeader("client_secret");
+				if (authenticationEntryPoint != null) {
+					String clientId = request.getHeader("client_id");
+					String clientSecret = request.getHeader("client_secret");
 
-				if (clientId == null) {
-					throw new UnapprovedClientAuthenticationException("请求头中无client_id信息");
-				}
+					try {
 
-				if (clientSecret == null) {
-					throw new UnapprovedClientAuthenticationException("请求头中无client_secret信息");
-				}
+						if (clientId == null) {
+							throw new UnapprovedClientAuthenticationException("请求头中无client_id信息");
+						}
 
-				try {
+						if (clientSecret == null) {
+							throw new UnapprovedClientAuthenticationException("请求头中无client_secret信息");
+						}
 
+						ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 
-					ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
+						if (clientDetails == null) {
+							throw new UnapprovedClientAuthenticationException("clientId对应的信息不存在");
+						} else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
+							throw new UnapprovedClientAuthenticationException("clientSecret不匹配");
+						}
 
-					if (clientDetails == null) {
-						throw new UnapprovedClientAuthenticationException("clientId对应的信息不存在");
-					} else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
-						throw new UnapprovedClientAuthenticationException("clientSecret不匹配");
+						TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId,
+								clientDetails.getScope(), "customer");
+
+						OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
+
+						OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request,
+								authentication);
+
+						OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices
+								.createAccessToken(oAuth2Authentication);
+
+						response.setContentType("application/json;charset=UTF-8");
+						response.getWriter().write(objectMapper.writeValueAsString(oAuth2AccessToken));
+						response.getWriter().flush();
+						response.getWriter().close();
+
+					} catch (Exception e) {
+
+						response.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+						response.setContentType("application/json;charset=UTF-8");
+
+						Map<String, String> rsp = new HashMap<>();
+						rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
+						rsp.put("rsp_msg", e.getMessage());
+
+						response.getWriter().write(objectMapper.writeValueAsString(rsp));
+						response.getWriter().flush();
+						response.getWriter().close();
+
 					}
 
-					TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(),
-							"customer");
-
-					OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
-
-					OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
-
-					OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices
-							.createAccessToken(oAuth2Authentication);
-
-					response.setContentType("application/json;charset=UTF-8");
-					response.getWriter().write(objectMapper.writeValueAsString(oAuth2AccessToken));
-					response.getWriter().flush();
-					response.getWriter().close();
-
-				} catch (Exception e) {
-					
-					
-					response.setStatus( HttpStatus.UNAUTHORIZED.value());
-					
-					response.setContentType("application/json;charset=UTF-8");
-					
-					Map<String, String> rsp = new HashMap<>();
-					rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
-					rsp.put("rsp_msg", e.getMessage());
-
-					
-					
-					response.getWriter().write(objectMapper.writeValueAsString(rsp));
-					response.getWriter().flush();
-					response.getWriter().close();
-					
+				} else {
+					super.onAuthenticationSuccess(request, response, authentication);
 				}
 
 			}
@@ -150,9 +157,9 @@ public class SecurityHandlerConfig {
 				}
 
 				Map<String, String> rsp = new HashMap<>();
-				
-				response.setStatus( HttpStatus.UNAUTHORIZED.value());
-				
+
+				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+
 				rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
 				rsp.put("rsp_msg", msg);
 
@@ -167,58 +174,64 @@ public class SecurityHandlerConfig {
 	}
 
 	/**
-	 * 未登录，返回401
+	 * 未登录，返回401 装配此bean不支持授权码模式
 	 * 
 	 * @return
 	 */
+	// @Bean
+	// public AuthenticationEntryPoint authenticationEntryPoint() {
+	// return new AuthenticationEntryPoint() {
+	//
+	// @Override
+	// public void commence(HttpServletRequest request, HttpServletResponse
+	// response,
+	// AuthenticationException authException) throws IOException,
+	// ServletException {
+	//
+	// Map<String, String> rsp = new HashMap<>();
+	//
+	// rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
+	// rsp.put("rsp_msg", authException.getMessage());
+	// response.setStatus(HttpStatus.UNAUTHORIZED.value());
+	// response.setContentType("application/json;charset=UTF-8");
+	// response.getWriter().write(objectMapper.writeValueAsString(rsp));
+	// response.getWriter().flush();
+	// response.getWriter().close();
+	//
+	// }
+	// };
+	// }
+
 	@Bean
-	public AuthenticationEntryPoint authenticationEntryPoint() {
-		return new AuthenticationEntryPoint() {
+	public WebResponseExceptionTranslator webResponseExceptionTranslator() {
+		return new DefaultWebResponseExceptionTranslator() {
 
-			@Override
-			public void commence(HttpServletRequest request, HttpServletResponse response,
-					AuthenticationException authException) throws IOException, ServletException {
+			public static final String BAD_MSG = "坏的凭证";
 
-				Map<String, String> rsp = new HashMap<>();
-				rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
-				rsp.put("rsp_msg", authException.getMessage());
-
-				response.setContentType("application/json;charset=UTF-8");
-				response.getWriter().write(objectMapper.writeValueAsString(rsp));
-				response.getWriter().flush();
-				response.getWriter().close();
-
-			}
-		};
-	}
-
-	
-	@Bean
-	public WebResponseExceptionTranslator webResponseExceptionTranslator(){
-		return new DefaultWebResponseExceptionTranslator(){
-			
-			 public static final String BAD_MSG = "坏的凭证";
 			@Override
 			public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
-//				e.printStackTrace();
-		        OAuth2Exception oAuth2Exception;
-		        if (e.getMessage() != null && e.getMessage().equals(BAD_MSG)) {
-		            oAuth2Exception = new InvalidGrantException("用户名或密码错误", e);
-		        }else if (e instanceof InternalAuthenticationServiceException) {
-		            oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
-		        }   else{
-		            oAuth2Exception = new UnsupportedResponseTypeException("服务内部错误", e);
-		        }
-		        
-		        ResponseEntity<OAuth2Exception> response = super.translate(oAuth2Exception) ;
-		        response.status(500);
-		        response.getBody().addAdditionalInformation("code", "500");
-		        
-		        return response ;
+				// e.printStackTrace();
+				OAuth2Exception oAuth2Exception;
+				if (e.getMessage() != null && e.getMessage().equals(BAD_MSG)) {
+					oAuth2Exception = new InvalidGrantException("用户名或密码错误", e);
+				} else if (e instanceof InternalAuthenticationServiceException) {
+					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
+				} else if (e instanceof RedirectMismatchException) {
+					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
+				} 
+				else {
+					oAuth2Exception = new UnsupportedResponseTypeException("服务内部错误", e);
+				}
+
+				ResponseEntity<OAuth2Exception> response = super.translate(oAuth2Exception);
+				ResponseEntity.status(oAuth2Exception.getHttpErrorCode());
+				response.getBody().addAdditionalInformation("resp_code", oAuth2Exception.getHttpErrorCode() + "");
+				response.getBody().addAdditionalInformation("resp_msg", oAuth2Exception.getMessage());
+
+				return response;
 			}
-			
-			
+
 		};
 	}
-	
+
 }

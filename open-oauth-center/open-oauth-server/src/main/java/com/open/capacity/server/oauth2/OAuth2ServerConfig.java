@@ -65,9 +65,6 @@ public class OAuth2ServerConfig {
  
 		
 		@Autowired
-		private AuthenticationFailureHandler authenticationFailureHandler ;
-		
-		@Autowired
 		private WebResponseExceptionTranslator webResponseExceptionTranslator;
 
 		@Resource
@@ -134,7 +131,6 @@ public class OAuth2ServerConfig {
 			
 			security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
 					.allowFormAuthenticationForClients();
-			
 			
 			
 
