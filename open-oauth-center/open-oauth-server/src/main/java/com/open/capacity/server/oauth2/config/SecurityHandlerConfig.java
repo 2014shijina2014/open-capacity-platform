@@ -178,29 +178,27 @@ public class SecurityHandlerConfig {
 	 * 
 	 * @return
 	 */
-	// @Bean
-	// public AuthenticationEntryPoint authenticationEntryPoint() {
-	// return new AuthenticationEntryPoint() {
-	//
-	// @Override
-	// public void commence(HttpServletRequest request, HttpServletResponse
-	// response,
-	// AuthenticationException authException) throws IOException,
-	// ServletException {
-	//
-	// Map<String, String> rsp = new HashMap<>();
-	//
-	// rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
-	// rsp.put("rsp_msg", authException.getMessage());
-	// response.setStatus(HttpStatus.UNAUTHORIZED.value());
-	// response.setContentType("application/json;charset=UTF-8");
-	// response.getWriter().write(objectMapper.writeValueAsString(rsp));
-	// response.getWriter().flush();
-	// response.getWriter().close();
-	//
-	// }
-	// };
-	// }
+	@Bean
+	public AuthenticationEntryPoint authenticationEntryPoint() {
+		return new AuthenticationEntryPoint() {
+
+			@Override
+			public void commence(HttpServletRequest request, HttpServletResponse response,
+					AuthenticationException authException) throws IOException, ServletException {
+
+				Map<String, String> rsp = new HashMap<>();
+
+				rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
+				rsp.put("rsp_msg", authException.getMessage());
+				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+				response.setContentType("application/json;charset=UTF-8");
+				response.getWriter().write(objectMapper.writeValueAsString(rsp));
+				response.getWriter().flush();
+				response.getWriter().close();
+
+			}
+		};
+	}
 
 	@Bean
 	public WebResponseExceptionTranslator webResponseExceptionTranslator() {
@@ -218,8 +216,7 @@ public class SecurityHandlerConfig {
 					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
 				} else if (e instanceof RedirectMismatchException) {
 					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
-				} 
-				else {
+				} else {
 					oAuth2Exception = new UnsupportedResponseTypeException("服务内部错误", e);
 				}
 
