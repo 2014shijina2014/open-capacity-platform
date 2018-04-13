@@ -41,6 +41,8 @@
 		<module>open-layui-web</module>
 
 		<module>open-oauth-center</module>
+		
+		<!-- 添加代码生成器项目：open-generator -->
 	</modules>
 	<dependencies>
 		<dependency>
