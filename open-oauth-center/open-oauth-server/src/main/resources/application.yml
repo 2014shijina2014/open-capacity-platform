@@ -13,7 +13,7 @@ spring:
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
       #     192.168.3.150   130.75.131.211
-      url: jdbc:mysql://192.168.3.150:3306/oauth2-security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://130.75.131.211:3306/oauth2-security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
       password: 1q2w3e4r
       filters: stat,wall
@@ -23,6 +23,7 @@ spring:
 ################### redis 单机版 start ########################## 
     host: 127.0.0.1
     port: 6379    
+    timeout: 3000
 ################### redis 单机版 end ##########################   
 #    cluster:
 #      nodes: 130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
@@ -44,6 +45,8 @@ mybatis:
 
 security:
   oauth2:
+    resource:
+      filter-order: 3
     token:
       store:
         type: redis

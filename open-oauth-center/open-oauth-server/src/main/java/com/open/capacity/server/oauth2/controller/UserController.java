@@ -26,14 +26,12 @@ import com.open.capacity.server.oauth2.token.store.RedisTemplateTokenStore;
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-	@Resource
-	private RedisTemplate< String, Object> redisTemplate ;
+	 
 	
 	 
 
 	@GetMapping("/hello")
 	public String hello() {
-		redisTemplate.opsForValue().set("hello", "owen");
 		return "hello";
 	}
 
@@ -52,12 +50,4 @@ public class UserController {
     }
 	
 	
-	@GetMapping("/del/{accessToken}/{refreshToken}")
-	public String hello2(@PathVariable String accessToken,@PathVariable String refreshToken) {
-		RedisTemplateTokenStore redisTemplateStore = new RedisTemplateTokenStore();
-		redisTemplateStore.setRedisTemplate(redisTemplate);
-		redisTemplateStore.removeAccessToken(accessToken);
-		redisTemplateStore.removeRefreshToken(refreshToken);
-		return "delR";
-	}
 }

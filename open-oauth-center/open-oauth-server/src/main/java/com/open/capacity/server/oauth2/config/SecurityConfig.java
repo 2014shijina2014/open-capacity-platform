@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
  * 
  *         2017年10月16日
  *
+ *   在WebSecurityConfigurerAdapter不拦截oauth要开放的资源
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -47,18 +48,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		
 		http.authorizeRequests().antMatchers("/user/token").permitAll().antMatchers("/oauth/authorize").permitAll()
+		.antMatchers("/login").permitAll()
+		.antMatchers("/users").permitAll()
 				.anyRequest().authenticated();
 		http.formLogin().loginProcessingUrl("/user/token").successHandler(authenticationSuccessHandler)
 				.failureHandler(authenticationFailureHandler);
 		
-		// 基于密码 等模式可以无session
+		// 基于密码 等模式可以无session,不支持授权码模式
 		if(authenticationEntryPoint!=null){
 			http.exceptionHandling()
 			.authenticationEntryPoint(authenticationEntryPoint);
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		}else{
-			//授权码模式单独处理
+			//授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 		}
 		

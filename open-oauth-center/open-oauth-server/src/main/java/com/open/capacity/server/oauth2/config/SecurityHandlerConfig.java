@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
+import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.common.exceptions.RedirectMismatchException;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
@@ -37,8 +38,13 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -61,6 +67,10 @@ public class SecurityHandlerConfig {
 
 	@Autowired(required = false)
 	private AuthenticationEntryPoint authenticationEntryPoint;
+	
+
+	//url匹配器
+	private AntPathMatcher pathMatcher  = new AntPathMatcher();
 
 	/**
 	 * 登陆成功，返回Token 装配此bean不支持授权码模式
@@ -71,11 +81,24 @@ public class SecurityHandlerConfig {
 	public AuthenticationSuccessHandler loginSuccessHandler() {
 		return new SavedRequestAwareAuthenticationSuccessHandler() {
 
+			private RequestCache requestCache = new HttpSessionRequestCache();
+
 			@Override
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 					Authentication authentication) throws IOException, ServletException {
 
-				if (authenticationEntryPoint != null) {
+				boolean flag = false ;
+				SavedRequest savedRequest = requestCache.getRequest(request, response);
+				if(pathMatcher.match("/user/token", request.getRequestURI())){
+					flag = true ;
+				}
+				
+				
+				//授权码模式
+				if (savedRequest != null) {
+					super.onAuthenticationSuccess(request, response, authentication);
+					return;
+				} else if(flag && savedRequest==null){
 					String clientId = request.getHeader("client_id");
 					String clientSecret = request.getHeader("client_secret");
 
@@ -108,6 +131,8 @@ public class SecurityHandlerConfig {
 						OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices
 								.createAccessToken(oAuth2Authentication);
 
+						oAuth2Authentication.setAuthenticated(true);
+
 						response.setContentType("application/json;charset=UTF-8");
 						response.getWriter().write(objectMapper.writeValueAsString(oAuth2AccessToken));
 						response.getWriter().flush();
@@ -128,8 +153,7 @@ public class SecurityHandlerConfig {
 						response.getWriter().close();
 
 					}
-
-				} else {
+				}else{
 					super.onAuthenticationSuccess(request, response, authentication);
 				}
 
@@ -173,32 +197,7 @@ public class SecurityHandlerConfig {
 
 	}
 
-	/**
-	 * 未登录，返回401 装配此bean不支持授权码模式,
-	 * 注释此bean可以支持授权码,放开必须支持session
-	 * @return
-	 */
-	@Bean
-	public AuthenticationEntryPoint authenticationEntryPoint() {
-		return new AuthenticationEntryPoint() {
 
-			@Override
-			public void commence(HttpServletRequest request, HttpServletResponse response,
-					AuthenticationException authException) throws IOException, ServletException {
-
-				Map<String, String> rsp = new HashMap<>();
-
-				rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
-				rsp.put("rsp_msg", authException.getMessage());
-				response.setStatus(HttpStatus.UNAUTHORIZED.value());
-				response.setContentType("application/json;charset=UTF-8");
-				response.getWriter().write(objectMapper.writeValueAsString(rsp));
-				response.getWriter().flush();
-				response.getWriter().close();
-
-			}
-		};
-	}
 
 	@Bean
 	public WebResponseExceptionTranslator webResponseExceptionTranslator() {
@@ -216,7 +215,9 @@ public class SecurityHandlerConfig {
 					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
 				} else if (e instanceof RedirectMismatchException) {
 					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
-				} else {
+				}else if (e instanceof InvalidScopeException) {
+					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
+				}else {
 					oAuth2Exception = new UnsupportedResponseTypeException("服务内部错误", e);
 				}
 
