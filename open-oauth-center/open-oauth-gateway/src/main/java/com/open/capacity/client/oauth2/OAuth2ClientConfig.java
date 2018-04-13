@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.stereotype.Component;
 
@@ -43,6 +44,8 @@ public class OAuth2ClientConfig extends ResourceServerConfigurerAdapter{
 		
 		@Autowired
 		private AuthenticationEntryPoint authenticationEntryPoint;
+		@Autowired
+		private AuthenticationFailureHandler authenticationFailureHandler;
 
 		@Override
 		public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -64,10 +67,14 @@ public class OAuth2ClientConfig extends ResourceServerConfigurerAdapter{
 
 
 			http.csrf().disable().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-			.and().authorizeRequests().anyRequest().authenticated().and().httpBasic();
+			.and().authorizeRequests()
+			.antMatchers("/test163").permitAll()
+			.antMatchers("/auth/**").permitAll()
+			.anyRequest().authenticated().and().httpBasic();
 			
 			TokenFilter tokenFilter = new TokenFilter();
-			
+			tokenFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
+			tokenFilter.afterPropertiesSet();
 			
 			http.addFilterAfter(tokenFilter, SecurityContextPersistenceFilter.class);
 	 
