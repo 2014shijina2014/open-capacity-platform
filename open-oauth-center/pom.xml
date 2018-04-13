@@ -52,6 +52,7 @@
     	<module>open-oauth-client</module>
     	<module>open-oauth-client-two</module>
     	<module>open-oauth-gateway</module>
-    	
+
+    	<module>open-oauth-sso</module>
     </modules>
 </project>
