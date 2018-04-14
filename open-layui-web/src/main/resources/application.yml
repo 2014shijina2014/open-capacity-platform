@@ -36,7 +36,7 @@ spring:
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
       #     192.168.3.150   130.75.131.211
-      url: jdbc:mysql://130.75.131.211:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://192.168.3.150:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
       password: 1q2w3e4r
       filters: stat,wall
