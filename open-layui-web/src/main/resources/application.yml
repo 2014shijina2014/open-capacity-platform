@@ -1,3 +1,5 @@
+server:
+  port: 9999
 spring:
   application:
     name: open-layui-web
@@ -77,7 +79,6 @@ token:
   expire:
     seconds: 7200
   jwtSecret: open-layui-web
-server:
-  port: 9999
+
   
  
