@@ -8,6 +8,9 @@ CREATE DATABASE IF NOT EXISTS oauth2-security DEFAULT CHARACTER SET = utf8mb4;
 
 Use oauth2-security;
 
+#
+# Structure for table "all_services"
+#
 
 CREATE TABLE `all_services` (
   `create_time` datetime DEFAULT NULL,
@@ -134,7 +137,7 @@ CREATE TABLE `oauth_client_details` (
 # Data for table "oauth_client_details"
 #
 
-INSERT INTO `oauth_client_details` VALUES ('app','','app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('hello','','hello','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('mobile','','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('test','','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00');
+INSERT INTO `oauth_client_details` VALUES ('app','','app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('hello','','hello','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('mobile','','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('test','','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00');
 
 #
 # Structure for table "oauth_client_token"
