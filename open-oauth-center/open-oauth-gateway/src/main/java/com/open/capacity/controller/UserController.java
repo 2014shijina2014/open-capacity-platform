@@ -1,4 +1,4 @@
-package com.open.capacity.client.oauth2.controller;
+package com.open.capacity.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
