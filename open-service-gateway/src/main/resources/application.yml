@@ -1,0 +1,58 @@
+server:
+  port: 9200
+spring:
+  application:
+    name: open-service-gateway
+
+#设置最大超时时间
+ribbon:  
+   ReadTimeout: 16000  
+   ConnectTimeout: 16000 
+
+#设置最大容错超时时间
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 16000
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 16000
+
+ 
+zuul:
+  ignored-services: '*'
+  add-proxy-headers: true
+  routes:
+    baidu:  
+      path: /test163/**
+      url: http://www.163.com/
+    admin:  
+      path: /admin/**
+      url: http://127.0.0.1:9999/
+      strip-prefix: true
+    client:  
+      sensitive-headers:
+      path: /client/**
+      service-id: open-eureka-client
+      strip-prefix: true  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka/
+      #http://192.168.3.170:1111/eureka,http://192.168.3.171:1111/eureka,http://192.168.3.173:1111/eureka
+      #http://130.75.131.243:1111/eureka/,http://130.75.131.244:1111/eureka/,http://130.75.131.245:1111/eureka/   
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5
+  
+  
+
+
+  
+ 
