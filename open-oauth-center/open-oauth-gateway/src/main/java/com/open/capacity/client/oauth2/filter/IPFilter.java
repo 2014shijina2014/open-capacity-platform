@@ -10,25 +10,27 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * Token过滤器
+ * IP过滤器
  * 
  * @author owen 624191343@qq.com
  *
  *         2017年10月14日
  */
-public class TokenFilter extends OncePerRequestFilter implements InitializingBean {
+public class IPFilter extends OncePerRequestFilter implements InitializingBean {
 
+	Logger logger = LoggerFactory.getLogger(getClass());
+	
 	private AuthenticationFailureHandler authenticationFailureHandler;
 
 	public AuthenticationFailureHandler getAuthenticationFailureHandler() {
@@ -72,6 +74,19 @@ public class TokenFilter extends OncePerRequestFilter implements InitializingBea
 			}
 		}
 		
+//		String ipAddr = this.getIpAddr(req);
+//		logger.info("请求IP地址为：[{}]", ipAddr);
+//		// 配置本地IP白名单，生产环境可放入数据库或者redis中
+//		List<String> ips = new ArrayList<String>();
+//		ips.add("127.0.0.1");
+//
+//		if (!ips.contains(ipAddr)) {
+//			logger.info("IP地址校验不通过！！！");
+//			ctx.setResponseStatusCode(401);
+//			ctx.setSendZuulResponse(false);
+//			ctx.setResponseBody("IpAddr is forbidden!");
+//		}
+//		logger.info("IP校验通过。");
 		
 
 		filterChain.doFilter(request, response);

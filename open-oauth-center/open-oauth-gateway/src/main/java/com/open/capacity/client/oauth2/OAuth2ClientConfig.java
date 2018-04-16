@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.open.capacity.client.oauth2.authorize.AuthorizeConfigManager;
-import com.open.capacity.client.oauth2.filter.TokenFilter;
+import com.open.capacity.client.oauth2.filter.IPFilter;
 
 /**
  * @author 作者 owen E-mail: wang.wen@neusoft.com
@@ -83,11 +83,11 @@ public class OAuth2ClientConfig extends ResourceServerConfigurerAdapter {
 
 		authorizeConfigManager.config(http.authorizeRequests());
 
-		TokenFilter tokenFilter = new TokenFilter();
-		tokenFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
-		tokenFilter.afterPropertiesSet();
+		IPFilter iPFilter = new IPFilter();
+		iPFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
+		iPFilter.afterPropertiesSet();
 
-		http.addFilterAfter(tokenFilter, SecurityContextPersistenceFilter.class);
+		http.addFilterAfter(iPFilter, SecurityContextPersistenceFilter.class);
 
 	}
 
