@@ -40,6 +40,8 @@
 		<!-- layui后台管理无session模块 -->
 		<module>open-layui-web</module>
 
+		
+		<!-- oauth2 模块 -->
 		<module>open-oauth-center</module>
 		
 		<!-- 添加代码生成器项目：open-generator -->
@@ -123,6 +125,7 @@
 					<include>**/*.tld</include>
 					<include>**/*.p12</include>
 					<include>**/*.conf</include>
+					<include>**/*.txt</include>
 				</includes>
 				<filtering>false</filtering>
 			</resource>
