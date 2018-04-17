@@ -44,7 +44,8 @@
 		<!-- oauth2 模块 -->
 		<module>open-oauth-center</module>
 		
-		<!-- 添加代码生成器项目：open-generator -->
+		<!-- cxf框架集成 -->
+		<module>open-cxf-service</module>
 	</modules>
 	<dependencies>
 		<dependency>
@@ -126,6 +127,8 @@
 					<include>**/*.p12</include>
 					<include>**/*.conf</include>
 					<include>**/*.txt</include>
+					<include>**/*.wsdl</include>
+					<include>**/*.xsd</include>
 				</includes>
 				<filtering>false</filtering>
 			</resource>
