@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:head="http://ws.chinaunicom.cn/unibssHead" xmlns:attached="http://ws.chinaunicom.cn/unibssAttached" xmlns:body="http://ws.chinaunicom.cn/SrenewSer/unibssBody" xmlns:qryChgProdReq="http://ws.chinaunicom.cn/SrenewSer/unibssBody/qryChgProdReq" xmlns:qryChgProdRsp="http://ws.chinaunicom.cn/SrenewSer/unibssBody/qryChgProdRsp" xmlns:srenewTradeReq="http://ws.chinaunicom.cn/SrenewSer/unibssBody/srenewTradeReq" xmlns:srenewTradeRsp="http://ws.chinaunicom.cn/SrenewSer/unibssBody/srenewTradeRsp" xmlns:srenewSubReq="http://ws.chinaunicom.cn/SrenewSer/unibssBody/srenewSubReq" xmlns:srenewSubRsp="http://ws.chinaunicom.cn/SrenewSer/unibssBody/srenewSubRsp" targetNamespace="http://ws.chinaunicom.cn/SrenewSer/unibssBody" elementFormDefault="qualified" attributeFormDefault="unqualified">  
+  <xs:import namespace="http://ws.chinaunicom.cn/unibssHead" schemaLocation="unibssHead.xsd"/>  
+  <xs:import namespace="http://ws.chinaunicom.cn/unibssAttached" schemaLocation="unibssAttached.xsd"/>  
+  <xs:import namespace="http://ws.chinaunicom.cn/SrenewSer/unibssBody/qryChgProdReq" schemaLocation="qryChgProdReq.xsd"/>  
+  <xs:import namespace="http://ws.chinaunicom.cn/SrenewSer/unibssBody/qryChgProdRsp" schemaLocation="qryChgProdRsp.xsd"/>  
+  <xs:import namespace="http://ws.chinaunicom.cn/SrenewSer/unibssBody/srenewTradeReq" schemaLocation="srenewTradeReq.xsd"/>  
+  <xs:import namespace="http://ws.chinaunicom.cn/SrenewSer/unibssBody/srenewTradeRsp" schemaLocation="srenewTradeRsp.xsd"/>  
+  <xs:import namespace="http://ws.chinaunicom.cn/SrenewSer/unibssBody/srenewSubReq" schemaLocation="srenewSubReq.xsd"/>  
+  <xs:import namespace="http://ws.chinaunicom.cn/SrenewSer/unibssBody/srenewSubRsp" schemaLocation="srenewSubRsp.xsd"/>  
+  <xs:element name="QRY_CHG_PROD_INPUT"> 
+    <xs:complexType> 
+      <xs:sequence> 
+        <xs:element ref="head:UNI_BSS_HEAD"/>  
+        <xs:element name="UNI_BSS_BODY"> 
+          <xs:complexType> 
+            <xs:sequence> 
+              <xs:element ref="qryChgProdReq:QRY_CHG_PROD_REQ"/> 
+            </xs:sequence> 
+          </xs:complexType> 
+        </xs:element>  
+        <xs:element ref="attached:UNI_BSS_ATTACHED"/> 
+      </xs:sequence> 
+    </xs:complexType> 
+  </xs:element>  
+  <xs:element name="QRY_CHG_PROD_OUTPUT"> 
+    <xs:complexType> 
+      <xs:sequence> 
+        <xs:element ref="head:UNI_BSS_HEAD"/>  
+        <xs:element name="UNI_BSS_BODY"> 
+          <xs:complexType> 
+            <xs:sequence> 
+              <xs:element ref="qryChgProdRsp:QRY_CHG_PROD_RSP"/> 
+            </xs:sequence> 
+          </xs:complexType> 
+        </xs:element>  
+        <xs:element ref="attached:UNI_BSS_ATTACHED"/> 
+      </xs:sequence> 
+    </xs:complexType> 
+  </xs:element>  
+  <xs:element name="SRENEW_TRADE_INPUT"> 
+    <xs:complexType> 
+      <xs:sequence> 
+        <xs:element ref="head:UNI_BSS_HEAD"/>  
+        <xs:element name="UNI_BSS_BODY"> 
+          <xs:complexType> 
+            <xs:sequence> 
+              <xs:element ref="srenewTradeReq:SRENEW_TRADE_REQ"/> 
+            </xs:sequence> 
+          </xs:complexType> 
+        </xs:element>  
+        <xs:element ref="attached:UNI_BSS_ATTACHED"/> 
+      </xs:sequence> 
+    </xs:complexType> 
+  </xs:element>  
+  <xs:element name="SRENEW_TRADE_OUTPUT"> 
+    <xs:complexType> 
+      <xs:sequence> 
+        <xs:element ref="head:UNI_BSS_HEAD"/>  
+        <xs:element name="UNI_BSS_BODY"> 
+          <xs:complexType> 
+            <xs:sequence> 
+              <xs:element ref="srenewTradeRsp:SRENEW_TRADE_RSP"/> 
+            </xs:sequence> 
+          </xs:complexType> 
+        </xs:element>  
+        <xs:element ref="attached:UNI_BSS_ATTACHED"/> 
+      </xs:sequence> 
+    </xs:complexType> 
+  </xs:element>  
+  <xs:element name="SRENEW_SUB_INPUT"> 
+    <xs:complexType> 
+      <xs:sequence> 
+        <xs:element ref="head:UNI_BSS_HEAD"/>  
+        <xs:element name="UNI_BSS_BODY"> 
+          <xs:complexType> 
+            <xs:sequence> 
+              <xs:element ref="srenewSubReq:SRENEW_SUB_REQ"/> 
+            </xs:sequence> 
+          </xs:complexType> 
+        </xs:element>  
+        <xs:element ref="attached:UNI_BSS_ATTACHED"/> 
+      </xs:sequence> 
+    </xs:complexType> 
+  </xs:element>  
+  <xs:element name="SRENEW_SUB_OUTPUT"> 
+    <xs:complexType> 
+      <xs:sequence> 
+        <xs:element ref="head:UNI_BSS_HEAD"/>  
+        <xs:element name="UNI_BSS_BODY"> 
+          <xs:complexType> 
+            <xs:sequence> 
+              <xs:element ref="srenewSubRsp:SRENEW_SUB_RSP"/> 
+            </xs:sequence> 
+          </xs:complexType> 
+        </xs:element>  
+        <xs:element ref="attached:UNI_BSS_ATTACHED"/> 
+      </xs:sequence> 
+    </xs:complexType> 
+  </xs:element> 
+</xs:schema>
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<serviceGroup> 
+  <service name="SrenewSer"> 
+    <messageReceivers> 
+      <messageReceiver class="com.unicom.tradeswitch.sn.unientry.UniEntryReceiver" mep="http://www.w3.org/ns/wsdl/in-out"/>
+    </messageReceivers>  
+    <parameter name="useOriginalwsdl">true</parameter>  
+    <parameter name="modifyUserWSDLPortAddress">true</parameter> 
+  </service> 
+</serviceGroup>
+

@@ -2,4 +2,19 @@ server:
   port: 8089
   context-path: /uniServiceAccess
 
+spring:
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name:  oracle.jdbc.OracleDriver
+      url: jdbc:oracle:thin:@130.75.1.11:2268:jxcrm
+      username: crm_owner_user
+      password: C_O_U_2013
+      filters: stat,wall
+    
+    
+    
+
+mybatis:
+  config-location: classpath:mybatis.cfg.xml
+  mapper-locations: classpath*:com/open/**/dao/*.xml  
   
