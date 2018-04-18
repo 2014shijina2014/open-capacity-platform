@@ -4,6 +4,8 @@ package com.open.capacity.server.oauth2;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +37,17 @@ import com.open.capacity.server.oauth2.token.store.RedisTemplateTokenStore;
 @Configuration
 public class OAuth2ServerConfig {
 
+	private Logger logger =LoggerFactory.getLogger(OAuth2ServerConfig.class) ;
+	
+	@Resource
+	private DataSource dataSource;
+	
+	@Bean // 声明 ClientDetails实现
+	@ConditionalOnProperty(prefix = "security.oauth2.token.store", name = "type", havingValue = "redis", matchIfMissing = true)
+	public ClientDetailsService clientDetailsService() {
+		return new JdbcClientDetailsService(dataSource);
+	}
+	
 	/**
 	 * @author 作者 owen E-mail: wang.wen@neusoft.com
 	 * @version 创建时间：2017年10月30日 上午9:45:12 类说明 默认token存储在内存中
@@ -43,7 +56,7 @@ public class OAuth2ServerConfig {
 	@Component
 	@Configuration
 	@EnableAuthorizationServer
-	public static class UnieapAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+	public   class UnieapAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 		/**
 		 * 注入authenticationManager 来支持 password grant type
 		 */
@@ -66,17 +79,15 @@ public class OAuth2ServerConfig {
 		@Autowired
 		private WebResponseExceptionTranslator webResponseExceptionTranslator;
 
-		@Resource
-		private DataSource dataSource;
-
-		@Bean // 声明 ClientDetails实现
-		@ConditionalOnProperty(prefix = "security.oauth2.token.store", name = "type", havingValue = "redis", matchIfMissing = true)
-		public ClientDetailsService clientDetailsService() {
-			return new JdbcClientDetailsService(dataSource);
-		}
+		@Autowired
+		private ClientDetailsService clientDetailsService ;
+		
 
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
+			
+			logger.info("redisTokenStore===================" + redisTokenStore);
+			
 			if (jwtTokenStore != null) {
 				endpoints.tokenStore(jwtTokenStore).authenticationManager(authenticationManager)
 						.userDetailsService(userDetailsService); // 支持
@@ -117,14 +128,19 @@ public class OAuth2ServerConfig {
 			// .refreshTokenValiditySeconds(50000)
 			// ;
 			// }
-			clients.withClientDetails(clientDetailsService());
+			clients.withClientDetails(clientDetailsService);
 
 		}
 
 		@Override
 		public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 
-			security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
+			security.tokenKeyAccess("permitAll()") /// url:/oauth/token_key,exposes
+													/// public key for token
+													/// verification if using
+													/// JWT tokens
+					.checkTokenAccess("isAuthenticated()") // url:/oauth/check_token
+															// allow check token
 					.allowFormAuthenticationForClients();
 
 			// security.allowFormAuthenticationForClients();
@@ -141,6 +157,7 @@ public class OAuth2ServerConfig {
 	public class ResourceServer extends ResourceServerConfigurerAdapter {
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
+
 
 			// http.httpBasic() //默认配置
 			// 用表单登录
