@@ -47,6 +47,7 @@ public class RedisConfig {
 		redisTemplate.setConnectionFactory(factory);
 		redisTemplate.setKeySerializer(new StringRedisSerializer()); // key的序列化类型
 		redisTemplate.setValueSerializer(new RedisObjectSerializer()); // value的序列化类型
+		redisTemplate.afterPropertiesSet(); 
 		return redisTemplate;
 	}
 	
