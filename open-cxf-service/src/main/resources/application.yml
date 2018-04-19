@@ -18,3 +18,10 @@ mybatis:
   config-location: classpath:mybatis.cfg.xml
   mapper-locations: classpath*:com/open/**/dao/*.xml  
   
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.open: DEBUG  

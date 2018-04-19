@@ -55,16 +55,16 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="TRADE_ID">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;maxLength value="16"/>
- *               &lt;minLength value="16"/>
+ *               &lt;maxLength value="30"/>
+ *               &lt;minLength value="0"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
  *         &lt;element name="SUBSCRIBE_ID">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;maxLength value="16"/>
- *               &lt;minLength value="16"/>
+ *               &lt;maxLength value="30"/>
+ *               &lt;minLength value="0"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>

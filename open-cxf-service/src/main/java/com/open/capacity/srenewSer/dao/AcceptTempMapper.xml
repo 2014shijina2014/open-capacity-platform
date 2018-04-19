@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.open.capacity.dao.AcceptTempDao">
+<mapper namespace="com.open.capacity.srenewSer.dao.AcceptTempDao">
 
 
-	<select id="getRegisterNumber" statementType="CALLABLE">
+	<select id="getRegisterNumber" statementType="CALLABLE"  resultType="java.util.HashMap" >
         <![CDATA[
 			{call bb_get_temp_rgst_p(
 					 #{OS_TEMP_RGST,mode=OUT,jdbcType=VARCHAR}   
@@ -12,5 +12,22 @@
 		]]>
     </select>
  
+ 
+ 
+ 	<select id="submit" statementType="CALLABLE"  resultType="java.util.HashMap" >
+        <![CDATA[
+			{call  BB_PRODUCT_ACCEPT_SUBMIT_P ( 
+				#{IS_TEMP_RGST_NO,mode=IN,jdbcType=VARCHAR} ,
+                #{IS_SERVICE_KIND_STR,mode=IN,jdbcType=VARCHAR}, 
+                #{IS_FEE_STR,mode=IN,jdbcType=VARCHAR}, 
+                #{ON_FLAG,mode=OUT,jdbcType=INTEGER}  , 
+                #{OS_PROMPT,mode=OUT,jdbcType=VARCHAR}, 
+                #{ON_FEE_STATUS,mode=OUT,jdbcType=VARCHAR}  
+              ) 
+			 }
+		]]>
+    </select>
+ 
+ 	
 
 </mapper>

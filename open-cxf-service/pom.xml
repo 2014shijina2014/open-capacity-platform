@@ -41,6 +41,29 @@
             <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
             <version>3.1.12</version>
         </dependency>
+        
+  
+        
     </dependencies>
+    
+    
+    	<!-- 形成带第三方jar包的可执行jar包，jar包目录结构如下 application.properties lib META-INF mybatis 
+		org -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<finalName>srenewser-server</finalName>
+	</build>
   
 </project>
