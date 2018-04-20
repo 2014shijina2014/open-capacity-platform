@@ -129,6 +129,7 @@
 					<include>**/*.txt</include>
 					<include>**/*.wsdl</include>
 					<include>**/*.xsd</include>
+					<include>**/*.ftl</include>
 				</includes>
 				<filtering>false</filtering>
 			</resource>
