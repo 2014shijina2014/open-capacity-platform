@@ -53,7 +53,7 @@ public class DruidConfig {
 	public ServletRegistrationBean druidServlet() { // 主要实现WEB监控的配置处理
 		ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),
 				"/druid/*"); // 现在要进行druid监控的配置处理操作
-		servletRegistrationBean.addInitParameter("allow", "127.0.0.1,130.75.131.208"); // 白名单
+		servletRegistrationBean.addInitParameter("allow", "127.0.0.1,130.75.131.208,134.224.249.39,134.224.249.33"); // 白名单
 		servletRegistrationBean.addInitParameter("deny", "192.168.28.200"); // 黑名单
 		servletRegistrationBean.addInitParameter("loginUsername", "owen"); // 用户名
 		servletRegistrationBean.addInitParameter("loginPassword", "1q2w3e4r"); // 密码
