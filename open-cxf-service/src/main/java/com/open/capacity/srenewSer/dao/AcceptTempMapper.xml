@@ -16,7 +16,8 @@
  
  	<select id="submit" statementType="CALLABLE"  resultType="java.util.HashMap" >
         <![CDATA[
-			{call  BB_PRODUCT_ACCEPT_SUBMIT_P ( 
+			{call  BB_UNI_PRODUCT_ORDERSUB_P  ( 
+				#{IS_BIPCODE,mode=IN,jdbcType=VARCHAR} ,
 				#{IS_TEMP_RGST_NO,mode=IN,jdbcType=VARCHAR} ,
                 #{IS_SERVICE_KIND_STR,mode=IN,jdbcType=VARCHAR}, 
                 #{IS_FEE_STR,mode=IN,jdbcType=VARCHAR}, 
