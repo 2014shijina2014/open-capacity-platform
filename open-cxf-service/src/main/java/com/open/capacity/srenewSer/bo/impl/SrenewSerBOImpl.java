@@ -9,11 +9,13 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +49,9 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 
 	@Autowired
 	private AcceptTempDao acceptTempDao;
+	
+	@Autowired
+	private RedisTemplate<String, Object>  redisTemplate ;
 
 
 	@Resource
@@ -97,11 +102,43 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 		param.put("province_code", req.getPROVINCECODE());
 		param.put("service_id", req.getSERIALNUMBER());
 
-		Map serviceKind = acceptTempDao.getServiceKind(param);
+//		Map serviceKind = acceptTempDao.getServiceKind(param);
+		
+		String serviceKindKey = req.getSERIALNUMBER()+":serviceKind" ;
+		
+		Map serviceKind = (Map) redisTemplate.opsForValue().get(serviceKindKey);
+		
+		if(serviceKind==null){
+			serviceKind = acceptTempDao.getServiceKind(param);
+			redisTemplate.opsForValue().set(serviceKindKey, serviceKind, 120, TimeUnit.SECONDS);
+		}
+		
+		 
+		
+//		redisTemplate.opsForValue().set(key, value);
 
 		param.put("service_kind", Integer.parseInt(String.valueOf(serviceKind.get("SERVICEKIND"))));
 
-		Map userinfo = acceptTempDao.getServiceInfo(param);
+		Map userinfo = (Map) redisTemplate.opsForValue().get(req.getSERIALNUMBER()+":userInfo");
+				
+		if(userinfo ==null){
+			userinfo = acceptTempDao.getServiceInfo(param);
+			redisTemplate.opsForValue().set(req.getSERIALNUMBER()+":userInfo", userinfo, 120, TimeUnit.SECONDS);
+		}
+				
+				
+		
+		if (userinfo == null) {
+
+			rsp.setRESPCODE("8888");
+			rsp.setRESPDESC("号码不存在");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPCODE("8888");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPDESC("号码不存在");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPTYPE("1");
+			out.getUNIBSSBODY().setQRYCHGPRODRSP(rsp);
+			return out;
+		}
+		
 		
 		userinfo.put("user_id", userinfo.get("USER_ID"));
 
@@ -116,17 +153,52 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 		
 		param.put("product_id", String.valueOf(userinfo.get("SERVICE_FAVOUR_ID")));
 
-		
-
-		
 		if(Integer.parseInt(String.valueOf(serviceKind.get("SERVICEKIND")))==55){
-			userinfo.putAll(acceptTempDao.getWidefo(userinfo));
+			Map serviceInfo =  (Map) redisTemplate.opsForValue().get(req.getSERIALNUMBER()+":serviceInfo");
+					
+			if(serviceInfo ==null ){
+				serviceInfo = acceptTempDao.getWidefo(userinfo);
+				redisTemplate.opsForValue().set(req.getSERIALNUMBER()+":serviceInfo", serviceInfo,120, TimeUnit.SECONDS);
+			}
+			
+			userinfo.putAll(serviceInfo);
 
 		}else if (Integer.parseInt(String.valueOf(serviceKind.get("SERVICEKIND")))==11){
-			userinfo.putAll(acceptTempDao.getAdslfo(userinfo));
+			
+			Map serviceInfo =  (Map) redisTemplate.opsForValue().get(req.getSERIALNUMBER()+":serviceInfo");
+					
+			
+			if(serviceInfo ==null ){
+				serviceInfo = acceptTempDao.getAdslfo(userinfo)  ;
+				redisTemplate.opsForValue().set(req.getSERIALNUMBER()+":serviceInfo", serviceInfo, 120, TimeUnit.SECONDS);
+			}
+			
+					
+			
+			userinfo.putAll(serviceInfo);
 
 		}
-		Map bulkinfo = acceptTempDao.getBulkInfo(param);
+		Map bulkinfo = (Map) redisTemplate.opsForValue().get(req.getSERIALNUMBER()+":bulkInfo");
+		
+		if(bulkinfo ==null){
+			bulkinfo = acceptTempDao.getBulkInfo(param); 
+			redisTemplate.opsForValue().set(req.getSERIALNUMBER()+":bulkInfo", bulkinfo, 120, TimeUnit.SECONDS);
+		}
+				
+				
+		
+		if (bulkinfo == null) {
+
+			rsp.setRESPCODE("8888");
+			rsp.setRESPDESC("非趸交用户");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPCODE("8888");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPDESC("非趸交用户");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPTYPE("1");
+			out.getUNIBSSBODY().setQRYCHGPRODRSP(rsp);
+			return out;
+		}
+		
+		
 		QRYCHGPRODRSP.PRODUCTINFO.DISCNTINFO discntinfo = new QRYCHGPRODRSP.PRODUCTINFO.DISCNTINFO();
 		
 		discntinfo.setDISCNTCODE("783");
@@ -204,13 +276,27 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 		param.put("trade_type_code", req.getTRADETYPECODE());
 		param.put("user_id", req.getUSERID());
 
-		Map serviceKind = acceptTempDao.getServiceKind(param);
+		String serviceKindKey = req.getSERIALNUMBER()+":serviceKind" ;
+		
+		Map serviceKind = (Map) redisTemplate.opsForValue().get(serviceKindKey);
+		
+		if(serviceKind==null){
+			serviceKind = acceptTempDao.getServiceKind(param);
+			redisTemplate.opsForValue().set(serviceKindKey, serviceKind, 120, TimeUnit.SECONDS);
+		}
 
 		param.put("service_kind", Integer.parseInt(String.valueOf(serviceKind.get("SERVICEKIND"))));
 
 		// bb_service_relation_t
-		Map userinfo = acceptTempDao.getServiceInfo(param);
-
+		
+		Map userinfo = (Map) redisTemplate.opsForValue().get(req.getSERIALNUMBER()+":userInfo");
+		
+		if(userinfo ==null){
+			userinfo = acceptTempDao.getServiceInfo(param);
+			redisTemplate.opsForValue().set(req.getSERIALNUMBER()+":userInfo", userinfo, 120, TimeUnit.SECONDS);
+		}
+		
+		
 		if (userinfo == null) {
 
 			resp.setRESPCODE("1204");
@@ -244,7 +330,13 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 			return out;
 		}
 
-		Map bulkinfo = acceptTempDao.getBulkInfo(param);
+		Map bulkinfo = (Map) redisTemplate.opsForValue().get(req.getSERIALNUMBER()+":bulkInfo");
+		
+		if(bulkinfo ==null){
+			bulkinfo = acceptTempDao.getBulkInfo(param); 
+			redisTemplate.opsForValue().set(req.getSERIALNUMBER()+":bulkInfo", bulkinfo, 120, TimeUnit.SECONDS);
+		}
+		
 		Date date = (Date) bulkinfo.get("END_DATE");
 
 		Instant instant = date.toInstant();
@@ -401,6 +493,30 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 			rsp.setRESPCODE("0000");
 			rsp.setRESPDESC("成功");
 
+			//自动执行
+			
+			param.put("IS_REGISTER_NUMBER", OS_PROMPT) ;
+			param.put("IS_ACCEPT_CITY", String.valueOf(bulkTemp.get("CITY_CODE"))) ;
+			param.put("IN_SERVICE_KIND", String.valueOf(bulkTemp.get("SERVICE_KIND"))) ;
+			param.put("IS_SERVICE_ID", String.valueOf(bulkTemp.get("SERVICE_ID"))) ;
+			param.put("IN_APPLY_EVENT", "302") ;
+			param.put("IN_ACTION", "2") ;
+			param.put("IS_DEPARTMENT", "") ;
+			param.put("IS_OPER_PERSON", "") ;
+			
+			acceptTempDao.auto(param);
+			Integer resp_code = Integer.parseInt(String.valueOf(param.get("ON_FLAG")));
+			String resp_desc = String.valueOf(param.get("OS_PROMPT"));
+			
+			if (0 == resp_code) {
+				rsp.setRESPCODE("0000");
+				rsp.setRESPDESC("成功");
+			}else{
+				rsp.setRESPCODE("8888");
+				rsp.setRESPDESC(resp_desc);
+			}
+			
+			
 		} else {
 			out.getUNIBSSHEAD().getRESPONSE().setRSPCODE("8888");
 			out.getUNIBSSHEAD().getRESPONSE().setRSPDESC(OS_PROMPT);

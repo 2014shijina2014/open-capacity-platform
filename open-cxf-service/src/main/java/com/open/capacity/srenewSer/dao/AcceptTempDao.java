@@ -117,7 +117,23 @@ public interface AcceptTempDao {
 	@Select("select * from bb_service_relation_t where service_kind = #{service_kind} and service_id=#{service_id} and city_code = #{eparchy_code} and if_valid=1 ")
 	public Map getServiceInfo(Map<String, Object> map);
 
-	@Select("select * from bb_bulk_sale_info_t where service_id = #{service_id}  and service_kind =#{service_kind} and   end_date> sysdate ")
+	@Select(" select * from ("
+			+ "select "
+			+ "max(CITY_CODE) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) CITY_CODE ,"
+			+ "max(SERVICE_KIND) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) SERVICE_KIND,"
+			+ "max(SERVICE_ID) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) SERVICE_ID,"
+			+ "max(USER_ID) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) USER_ID,"
+			+ "max(BULK_PRICE) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) BULK_PRICE,"
+			+ "max(FAVOUR_GROUP) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) FAVOUR_GROUP,"
+			+ "max(SALES_MODE) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) SALES_MODE ,"
+			+ "max(PERIOD_TYPE) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) PERIOD_TYPE ,"
+			+ "max(EFFECT_VALUES) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) EFFECT_VALUES,"
+			+ "max(BEGIN_DATE) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) BEGIN_DATE,"
+			+ "max(END_DATE) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) END_DATE ,"
+			+ "max(BEG_RGST_NUM) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) BEG_RGST_NUM ,"
+			+ "max(PRESERVE01) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) PRESERVE01 ,"
+			+ "max(PRESERVE02) keep  (  DENSE_RANK  first order by END_DATE desc   )  over (partition by service_id ) PRESERVE02 "
+			+ "from bb_bulk_sale_info_t t  where    service_id = #{service_id}  and service_kind =#{service_kind}   ) where  rownum <=1")
 	public Map getBulkInfo(Map<String, Object> map);
 
 	@Select("select * from bb_bus_control_t  where service_kind = #{service_kind} and service_id=#{service_id} and accept_city = #{eparchy_code} and rownum<=1")
@@ -134,6 +150,8 @@ public interface AcceptTempDao {
 	public Map getServiceKindByReg(Map<String, Object> map);
 
 	public void submit(Map<String, Object> map);
+	
+	public void auto(Map<String, Object> map);
 	
 	
 	@Select("select * from pm_product_T where  f_prod_id=  #{SERVICE_FAVOUR_ID}")
