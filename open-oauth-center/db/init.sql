@@ -4,15 +4,11 @@ CREATE DATABASE IF NOT EXISTS `oauth2-security` DEFAULT CHARACTER SET = utf8mb4;
 
 Use `oauth2-security`;
  
-# Host: 192.168.3.208  (Version 5.7.21)
-# Date: 2018-04-23 20:26:14
-# Generator: MySQL-Front 5.4  (Build 4.153) - http://www.mysqlfront.de/
 
-/*!40101 SET NAMES utf8 */;
+set session  
+sql_mode='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';  
 
-#
-# Structure for table "all_services"
-#
+ 
 
 CREATE TABLE `all_services` (
   `create_time` datetime DEFAULT NULL,
@@ -101,13 +97,14 @@ CREATE TABLE `oauth_access_token` (
 # Structure for table "oauth_approvals"
 #
 
+
 CREATE TABLE `oauth_approvals` (
   `userId` varchar(256) DEFAULT NULL,
   `clientId` varchar(256) DEFAULT NULL,
   `scope` varchar(256) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
-  `expiresAt` timestamp NULL DEFAULT NULL,
-  `lastModifiedAt` timestamp NULL DEFAULT NULL
+  `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `lastModifiedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
@@ -131,7 +128,7 @@ CREATE TABLE `oauth_client_details` (
   `refresh_token_validity` int(11) DEFAULT NULL,
   `additional_information` varchar(4096) DEFAULT NULL,
   `autoapprove` varchar(256) DEFAULT NULL,
-  `lastModifiedAt` timestamp NULL DEFAULT NULL,
+  `lastModifiedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -139,7 +136,7 @@ CREATE TABLE `oauth_client_details` (
 # Data for table "oauth_client_details"
 #
 
-INSERT INTO `oauth_client_details` VALUES ('app','','app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('hello','','hello','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('mobile','','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login',NULL,NULL,NULL,NULL,NULL,NULL),('test','','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `oauth_client_details` VALUES ('app','','app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('hello','','hello','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('mobile','','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('test','','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00');
 
 #
 # Structure for table "oauth_client_token"
