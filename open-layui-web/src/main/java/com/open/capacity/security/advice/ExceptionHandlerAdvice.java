@@ -16,8 +16,8 @@ import com.open.capacity.security.dto.ResponseInfo;
 
 /**
  * springmvc异常处理
- * 
- * @author owen 624191343@qq.com
+ * * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年3月20日 下午10:13:18 类说明
  *
  */
 @RestControllerAdvice

@@ -17,9 +17,8 @@ import io.swagger.annotations.ApiOperation;
 /**
  * 统一日志处理
  * 
- * @author owen 624191343@qq.com
- *
- *         2017年8月19日
+* @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年3月20日 下午10:13:18 类说明
  */
 @Aspect
 @Component

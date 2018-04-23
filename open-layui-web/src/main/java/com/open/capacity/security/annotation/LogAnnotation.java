@@ -7,10 +7,8 @@ import java.lang.annotation.Target;
 
 /**
  * 日志注解
- * 
- * @author owen 624191343@qq.com
- *
- *         2017年8月19日
+ * * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年3月20日 下午10:13:18 类说明
  */
 @Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)

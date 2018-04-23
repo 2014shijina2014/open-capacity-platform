@@ -13,9 +13,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * swagger文档
  * 
- * @author owen 624191343@qq.com
- *
- *         2017年7月21日
+* @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年3月20日 下午10:13:18 类说明
  */
 @Configuration
 @EnableSwagger2

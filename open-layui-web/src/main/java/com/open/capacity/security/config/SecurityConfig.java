@@ -21,8 +21,8 @@ import com.open.capacity.security.service.TokenService;
 
 /** 
  * spring security配置
-* @author 作者 owen E-mail: wang.wen@neusoft.com
-* @version 创建时间：2018年1月13日 上午10:15:43 
+* @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年3月20日 下午10:13:18 类说明
 * 类说明 
 */
 //开启spring security 注解
