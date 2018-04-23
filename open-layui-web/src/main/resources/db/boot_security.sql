@@ -10,6 +10,9 @@ CREATE DATABASE IF NOT EXISTS `boot_security` DEFAULT CHARACTER SET = utf8mb4;
 
 Use `boot_security`;
 
+set session  
+sql_mode='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';  
+
 #
 # Structure for table "file_info"
 #
