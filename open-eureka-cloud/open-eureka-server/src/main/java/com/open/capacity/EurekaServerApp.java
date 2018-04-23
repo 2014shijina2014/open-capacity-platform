@@ -10,7 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 /** 
 * @author 作者 owen E-mail: 624191343@qq.com
-* @version 创建时间：2017年11月28日 上午9:50:29 
+* @version 创建时间：2017年11月28日 下午22:50:29 
 * 类说明 
 * eureka高可用三台机器
 */

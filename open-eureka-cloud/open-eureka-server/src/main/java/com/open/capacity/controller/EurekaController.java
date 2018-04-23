@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /** 
-* @author 作者 owen E-mail: wang.wen@neusoft.com
-* @version 创建时间：2018年3月20日 上午9:58:08 
+* @author 作者 owen E-mail: 624191343@qq.com
+* @version 创建时间：2017年11月28日 下午22:50:29 
 * 类说明 
 */
 @RestController
