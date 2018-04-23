@@ -17,12 +17,10 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 /**
  * spring security配置
- * 
  * @author owen 624191343@qq.com
- * 
- *         2017年10月16日
- *
- *   在WebSecurityConfigurerAdapter不拦截oauth要开放的资源
+ * @version 创建时间：2017年11月12日 上午22:57:51
+ * 2017年10月16日
+ * 在WebSecurityConfigurerAdapter不拦截oauth要开放的资源
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

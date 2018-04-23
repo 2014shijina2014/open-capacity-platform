@@ -49,8 +49,8 @@ import org.springframework.util.AntPathMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * @author 作者 owen E-mail: wang.wen@neusoft.com
- * @version 创建时间：2018年4月5日 下午7:52:21 类说明
+* @author owen 624191343@qq.com
+ * @version 创建时间：2017年11月12日 上午22:57:51
  */
 @Component
 @Configuration
