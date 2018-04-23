@@ -32,7 +32,7 @@ public class TokenStoreConfig {
 	
 	
 	@Bean
-	@ConditionalOnProperty(prefix="security.oauth2.token.store",name="type" ,havingValue="jdbc" ,matchIfMissing=true)
+	@ConditionalOnProperty(prefix="security.oauth2.token.store",name="type" ,havingValue="jdbc" ,matchIfMissing=false)
 	public JdbcTokenStore jdbcTokenStore(){
  
 //		oauth_access_token oauth_refresh_token 创建两张表
@@ -56,7 +56,7 @@ public class TokenStoreConfig {
 	
 	//使用jwt替换原有的uuid生成token方式
 	@Configuration
-	@ConditionalOnProperty(prefix="security.oauth2.token.store",name="type" ,havingValue="jwt" ,matchIfMissing=true)
+	@ConditionalOnProperty(prefix="security.oauth2.token.store",name="type" ,havingValue="jwt" ,matchIfMissing=false)
 	public static class JWTTokenConfig {
 		@Bean
 		public JwtTokenStore jwtTokenStore(){
