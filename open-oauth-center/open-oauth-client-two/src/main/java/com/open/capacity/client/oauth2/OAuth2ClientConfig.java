@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.open.capacity.client.oauth2.token.store.RedisTemplateTokenStore;
 
 /**
- * @author 作者 owen E-mail: wang.wen@neusoft.com
+ * @author 作者 owen E-mail: 624191343@qq.com
  * @version 创建时间：2017年11月12日 上午22:57:51
  */
 @Component
