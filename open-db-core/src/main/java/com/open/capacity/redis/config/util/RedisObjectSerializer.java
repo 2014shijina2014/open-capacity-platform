@@ -1,8 +1,8 @@
-package com.open.capacity.redis.config.util; 
+package com.open.capacity.redis.config.util;
 
 /** 
 * @author 作者 owen E-mail: 624191343@qq.com
-* @version 创建时间：2017年7月12日 上午10:50:19 
+* @version 创建时间：2017年04月23日 下午20:01:06 类说明
 * 类说明 
 */
 import org.springframework.core.convert.converter.Converter;

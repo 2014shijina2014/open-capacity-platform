@@ -31,8 +31,8 @@ import com.open.capacity.db.config.dynamic.config.util.DynamicDataSource;
 /**
  * 定义数据源
  *
- * @author owen
- * @create 2017年7月2日
+ * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2017年04月23日 下午20:01:06 类说明
  */
 @Configuration
 @PropertySource("classpath:jdbc.test.properties")

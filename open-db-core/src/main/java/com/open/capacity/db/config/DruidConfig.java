@@ -24,13 +24,12 @@ import com.alibaba.druid.wall.WallFilter;
 
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
- * @version 创建时间：2017年11月9日 下午1:47:37 类说明
+ * @version 创建时间：2017年04月23日 下午20:01:06 类说明 *
  */
 
 @Configuration
 @ConditionalOnProperty(name = { "spring.datasource.enable.dynamic" }, matchIfMissing = true)
 public class DruidConfig {
- 
 
 	// 将druid纳入监控步骤如下
 	// 1通过springboot配置文件注入datasource中
@@ -73,6 +72,5 @@ public class DruidConfig {
 		filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.css,/druid/*");
 		return filterRegistrationBean;
 	}
- 
 
 }
