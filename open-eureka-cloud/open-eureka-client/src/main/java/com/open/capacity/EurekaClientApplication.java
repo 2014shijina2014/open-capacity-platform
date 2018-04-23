@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 /** 
-* @author 作者 owen E-mail: wang.wen@neusoft.com
-* @version 创建时间：2017年11月28日 上午11:52:43 
+* @author 作者 owen E-mail: 624191343@qq.com
+* @version 创建时间：2017年11月28日 下午21:52:43 
 * 类说明
 * 服务提供商 eureka的客户端程序 
 */
