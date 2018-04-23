@@ -4,6 +4,12 @@
 
 /*!40101 SET NAMES utf8 */;
 
+ 
+
+CREATE DATABASE IF NOT EXISTS `boot_security` DEFAULT CHARACTER SET = utf8mb4;
+
+Use `boot_security`;
+
 #
 # Structure for table "file_info"
 #
