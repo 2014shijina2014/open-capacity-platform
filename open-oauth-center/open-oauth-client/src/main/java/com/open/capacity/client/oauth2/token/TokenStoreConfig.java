@@ -15,8 +15,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import com.open.capacity.client.oauth2.token.store.RedisTemplateTokenStore;
 
 /** 
-* @author 作者 owen E-mail: wang.wen@neusoft.com
-* @version 创建时间：2017年12月18日 下午3:15:22 
+* @author 作者 owen E-mail: 624191343@qq.com
+* @version 创建时间：2018年4月5日 下午19:52:21
 * 类说明 
 * redis存储token
 */

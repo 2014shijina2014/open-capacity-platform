@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 /** 
-* @author 作者 owen E-mail: wang.wen@neusoft.com
-* @version 创建时间：2017年11月12日 上午22:57:51
+* @author 作者 owen E-mail: 624191343@qq.com
+* @version 创建时间：2018年4月5日 下午19:52:21
 * 类说明 
 */
  

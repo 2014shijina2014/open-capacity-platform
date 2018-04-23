@@ -13,7 +13,7 @@ import com.open.capacity.client.oauth2.service.RbacService;
  
 /** 
 * @author 作者 owen E-mail: 624191343@qq.com
-* @version 创建时间：2017年12月4日 下午5:32:29 
+* @version 创建时间：2018年4月5日 下午19:52:21
 * 类说明 
 *   @param request        HttpServletRequest
 *   @param authentication 认证信息
