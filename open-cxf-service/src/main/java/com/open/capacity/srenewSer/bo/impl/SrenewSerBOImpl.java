@@ -39,8 +39,8 @@ import cn.chinaunicom.ws.srenewser.unibssbody.srenewtradersp.SRENEWTRADERSP;
 import cn.chinaunicom.ws.unibsshead.UNIBSSHEAD;
 
 /**
- * @author 作者 owen E-mail: wang.wen@neusoft.com
- * @version 创建时间：2018年4月18日 下午3:22:42 类说明
+ * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年04月23日 上午20:01:06 类说明
  */
 @Service
 public class SrenewSerBOImpl implements SrenewSerBO {
@@ -428,6 +428,7 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 
 	// 提交
 	@Override
+	@Transactional
 	public SRENEWSUBOUTPUT srenewSub(SRENEWSUBINPUT parameters) {
 		// TODO Auto-generated method stub
 
@@ -456,6 +457,7 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 		SRENEWSUBREQ req = parameters.getUNIBSSBODY().getSRENEWSUBREQ();
 		// 受理信息
 		param.put("register_number", req.getSUBSCRIBEID());
+		param.put("order_id", req.getTRADEID());
 
 		Map bulkTemp = acceptTempDao.getServiceKindByReg(param);
 		String feeStr = null;
@@ -483,6 +485,9 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 		param.put("IS_SERVICE_KIND_STR", String.valueOf(bulkTemp.get("SERVICE_KIND")));
 		param.put("IS_FEE_STR", feeStr);
 
+		param.putAll(bulkTemp);
+		
+		acceptTempDao.saveOrderTemp(param) ;
 		acceptTempDao.submit(param);
 
 		Integer ON_FLAG = Integer.parseInt(String.valueOf(param.get("ON_FLAG")));

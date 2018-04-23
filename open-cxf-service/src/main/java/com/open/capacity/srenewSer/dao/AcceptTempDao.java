@@ -7,6 +7,10 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+/**
+ * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年04月23日 上午20:01:06 类说明
+ */
 @Mapper
 public interface AcceptTempDao {
 
@@ -156,5 +160,10 @@ public interface AcceptTempDao {
 	
 	@Select("select * from pm_product_T where  f_prod_id=  #{SERVICE_FAVOUR_ID}")
 	public Map getProductInfo(Map<String, Object> map);
+	
+	@Insert("Insert into CRM_OWNER_USER.BB_UNI_ORDER_RELA_T(F_CITY_CODE, F_UNI_ORDERSID, F_UNI_SUB_ORDERSID, F_REGTMP, F_REGTMP_DATE, F_COMPLETE_STATUS, F_PRESERVE05, BATCH_FLAG) "
+			+ " Values (#{CITY_CODE}, #{order_id}, #{order_id}, #{register_number}, sysdate,  0, 0, 0) ")
+	public int saveOrderTemp(Map<String, Object> map);
+	
 
 }

@@ -16,8 +16,9 @@ import cn.chinaunicom.ws.srenewser.SrenewSer;
 import cn.chinaunicom.ws.srenewser.SrenewSerImpl;
 
 /**
- * @author 作者 owen E-mail: wang.wen@neusoft.com
- * @version 创建时间：2017年7月18日 上午9:01:06 类说明
+ * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年04月23日 上午20:01:06 类说明
+ * cxf配置
  */
 
 @Configuration

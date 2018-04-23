@@ -7,10 +7,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
- * spring获取bean工具类
- * 
- * @author 624191343@qq.com
- *
+ * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年04月23日 上午20:01:06 类说明
  */
 @Component
 public class SpringUtil implements ApplicationContextAware {

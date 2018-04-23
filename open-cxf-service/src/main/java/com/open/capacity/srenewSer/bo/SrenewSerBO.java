@@ -5,9 +5,10 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 
 /**
- * @author 作者 owen E-mail: wang.wen@neusoft.com
- * @version 创建时间：2018年4月18日 下午3:19:15 类说明
+ * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年04月23日 上午20:01:06 类说明
  */
+
 public interface SrenewSerBO {
 
 	public cn.chinaunicom.ws.srenewser.unibssbody.QRYCHGPRODOUTPUT qryChgProd(

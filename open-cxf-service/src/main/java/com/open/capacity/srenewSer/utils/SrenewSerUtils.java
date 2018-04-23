@@ -16,9 +16,10 @@ import cn.chinaunicom.ws.srenewser.unibssbody.qrychgprodrsp.QRYCHGPRODRSP;
 import cn.chinaunicom.ws.srenewser.unibssbody.srenewsubrsp.SRENEWSUBRSP;
 import cn.chinaunicom.ws.srenewser.unibssbody.srenewtradersp.SRENEWTRADERSP;
 
+
 /**
- * @author 作者 owen E-mail: wang.wen@neusoft.com
- * @version 创建时间：2018年4月17日 下午3:55:06 类说明
+ * @author 作者 owen E-mail: 624191343@qq.com
+ * @version 创建时间：2018年04月23日 上午20:01:06 类说明
  */
 public class SrenewSerUtils {
 
