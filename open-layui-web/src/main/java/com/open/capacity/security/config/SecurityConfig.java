@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/css/**");
 		web.ignoring().antMatchers("/img/**");
 		web.ignoring().antMatchers("/fonts/**");
-		web.ignoring().antMatchers("/layui/**");
+		web.ignoring().antMatchers("/lib/**");
 		web.ignoring().antMatchers("/pages/**");
 		// 忽略登录界面
 		web.ignoring().antMatchers("/login.html");
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		http.authorizeRequests()
-				.antMatchers("/", "/*.html", "/favicon.ico", "/css/**", "/js/**", "/fonts/**", "/layui/**", "/img/**",
+				.antMatchers("/", "/*.html", "/favicon.ico", "/css/**", "/js/**", "/fonts/**", "/lib/**", "/img/**",
 						"/v2/api-docs/**", "/swagger-resources/**", "/webjars/**", "/pages/**", "/druid/**",
 						"/statics/**")
 				.permitAll().anyRequest().authenticated();
