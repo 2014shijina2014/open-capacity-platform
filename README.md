@@ -22,8 +22,7 @@
 
 5.角色菜单管理
 
-![](https://i.imgur.com/V0MuLKc.jpg)
-
+![](https://i.imgur.com/9USrBOx.jpg)
    
 6.注册中心   
 
@@ -266,17 +265,17 @@ public class ApiGateWayApp {
 一.错误的打开方式
 
 1无效的client_id
-![](https://i.imgur.com/jD1576e.jpg)
+![](https://i.imgur.com/jjGeHy4.jpg)
 
 2.无效的client_secret
-![](https://i.imgur.com/jJENc8c.jpg)
+![](https://i.imgur.com/adBHsJz.jpg)
 
 3.用户名密码错误
-![](https://i.imgur.com/UXCyPiv.jpg)
+![](https://i.imgur.com/JwioaAW.jpg)
 
 二.正确的打开方式
 
-![](https://i.imgur.com/2IjVYNY.jpg)
+![](https://i.imgur.com/os86Yvr.jpg)
 
 ![](https://i.imgur.com/7j7dpjr.png)
 
