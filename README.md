@@ -6,7 +6,7 @@
 
 1.用户登录
 
-![](https://i.imgur.com/SlwqIG0.jpg)
+ ![](https://i.imgur.com/lWpF7pa.jpg)
 
 2.用户管理
 
