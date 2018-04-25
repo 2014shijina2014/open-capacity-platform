@@ -1,0 +1,4 @@
+2018-04-24 11:09:35,132 [http-nio-9999-exec-10] DEBUG -[RoleServiceImpl.java:49]- 新增角色ttttt
+2018-04-24 11:09:49,017 [http-nio-9999-exec-10] DEBUG -[FileServiceImpl.java:59]- 上传文件d:/files/2018/04/24/5ca8ef8613b326053483d6388ab52e06.docx
+2018-04-24 11:09:58,936 [http-nio-9999-exec-2] DEBUG -[FileServiceImpl.java:73]- 删除文件：d:/files/2018/04/24/5ca8ef8613b326053483d6388ab52e06.docx
+2018-04-24 17:47:12,485 [http-nio-9999-exec-5] DEBUG -[RoleServiceImpl.java:49]- 新增角色11111

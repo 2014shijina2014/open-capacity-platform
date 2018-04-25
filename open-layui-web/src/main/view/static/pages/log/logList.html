@@ -30,6 +30,7 @@
 												<option value="0">失败</option>
 											</select>
 											<button id="searchBt" class="layui-btn layui-btn-sm" permission="sys:log:query"><i class="layui-icon">&#xe615;</i>搜索</button>
+											<input name="logids" type="hidden">
 										</div>
 									</form>
 								</td>
@@ -40,11 +41,12 @@
                 
                 <div>
                     <div class="widget-body no-padding">
-                        <table id="dt-table" class="table table-striped table-bordered table-hover" style="width:100%">
+                        <table id="dt-table" class="table table-bordered table-condensed table-hover" style="width:100%">
                             <thead>
                                 <tr>
                                 </tr>                       
                                 <tr>
+                                	<th><input type="checkbox" name="allChecked" /></th>
 									<th width="5%">id</th>
 									<th width="15%">昵称</th>
 									<th width="20%">模块</th>
@@ -53,7 +55,7 @@
 									<th width="15%">时间</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                             <tbody>
                             </tbody>
                         </table>
                     </div>
@@ -125,6 +127,14 @@ function init(){
         	},
         	"dom": "<'dt-toolbar'r>t<'dt-toolbar-footer'<'col-sm-10 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-10' p v>>",	
             "columns": [
+            	{
+					"data" : "id", 
+					"defaultContent" : "",
+					"orderable":false,
+					"render" : function(data, type, full, meta) {
+						return '<input type="checkbox" value="'+ data + '" name="id"/>';
+					}
+				} ,
 				{"data" : "id", "defaultContent" : ""},
 				{
 					"data" : "user", 
@@ -156,6 +166,84 @@ function init(){
 $("#searchBt").click(function(){
 	example.ajax.reload();
 });
+
+/**
+ * 多选选中和取消选中,同时选中第一个单元格单选框,并联动全选单选框
+ */
+$('#dt-table tbody').on('click', 'tr', function(event) {
+	var allChecked=$('input[name=allChecked]')[0];//关联全选单选框
+	$($(this).children()[0]).children().each(function(){
+		if(this.type=="checkbox" && (!$(event.target).is(":checkbox") && $(":checkbox",this).trigger("click"))){
+			if(!this.checked){
+				this.checked = true;
+				addValue(this);
+				var selected=example.rows('.selected').data().length;//被选中的行数
+				//全选单选框的状态处理
+				var recordsDisplay=example.page.info().recordsDisplay;//搜索条件过滤后的总行数
+				var iDisplayStart=example.page.info().start;// 起始行数
+				if(selected === example.page.len()||selected === recordsDisplay||selected === (recordsDisplay - iDisplayStart)){
+					allChecked.checked = true;
+				}
+			}else{
+				this.checked = false;
+				cancelValue(this);
+				allChecked.checked = false;
+			}
+		}
+	});
+	$(this).toggleClass('selected');//放在最后处理，以便给checkbox做检测
+});
+
+
+/**
+ * 单选框被选中时将它的value放入隐藏域
+ */
+function addValue(para) {
+	var userIds = $("input[name=logids]");
+	if(userIds.val() === ""){
+		userIds.val($(para).val());
+	}else{
+		userIds.val(userIds.val()+","+$(para).val());
+	}
+}
+
+/**
+ * 单选框取消选中时将它的value移除隐藏域
+ */
+function cancelValue(para){
+	//取消选中checkbox要做的操作
+	var userIds = $("input[name=logids]");
+	var array = userIds.val().split(",");
+	userIds.val("");
+	for (var i = 0; i < array.length; i++) {
+		if (array[i] === $(para).val()) {
+			continue;
+		}
+		if (userIds.val() === "") {
+			userIds.val(array[i]);
+		} else {
+			userIds.val(userIds.val() + "," + array[i]);
+		}
+	}
+}
+
+
+
+/**
+ * 全选按钮被点击事件
+ */
+$('input[name=allChecked]').click(function(){
+	if(this.checked){
+		$('#dt-table tbody tr').each(function(){
+			if(!$(this).hasClass('selected')){
+				$(this).click();
+			}
+		});
+	}else{
+		$('#dt-table tbody tr').click();
+	}
+});
+
 
 init();
 </script>
