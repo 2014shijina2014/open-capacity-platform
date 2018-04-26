@@ -2,6 +2,11 @@ server:
   port: 8089
   context-path: /uniServiceAccess
 
+jasypt:  
+  encryptor:  
+    #这里可以理解成是加解密的时候使用的密钥  
+    password: neusoft
+
 spring:
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource

@@ -16,7 +16,7 @@
  
  	<select id="submit" statementType="CALLABLE"  resultType="java.util.HashMap" >
         <![CDATA[
-			{call  BB_UNI_PRODUCT_ORDERSUB_P  ( 
+			{call  bb_uni_orderSub_p  ( 
 				#{IS_BIPCODE,mode=IN,jdbcType=VARCHAR} ,
 				#{IS_TEMP_RGST_NO,mode=IN,jdbcType=VARCHAR} ,
                 #{IS_SERVICE_KIND_STR,mode=IN,jdbcType=VARCHAR}, 

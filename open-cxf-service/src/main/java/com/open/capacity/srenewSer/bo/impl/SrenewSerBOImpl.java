@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -199,6 +200,9 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 		}
 		
 		
+		
+		
+		
 		QRYCHGPRODRSP.PRODUCTINFO.DISCNTINFO discntinfo = new QRYCHGPRODRSP.PRODUCTINFO.DISCNTINFO();
 		
 		discntinfo.setDISCNTCODE("783");
@@ -329,6 +333,17 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 			out.getUNIBSSBODY().setSRENEWTRADERSP(resp);
 			return out;
 		}
+		flowinfo = null ;
+		flowinfo = acceptTempDao.getFlowInfo1(param) ;
+		if (flowinfo != null) {
+			out.getUNIBSSHEAD().getRESPONSE().setRSPCODE("1493");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPDESC("当前用户存在在途工单");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPTYPE("1");
+			resp.setRESPCODE("1493");
+			resp.setRESPDESC("当前用户存在在途工单");
+			out.getUNIBSSBODY().setSRENEWTRADERSP(resp);
+			return out;
+		}
 
 		Map bulkinfo = (Map) redisTemplate.opsForValue().get(req.getSERIALNUMBER()+":bulkInfo");
 		
@@ -364,6 +379,20 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 		userinfo.put("eparchy_code", String.valueOf(param.get("eparchy_code")));
 		userinfo.putAll(bulkinfo);
 
+		
+		List<Map> list = acceptTempDao.ifDiscut(userinfo) ;
+		
+		if(list.size()>0){
+			out.getUNIBSSHEAD().getRESPONSE().setRSPCODE("8888");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPDESC("测试，体验，和折扣 不能通过支付宝续费");
+			out.getUNIBSSHEAD().getRESPONSE().setRSPTYPE("1");
+			resp.setRESPCODE("8888");
+			resp.setRESPDESC("测试，体验，和折扣 不能通过支付宝续费");
+			out.getUNIBSSBODY().setSRENEWTRADERSP(resp);
+			return out;
+		}
+		
+		
 		LocalDate af = localDate.plusMonths(Long.valueOf(String.valueOf(userinfo.get("EFFECT_VALUES"))));
 		ZoneId zoneId = ZoneId.systemDefault();
 		ZonedDateTime zdt = af.atStartOfDay(zoneId);
@@ -498,28 +527,28 @@ public class SrenewSerBOImpl implements SrenewSerBO {
 			rsp.setRESPCODE("0000");
 			rsp.setRESPDESC("成功");
 
-			//自动执行
-			
-			param.put("IS_REGISTER_NUMBER", OS_PROMPT) ;
-			param.put("IS_ACCEPT_CITY", String.valueOf(bulkTemp.get("CITY_CODE"))) ;
-			param.put("IN_SERVICE_KIND", String.valueOf(bulkTemp.get("SERVICE_KIND"))) ;
-			param.put("IS_SERVICE_ID", String.valueOf(bulkTemp.get("SERVICE_ID"))) ;
-			param.put("IN_APPLY_EVENT", "302") ;
-			param.put("IN_ACTION", "2") ;
-			param.put("IS_DEPARTMENT", "") ;
-			param.put("IS_OPER_PERSON", "") ;
-			
-			acceptTempDao.auto(param);
-			Integer resp_code = Integer.parseInt(String.valueOf(param.get("ON_FLAG")));
-			String resp_desc = String.valueOf(param.get("OS_PROMPT"));
-			
-			if (0 == resp_code) {
-				rsp.setRESPCODE("0000");
-				rsp.setRESPDESC("成功");
-			}else{
-				rsp.setRESPCODE("8888");
-				rsp.setRESPDESC(resp_desc);
-			}
+//			自动执行
+//			
+//			param.put("IS_REGISTER_NUMBER", OS_PROMPT) ;
+//			param.put("IS_ACCEPT_CITY", String.valueOf(bulkTemp.get("CITY_CODE"))) ;
+//			param.put("IN_SERVICE_KIND", String.valueOf(bulkTemp.get("SERVICE_KIND"))) ;
+//			param.put("IS_SERVICE_ID", String.valueOf(bulkTemp.get("SERVICE_ID"))) ;
+//			param.put("IN_APPLY_EVENT", "302") ;
+//			param.put("IN_ACTION", "2") ;
+//			param.put("IS_DEPARTMENT", "") ;
+//			param.put("IS_OPER_PERSON", "") ;
+//			
+//			acceptTempDao.auto(param);
+//			Integer resp_code = Integer.parseInt(String.valueOf(param.get("ON_FLAG")));
+//			String resp_desc = String.valueOf(param.get("OS_PROMPT"));
+//			
+//			if (0 == resp_code) {
+//				rsp.setRESPCODE("0000");
+//				rsp.setRESPDESC("成功");
+//			}else{
+//				rsp.setRESPCODE("8888");
+//				rsp.setRESPDESC(resp_desc);
+//			}
 			
 			
 		} else {

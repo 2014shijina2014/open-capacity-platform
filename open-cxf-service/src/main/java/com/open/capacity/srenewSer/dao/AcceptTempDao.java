@@ -48,7 +48,7 @@ public interface AcceptTempDao {
 			+ "BRAND_ORG,SHARE_SCALE, NET_GRID)" + " VALUES ("
 			+ "#{OS_TEMP_RGST}, 0, #{CITY_CODE}, 302,  TO_DATE (#{accept_date}, 'YYYYMMDDHH24MISS'),"
 			+ " #{oper_id},#{channel_id}, 1, 0, #{CITY_CODE},"
-			+ " 0,   '75a17x',  '075750047',  #{USER_ID}, #{CUSTOMER_ID},"
+			+ " 0,   #{REGION_CODE},  #{BELONG_CODE},  #{USER_ID}, #{CUSTOMER_ID},"
 			+ " #{ACCOUNT_ID}, 0, #{INHERIT_ID}, #{service_id},  #{service_kind}," + "#{INNET_METHOD}, -1, 0, 0, 0,"
 			+ " #{PASSWORD}, 1, #{PAY_TYPE},#{DEVELOPER_DEALER},#{DEVELOPER},"
 			+ " #{SERVICE_FAVOUR_ID}, 0, 0,   0,  3,"
@@ -86,11 +86,11 @@ public interface AcceptTempDao {
 			+ "PRODUCT_WAY, BIND_TYPE, BRAND_ORG, SHARE_SCALE,  NET_GRID)"
 			+ "VALUES (#{OS_TEMP_RGST},1, #{CITY_CODE},   302,    TO_DATE (#{accept_date}, 'YYYYMMDDHH24MISS'),"
 			+ "#{oper_id},    #{channel_id},   1,  0, #{CITY_CODE},"
-			+ "0,    '075740006',  '075740006',   #{USER_ID},  #{CUSTOMER_ID},"
+			+ "0,    #{REGION_CODE},  #{BELONG_CODE},   #{USER_ID},  #{CUSTOMER_ID},"
 			+ "#{ACCOUNT_ID},  0, #{INHERIT_ID},  #{service_id},  #{service_kind},"
 			+ "1, -1,  0,   0,   0,"
-			+ "#{PASSWORD},  1,  4,  '75b1lvb',  '7504683477',"
-			+ " '51018',   0,  0,   0,   3,"
+			+ "#{PASSWORD},  1,  #{PAY_TYPE},  #{DEVELOPER_DEALER},  #{DEVELOPER},"
+			+ " #{SERVICE_FAVOUR_ID},   0,  0,   0,   3,"
 			+ " 0,   0,  0,   0, 0,"
 			+ " 0,  0,   0,   1,  '4',"
 			+ "  0,   2, 0,  #{INSTALL_ADDRESS},  0,"
@@ -112,7 +112,8 @@ public interface AcceptTempDao {
 	@Insert("Insert into CRM_OWNER_USER.BB_BULK_SALE_BUS_TEMP_T(REGISTER_NUMBER, CITY_CODE, SERVICE_KIND, SERVICE_ID, USER_ID, "
 			+ "BULK_PRICE, FAVOUR_GROUP, SALES_MODE, PERIOD_TYPE, EFFECT_VALUES, " + "BEGIN_DATE, END_DATE) "
 			+ "Values (#{OS_TEMP_RGST}, #{CITY_CODE}, #{service_kind}, #{service_id}, #{USER_ID}, "
-			+ "#{BULK_PRICE}, 104, 84, 2, 36, " + "#{BEGIN_DATE}, #{END_DATE} )")
+			+ "#{BULK_PRICE}, #{FAVOUR_GROUP}, #{SALES_MODE}, #{PERIOD_TYPE}, #{EFFECT_VALUES}, "
+			+ "#{BEGIN_DATE}, #{END_DATE} )")
 	public int saveBulkTemp(Map<String, Object> map);
 
 	@Select("select bb_uni_get_info_detail_f(1,0,#{eparchy_code},#{service_id},'CBSS',2,'') serviceKind from dual")
@@ -142,6 +143,11 @@ public interface AcceptTempDao {
 
 	@Select("select * from bb_bus_control_t  where service_kind = #{service_kind} and service_id=#{service_id} and accept_city = #{eparchy_code} and rownum<=1")
 	public Map getFlowInfo(Map<String, Object> map);
+	
+	
+	@Select("select * from bb_accept_temp_t where f_service_id =  #{service_id} and f_service_kind =#{service_kind}  and rownum <=1")
+	public Map getFlowInfo1(Map<String, Object> map);
+	
 
 	@Select("   select * from bb_wide_service_info_t where user_id= #{user_id}")
 	public Map getWidefo(Map<String, Object> map);
@@ -152,6 +158,15 @@ public interface AcceptTempDao {
 	
 	@Select(" select * from BB_BULK_SALE_BUS_TEMP_T where register_number =  #{register_number}")
 	public Map getServiceKindByReg(Map<String, Object> map);
+	
+	
+	@Select("  SELECT *   "
+			+ "FROM BB_BULK_res_dealer_T  WHERE "
+			+ "(city_code = #{CITY_CODE}  OR city_code = '075') "
+			+ "AND service_kind = #{SERVICE_KIND}"
+			+ "AND kind = #{SALES_MODE}")
+	public List<Map> ifDiscut(Map<String, Object> map);
+	
 
 	public void submit(Map<String, Object> map);
 	
