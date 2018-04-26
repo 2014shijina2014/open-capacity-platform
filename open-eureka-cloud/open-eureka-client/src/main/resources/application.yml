@@ -14,12 +14,6 @@ spring:
       force: true
       enabled: true
 
-swagger:
-    basepackage: com.open.capacity #扫描api包路径
-    service:
-        name: sendinfo product #api名称
-        description: 产品中心 #api描述
-        developer: owen #api开发      
            
 eureka:
   client:
