@@ -13,6 +13,7 @@ Use `boot_security`;
 set session  
 sql_mode='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';  
 
+ 
 #
 # Structure for table "file_info"
 #
@@ -166,10 +167,10 @@ CREATE TABLE `properties` (
 INSERT INTO `properties` VALUES (1,'zuul.debug.request','false','unieap-eureka-config-client','dev','master');
 
 #
-# Structure for table "QRTZ_BLOB_TRIGGERS"
+# Structure for table "qrtz_blob_triggers"
 #
 
-CREATE TABLE `QRTZ_BLOB_TRIGGERS` (
+CREATE TABLE `qrtz_blob_triggers` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -178,15 +179,15 @@ CREATE TABLE `QRTZ_BLOB_TRIGGERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_BLOB_TRIGGERS"
+# Data for table "qrtz_blob_triggers"
 #
 
 
 #
-# Structure for table "QRTZ_CALENDARS"
+# Structure for table "qrtz_calendars"
 #
 
-CREATE TABLE `QRTZ_CALENDARS` (
+CREATE TABLE `qrtz_calendars` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `CALENDAR_NAME` varchar(128) COLLATE utf8mb4_bin NOT NULL,
   `CALENDAR` blob NOT NULL,
@@ -194,15 +195,15 @@ CREATE TABLE `QRTZ_CALENDARS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_CALENDARS"
+# Data for table "qrtz_calendars"
 #
 
 
 #
-# Structure for table "QRTZ_CRON_TRIGGERS"
+# Structure for table "qrtz_cron_triggers"
 #
 
-CREATE TABLE `QRTZ_CRON_TRIGGERS` (
+CREATE TABLE `qrtz_cron_triggers` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -212,15 +213,15 @@ CREATE TABLE `QRTZ_CRON_TRIGGERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_CRON_TRIGGERS"
+# Data for table "qrtz_cron_triggers"
 #
 
 
 #
-# Structure for table "QRTZ_FIRED_TRIGGERS"
+# Structure for table "qrtz_fired_triggers"
 #
 
-CREATE TABLE `QRTZ_FIRED_TRIGGERS` (
+CREATE TABLE `qrtz_fired_triggers` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `ENTRY_ID` varchar(128) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -238,15 +239,15 @@ CREATE TABLE `QRTZ_FIRED_TRIGGERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_FIRED_TRIGGERS"
+# Data for table "qrtz_fired_triggers"
 #
 
 
 #
-# Structure for table "QRTZ_JOB_DETAILS"
+# Structure for table "qrtz_job_details"
 #
 
-CREATE TABLE `QRTZ_JOB_DETAILS` (
+CREATE TABLE `qrtz_job_details` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `JOB_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `JOB_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -261,46 +262,46 @@ CREATE TABLE `QRTZ_JOB_DETAILS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_JOB_DETAILS"
+# Data for table "qrtz_job_details"
 #
 
 
 #
-# Structure for table "QRTZ_LOCKS"
+# Structure for table "qrtz_locks"
 #
 
-CREATE TABLE `QRTZ_LOCKS` (
+CREATE TABLE `qrtz_locks` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `LOCK_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_LOCKS"
+# Data for table "qrtz_locks"
 #
 
-INSERT INTO `QRTZ_LOCKS` VALUES ('OpenScheduler','STATE_ACCESS'),('OpenScheduler','TRIGGER_ACCESS');
+INSERT INTO `qrtz_locks` VALUES ('OpenScheduler','STATE_ACCESS'),('OpenScheduler','TRIGGER_ACCESS');
 
 #
-# Structure for table "QRTZ_PAUSED_TRIGGER_GRPS"
+# Structure for table "qrtz_paused_trigger_grps"
 #
 
-CREATE TABLE `QRTZ_PAUSED_TRIGGER_GRPS` (
+CREATE TABLE `qrtz_paused_trigger_grps` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`TRIGGER_GROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_PAUSED_TRIGGER_GRPS"
+# Data for table "qrtz_paused_trigger_grps"
 #
 
 
 #
-# Structure for table "QRTZ_SCHEDULER_STATE"
+# Structure for table "qrtz_scheduler_state"
 #
 
-CREATE TABLE `QRTZ_SCHEDULER_STATE` (
+CREATE TABLE `qrtz_scheduler_state` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `INSTANCE_NAME` varchar(128) COLLATE utf8mb4_bin NOT NULL,
   `LAST_CHECKIN_TIME` bigint(13) NOT NULL,
@@ -309,16 +310,16 @@ CREATE TABLE `QRTZ_SCHEDULER_STATE` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_SCHEDULER_STATE"
+# Data for table "qrtz_scheduler_state"
 #
 
-INSERT INTO `QRTZ_SCHEDULER_STATE` VALUES ('OpenScheduler','owen1523884504307',1523884881074,15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('OpenScheduler','owen1524706264034',1524706699912,15000);
 
 #
-# Structure for table "QRTZ_SIMPLE_TRIGGERS"
+# Structure for table "qrtz_simple_triggers"
 #
 
-CREATE TABLE `QRTZ_SIMPLE_TRIGGERS` (
+CREATE TABLE `qrtz_simple_triggers` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -329,15 +330,15 @@ CREATE TABLE `QRTZ_SIMPLE_TRIGGERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_SIMPLE_TRIGGERS"
+# Data for table "qrtz_simple_triggers"
 #
 
 
 #
-# Structure for table "QRTZ_SIMPROP_TRIGGERS"
+# Structure for table "qrtz_simprop_triggers"
 #
 
-CREATE TABLE `QRTZ_SIMPROP_TRIGGERS` (
+CREATE TABLE `qrtz_simprop_triggers` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -356,15 +357,15 @@ CREATE TABLE `QRTZ_SIMPROP_TRIGGERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_SIMPROP_TRIGGERS"
+# Data for table "qrtz_simprop_triggers"
 #
 
 
 #
-# Structure for table "QRTZ_TRIGGERS"
+# Structure for table "qrtz_triggers"
 #
 
-CREATE TABLE `QRTZ_TRIGGERS` (
+CREATE TABLE `qrtz_triggers` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -386,7 +387,7 @@ CREATE TABLE `QRTZ_TRIGGERS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 #
-# Data for table "QRTZ_TRIGGERS"
+# Data for table "qrtz_triggers"
 #
 
 
@@ -449,13 +450,13 @@ CREATE TABLE `sys_logs` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   KEY `createTime` (`createTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb4;
 
 #
 # Data for table "sys_logs"
 #
 
-INSERT INTO `sys_logs` VALUES (1,1,'登陆',1,NULL,'2018-03-14 03:59:44'),(2,1,'登陆',1,NULL,'2018-03-14 06:26:11'),(3,1,'登陆',1,NULL,'2018-03-14 08:39:16'),(4,1,'保存用户',1,NULL,'2018-03-14 08:43:48'),(5,1,'修改用户',1,NULL,'2018-03-14 08:43:56'),(6,1,'登陆',1,NULL,'2018-03-14 10:12:39'),(7,1,'登陆',1,NULL,'2018-03-14 13:01:21'),(8,1,'保存用户',1,NULL,'2018-03-14 13:02:36'),(9,1,'保存角色',1,NULL,'2018-03-14 13:03:08'),(10,1,'保存角色',1,NULL,'2018-03-14 13:03:18'),(11,1,'保存角色',1,NULL,'2018-03-14 13:03:36'),(12,1,'修改用户',1,NULL,'2018-03-14 13:03:43'),(13,1,'退出',1,NULL,'2018-03-14 13:03:50'),(14,4,'登陆',1,NULL,'2018-03-14 13:03:55'),(15,4,'退出',1,NULL,'2018-03-14 13:04:04'),(16,1,'登陆',1,NULL,'2018-03-14 13:04:09'),(17,1,'保存角色',1,NULL,'2018-03-14 13:04:18'),(18,1,'退出',1,NULL,'2018-03-14 13:04:22'),(19,4,'登陆',1,NULL,'2018-03-14 13:04:27'),(20,4,'退出',1,NULL,'2018-03-14 13:13:39'),(21,4,'登陆',1,NULL,'2018-03-14 13:13:45'),(22,4,'退出',1,NULL,'2018-03-14 13:22:28'),(23,4,'登陆',1,NULL,'2018-03-14 13:22:32'),(24,4,'退出',1,NULL,'2018-03-14 13:24:27'),(25,4,'登陆',1,NULL,'2018-03-14 13:24:31'),(26,4,'退出',1,NULL,'2018-03-14 13:24:50'),(27,4,'登陆',1,NULL,'2018-03-14 13:24:54'),(28,4,'登陆',1,NULL,'2018-03-14 15:49:48'),(29,4,'退出',1,NULL,'2018-03-14 15:51:00'),(30,4,'登陆',1,NULL,'2018-03-14 15:51:03'),(31,4,'退出',1,NULL,'2018-03-14 15:52:06'),(32,4,'登陆',1,NULL,'2018-03-14 15:52:09'),(33,4,'退出',1,NULL,'2018-03-14 15:56:29'),(34,4,'登陆',1,NULL,'2018-03-14 15:56:32'),(35,4,'登陆',1,NULL,'2018-03-14 15:57:21'),(36,4,'退出',1,NULL,'2018-03-14 16:03:58'),(37,4,'登陆',1,NULL,'2018-03-14 16:04:01'),(38,4,'退出',1,NULL,'2018-03-14 16:26:27'),(39,1,'登陆',1,NULL,'2018-03-14 16:26:31'),(40,1,'退出',1,NULL,'2018-03-14 16:26:48'),(41,4,'登陆',1,NULL,'2018-03-14 16:26:51'),(42,4,'退出',1,NULL,'2018-03-14 16:34:39'),(43,1,'登陆',1,NULL,'2018-03-14 16:35:19'),(44,1,'登陆',1,NULL,'2018-03-14 18:45:34'),(45,1,'登陆',1,NULL,'2018-03-14 23:30:14'),(46,1,'添加定时任务',1,NULL,'2018-03-15 00:00:08'),(47,4,'��½',1,NULL,'2018-03-15 04:37:19'),(48,1,'登陆',1,NULL,'2018-03-15 04:43:52'),(49,1,'生成代码',0,NULL,'2018-03-15 04:44:50'),(50,1,'生成代码',0,NULL,'2018-03-15 04:45:13'),(51,1,'修改菜单',1,NULL,'2018-03-15 04:45:57'),(52,1,'登陆',1,NULL,'2018-03-25 23:30:29'),(53,1,'登陆',1,NULL,'2018-03-26 18:16:00'),(54,1,'保存角色',1,NULL,'2018-03-26 18:16:20'),(55,1,'退出',1,NULL,'2018-03-26 18:16:29'),(56,1,'登陆',1,NULL,'2018-03-26 18:16:34'),(57,1,'退出',1,NULL,'2018-03-26 19:29:52'),(58,1,'登陆',1,NULL,'2018-03-26 19:29:57'),(59,1,'退出',1,NULL,'2018-03-26 19:31:43'),(60,1,'登陆',1,NULL,'2018-03-26 19:31:52'),(61,1,'登陆',1,NULL,'2018-03-26 22:36:47'),(62,1,'登陆',1,NULL,'2018-03-27 00:38:15'),(63,1,'登陆',1,NULL,'2018-03-27 00:46:41'),(64,1,'登陆',1,NULL,'2018-03-27 00:52:14'),(65,1,'登陆',1,NULL,'2018-03-27 00:54:55'),(66,1,'登陆',1,NULL,'2018-03-27 01:23:12'),(67,1,'登陆',1,NULL,'2018-03-27 02:20:42'),(68,1,'登陆',1,NULL,'2018-03-27 03:42:26'),(69,1,'登陆',1,NULL,'2018-03-27 04:56:58'),(70,1,'登陆',1,NULL,'2018-03-27 04:57:23'),(71,1,'登陆',1,NULL,'2018-03-27 04:58:41'),(72,1,'登陆',1,NULL,'2018-03-27 05:02:02'),(73,1,'登陆',1,NULL,'2018-03-27 19:17:50'),(74,4,'登陆',1,NULL,'2018-03-28 23:12:13'),(75,4,'登陆',1,NULL,'2018-03-28 23:41:49'),(76,4,'退出',1,NULL,'2018-03-28 23:41:53'),(77,1,'登陆',1,NULL,'2018-03-28 23:41:58'),(78,1,'退出',1,NULL,'2018-03-28 23:44:53'),(79,1,'登陆',1,NULL,'2018-03-28 23:44:57'),(80,1,'退出',1,NULL,'2018-03-28 23:46:18'),(81,1,'登陆',1,NULL,'2018-03-28 23:46:23'),(82,1,'登陆',1,NULL,'2018-03-31 03:31:00'),(83,1,'登陆',1,NULL,'2018-03-31 04:08:08'),(84,1,'登陆',1,NULL,'2018-04-03 00:08:01'),(85,1,'保存角色',1,NULL,'2018-04-03 00:08:29'),(86,1,'退出',1,NULL,'2018-04-03 00:08:37'),(87,1,'登陆',1,NULL,'2018-04-03 00:08:42'),(88,1,'登陆',1,NULL,'2018-04-03 01:18:56'),(89,1,'登陆',1,NULL,'2018-04-04 23:00:02'),(90,1,'登陆',1,NULL,'2018-04-09 06:48:29'),(91,1,'登陆',1,NULL,'2018-04-12 00:19:47'),(92,1,'登陆',1,NULL,'2018-04-14 20:01:20'),(93,1,'退出',1,NULL,'2018-04-14 20:01:26'),(94,1,'登陆',1,NULL,'2018-04-14 20:16:46'),(95,1,'登陆',1,NULL,'2018-04-14 20:42:45'),(96,1,'登陆',1,NULL,'2018-04-14 21:22:18'),(97,1,'登陆',1,NULL,'2018-04-14 21:42:05'),(98,1,'保存用户',1,NULL,'2018-04-14 21:42:43'),(99,1,'修改菜单',1,NULL,'2018-04-14 21:43:11'),(100,1,'生成代码',0,NULL,'2018-04-14 21:44:00'),(101,1,'生成代码',0,NULL,'2018-04-14 21:46:30'),(102,1,'生成代码',0,NULL,'2018-04-14 21:47:02'),(103,1,'生成代码',0,NULL,'2018-04-14 21:49:52'),(104,1,'生成代码',0,NULL,'2018-04-14 21:50:10'),(105,1,'生成代码',1,NULL,'2018-04-14 22:04:21'),(106,1,'文件上传',1,NULL,'2018-04-14 22:12:57'),(107,1,'文件删除',1,NULL,'2018-04-14 22:14:21'),(108,1,'登陆',1,NULL,'2018-04-15 01:43:48'),(109,1,'退出',1,NULL,'2018-04-15 01:49:59'),(110,1,'登陆',1,NULL,'2018-04-15 01:50:09'),(111,1,'登陆',1,NULL,'2018-04-15 11:36:18'),(112,1,'保存角色',1,NULL,'2018-04-15 11:39:42'),(113,1,'退出',1,NULL,'2018-04-15 11:39:46'),(114,1,'登陆',1,NULL,'2018-04-15 11:39:51'),(115,1,'生成代码',1,NULL,'2018-04-15 11:42:35'),(116,1,'退出',1,NULL,'2018-04-15 11:47:17'),(117,1,'登陆',1,NULL,'2018-04-15 11:47:21'),(118,1,'退出',1,NULL,'2018-04-15 12:11:38'),(119,1,'登陆',1,NULL,'2018-04-15 12:11:44');
+INSERT INTO `sys_logs` VALUES (1,1,'登陆',1,NULL,'2018-03-14 03:59:44'),(2,1,'登陆',1,NULL,'2018-03-14 06:26:11'),(3,1,'登陆',1,NULL,'2018-03-14 08:39:16'),(4,1,'保存用户',1,NULL,'2018-03-14 08:43:48'),(5,1,'修改用户',1,NULL,'2018-03-14 08:43:56'),(6,1,'登陆',1,NULL,'2018-03-14 10:12:39'),(7,1,'登陆',1,NULL,'2018-03-14 13:01:21'),(8,1,'保存用户',1,NULL,'2018-03-14 13:02:36'),(9,1,'保存角色',1,NULL,'2018-03-14 13:03:08'),(10,1,'保存角色',1,NULL,'2018-03-14 13:03:18'),(11,1,'保存角色',1,NULL,'2018-03-14 13:03:36'),(12,1,'修改用户',1,NULL,'2018-03-14 13:03:43'),(13,1,'退出',1,NULL,'2018-03-14 13:03:50'),(14,4,'登陆',1,NULL,'2018-03-14 13:03:55'),(15,4,'退出',1,NULL,'2018-03-14 13:04:04'),(16,1,'登陆',1,NULL,'2018-03-14 13:04:09'),(17,1,'保存角色',1,NULL,'2018-03-14 13:04:18'),(18,1,'退出',1,NULL,'2018-03-14 13:04:22'),(19,4,'登陆',1,NULL,'2018-03-14 13:04:27'),(20,4,'退出',1,NULL,'2018-03-14 13:13:39'),(21,4,'登陆',1,NULL,'2018-03-14 13:13:45'),(22,4,'退出',1,NULL,'2018-03-14 13:22:28'),(23,4,'登陆',1,NULL,'2018-03-14 13:22:32'),(24,4,'退出',1,NULL,'2018-03-14 13:24:27'),(25,4,'登陆',1,NULL,'2018-03-14 13:24:31'),(26,4,'退出',1,NULL,'2018-03-14 13:24:50'),(27,4,'登陆',1,NULL,'2018-03-14 13:24:54'),(28,4,'登陆',1,NULL,'2018-03-14 15:49:48'),(29,4,'退出',1,NULL,'2018-03-14 15:51:00'),(30,4,'登陆',1,NULL,'2018-03-14 15:51:03'),(31,4,'退出',1,NULL,'2018-03-14 15:52:06'),(32,4,'登陆',1,NULL,'2018-03-14 15:52:09'),(33,4,'退出',1,NULL,'2018-03-14 15:56:29'),(34,4,'登陆',1,NULL,'2018-03-14 15:56:32'),(35,4,'登陆',1,NULL,'2018-03-14 15:57:21'),(36,4,'退出',1,NULL,'2018-03-14 16:03:58'),(37,4,'登陆',1,NULL,'2018-03-14 16:04:01'),(38,4,'退出',1,NULL,'2018-03-14 16:26:27'),(39,1,'登陆',1,NULL,'2018-03-14 16:26:31'),(40,1,'退出',1,NULL,'2018-03-14 16:26:48'),(41,4,'登陆',1,NULL,'2018-03-14 16:26:51'),(42,4,'退出',1,NULL,'2018-03-14 16:34:39'),(43,1,'登陆',1,NULL,'2018-03-14 16:35:19'),(44,1,'登陆',1,NULL,'2018-03-14 18:45:34'),(45,1,'登陆',1,NULL,'2018-03-14 23:30:14'),(46,1,'添加定时任务',1,NULL,'2018-03-15 00:00:08'),(47,4,'��½',1,NULL,'2018-03-15 04:37:19'),(48,1,'登陆',1,NULL,'2018-03-15 04:43:52'),(49,1,'生成代码',0,NULL,'2018-03-15 04:44:50'),(50,1,'生成代码',0,NULL,'2018-03-15 04:45:13'),(51,1,'修改菜单',1,NULL,'2018-03-15 04:45:57'),(52,1,'登陆',1,NULL,'2018-03-25 23:30:29'),(53,1,'登陆',1,NULL,'2018-03-26 18:16:00'),(54,1,'保存角色',1,NULL,'2018-03-26 18:16:20'),(55,1,'退出',1,NULL,'2018-03-26 18:16:29'),(56,1,'登陆',1,NULL,'2018-03-26 18:16:34'),(57,1,'退出',1,NULL,'2018-03-26 19:29:52'),(58,1,'登陆',1,NULL,'2018-03-26 19:29:57'),(59,1,'退出',1,NULL,'2018-03-26 19:31:43'),(60,1,'登陆',1,NULL,'2018-03-26 19:31:52'),(61,1,'登陆',1,NULL,'2018-03-26 22:36:47'),(62,1,'登陆',1,NULL,'2018-03-27 00:38:15'),(63,1,'登陆',1,NULL,'2018-03-27 00:46:41'),(64,1,'登陆',1,NULL,'2018-03-27 00:52:14'),(65,1,'登陆',1,NULL,'2018-03-27 00:54:55'),(66,1,'登陆',1,NULL,'2018-03-27 01:23:12'),(67,1,'登陆',1,NULL,'2018-03-27 02:20:42'),(68,1,'登陆',1,NULL,'2018-03-27 03:42:26'),(69,1,'登陆',1,NULL,'2018-03-27 04:56:58'),(70,1,'登陆',1,NULL,'2018-03-27 04:57:23'),(71,1,'登陆',1,NULL,'2018-03-27 04:58:41'),(72,1,'登陆',1,NULL,'2018-03-27 05:02:02'),(73,1,'登陆',1,NULL,'2018-03-27 19:17:50'),(74,4,'登陆',1,NULL,'2018-03-28 23:12:13'),(75,4,'登陆',1,NULL,'2018-03-28 23:41:49'),(76,4,'退出',1,NULL,'2018-03-28 23:41:53'),(77,1,'登陆',1,NULL,'2018-03-28 23:41:58'),(78,1,'退出',1,NULL,'2018-03-28 23:44:53'),(79,1,'登陆',1,NULL,'2018-03-28 23:44:57'),(80,1,'退出',1,NULL,'2018-03-28 23:46:18'),(81,1,'登陆',1,NULL,'2018-03-28 23:46:23'),(82,1,'登陆',1,NULL,'2018-03-31 03:31:00'),(83,1,'登陆',1,NULL,'2018-03-31 04:08:08'),(84,1,'登陆',1,NULL,'2018-04-03 00:08:01'),(85,1,'保存角色',1,NULL,'2018-04-03 00:08:29'),(86,1,'退出',1,NULL,'2018-04-03 00:08:37'),(87,1,'登陆',1,NULL,'2018-04-03 00:08:42'),(88,1,'登陆',1,NULL,'2018-04-03 01:18:56'),(89,1,'登陆',1,NULL,'2018-04-04 23:00:02'),(90,1,'登陆',1,NULL,'2018-04-09 06:48:29'),(91,1,'登陆',1,NULL,'2018-04-12 00:19:47'),(92,1,'登陆',1,NULL,'2018-04-14 20:01:20'),(93,1,'退出',1,NULL,'2018-04-14 20:01:26'),(94,1,'登陆',1,NULL,'2018-04-14 20:16:46'),(95,1,'登陆',1,NULL,'2018-04-14 20:42:45'),(96,1,'登陆',1,NULL,'2018-04-14 21:22:18'),(97,1,'登陆',1,NULL,'2018-04-14 21:42:05'),(98,1,'保存用户',1,NULL,'2018-04-14 21:42:43'),(99,1,'修改菜单',1,NULL,'2018-04-14 21:43:11'),(100,1,'生成代码',0,NULL,'2018-04-14 21:44:00'),(101,1,'生成代码',0,NULL,'2018-04-14 21:46:30'),(102,1,'生成代码',0,NULL,'2018-04-14 21:47:02'),(103,1,'生成代码',0,NULL,'2018-04-14 21:49:52'),(104,1,'生成代码',0,NULL,'2018-04-14 21:50:10'),(105,1,'生成代码',1,NULL,'2018-04-14 22:04:21'),(106,1,'文件上传',1,NULL,'2018-04-14 22:12:57'),(107,1,'文件删除',1,NULL,'2018-04-14 22:14:21'),(108,1,'登陆',1,NULL,'2018-04-15 01:43:48'),(109,1,'退出',1,NULL,'2018-04-15 01:49:59'),(110,1,'登陆',1,NULL,'2018-04-15 01:50:09'),(111,1,'登陆',1,NULL,'2018-04-15 11:36:18'),(112,1,'保存角色',1,NULL,'2018-04-15 11:39:42'),(113,1,'退出',1,NULL,'2018-04-15 11:39:46'),(114,1,'登陆',1,NULL,'2018-04-15 11:39:51'),(115,1,'生成代码',1,NULL,'2018-04-15 11:42:35'),(116,1,'退出',1,NULL,'2018-04-15 11:47:17'),(117,1,'登陆',1,NULL,'2018-04-15 11:47:21'),(118,1,'退出',1,NULL,'2018-04-15 12:11:38'),(119,1,'登陆',1,NULL,'2018-04-15 12:11:44'),(120,1,'登陆',1,NULL,'2018-04-24 10:29:06'),(121,1,'登陆',1,NULL,'2018-04-24 10:32:11'),(122,1,'登陆',1,NULL,'2018-04-24 10:34:41'),(123,1,'登陆',1,NULL,'2018-04-24 10:55:53'),(124,1,'登陆',1,NULL,'2018-04-24 10:57:04'),(125,1,'登陆',1,NULL,'2018-04-24 10:59:25'),(126,1,'退出',1,NULL,'2018-04-24 11:07:13'),(127,1,'登陆',1,NULL,'2018-04-24 11:09:14'),(128,1,'保存角色',1,NULL,'2018-04-24 11:09:34'),(129,1,'文件上传',1,NULL,'2018-04-24 11:09:48'),(130,1,'文件删除',1,NULL,'2018-04-24 11:09:58'),(131,1,'登陆',1,NULL,'2018-04-24 17:46:26'),(132,1,'保存角色',1,NULL,'2018-04-24 17:47:12'),(133,1,'登陆',1,NULL,'2018-04-25 14:38:39'),(134,1,'退出',1,NULL,'2018-04-25 14:39:03'),(135,1,'登陆',1,NULL,'2018-04-25 14:39:09'),(136,1,'退出',1,NULL,'2018-04-25 14:46:06'),(137,1,'登陆',1,NULL,'2018-04-25 14:57:04'),(138,1,'退出',1,NULL,'2018-04-25 14:57:42'),(139,1,'登陆',1,NULL,'2018-04-25 15:03:02'),(140,1,'退出',1,NULL,'2018-04-25 15:03:08'),(141,1,'登陆',1,NULL,'2018-04-25 15:08:17'),(142,1,'退出',1,NULL,'2018-04-25 15:09:17'),(143,1,'登陆',1,NULL,'2018-04-25 15:23:24'),(144,1,'退出',1,NULL,'2018-04-25 15:30:49'),(145,1,'登陆',1,NULL,'2018-04-25 15:30:57'),(146,1,'保存角色',1,NULL,'2018-04-25 15:52:18'),(147,1,'保存角色',1,NULL,'2018-04-25 15:53:03'),(148,1,'登陆',1,NULL,'2018-04-25 16:02:21'),(149,1,'退出',1,NULL,'2018-04-25 16:03:22'),(150,1,'登陆',1,NULL,'2018-04-26 09:32:24'),(151,1,'修改菜单',1,NULL,'2018-04-26 09:33:47'),(152,1,'退出',1,NULL,'2018-04-26 09:33:59'),(153,1,'登陆',1,NULL,'2018-04-26 09:34:07'),(154,1,'退出',1,NULL,'2018-04-26 09:36:21'),(155,1,'登陆',1,NULL,'2018-04-26 09:36:36'),(156,1,'修改菜单',1,NULL,'2018-04-26 09:37:12'),(157,1,'退出',1,NULL,'2018-04-26 09:37:22'),(158,1,'登陆',1,NULL,'2018-04-26 09:37:33');
 
 #
 # Structure for table "sys_permission"
@@ -477,7 +478,7 @@ CREATE TABLE `sys_permission` (
 # Data for table "sys_permission"
 #
 
-INSERT INTO `sys_permission` VALUES (1,0,'用户管理','fa-users','pages/user/userList.html',1,'',2),(2,1,'用户查询','fa-user','pages/user/userList.html',1,'',2),(3,2,'查询','','',2,'sys:user:query',100),(4,2,'新增','','',2,'sys:user:add',100),(6,0,'修改密码','fa-pencil-square-o','pages/user/changePassword.html',1,'sys:user:password',4),(7,0,'系统设置','fa-gears','',1,'',5),(8,7,'菜单','fa-cog','pages/menu/menuList.html',1,'',6),(9,8,'查询','','',2,'sys:menu:query',100),(10,8,'新增','','',2,'sys:menu:add',100),(11,8,'删除','','',2,'sys:menu:del',100),(12,7,'角色','fa-user-secret','pages/role/roleList.html',1,'',7),(13,12,'查询','','',2,'sys:role:query',100),(14,12,'新增','','',2,'sys:role:add',100),(15,12,'删除','','',2,'sys:role:del',100),(16,0,'文件管理','fa-folder-open','pages/file/fileList.html',1,'',8),(17,16,'查询','','',2,'sys:file:query',100),(18,16,'删除','','',2,'sys:file:del',100),(19,0,'数据源监控','fa-eye','druid/index.html',1,'',9),(20,0,'接口swagger','fa-file-pdf-o','swagger-ui.html',1,'',10),(21,0,'代码生成','fa-wrench','pages/generate/edit.html',1,'generate:edit',11),(22,0,'公告管理','fa-book','pages/notice/noticeList.html',1,'',12),(23,22,'查询','','',2,'notice:query',100),(24,22,'添加','','',2,'notice:add',100),(25,22,'删除','','',2,'notice:del',100),(26,0,'日志查询','fa-reorder','pages/log/logList.html',1,'sys:log:query',13),(27,0,'邮件管理','fa-envelope','pages/mail/mailList.html',1,'',14),(28,27,'发送邮件','','',2,'mail:send',100),(29,27,'查询','','',2,'mail:all:query',100),(30,0,'定时任务管理','fa-tasks','pages/job/jobList.html',1,'',15),(31,30,'查询','','',2,'job:query',100),(32,30,'新增','','',2,'job:add',100),(33,30,'删除','','',2,'job:del',100),(34,0,'excel导出','fa-arrow-circle-down','pages/excel/sql.html',1,'',16),(35,34,'导出','','',2,'excel:down',100),(36,34,'页面显示数据','','',2,'excel:show:datas',100),(37,0,'字典管理','fa-reddit','pages/dict/dictList.html',1,'',17),(38,37,'查询','','',2,'dict:query',100),(39,37,'新增','','',2,'dict:add',100),(40,37,'删除','','',2,'dict:del',100),(41,0,'注册中心','fa-th-list','pages/euraka/euraka.html',1,'',18),(42,0,'配置中心','fa-th-list','http://127.0.0.1:8070',1,'',19),(43,0,'资源管理','fa-users','pages/appList/rosourceList.html',1,'',20),(44,0,'应用管理','fa-users','pages/app/oauthClientDetailsList.html',1,'',21);
+INSERT INTO `sys_permission` VALUES (1,0,'用户管理','fa-users','',1,'',2),(2,1,'用户查询','fa-user','pages/user/userList.html',1,'',3),(3,2,'查询','','',2,'sys:user:query',100),(4,2,'新增','','',2,'sys:user:add',100),(6,0,'修改密码','fa-pencil-square-o','pages/user/changePassword.html',1,'sys:user:password',4),(7,0,'系统设置','fa-gears','',1,'',5),(8,7,'菜单','fa-cog','pages/menu/menuList.html',1,'',6),(9,8,'查询','','',2,'sys:menu:query',100),(10,8,'新增','','',2,'sys:menu:add',100),(11,8,'删除','','',2,'sys:menu:del',100),(12,7,'角色','fa-user-secret','pages/role/roleList.html',1,'',7),(13,12,'查询','','',2,'sys:role:query',100),(14,12,'新增','','',2,'sys:role:add',100),(15,12,'删除','','',2,'sys:role:del',100),(16,0,'文件管理','fa-folder-open','pages/file/fileList.html',1,'',8),(17,16,'查询','','',2,'sys:file:query',100),(18,16,'删除','','',2,'sys:file:del',100),(19,0,'数据源监控','fa-eye','druid/index.html',1,'',9),(20,0,'接口swagger','fa-file-pdf-o','swagger-ui.html',1,'',10),(21,0,'代码生成','fa-wrench','pages/generate/edit.html',1,'generate:edit',11),(22,0,'公告管理','fa-book','pages/notice/noticeList.html',1,'',12),(23,22,'查询','','',2,'notice:query',100),(24,22,'添加','','',2,'notice:add',100),(25,22,'删除','','',2,'notice:del',100),(26,0,'日志查询','fa-reorder','pages/log/logList.html',1,'sys:log:query',13),(27,0,'邮件管理','fa-envelope','pages/mail/mailList.html',1,'',14),(28,27,'发送邮件','','',2,'mail:send',100),(29,27,'查询','','',2,'mail:all:query',100),(30,0,'定时任务管理','fa-tasks','pages/job/jobList.html',1,'',15),(31,30,'查询','','',2,'job:query',100),(32,30,'新增','','',2,'job:add',100),(33,30,'删除','','',2,'job:del',100),(34,0,'excel导出','fa-arrow-circle-down','pages/excel/sql.html',1,'',16),(35,34,'导出','','',2,'excel:down',100),(36,34,'页面显示数据','','',2,'excel:show:datas',100),(37,0,'字典管理','fa-reddit','pages/dict/dictList.html',1,'',17),(38,37,'查询','','',2,'dict:query',100),(39,37,'新增','','',2,'dict:add',100),(40,37,'删除','','',2,'dict:del',100),(41,0,'注册中心','fa-th-list','pages/euraka/euraka.html',1,'',18),(42,0,'配置中心','fa-th-list','http://127.0.0.1:8070',1,'',19),(43,0,'资源管理','fa-users','pages/appList/rosourceList.html',1,'',20),(44,0,'应用管理','fa-users','pages/app/oauthClientDetailsList.html',1,'',21);
 
 #
 # Structure for table "sys_role"
@@ -491,13 +492,13 @@ CREATE TABLE `sys_role` (
   `updateTime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 #
 # Data for table "sys_role"
 #
 
-INSERT INTO `sys_role` VALUES (1,'ADMIN','管理员','2017-05-01 13:25:39','2018-04-15 11:39:42'),(2,'USER','','2017-08-01 21:47:31','2018-03-14 13:03:18'),(3,'test1','test','2018-03-14 13:03:36','2018-03-14 13:04:18');
+INSERT INTO `sys_role` VALUES (1,'ADMIN','管理员','2017-05-01 13:25:39','2018-04-15 11:39:42'),(2,'USER','','2017-08-01 21:47:31','2018-03-14 13:03:18'),(3,'test1','test','2018-03-14 13:03:36','2018-03-14 13:04:18'),(4,'ttttt','ttt','2018-04-24 11:09:34','2018-04-24 11:09:34'),(5,'11111','222222','2018-04-24 17:47:12','2018-04-25 15:53:03');
 
 #
 # Structure for table "sys_role_permission"
@@ -513,7 +514,7 @@ CREATE TABLE `sys_role_permission` (
 # Data for table "sys_role_permission"
 #
 
-INSERT INTO `sys_role_permission` VALUES (1,1),(1,2),(1,3),(1,4),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27),(1,28),(1,29),(1,30),(1,31),(1,32),(1,33),(1,34),(1,35),(1,36),(1,37),(1,38),(1,39),(1,40),(1,41),(1,42),(1,43),(1,44),(2,1),(2,2),(2,3),(2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,13),(2,14),(2,15),(2,16),(2,17),(2,18),(2,19),(2,20),(2,21),(2,22),(2,23),(2,24),(2,25),(2,30),(2,31),(2,34),(2,36),(3,1),(3,2),(3,3),(3,7),(3,12),(3,13),(3,14),(3,15);
+INSERT INTO `sys_role_permission` VALUES (1,1),(1,2),(1,3),(1,4),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27),(1,28),(1,29),(1,30),(1,31),(1,32),(1,33),(1,34),(1,35),(1,36),(1,37),(1,38),(1,39),(1,40),(1,41),(1,42),(1,43),(1,44),(2,1),(2,2),(2,3),(2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,13),(2,14),(2,15),(2,16),(2,17),(2,18),(2,19),(2,20),(2,21),(2,22),(2,23),(2,24),(2,25),(2,30),(2,31),(2,34),(2,36),(3,1),(3,2),(3,3),(3,7),(3,12),(3,13),(3,14),(3,15),(4,1),(4,2),(4,3),(4,4),(4,6),(4,7),(4,8),(4,9),(4,10),(4,11),(4,12),(4,13),(4,14),(4,15),(4,16),(4,17),(4,18),(4,19),(4,20),(4,21),(4,22),(4,23),(4,24),(4,25),(4,26),(4,27),(4,28),(4,29),(4,30),(4,31),(4,32),(4,33),(4,34),(4,35),(4,36),(4,37),(4,38),(4,39),(4,40),(4,41),(4,42),(4,43),(4,44),(5,1),(5,2),(5,3),(5,4);
 
 #
 # Structure for table "sys_role_user"
