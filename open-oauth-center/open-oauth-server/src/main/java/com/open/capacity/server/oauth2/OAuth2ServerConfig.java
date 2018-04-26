@@ -165,8 +165,10 @@ public class OAuth2ServerConfig {
 			http.formLogin()
 					// 对请求授权
 					.and().authorizeRequests()
+					.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
 					// 所有需要restful保护的资源都需要加入到这个requestMatchers，加入到的资源作为资源服务器保护的资源
-					.and().requestMatchers().antMatchers("/users", "/**/users").and().authorizeRequests()
+					.and().requestMatchers()
+					.antMatchers("/users", "/**/users").and().authorizeRequests()
 					.antMatchers("/**/users", "/users").authenticated().anyRequest().authenticated() // 所有的请求认证
 					.and().csrf().disable() // 关闭Could not verify the provided
 											// CSRF

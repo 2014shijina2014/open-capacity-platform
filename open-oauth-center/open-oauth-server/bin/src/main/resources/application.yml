@@ -19,15 +19,16 @@ spring:
       filters: stat,wall
 ################### mysq end l##########################
   redis:
-    database: 1
 ################### redis 单机版 start ########################## 
     host: 127.0.0.1
     port: 6379    
+    timeout: 3000
+    database: 1
 ################### redis 单机版 end ##########################   
 #    cluster:
-#      nodes: 192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
-##        #130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
-#        #192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
+#      nodes: 130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
+###        #130.75.131.237:7000,130.75.131.238:7000,130.75.131.239:7000,130.75.131.237:7001,130.75.131.238:7001,130.75.131.239:7001
+##        #192.168.3.157:7000,192.168.3.158:7000,192.168.3.159:7000,192.168.3.157:7001,192.168.3.158:7001,192.168.3.159:7001
 #    timeout: 1000 # 连接超时时间（毫秒）
 #    pool:
 #      max-active: 10  # 连接池最大连接数（使用负值表示没有限制）
@@ -44,6 +45,8 @@ mybatis:
 
 security:
   oauth2:
+    resource:
+      filter-order: 3
     token:
       store:
         type: redis
@@ -56,7 +59,7 @@ eureka:
     healthcheck:
       enabled: true
     serviceUrl:
-      defaultZone:  http://127.0.0.1:1111/eureka#http://130.75.131.241:8761/eureka,http://130.75.131.248:8762/eureka
+      defaultZone:  http://127.0.0.1:1111/eureka  #http://130.75.131.241:8761/eureka,http://130.75.131.248:8762/eureka
       #http://134.224.249.33:1111/eureka/  正式库
       #http://134.224.249.33:1111/eureka/  测试库
       #http://127.0.0.1:8761/eureka,http://127.0.0.1:8762/eureka
@@ -65,6 +68,8 @@ eureka:
     instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
     lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
     lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
+    #注册实例文档
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html # ${server.port}为该服务的端口号  
 logging:
   level:
     root: INFO
