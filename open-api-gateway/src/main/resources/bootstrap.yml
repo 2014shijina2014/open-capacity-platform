@@ -11,7 +11,4 @@ management:
 #      fail-fast: true  
 #      profile: dev   # eureka-config-client-dev.yml
 
-#jdbc   拉取数据库配置
-#config 拉取阿波罗配置
-zuul:
-  store: jdbc
+ 

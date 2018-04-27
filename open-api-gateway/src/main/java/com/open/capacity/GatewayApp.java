@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.open.capacity;
 
 import org.springframework.boot.SpringApplication;
@@ -6,24 +9,26 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * @author 作者 owen E-mail: 624191343@qq.com
- * @version 创建时间：2017年12月2日 下午7:11:57 类说明 #从config
- *          server的trunk拉取unieap-config-client-dev.yml文件
- *          bootstrap的spring.application.name-profiles
- *
- *          spring: cloud: config: uri: http://192.168.3.2:8888 uri
- *          改变默认充本机localohostL8888拉取配置
+ * @author 作者 owen E-mail: wang.wen@neusoft.com
+ * @version 创建时间：2017年11月12日 上午22:57:51 类说明
  */
+
+@Configuration
 @EnableZuulProxy
 @EnableDiscoveryClient
 @SpringBootApplication
 public class GatewayApp {
+
 	@Bean
 	@LoadBalanced
 	public RestTemplate restTemplate() {
@@ -31,7 +36,7 @@ public class GatewayApp {
 	}
 
 	@Bean
-	//前后分离 ajax跨域调用处理
+	// 前后分离 ajax跨域调用处理
 	public CorsFilter corsFilter() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
@@ -52,7 +57,7 @@ public class GatewayApp {
 	}
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(GatewayApp.class, args);
 	}
+
 }
