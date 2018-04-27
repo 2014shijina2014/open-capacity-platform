@@ -42,9 +42,9 @@
 		<!-- oauth2 模块 -->
 		<module>open-oauth-center</module>
 		
-		<!-- cxf框架集成
+		<!-- cxf框架集成 -->
 		<module>open-cxf-service</module>
-		 -->
+		
 		
 		<!--加分项 阿波罗配置中心 -->
 		<module>apollo</module>
