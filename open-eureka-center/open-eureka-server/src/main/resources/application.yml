@@ -1,0 +1,131 @@
+server:
+  port: 1111
+spring:
+  application:
+    name: open-eureka-server
+  profiles: slave0
+management:
+  security:
+    enabled: false  
+eureka:
+  server:
+    enable-self-preservation: true    #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
+    eviction-interval-timer-in-ms: 15000 #清理间隔（单位毫秒，默认是60*1000）5秒将客户端剔除的服务在服务注册列表中剔除# 
+  client: 
+    register-with-eureka: false  #false:不作为一个客户端注册到注册中心
+    fetch-registry: true      #为true时，可以启动，但报异常：Cannot execute request on any known server
+    service-url:
+      defaultZone: http://127.0.0.1:1111/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 30    ## 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 90 # 续约到期时间（默认90秒）  
+logging:
+  level:
+    root: INFO
+    com.drei: DEBUG    
+    org.springframework.web: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    
+---
+server:
+  port: 1111
+spring:
+  application:
+    name: open-eureka-server
+  profiles: slave1
+management:
+  security:
+    enabled: false   
+eureka:
+  server:
+    enable-self-preservation: true    #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
+    eviction-interval-timer-in-ms: 15000 #清理间隔（单位毫秒，默认是60*1000）5秒将客户端剔除的服务在服务注册列表中剔除# 
+  client: 
+    register-with-eureka: true  #false:不作为一个客户端注册到注册中心
+    fetch-registry: true      #为true时，可以启动，但报异常：Cannot execute request on any known server
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka,http://127.0.0.1:1112/eureka,http://127.0.0.1:1113/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 30    ## 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 90 # 续约到期时间（默认90秒）  
+logging:
+  level:
+    root: INFO
+    com.drei: DEBUG    
+    org.springframework.web: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    
+---
+
+server:
+  port: 1112
+spring:
+  application:
+    name: open-eureka-server
+  profiles: slave2
+management:
+  security:
+    enabled: false   
+eureka:
+  server:
+    enable-self-preservation: true    #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
+    eviction-interval-timer-in-ms: 15000 #5秒将客户端剔除的服务在服务注册列表中剔除
+  client: 
+    register-with-eureka: true  #false:不作为一个客户端注册到注册中心
+    fetch-registry: true      #为true时，可以启动，但报异常：Cannot execute request on any known server
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka,http://127.0.0.1:1112/eureka,http://127.0.0.1:1113/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 30    ## 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 90 # 续约到期时间（默认90秒）
+logging:
+  level:
+    root: INFO
+    com.drei: DEBUG    
+    org.springframework.web: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+---
+
+server:
+  port: 1113
+spring:
+  application:
+    name: open-eureka-server
+  profiles: slave3
+management:
+  security:
+    enabled: false   
+eureka:
+  server:
+    enable-self-preservation: true    #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
+    eviction-interval-timer-in-ms: 15000 #5秒将客户端剔除的服务在服务注册列表中剔除
+  client: 
+    register-with-eureka: true  #false:不作为一个客户端注册到注册中心
+    fetch-registry: true      #为true时，可以启动，但报异常：Cannot execute request on any known server
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka,http://127.0.0.1:1112/eureka,http://127.0.0.1:1113/eureka      
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 30    ## 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 90 # 续约到期时间（默认90秒）
+logging:
+  level:
+    root: INFO
+    com.drei: DEBUG    
+    org.springframework.web: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE

@@ -1,0 +1,44 @@
+server:
+  port: 7760
+  tomcat:
+    uri-encoding: UTF-8
+management:
+  security:
+    enabled: false    
+spring:
+  application:
+    name: open-eureka-client
+  http:
+    encoding:
+      charset:  utf8
+      force: true
+      enabled: true
+
+           
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone:  http://127.0.0.1:1111/eureka#http://130.75.131.241:8761/eureka,http://130.75.131.248:8762/eureka
+      #http://134.224.249.33:1111/eureka/  正式库
+      #http://134.224.249.33:1111/eureka/  测试库
+      #http://127.0.0.1:8761/eureka,http://127.0.0.1:8762/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
+    #注册实例文档
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html # ${server.port}为该服务的端口号  
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.neusoft: DEBUG     
+    com.netflix: DEBUG                    #用于心跳检测输出的日志
+    
+
+
