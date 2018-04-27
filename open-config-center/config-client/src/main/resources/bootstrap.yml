@@ -1,0 +1,48 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: eureka-config-server     #生产环境需要使用config server配置在eureka中的负载均衡serviceId
+      # spring cloud config 默认三维结构 / 
+      name: unieap-eureka-config-client  #拉取的信息为 zuulservice1-dev.yml  #应用
+      profile: dev   #拉取的信息为 zuulservice-dev.yml    config.name +config.profile  组成客户端需要的文件名称#环境
+      label: master   #版本分支
+#    配置修改kafka推送更新信息      
+#    stream:  
+#      #指定用kafka stream来作为默认消息中间件  
+#      default-binder: kafka  
+#      kafka:  
+#        #来自KafkaBinderConfigurationProperties  
+#        binder:  
+#          brokers: zookeeper01:9092,zookeeper02:9092,zookeeper03:9092 
+#          zkNodes: zookeeper01:2181,zookeeper02:2181,zookeeper03:2181  
+#          #如果需要传递自定义header信息，需要在此处声明，不然自定义消息头是不会出现在最终消息当中的  
+##          headers: myType  
+#          auto-add-partitions: true
+#          auto-create-topics: true
+#          min-partition-count: 3
+#          replication-factor: 3
+#          configuration:  
+#            auto:  
+#              offset:  
+#                #可以设置原生kafka属性，比如设置新的消费组从最新的offset开始消费  
+#                reset: latest
+         
+#Setting logging levels
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: DEBUG
+    com.neusoft: DEBUG
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka 
+      #http://127.0.0.1:1111/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除

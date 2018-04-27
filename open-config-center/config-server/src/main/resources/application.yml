@@ -1,0 +1,92 @@
+server:
+  port: 7202
+management:
+  security:
+    enabled: false 
+
+##启用shutdown
+#endpoints:
+#  shutdown:
+#    enabled: true
+#  sensitive: false    
+    
+#git svn方式    
+#spring:
+#  application:
+#    name: eureka-config-server
+#  ##config server的配置原理：配置git或者svn目录，从远程拉取目录中的文件下载到basedir  
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#      server:
+#        encrypt.enabled: false
+#        git:
+##          uri: http://130.75.131.219:3000/owen/test   #config server 配置远程工程名称 gogs服务器
+##          searchPaths: zuulservice                  #配置目录 https://github.com/neuwangwen/test的子目录
+##          username: root                      #git用户名
+##          password: 1q2w3e4r                         #git密码
+#          uri: https://github.com/neuwangwen/test   #config server 配置远程工程名称 github服务器
+#          searchPaths: zuulservice                  #配置目录 https://github.com/neuwangwen/test的子目录
+#          username: neuwangwen                      #git用户名
+#          password: 520owen                         #git密码
+#          basedir: G:\\github                       #下载到本地目录
+#          force-pull: false
+        
+#db方式
+spring:
+  application:
+    name: eureka-config-server
+  profiles: 
+    active: jdbc  
+  ##config server的配置原理：配置git或者svn目录，从远程拉取目录中的文件下载到basedir  
+  cloud:
+    config:
+      label: master
+      discovery:
+        enabled: true
+      server:
+        encrypt.enabled: false
+        default-label: master    
+        jdbc: 
+          sql: SELECT `KEY` , `VALUE` FROM properties where APPLICATION=? and PROFILE=? and LABLE=?
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+#      driver-class-name:  oracle.jdbc.OracleDriver
+#      url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
+#      username: crm_owner_user
+#      password: bss_crm_test
+#      filters: stat,wall
+################## mysql start ############################
+      driver-class-name:  com.mysql.jdbc.Driver
+      #     192.168.3.150   130.75.131.211
+      url: jdbc:mysql://130.75.131.211:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      username: root
+      password: 1q2w3e4r
+      filters: stat,wall  
+   
+ 
+        
+        
+            
+#Setting logging levels
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: DEBUG
+    com.neusoft: DEBUG
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka   
+      #http://127.0.0.1:1111/eureka
+      #http://130.75.131.241:8761/eureka,http://130.75.131.248:8762/eureka
+      #http://134.224.249.33:1111/eureka/  正式库
+      #http://134.224.249.33:1111/eureka/  测试库
+      #http://127.0.0.1:8761/eureka,http://127.0.0.1:8762/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除

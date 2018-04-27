@@ -1,0 +1,20 @@
+server:
+  port: 7001
+  
+management:
+  security:
+    enabled: false 
+
+spring:
+  application:
+    name: unieap-eureka-config-client
+test:            
+ user:
+  name: li 
+
+  #Setting logging levels
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: DEBUG
+    com.neusoft: DEBUG

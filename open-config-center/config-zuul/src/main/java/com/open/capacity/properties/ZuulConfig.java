@@ -1,0 +1,25 @@
+package com.open.capacity.properties;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+/** 
+* @author 作者 owen E-mail: wang.wen@neusoft.com
+* @version 创建时间：2018年2月23日 下午10:29:25 
+* 类说明 
+*/
+@Configuration
+public class ZuulConfig  {
+
+    @Bean(name="zuul.CONFIGURATION_PROPERTIES")
+    @RefreshScope
+    @ConfigurationProperties("zuul")
+    @Primary
+    public ZuulProperties zuulProperties() {
+        return new ZuulProperties();
+    }
+}
