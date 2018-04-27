@@ -48,7 +48,7 @@
 		
 		<!--加分项 阿波罗配置中心 -->
 		<module>apollo</module>
-		<module>open-apollo-gateway</module>
+		<module>apollo-gateway</module>
 	</modules>
 	<dependencies>
 		<dependency>
