@@ -22,7 +22,7 @@
 
 5.角色菜单管理
 
- ![](https://i.imgur.com/4EJF9By.jpg)
+![](https://i.imgur.com/4EJF9By.jpg)
    
 6.注册中心   
 
