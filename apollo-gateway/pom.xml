@@ -8,7 +8,6 @@
   <artifactId>apollo-gateway</artifactId>
    <description>阿波罗整合网关</description>
   
-  
   <dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
