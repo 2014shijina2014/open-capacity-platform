@@ -1,0 +1,4 @@
+management:
+  security:
+    enabled: false
+    
