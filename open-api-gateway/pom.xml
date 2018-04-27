@@ -7,7 +7,6 @@
   </parent>
   <artifactId>open-api-gateway</artifactId>
   
-  
   <dependencies>
   
   		<!-- 关系型和非关系型数据库配置 -->
