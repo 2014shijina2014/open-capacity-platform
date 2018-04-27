@@ -23,7 +23,7 @@ public class AuthAuthorizeConfigProvider implements AuthorizeConfigProvider {
 		//免token登录设置
 		config.antMatchers("/test163").permitAll();
 		config.antMatchers("/auth/**").permitAll();
-		
+		config.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll() ;
 		//token正确登录
 		config.anyRequest().authenticated() ;
 		return true;

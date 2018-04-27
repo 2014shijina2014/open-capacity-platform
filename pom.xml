@@ -18,18 +18,16 @@
 	</properties>
 
 	<modules>
-		<!-- 阿波罗配置中心 -->
-		<module>apollo</module>
-		<module>open-apollo-gateway</module>
+		
 
 		<!-- db基础模块 -->
 		<module>open-db-core</module>
 
 		<!-- 服务注册中心模块 -->
-		<module>open-eureka-cloud</module>
+		<module>open-eureka-center</module>
 
 		<!-- 配置中心模块 -->
-		<module>open-config-cloud</module>
+		<module>open-config-center</module>
 
 		<!-- 链路跟踪模块 -->
 		<module>open-zipkin-cloud</module>
@@ -46,6 +44,11 @@
 		
 		<!-- cxf框架集成 -->
 		<module>open-cxf-service</module>
+		
+		
+		<!--加分项 阿波罗配置中心 -->
+		<module>apollo</module>
+		<module>open-apollo-gateway</module>
 	</modules>
 	<dependencies>
 		<dependency>

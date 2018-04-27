@@ -58,6 +58,7 @@
 			<artifactId>swagger-core</artifactId>
 			<version>1.5.8</version>
 		</dependency>
+	 
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>

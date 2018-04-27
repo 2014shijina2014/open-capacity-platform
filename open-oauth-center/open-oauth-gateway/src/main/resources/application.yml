@@ -13,9 +13,9 @@ spring:
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
       #     192.168.3.150   130.75.131.211
-      url: jdbc:mysql://130.75.131.211:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://134.224.249.39:3306/oauth2-security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
-      password: 1q2w3e4r
+      password: root
       filters: stat,wall
 ################### mysq end l##########################
   redis:
@@ -78,6 +78,11 @@ zuul:
     auth:  
       path: /auth/**
       service-id: open-auth-server 
+    client:  
+      sensitive-headers:
+      path: /client/**
+      service-id: open-eureka-client
+      strip-prefix: true   
  
 eureka:
   client:
@@ -89,6 +94,8 @@ eureka:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
     lease-renewal-interval-in-seconds: 5
+    #注册实例文档
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html # ${server.port}为该服务的端口号  
   
   
 

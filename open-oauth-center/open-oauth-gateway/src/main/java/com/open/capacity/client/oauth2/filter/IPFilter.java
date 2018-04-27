@@ -61,18 +61,18 @@ public class IPFilter extends OncePerRequestFilter implements InitializingBean {
 		accessToken = extractToken(request);
 
 		
-		if(!pathMatcher.match("/auth/**", request.getRequestURI())){
-			
-			if (accessToken == null) {
-				authenticationFailureHandler.onAuthenticationFailure(request, response,
-						new AuthenticationException("token 不存在") {
-
-							private static final long serialVersionUID = 6154557943607468780L;
-
-						});
-				return;
-			}
-		}
+//		if(!pathMatcher.match("/auth/**", request.getRequestURI())){
+//			
+//			if (accessToken == null) {
+//				authenticationFailureHandler.onAuthenticationFailure(request, response,
+//						new AuthenticationException("token 不存在") {
+//
+//							private static final long serialVersionUID = 6154557943607468780L;
+//
+//						});
+//				return;
+//			}
+//		}
 		
 //		String ipAddr = this.getIpAddr(req);
 //		logger.info("请求IP地址为：[{}]", ipAddr);

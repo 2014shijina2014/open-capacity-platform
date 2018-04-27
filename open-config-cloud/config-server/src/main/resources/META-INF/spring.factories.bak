@@ -1,5 +1,0 @@
-
-# Bootstrap components
-org.springframework.cloud.bootstrap.BootstrapConfiguration=\
-com.open.capacity.locator.ConfigServicePropertySourceLocator,\
-com.open.capacity.config.ConfigServiceBootstrapConfiguration
