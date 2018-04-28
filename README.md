@@ -52,7 +52,7 @@
 ├    		├── cachecloud-open-client    
 ├    		├── cachecloud-open-common   
 ├   		└── cachecloud-open-web   
-├	open-api-gateway -- 服务网关[9000]   
+├	open-api-gateway -- 服务网关[9200]   
 ├	open-config-cloud  --基于spring cloud config 的配置中心   
 ├    		├── config-bus    --基于spring cloud bus的服务总线[8201]  
 ├    		├── config-client ----基于spring cloud client端[7001]   
@@ -66,7 +66,53 @@
 ├          ├── open-zipkin-memery-server -- 内存跟踪服务端[9411]  
 └          └─ open-zipkin-memery-client -- 内存链路跟踪客户端[9412]  
 
-一. 阿波罗配置中心详解  
+
+
+一. open-capacity-platform能力开放平台管理   
+1.注册中心   
+	![](https://i.imgur.com/ye3kyrJ.jpg)      
+2.配置中心   
+    ![](https://i.imgur.com/VqK4iZB.jpg)    
+	![](https://i.imgur.com/h3Z0cfO.jpg)     
+
+
+3.认证服务器-->认证中心
+
+
+3.1本认证中心采取的的数据库管理应用信息的方式来管理client_id client_secret,同时token的生成方式支持redis集群或者jwt
+![](https://i.imgur.com/LpxeaC3.jpg)
+
+
+3.2由于spring security oauth 默认定义的/oauth/token 会验证client_id以及client_secret,如果不在数据库中会弹框,所以根据源码，自定义/user/token节点以password方式的获取token，并给出友好提示 效果如下
+![](https://i.imgur.com/KUjyHu2.jpg)
+
+
+4.认证中心集成swagger
+
+4.1 请求/user/token
+![](https://i.imgur.com/rdmECb2.jpg)
+4.1 请求/users节点
+![](https://i.imgur.com/YAWt8dG.jpg)
+
+5.认证服务器-->认证中心
+
+5.1.1无效的client_id
+![](https://i.imgur.com/jjGeHy4.jpg)
+
+5.1.2无效的client_secret
+![](https://i.imgur.com/adBHsJz.jpg)
+
+5.1.3用户名密码错误
+![](https://i.imgur.com/JwioaAW.jpg)
+
+4.1.4成功
+![](https://i.imgur.com/os86Yvr.jpg)
+
+![](https://i.imgur.com/7j7dpjr.png)
+
+
+
+二. 阿波罗配置中心详解  
 
 1. 前言  
 携程 Apollo 配置中心 学习笔记， Windows 系统搭建基于携程Apollo配置中心分布式模式， 在此基础上，介绍如何使用阿波罗整合zuul实现动态路由。
@@ -196,7 +242,7 @@ public class ApiGateWayApp {
  
  
          
-二. 搜狐cachecloud云平台管理    
+三. 搜狐cachecloud云平台管理    
 - 修改配置    
  ![](https://i.imgur.com/TVWXVhd.jpg)    
 - 项目编译    
@@ -241,43 +287,6 @@ public class ApiGateWayApp {
 
 详细搭建可以参考http://www.ywnds.com/?p=10610
 
-三. open-capacity-platform能力开放平台管理   
-1.注册中心   
-	![](https://i.imgur.com/ye3kyrJ.jpg)      
-2.配置中心   
-    ![](https://i.imgur.com/VqK4iZB.jpg)    
-	![](https://i.imgur.com/h3Z0cfO.jpg)     
-
-
-3.认证服务器-->认证中心
-
-
-3.1本认证中心采取的的数据库管理应用信息的方式来管理client_id client_secret,同时token的生成方式支持redis集群或者jwt
-![](https://i.imgur.com/LpxeaC3.jpg)
-
-
-3.2由于spring security oauth 默认定义的/oauth/token 会验证client_id以及client_secret,如果不在数据库中会弹框,所以根据源码，自定义/oauth2/token节点以password方式的获取token，并给出友好提示 效果如下
-![](https://i.imgur.com/KUjyHu2.jpg)
-
-
-
-
-一.错误的打开方式
-
-1无效的client_id
-![](https://i.imgur.com/jjGeHy4.jpg)
-
-2.无效的client_secret
-![](https://i.imgur.com/adBHsJz.jpg)
-
-3.用户名密码错误
-![](https://i.imgur.com/JwioaAW.jpg)
-
-二.正确的打开方式
-
-![](https://i.imgur.com/os86Yvr.jpg)
-
-![](https://i.imgur.com/7j7dpjr.png)
 
 
 
