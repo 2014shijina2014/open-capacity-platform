@@ -68,7 +68,7 @@ public class OAuth2ClientConfig extends ResourceServerConfigurerAdapter {
 		}
 		resources.stateless(true);
 
-		// resources.authenticationEntryPoint(authenticationEntryPoint) ;
+		resources.authenticationEntryPoint(authenticationEntryPoint) ;
 
 		resources.expressionHandler(expressionHandler);
 		resources.accessDeniedHandler(oAuth2AccessDeniedHandler);
