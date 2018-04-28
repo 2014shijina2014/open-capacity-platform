@@ -52,8 +52,12 @@ security:
 
 #设置最大超时时间
 ribbon:  
-   ReadTimeout: 16000  
-   ConnectTimeout: 16000 
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true  
+  ReadTimeout: 16000  
+  ConnectTimeout: 16000 
 
 #设置最大容错超时时间
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 16000
@@ -71,6 +75,7 @@ hystrix:
 
  
 zuul:
+  sensitive-headers: #/oauth/token需要请求头处理
   routes:
     baidu:  
       path: /test163/**
@@ -78,12 +83,11 @@ zuul:
     auth:  
       path: /auth/**
       service-id: open-auth-server 
+      strip-prefix: false   
     client:  
-      sensitive-headers:
       path: /client/**
       service-id: open-eureka-client
-      strip-prefix: true   
- 
+      strip-prefix: false  
 eureka:
   client:
     serviceUrl:

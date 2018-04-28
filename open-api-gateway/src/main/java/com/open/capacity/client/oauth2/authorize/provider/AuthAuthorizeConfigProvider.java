@@ -12,6 +12,7 @@ import com.open.capacity.client.oauth2.authorize.AuthorizeConfigProvider;
 * @author 作者 owen E-mail: 624191343@qq.com
 * @version 创建时间：2018年1月31日 下午9:11:36 
 * 类说明 
+* 白名单
 */
 @Component
 @Order(Integer.MAX_VALUE - 1)
@@ -24,8 +25,9 @@ public class AuthAuthorizeConfigProvider implements AuthorizeConfigProvider {
 		config.antMatchers("/test163").permitAll();
 		config.antMatchers("/auth/**").permitAll();
 		config.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll() ;
-		//token正确登录
-		config.anyRequest().authenticated() ;
+		config.antMatchers("/**/v2/api-docs", "/**/configuration/ui", "/**/swagger-resources", "/**/configuration/security", "/**/swagger-ui.html", "/**/webjars/**").permitAll() ;
+		
+	
 		return true;
 	}
 

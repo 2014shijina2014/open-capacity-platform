@@ -1,15 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.open.capacity</groupId>
-    <artifactId>open-capacity-platform</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>open-api-gateway</artifactId>
-  
-  <dependencies>
-  
-  		<!-- 关系型和非关系型数据库配置 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.open.capacity</groupId>
+		<artifactId>open-capacity-platform</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>open-api-gateway</artifactId>
+
+	<dependencies>
+
+		<!-- 关系型和非关系型数据库配置 -->
 		<dependency>
 			<groupId>com.open.capacity</groupId>
 			<artifactId>open-db-core</artifactId>
@@ -55,7 +56,7 @@
 			<artifactId>swagger-core</artifactId>
 			<version>1.5.8</version>
 		</dependency>
-	 
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -66,21 +67,25 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-  		
-  
-  		<dependency>
-   			 <groupId>org.springframework.cloud</groupId>
-    			 <artifactId>spring-cloud-starter-zuul</artifactId>
+
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zuul</artifactId>
 		</dependency>
 
-	
-		 <dependency>
+
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
-	 
-	 
-	 	<dependency>
+
+
+		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-core</artifactId>
 			<version>1.5.8</version>
@@ -95,13 +100,13 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-	 
-		 
-		
-		 
+
+
+
+
 	</dependencies>
-  
-  	  <!-- 形成带第三方jar包的可执行jar包，jar包目录结构如下 application.properties lib META-INF mybatis 
+
+	<!-- 形成带第三方jar包的可执行jar包，jar包目录结构如下 application.properties lib META-INF mybatis 
 		org -->
 	<build>
 		<plugins>
@@ -120,5 +125,5 @@
 		</plugins>
 		<finalName>open-api-gateway</finalName>
 	</build>
-  
+
 </project>

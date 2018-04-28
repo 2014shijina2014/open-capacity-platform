@@ -28,9 +28,14 @@ public class OpenAuthorizeConfigManager implements AuthorizeConfigManager {
 		for (AuthorizeConfigProvider authorizeConfigProvider : authorizeConfigProviders) {
 			authorizeConfigProvider.config(config) ;
 		}
-		config
-		.anyRequest()
-			.access("@rbacService.hasPermission(request, authentication)");
+		
+		//token正确登录
+		config.anyRequest().authenticated() ;
+		
+//		放开则全部可以不需要认证访问
+//		config
+//		.anyRequest()
+//			.access("@rbacService.hasPermission(request, authentication)");
 	}
 
 }
