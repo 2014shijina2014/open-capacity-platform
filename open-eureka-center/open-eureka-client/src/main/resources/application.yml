@@ -1,5 +1,6 @@
 server:
   port: 7760
+  context-path: /client
   tomcat:
     uri-encoding: UTF-8
 management:

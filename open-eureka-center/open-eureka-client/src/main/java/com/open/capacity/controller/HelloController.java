@@ -20,7 +20,7 @@ public class HelloController {
 	
 	@GetMapping("/hello")
 	public String hello(  HttpServletRequest request){
-		return  "hello:	"+request.getRequestURL() ;
+		return  "hello:	" ;
 	}
 	
 	@GetMapping("/route")
