@@ -49,13 +49,26 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 		tokenPar.name("Authorization").description("令牌").
 		modelRef(new ModelRef("string")).
 		parameterType("header").required(false).build();
-		pars.add(tokenPar.build()); 
+		
+		
+		ParameterBuilder clientPar = new ParameterBuilder();
+		clientPar.name("client_id").description("应用ID").
+		modelRef(new ModelRef("string")).
+		parameterType("header").required(false).build();
+		
+		ParameterBuilder secretPar = new ParameterBuilder();
+		secretPar.name("client_secret").description("应用密钥").
+		modelRef(new ModelRef("string")).
+		parameterType("header").required(false).build();
+		
+		pars.add(tokenPar.build());
+		pars.add(clientPar.build()); 
+		pars.add(secretPar.build()); 
 		
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
 				// .apis(RequestHandlerSelectors.basePackage("com.open.capacity"))
 				.apis(RequestHandlerSelectors.any())
-				.paths(input -> PathSelectors.regex("/oauth.*").apply(input)
-						|| PathSelectors.regex("/user.*").apply(input)|| PathSelectors.regex("/login.*").apply(input))
+				.paths( input ->PathSelectors.regex("/user.*").apply(input))
 				// .paths(PathSelectors.any())
 				.build().globalOperationParameters(pars);
 	}

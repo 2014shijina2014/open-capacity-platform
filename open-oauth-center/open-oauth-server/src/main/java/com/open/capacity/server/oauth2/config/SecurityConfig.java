@@ -51,9 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/user/token").permitAll().antMatchers("/oauth/authorize").permitAll()
 		.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
 		.antMatchers("/login").permitAll()
-		.antMatchers("/users").permitAll()
+		.antMatchers("/users" ,"/user/login").permitAll()
 				.anyRequest().authenticated();
-		http.formLogin().loginProcessingUrl("/user/token").successHandler(authenticationSuccessHandler)
+		http.formLogin().loginProcessingUrl("/user/login").successHandler(authenticationSuccessHandler)
 				.failureHandler(authenticationFailureHandler);
 		
 		// 基于密码 等模式可以无session,不支持授权码模式

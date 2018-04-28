@@ -1,5 +1,6 @@
 server:
   port: 8000
+  context-path: /auth
 spring:
   application:
     name: open-auth-server

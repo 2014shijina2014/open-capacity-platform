@@ -87,75 +87,11 @@ public class SecurityHandlerConfig {
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 					Authentication authentication) throws IOException, ServletException {
 
-				boolean flag = false ;
-				SavedRequest savedRequest = requestCache.getRequest(request, response);
-				if(pathMatcher.match("/user/token", request.getRequestURI())){
-					flag = true ;
-				}
+				super.onAuthenticationSuccess(request, response, authentication);
+				return;
 				
 				
-				//授权码模式
-				if (savedRequest != null) {
-					super.onAuthenticationSuccess(request, response, authentication);
-					return;
-				} else if(flag && savedRequest==null){
-					String clientId = request.getHeader("client_id");
-					String clientSecret = request.getHeader("client_secret");
-
-					try {
-
-						if (clientId == null) {
-							throw new UnapprovedClientAuthenticationException("请求头中无client_id信息");
-						}
-
-						if (clientSecret == null) {
-							throw new UnapprovedClientAuthenticationException("请求头中无client_secret信息");
-						}
-
-						ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
-
-						if (clientDetails == null) {
-							throw new UnapprovedClientAuthenticationException("clientId对应的信息不存在");
-						} else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
-							throw new UnapprovedClientAuthenticationException("clientSecret不匹配");
-						}
-
-						TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId,
-								clientDetails.getScope(), "customer");
-
-						OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
-
-						OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request,
-								authentication);
-
-						OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices
-								.createAccessToken(oAuth2Authentication);
-
-						oAuth2Authentication.setAuthenticated(true);
-
-						response.setContentType("application/json;charset=UTF-8");
-						response.getWriter().write(objectMapper.writeValueAsString(oAuth2AccessToken));
-						response.getWriter().flush();
-						response.getWriter().close();
-
-					} catch (Exception e) {
-
-						response.setStatus(HttpStatus.UNAUTHORIZED.value());
-
-						response.setContentType("application/json;charset=UTF-8");
-
-						Map<String, String> rsp = new HashMap<>();
-						rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
-						rsp.put("rsp_msg", e.getMessage());
-
-						response.getWriter().write(objectMapper.writeValueAsString(rsp));
-						response.getWriter().flush();
-						response.getWriter().close();
-
-					}
-				}else{
-					super.onAuthenticationSuccess(request, response, authentication);
-				}
+				 
 
 			}
 		};
