@@ -14,9 +14,9 @@ spring:
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
       #     192.168.3.150   130.75.131.211   134.224.249.39
-      url: jdbc:mysql://134.224.249.39:3306/oauth2-security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://192.168.3.150:3306/oauth2-security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
-      password: root
+      password: 1q2w3e4r
       filters: stat,wall
 ################### mysq end l##########################
   redis:
