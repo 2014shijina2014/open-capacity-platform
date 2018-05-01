@@ -13,7 +13,7 @@ eureka:
     eviction-interval-timer-in-ms: 15000 #清理间隔（单位毫秒，默认是60*1000）5秒将客户端剔除的服务在服务注册列表中剔除# 
   client: 
     register-with-eureka: false  #false:不作为一个客户端注册到注册中心
-    fetch-registry: true      #为true时，可以启动，但报异常：Cannot execute request on any known server
+    fetch-registry: false      #为true时，可以启动，但报异常：Cannot execute request on any known server
     service-url:
       defaultZone: http://127.0.0.1:1111/eureka
   instance:
