@@ -43,11 +43,11 @@
 			<version>1.0.31</version>
 		</dependency>
 		<!-- owen增加oracle的支持 -->
-		<!--<dependency>
+		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.3</version>
-		</dependency>-->
+		</dependency>
 
 		<!-- owen增加mybatis的支持 -->
 		<dependency>
