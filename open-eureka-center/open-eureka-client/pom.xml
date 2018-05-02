@@ -44,7 +44,11 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>swagger-bootstrap-ui</artifactId>
+			<version>1.6</version>
+		</dependency>
 	</dependencies>
 	<!-- 形成带第三方jar包的可执行jar包，jar包目录结构如下 application.properties lib META-INF mybatis 
 		org -->
