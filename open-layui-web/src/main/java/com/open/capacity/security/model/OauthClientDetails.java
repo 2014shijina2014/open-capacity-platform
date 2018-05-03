@@ -4,18 +4,27 @@ package com.open.capacity.security.model;
 
 public class OauthClientDetails extends BaseEntity<Long> {
 
+	private Long id ;
 	private String clientId;
-	private String resourceIds;
+	private String resourceIds = "";
 	private String clientSecret;
-	private String scope;
-	private String authorizedGrantTypes;
+	private String scope ="all";
+	private String authorizedGrantTypes ="authorization_code,password,refresh_token,client_credentials";
 	private String webServerRedirectUri;
-	private String authorities;
-	private Integer accessTokenValidity;
-	private Integer refreshTokenValidity;
-	private String additionalInformation;
-	private String autoapprove;
+	private String authorities ="";
+	private Integer accessTokenValidity = 18000;
+	private Integer refreshTokenValidity = 18000;
+	private String additionalInformation ="";
+	private String autoapprove ="1";
 
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getClientId() {
 		return clientId;
 	}

@@ -48,7 +48,7 @@
 	</select>
 
 	<select id="list" resultType="com.open.capacity.security.model.OauthClientDetails">
-		select client_id clientId , resource_ids resourceIds , client_secret clientSecret ,
+		select id id , client_id clientId , resource_ids resourceIds , client_secret clientSecret ,
 		web_server_redirect_uri webServerRedirectUri from oauth_client_details t
 		<include refid="where" />
 		${params.orderBy}
