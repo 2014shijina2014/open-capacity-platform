@@ -1,12 +1,11 @@
 # open-capacity-platform 微服务能力开发平台 #
 
 
-框架使用视频
+框架使用视频   
 链接：https://pan.baidu.com/s/10Kae9_YotU5GnneaCk_p5Q 
 密码：xqjb
 
-项目简介
-
+项目简介  
 
 1.用户登录
 
