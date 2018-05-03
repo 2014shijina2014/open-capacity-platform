@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 /** 
-* @author 作者 owen E-mail: wang.wen@neusoft.com
+* @author 作者 owen E-mail: 624191343@qq.com
 * @version 创建时间：2018年2月23日 下午10:29:25 
 * 类说明 
 */
