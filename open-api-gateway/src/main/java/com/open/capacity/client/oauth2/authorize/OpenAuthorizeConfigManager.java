@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.stereotype.Component;
 
 /** 
-* @author 作者 owen E-mail: wang.wen@neusoft.com
+* @author 作者 owen E-mail: 624191343@qq.com
 * @version 创建时间：2018年2月1日 下午9:50:27 
 * 类说明 
 */

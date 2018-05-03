@@ -26,7 +26,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.util.Assert;
 
 /** 
-* @author 作者 owen E-mail: wang.wen@neusoft.com
+* @author 作者 owen E-mail: 624191343@qq.com
 * @version 创建时间：2017年12月18日 下午4:54:03 
 * 类说明 
 * redis集群存储token
