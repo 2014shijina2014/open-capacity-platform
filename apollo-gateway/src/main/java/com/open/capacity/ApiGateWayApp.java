@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 /** 
-* @author 作者 owen E-mail: wang.wen@neusoft.com
+* @author 作者 owen E-mail: 624191343@qq.com
 * @version 创建时间：2018年3月7日 下午4:44:46 
 * 类说明 
 */
