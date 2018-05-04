@@ -24,7 +24,7 @@ public interface AcceptTempDao {
 			+ "F_IF_GROUP_ACCEPT, F_O_DEVELOPERDEALER,F_ODEVELOPER) "
 			+ "VALUES (#{OS_TEMP_RGST}, '24328582',0,0,  #{CITY_CODE}, "
 			+ "0,4170324819906,302,#{oper_id}, #{channel_id}, "
-			+ "1, TO_DATE (#{accept_date}, 'YYYYMMDDHH24MISS'),#{service_kind},  #{service_id},0, " + "0,0, 0,0,0, "
+			+ "44, TO_DATE (#{accept_date}, 'YYYYMMDDHH24MISS'),#{service_kind},  #{service_id},0, " + "0,0, 0,0,0, "
 			+ "0,'0', '0')")
 	public int saveAcceptTemp(Map<String, Object> map);
 
@@ -47,7 +47,7 @@ public interface AcceptTempDao {
 			+ " APPLY_START_DATE,SERVICE_START_DATE,  DEALER_RETURN_DATE, DEALER_INPUT_DATE,STATUS_CHANGE_DATE,"
 			+ "BRAND_ORG,SHARE_SCALE, NET_GRID)" + " VALUES ("
 			+ "#{OS_TEMP_RGST}, 0, #{CITY_CODE}, 302,  TO_DATE (#{accept_date}, 'YYYYMMDDHH24MISS'),"
-			+ " #{oper_id},#{channel_id}, 1, 0, #{CITY_CODE},"
+			+ " #{oper_id},#{channel_id}, 44, 0, #{CITY_CODE},"
 			+ " 0,   #{REGION_CODE},  #{BELONG_CODE},  #{USER_ID}, #{CUSTOMER_ID},"
 			+ " #{ACCOUNT_ID}, 0, #{INHERIT_ID}, #{service_id},  #{service_kind}," + "#{INNET_METHOD}, -1, 0, 0, 0,"
 			+ " #{PASSWORD}, 1, #{PAY_TYPE},#{DEVELOPER_DEALER},#{DEVELOPER},"
