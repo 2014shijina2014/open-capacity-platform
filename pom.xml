@@ -28,28 +28,28 @@
 
 		<!-- 配置中心模块 -->
 		<module>open-config-center</module>
-
-		<!-- 链路跟踪模块 -->
-		<module>open-zipkin-cloud</module>
-
+		
+		<!-- oauth2 模块 -->
+		<module>open-oauth-center</module>
+		
+		<!-- 监控中心 -->
+		<module>open-monitor-center</module>
+		
+		<!-- cxf框架集成 -->
+		<module>open-cxf-service</module>
+		
 		<!-- zuul路由网关模块 -->
 		<module>open-api-gateway</module>
 
 		<!-- layui后台管理无session模块 -->
 		<module>open-layui-web</module>
-
 		
-		<!-- oauth2 模块 -->
-		<module>open-oauth-center</module>
-		
-		<!-- cxf框架集成 -->
-		<module>open-cxf-service</module>
 		
 		
 		<!--加分项 阿波罗配置中心 -->
 		<module>apollo</module>
 		<module>apollo-gateway</module>
-		<module>open-monitor-center</module>
+		
 	</modules>
 	<dependencies>
 		<dependency>
