@@ -2,13 +2,15 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.open.capacity</groupId>
-    <artifactId>open-capacity-platform</artifactId>
+    <artifactId>open-monitor-center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>open-monitor-center</artifactId>
+  <artifactId>open-zipkin-center</artifactId>
   <packaging>pom</packaging>
   <modules>
-  	<module>open-xxl-job</module>
-  	<module>open-zipkin-center</module>
+  	<module>open-zipkin-kafka-client</module>
+  	<module>open-zipkin-kafka-server</module>
+  	<module>open-zipkin-memery-client</module>
+  	<module>open-zipkin-memery-server</module>
   </modules>
 </project>
