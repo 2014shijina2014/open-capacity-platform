@@ -74,7 +74,8 @@
 ![](https://i.imgur.com/h3Z0cfO.jpg)     
 
 
-08.应用列表以及资料列表页面正在开发中，敬请期待
+08.应用管理  
+![](https://i.imgur.com/MB4E3ve.jpg)
 
 
 09.认证服务器-->认证中心
