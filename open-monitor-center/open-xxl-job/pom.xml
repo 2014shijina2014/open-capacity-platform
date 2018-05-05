@@ -165,4 +165,8 @@
 		</profile>
 	</profiles>
 
+	<modules>
+		<module>xxl-job-admin</module>
+		<module>xxl-job-core</module>
+	</modules>
 </project>
