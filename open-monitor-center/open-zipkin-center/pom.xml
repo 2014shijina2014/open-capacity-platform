@@ -12,5 +12,6 @@
   	<module>open-zipkin-kafka-server</module>
   	<module>open-zipkin-memery-client</module>
   	<module>open-zipkin-memery-server</module>
+  	<module>open-xxl-job</module>
   </modules>
 </project>
