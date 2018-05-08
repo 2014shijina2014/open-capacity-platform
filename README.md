@@ -1,5 +1,8 @@
 # open-capacity-platform 微服务能力开发平台 #
 
+技术交流群:  
+	![](https://i.imgur.com/YowTMtG.jpg)
+
 项目简介
  
 ![](http://img1.ph.126.net/WAraEeweVw2SyTUSG1dT6Q==/3887169428474612491.gif) 
