@@ -10,5 +10,6 @@
   <modules>
   	<module>open-xxl-job</module>
   	<module>open-zipkin-center</module>
+  	<module>open-admin-server</module>
   </modules>
 </project>

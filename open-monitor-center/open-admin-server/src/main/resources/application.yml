@@ -1,0 +1,38 @@
+server:  
+  port: 9998  
+spring:  
+  application:  
+    name: open-admin-server
+  boot:  
+    admin:  
+      notify:  
+        mail:  
+          enabled: true
+          to: xxxxxxx@qq.com  
+          from: xxxxxxx@163.com  
+#          ignore-changes: UNKNOWN:UP  
+          ignore-changes:  
+            -  
+              "*:UP" #从任何状态到up状态都不要发邮件通知  
+      routes:  
+        endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
+      turbine:
+        clusters: default
+        #,unieap-eureka-server-single
+        location: turbine  
+  mail:
+    host: smtp.163.com
+    username: xxxxxxx@163.com
+    password: 1q2w3e4r
+    properties:
+        mail.smtp.auth : true
+        mail.smtp.timeout : 2000
+        mail.smtp.starttls.enable : true
+        mail.smtp.starttls.required : true 
+eureka:  
+  client:  
+    serviceUrl:  
+      defaultZone: http://127.0.0.1:1111/eureka/  
+management:  
+  security:  
+    enabled: false
