@@ -76,6 +76,7 @@ hystrix:
  
 zuul:
   sensitive-headers: #/oauth/token需要请求头处理
+  add-host-header: true
   routes:
     baidu:  
       path: /test163/**
@@ -84,6 +85,7 @@ zuul:
       path: /auth/**
       service-id: open-auth-server 
       strip-prefix: false   
+      custom-sensitive-headers: true  #http://blog.didispace.com/spring-cloud-zuul-cookie-redirect/ zuul授权码跳转问题
     client:  
       path: /client/**
       service-id: open-eureka-client
