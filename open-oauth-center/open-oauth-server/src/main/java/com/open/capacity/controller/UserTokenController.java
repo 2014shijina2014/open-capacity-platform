@@ -21,7 +21,10 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.TokenRequest;
+import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenGranter;
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -98,6 +101,85 @@ public class UserTokenController {
 					.createAccessToken(oAuth2Authentication);
 
 			oAuth2Authentication.setAuthenticated(true);
+
+			response.setContentType("application/json;charset=UTF-8");
+			response.getWriter().write(objectMapper.writeValueAsString(oAuth2AccessToken));
+			response.getWriter().flush();
+			response.getWriter().close();
+
+		} catch (Exception e) {
+
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+			response.setContentType("application/json;charset=UTF-8");
+
+			Map<String, String> rsp = new HashMap<>();
+			rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
+			rsp.put("rsp_msg", e.getMessage());
+
+			try {
+				response.getWriter().write(objectMapper.writeValueAsString(rsp));
+				response.getWriter().flush();
+				response.getWriter().close();
+			} catch (JsonProcessingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
+
+		}
+	}
+	
+	@ApiOperation(value = "clientId获取token")
+	@PostMapping("/client/token")
+	public void client(
+			@ApiParam(required = true, name = "clientId", value = "应用ID") @RequestParam( value = "clientId") String clientId ,
+			@ApiParam(required = true, name = "clientSecret", value = "应用密钥") @RequestParam( value = "clientSecret") String clientSecret ,
+			HttpServletRequest request, HttpServletResponse response){
+ 
+
+		try {
+
+			if (clientId == null) {
+				throw new UnapprovedClientAuthenticationException("请求参数中无clientId信息");
+			}
+
+			if (clientSecret == null) {
+				throw new UnapprovedClientAuthenticationException("请求参数中无clientSecret信息");
+			}
+
+			ClientDetailsService clientDetailsService =SpringUtil.getBean(ClientDetailsService.class);
+			
+			ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
+
+			if (clientDetails == null) {
+				throw new UnapprovedClientAuthenticationException("clientId对应的信息不存在");
+			} else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
+				throw new UnapprovedClientAuthenticationException("clientSecret不匹配");
+			}
+			
+			Map<String,String> map = new HashMap<>() ;
+			map.put("client_secret", clientSecret);
+			map.put("client_id" ,clientId);
+			map.put("grant_type" , "client_credentials") ;
+			TokenRequest tokenRequest = new TokenRequest(map, clientId,
+					clientDetails.getScope(), "client_credentials");
+
+			OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
+
+			
+			AuthorizationServerTokenServices authorizationServerTokenServices = SpringUtil.getBean("defaultAuthorizationServerTokenServices", AuthorizationServerTokenServices.class);
+			OAuth2RequestFactory requestFactory =  new DefaultOAuth2RequestFactory(clientDetailsService) ;
+			ClientCredentialsTokenGranter clientCredentialsTokenGranter = new ClientCredentialsTokenGranter(
+					authorizationServerTokenServices,
+					clientDetailsService,  requestFactory 
+					);
+			 
+			clientCredentialsTokenGranter.setAllowRefresh(true);
+			OAuth2AccessToken oAuth2AccessToken = clientCredentialsTokenGranter.grant("client_credentials", tokenRequest);
 
 			response.setContentType("application/json;charset=UTF-8");
 			response.getWriter().write(objectMapper.writeValueAsString(oAuth2AccessToken));

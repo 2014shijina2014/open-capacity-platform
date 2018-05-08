@@ -68,7 +68,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
 				// .apis(RequestHandlerSelectors.basePackage("com.open.capacity"))
 				.apis(RequestHandlerSelectors.any())
-				.paths( input ->PathSelectors.regex("/user.*").apply(input))
+				.paths( input ->PathSelectors.regex("/user.*").apply(input) || PathSelectors.regex("/client.*").apply(input) )
 				// .paths(PathSelectors.any())
 				.build().globalOperationParameters(pars);
 	}
