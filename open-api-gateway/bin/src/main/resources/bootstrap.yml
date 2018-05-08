@@ -1,0 +1,14 @@
+management:
+  security:
+    enabled: false
+#spring:
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: unieap-config-server
+#      name: unieap-config-server
+#      fail-fast: true  
+#      profile: dev   # eureka-config-client-dev.yml
+
+ 
