@@ -5,11 +5,13 @@ target/
 *.zip
 *.tar
 *.tar.gz
-*.properties
+*.class
 
 # eclipse ignore
 .settings/
 .classpath
+target/
+bin/
 
 # idea ignore
 .idea/
