@@ -6,6 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>open-monitor-center</artifactId>
+  <description>监控中心</description>
   <packaging>pom</packaging>
   <modules>
   	<module>open-xxl-job</module>

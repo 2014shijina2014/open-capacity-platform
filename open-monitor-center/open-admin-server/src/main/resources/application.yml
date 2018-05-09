@@ -2,14 +2,14 @@ server:
   port: 9998  
 spring:  
   application:  
-    name: open-admin-server
+    name: unieap-admin-server
   boot:  
     admin:  
       notify:  
         mail:  
           enabled: true
-          to: xxxxxxx@qq.com  
-          from: xxxxxxx@163.com  
+          to: 624191343@qq.com  
+          from: 18579068155@163.com  
 #          ignore-changes: UNKNOWN:UP  
           ignore-changes:  
             -  
@@ -22,7 +22,7 @@ spring:
         location: turbine  
   mail:
     host: smtp.163.com
-    username: xxxxxxx@163.com
+    username: 18579068155@163.com
     password: 1q2w3e4r
     properties:
         mail.smtp.auth : true

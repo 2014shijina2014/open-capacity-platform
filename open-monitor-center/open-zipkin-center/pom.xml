@@ -6,6 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>open-zipkin-center</artifactId>
+  <description>链路跟踪</description>
   <packaging>pom</packaging>
   <modules>
   	<module>open-zipkin-kafka-client</module>

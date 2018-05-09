@@ -6,7 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>open-admin-server</artifactId>
-  
+  <description>spring boot admin 监控</description>
   <dependencies>
   		
   		<dependency>
