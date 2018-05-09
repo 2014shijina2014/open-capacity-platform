@@ -7,6 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>open-api-gateway</artifactId>
+	<description>zuul oauth swagger集成</description>
 
 	<dependencies>
 
