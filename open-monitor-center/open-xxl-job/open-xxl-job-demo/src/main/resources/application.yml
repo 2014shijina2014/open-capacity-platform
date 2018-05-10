@@ -2,7 +2,7 @@
 xxl:
   job:
     admin:
-      addresses: http://127.0.0.1:8888/xxl-job-admin
+      addresses: http://127.0.0.1:8888
     executor:   
       appname: xxl-job-executor-sample
       ip: 127.0.0.1
