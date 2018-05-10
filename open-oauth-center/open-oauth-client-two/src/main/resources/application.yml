@@ -1,5 +1,5 @@
 server:
-  port: 8100
+  port: 8200
 spring:
   application:
     name: open-auth-client
