@@ -1,53 +1,41 @@
-# open-capacity-platform 微服务能力开发平台 # 
-  
-
-技术交流群:  
-	![](https://i.imgur.com/YowTMtG.jpg)
-
-项目简介
+# open-capacity-platform 微服务能力开发平台 
  
-![](http://img1.ph.126.net/WAraEeweVw2SyTUSG1dT6Q==/3887169428474612491.gif) 
+简称ocp是基于layui+springcloud的企业级微服务框架(用户权限管理，配置中心管理，应用管理，....),其核心的设计目标是分离前后端，快速开发部署，学习简单，功能强大，提供快速接入核心接口能力，其目标是帮助企业搭建一套类似百度能力开放平台的框架；
 
-框架使用资料   
+
+ 
+##   技术介绍 
+![](https://i.imgur.com/bFPHaj2.jpg)  
+##   框架设计
+![](https://i.imgur.com/vn03vIX.jpg)
+
+## 开发环境  
+redis3.X  
+jdk1.8  
+MySQL Server 5.6  
+maven3.3.9  
+sts-3.8.0.RELEASE  
+
+##  框架使用资料   
 链接：https://pan.baidu.com/s/10Kae9_YotU5GnneaCk_p5Q 
 密码：xqjb
 
 
-项目组织结构分析  
-├	apollo -- 阿波罗配置中心  
-├   	 ├── apollo-adminservice    
-├   	 ├── apollo-assembly     
-├   	 ├── apollo-biz   
-├    	 ├── apollo-buildtools    
-├   	 ├── apollo-client    
-├    	 ├── apollo-common     
-├    	 ├── apollo-configservice    
-├    	 ├── apollo-core  
-├    	 ├── apollo-demo  
-├	 	 ├── apollo-portal   
-├	     └── apollo-zuul    整合zuul案例  
-├	cachecloud-open-parent -- 搜狐redis云平台   
-├    		├── cachecloud-open-client    
-├    		├── cachecloud-open-common   
-├   		└── cachecloud-open-web   
-├	open-api-gateway -- 服务网关[9200]   
-├	open-config-cloud  --基于spring cloud config 的配置中心   
-├    		├── config-bus    --基于spring cloud bus的服务总线[8201]  
-├    		├── config-client ----基于spring cloud client端[7001]   
-├    		├── config-server ----基于spring cloud server端[7201]    
-├   		└── config-zuul  ----基于config-client项目整合网关[5555]   
-├ 	open-db-core     -- 数据库逻辑封装   
-├	open-layui-web   --  基于token的layui后台管理系统    
-├ 	open-zipkin-cloud  -- 链路跟踪   
-├          ├── open-zipkin-kafka-server  -- kafka链路跟踪服务端[9411]  
-├          ├── open-zipkin-kafka-client  -- kafka链路跟踪客户端[9412]  
-├          ├── open-zipkin-memery-server -- 内存跟踪服务端[9411]  
-└          └─ open-zipkin-memery-client -- 内存链路跟踪客户端[9412]  
+
+
+##  ocp项目演示
+ 
+![](http://img1.ph.126.net/WAraEeweVw2SyTUSG1dT6Q==/3887169428474612491.gif) 
+
+
+## 项目组织结构分析 
+
+![](https://i.imgur.com/4JVSncp.jpg)
 
 
 
 
-一. open-capacity-platform能力开放平台管理   
+## 一. open-capacity-platform能力开放平台管理    
    
 01.用户登录
 
@@ -84,41 +72,11 @@
 
 09.认证服务器-->认证中心
 
-
-09.1本认证中心采取的的数据库管理应用信息的方式来管理client_id client_secret,同时token的生成方式支持redis集群或者jwt
-![](https://i.imgur.com/LpxeaC3.jpg)
-
-
-09.2由于spring security oauth 默认定义的/oauth/token 会验证client_id以及client_secret,如果不在数据库中会弹框,所以根据源码，自定义/user/token节点以password方式的获取token，并给出友好提示 效果如下
-![](https://i.imgur.com/KUjyHu2.jpg)
-
-
-10.认证中心集成swagger
-
-10.1 请求/user/token
-![](https://i.imgur.com/rdmECb2.jpg)
-10.1 请求/users节点
-![](https://i.imgur.com/YAWt8dG.jpg)
-
-11.认证服务器-->认证中心
-
-11.1.1无效的client_id
-![](https://i.imgur.com/jjGeHy4.jpg)
-
-11.1.2无效的client_secret
-![](https://i.imgur.com/adBHsJz.jpg)
-
-11.1.3用户名密码错误
-![](https://i.imgur.com/JwioaAW.jpg)
-
-11.1.4成功
-![](https://i.imgur.com/os86Yvr.jpg)
-
-![](https://i.imgur.com/7j7dpjr.png)
+![](https://i.imgur.com/os86Yvr.jpg) 
 
 
 
-二. 阿波罗配置中心详解  
+## 二. 阿波罗配置中心详解   
 
 1. 前言  
 携程 Apollo 配置中心 学习笔记， Windows 系统搭建基于携程Apollo配置中心分布式模式， 在此基础上，介绍如何使用阿波罗整合zuul实现动态路由。
@@ -146,7 +104,6 @@
 
 - apollo-core    
 修改开发环境环境读取配置文件的地址，填入apollo-configservice注册到eureka服务器的地址，如果apollo-configservice启动多台，可以引入nginx负载均衡    
-![](https://i.imgur.com/fsrF22z.png)
 
 3.阿波罗整合zuul服务注册中心    
 	
@@ -256,37 +213,6 @@ public class ApiGateWayApp {
 - 项目运行    
  ![](https://i.imgur.com/HVLPI7y.jpg)    
 
-- 主机规划     
-19   ls    
-20 mkdir -p /opt/cachecloud    
-21 ls    
-22 cd /opt/cachecloud    
-23 ls    
-24 vi init.sh    
-25 ls    
-26 chmod 777 init.sh    
-27 ./init.sh    
-28 cd /opt/cachecloud/    
-29 ls    
-30 ./init.sh root    
-31 ./init.sh cachecloud        
-32 ll    
-33 chown cachecloud.cachecloud -R /opt/cachecloud    
-34 ls    
-35 ll    
-36 ls    
-37 cd data    
-38 ls    
-39 cd ..    
-40 ls
-41 cd conf    
-42 ls    
-43 cd ..    
-44 ls    
-45 cd redis/    
-46 ls    
-47 ifconfig    
-48 history    
 
 - 效果预览   
  ![](https://i.imgur.com/5Dij6ix.png)
@@ -315,7 +241,8 @@ public class ApiGateWayApp {
 待续。。。。。。。。   
 
 
-
+技术交流群:  
+![](https://i.imgur.com/YowTMtG.jpg)
 
 
 
