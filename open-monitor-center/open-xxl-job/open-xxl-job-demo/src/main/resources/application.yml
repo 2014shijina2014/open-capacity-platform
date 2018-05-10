@@ -1,0 +1,23 @@
+
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8888/xxl-job-admin
+    executor:   
+      appname: xxl-job-executor-sample
+      ip: 127.0.0.1
+      port: 7777   
+      logpath: logs/admin-server.log
+      logretentiondays: 1
+    mail:
+      host: smtp.163.com 
+      port: 25
+      username: ovono802302@163.com  
+      password: asdfzxcv
+      sendFrom: ovono802302@163.com 
+      sendNick: \u300a\u4efb\u52a1\u8c03\u5ea6\u5e73\u53f0XXL-JOB\u300b
+    accessToken: 
+    
+
+  
+ 
