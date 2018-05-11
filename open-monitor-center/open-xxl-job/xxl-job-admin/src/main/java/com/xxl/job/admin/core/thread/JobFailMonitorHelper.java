@@ -1,42 +1,63 @@
 package com.xxl.job.admin.core.thread;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.xxl.job.admin.core.model.XxlJobGroup;
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import com.xxl.job.admin.core.model.XxlJobLog;
 import com.xxl.job.admin.core.schedule.XxlJobDynamicScheduler;
 import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.core.util.MailUtil;
+import com.xxl.job.admin.dao.XxlJobGroupDao;
+import com.xxl.job.admin.dao.XxlJobInfoDao;
+import com.xxl.job.admin.dao.XxlJobLogDao;
+import com.xxl.job.admin.dao.XxlJobRegistryDao;
+import com.xxl.job.core.biz.AdminBiz;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
-import org.apache.commons.collections4.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.text.MessageFormat;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * job monitor instance
  * @author xuxueli 2015-9-1 18:05:56
  */
+@Component
 public class JobFailMonitorHelper {
-	private static Logger logger = LoggerFactory.getLogger(JobFailMonitorHelper.class);
-	
-	private static JobFailMonitorHelper instance = new JobFailMonitorHelper();
-	public static JobFailMonitorHelper getInstance(){
-		return instance;
-	}
+    private static Logger logger = LoggerFactory.getLogger(JobFailMonitorHelper.class);
 
-	// ---------------------- monitor ----------------------
+    private static JobFailMonitorHelper instance = new JobFailMonitorHelper();
 
-	private LinkedBlockingQueue<Integer> queue = new LinkedBlockingQueue<Integer>(0xfff8);
+    public static JobFailMonitorHelper getInstance() {
+        return instance;
+    }
+    @Autowired
+    public XxlJobLogDao xxlJobLogDao;
+    @Autowired
+    public XxlJobInfoDao xxlJobInfoDao;
+    @Autowired
+    public XxlJobRegistryDao xxlJobRegistryDao;
+    @Autowired
+    public XxlJobGroupDao xxlJobGroupDao;
+    @Autowired
+    public AdminBiz adminBiz;
+    private LinkedBlockingQueue<Integer> queue = new LinkedBlockingQueue<Integer>(0xfff8);
+    private Thread monitorThread;
+    private volatile boolean toStop = false;
 
-	private Thread monitorThread;
-	private volatile boolean toStop = false;
-	public void start(){
-		monitorThread = new Thread(new Runnable() {
+    public void start() {
+        monitorThread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -51,7 +72,7 @@ public class JobFailMonitorHelper {
 								if (jobLogId==null || jobLogId==0) {
 									continue;
 								}
-								XxlJobLog log = XxlJobDynamicScheduler.xxlJobLogDao.load(jobLogId);
+								XxlJobLog log = xxlJobLogDao.load(jobLogId);
 								if (log == null) {
 									continue;
 								}
@@ -85,7 +106,7 @@ public class JobFailMonitorHelper {
 				int drainToNum = getInstance().queue.drainTo(jobLogIdList);
 				if (jobLogIdList!=null && jobLogIdList.size()>0) {
 					for (Integer jobLogId: jobLogIdList) {
-						XxlJobLog log = XxlJobDynamicScheduler.xxlJobLogDao.load(jobLogId);
+						XxlJobLog log = xxlJobLogDao.load(jobLogId);
 						if (ReturnT.FAIL_CODE == log.getTriggerCode()|| ReturnT.FAIL_CODE==log.getHandleCode()) {
 							// job fail,
 							failAlarm(log);
@@ -148,12 +169,12 @@ public class JobFailMonitorHelper {
 	private void failAlarm(XxlJobLog jobLog){
 
 		// send monitor email
-		XxlJobInfo info = XxlJobDynamicScheduler.xxlJobInfoDao.loadById(jobLog.getJobId());
+		XxlJobInfo info = xxlJobInfoDao.loadById(jobLog.getJobId());
 		if (info!=null && info.getAlarmEmail()!=null && info.getAlarmEmail().trim().length()>0) {
 
 			Set<String> emailSet = new HashSet<String>(Arrays.asList(info.getAlarmEmail().split(",")));
 			for (String email: emailSet) {
-				XxlJobGroup group = XxlJobDynamicScheduler.xxlJobGroupDao.load(Integer.valueOf(info.getJobGroup()));
+				XxlJobGroup group = xxlJobGroupDao.load(Integer.valueOf(info.getJobGroup()));
 
 				String title = I18nUtil.getString("jobconf_monitor");
 				String content = MessageFormat.format(mailBodyTemplate, group!=null?group.getTitle():"null", info.getId(), info.getJobDesc());

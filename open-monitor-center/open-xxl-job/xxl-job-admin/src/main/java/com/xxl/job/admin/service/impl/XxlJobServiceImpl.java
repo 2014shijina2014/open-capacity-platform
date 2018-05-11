@@ -1,5 +1,25 @@
 package com.xxl.job.admin.service.impl;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.quartz.CronExpression;
+import org.quartz.SchedulerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.xxl.job.admin.core.enums.ExecutorFailStrategyEnum;
 import com.xxl.job.admin.core.model.XxlJobGroup;
 import com.xxl.job.admin.core.model.XxlJobInfo;
@@ -15,19 +35,6 @@ import com.xxl.job.admin.service.XxlJobService;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.glue.GlueTypeEnum;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
-import org.quartz.CronExpression;
-import org.quartz.SchedulerException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.text.MessageFormat;
-import java.util.*;
 
 /**
  * core job action for xxl-job
@@ -37,15 +44,16 @@ import java.util.*;
 public class XxlJobServiceImpl implements XxlJobService {
 	private static Logger logger = LoggerFactory.getLogger(XxlJobServiceImpl.class);
 
-	@Resource
+	@Autowired
 	private XxlJobGroupDao xxlJobGroupDao;
-	@Resource
+	@Autowired
 	private XxlJobInfoDao xxlJobInfoDao;
-	@Resource
+	@Autowired
 	public XxlJobLogDao xxlJobLogDao;
-	@Resource
+	@Autowired
 	private XxlJobLogGlueDao xxlJobLogGlueDao;
-	
+	@Autowired
+	private XxlJobDynamicScheduler XxlJobDynamicScheduler;
 	@Override
 	public Map<String, Object> pageList(int start, int length, int jobGroup, String jobDesc, String executorHandler, String filterTime) {
 

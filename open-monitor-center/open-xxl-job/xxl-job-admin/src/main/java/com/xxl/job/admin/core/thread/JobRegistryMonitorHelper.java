@@ -1,25 +1,37 @@
 package com.xxl.job.admin.core.thread;
 
-import com.xxl.job.admin.core.model.XxlJobGroup;
-import com.xxl.job.admin.core.model.XxlJobRegistry;
-import com.xxl.job.admin.core.schedule.XxlJobDynamicScheduler;
-import com.xxl.job.core.enums.RegistryConfig;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import com.xxl.job.admin.core.model.XxlJobGroup;
+import com.xxl.job.admin.core.model.XxlJobRegistry;
+import com.xxl.job.admin.dao.XxlJobGroupDao;
+import com.xxl.job.admin.dao.XxlJobRegistryDao;
+import com.xxl.job.core.enums.RegistryConfig;
+
 /**
  * job registry instance
  * @author xuxueli 2016-10-02 19:10:24
  */
+@Component
 public class JobRegistryMonitorHelper {
+	
+	@Resource
+	private XxlJobGroupDao xxlJobGroupDao ;
+	@Resource
+	private XxlJobRegistryDao xxlJobRegistryDao ;
+	
 	private static Logger logger = LoggerFactory.getLogger(JobRegistryMonitorHelper.class);
 
 	private static JobRegistryMonitorHelper instance = new JobRegistryMonitorHelper();
@@ -36,15 +48,15 @@ public class JobRegistryMonitorHelper {
 				while (!toStop) {
 					try {
 						// auto registry group
-						List<XxlJobGroup> groupList = XxlJobDynamicScheduler.xxlJobGroupDao.findByAddressType(0);
+						List<XxlJobGroup> groupList = xxlJobGroupDao.findByAddressType(0);
 						if (CollectionUtils.isNotEmpty(groupList)) {
 
 							// remove dead address (admin/executor)
-							XxlJobDynamicScheduler.xxlJobRegistryDao.removeDead(RegistryConfig.DEAD_TIMEOUT);
+							xxlJobRegistryDao.removeDead(RegistryConfig.DEAD_TIMEOUT);
 
 							// fresh online address (admin/executor)
 							HashMap<String, List<String>> appAddressMap = new HashMap<String, List<String>>();
-							List<XxlJobRegistry> list = XxlJobDynamicScheduler.xxlJobRegistryDao.findAll(RegistryConfig.DEAD_TIMEOUT);
+							List<XxlJobRegistry> list = xxlJobRegistryDao.findAll(RegistryConfig.DEAD_TIMEOUT);
 							if (list != null) {
 								for (XxlJobRegistry item: list) {
 									if (RegistryConfig.RegistType.EXECUTOR.name().equals(item.getRegistryGroup())) {
@@ -71,7 +83,7 @@ public class JobRegistryMonitorHelper {
 									addressListStr = StringUtils.join(registryList, ",");
 								}
 								group.setAddressList(addressListStr);
-								XxlJobDynamicScheduler.xxlJobGroupDao.update(group);
+								xxlJobGroupDao.update(group);
 							}
 						}
 					} catch (Exception e) {

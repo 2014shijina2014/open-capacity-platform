@@ -1,12 +1,21 @@
 package com.xxl.job.admin.core.route.strategy;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.xxl.job.admin.core.route.ExecutorRouter;
 import com.xxl.job.admin.core.trigger.XxlJobTrigger;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
-
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 单个JOB对应的每个执行器，使用频率最低的优先被选举
@@ -15,8 +24,10 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * Created by xuxueli on 17/3/10.
  */
+@Component
 public class ExecutorRouteLFU extends ExecutorRouter {
-
+    @Autowired
+    public  XxlJobTrigger XxlJobTrigger;
     private static ConcurrentHashMap<Integer, HashMap<String, Integer>> jobLfuMap = new ConcurrentHashMap<Integer, HashMap<String, Integer>>();
     private static long CACHE_VALID_TIME = 0;
 
