@@ -693,3 +693,15 @@ CREATE TABLE `t_token` (
 #
 # Data for table "t_token"
 #
+
+CREATE TABLE `sys_module` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `version` bigint(20) DEFAULT '0',
+  `description` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `image` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `index_page` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `if_show` varchar(1) COLLATE utf8_bin DEFAULT '1',
+  `sort` int(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

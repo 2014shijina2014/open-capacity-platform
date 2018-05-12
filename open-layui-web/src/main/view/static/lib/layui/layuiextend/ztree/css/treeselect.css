@@ -1,0 +1,69 @@
+.layui-input-treeselect .ztree,
+.layui-input-treeselect .ztree * {
+  background-color: white;
+  color: black;
+  font-size: 16px;
+}
+
+.layui-input-treeselect .ztree {
+  padding: 10px 5px;
+}
+
+.layui-input-treeselect .ztree-content {
+  border: 1px solid #e6e6e6;
+  position: absolute;
+  z-index: 100;
+  top: 42px;
+  width: 100%;
+  display: none;
+  border-radius: 2px;
+}
+
+.layui-input-treeselect .ztree>li {
+  padding: 0 10px;
+}
+
+.layui-input-treeselect .ztree li span.button.roots_docu::before,
+.layui-input-treeselect .ztree li span.button::before {
+  color: black;
+}
+
+.layui-input-treeselect .ztree-input {
+  position: absolute;
+  line-height: 37px;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  overflow: hidden;
+  border-radius: 2px;
+  height: 37px;
+  overflow-y: inherit;
+}
+
+.layui-input-treeselect .ztree-input a:first-child {
+  margin-left: 10px;
+}
+
+.layui-input-treeselect .ztree-input a {
+  background-color: #5FB878;
+  margin-left: 5px;
+  padding: 2px 3px 2px 5px;
+  position: relative;
+  cursor: default;
+  color: white;
+  border-radius: 2px;
+}
+
+.layui-input-treeselect .ztree-input a i {
+  font-size: inherit;
+}
+
+.layui-input-treeselect .ztree-input a i:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.layui-input-treeselect .layui-input {
+  background-color: transparent;
+  border: 0;
+  display: none;
+}
