@@ -29,4 +29,7 @@ public interface SysModuleDao {
 	int insert(SysModule sysModule);
 
 	int update(SysModule sysModule);
+
+	@Select("select * from sys_module ORDER BY sort")
+	List<SysModule> getAll();
 }

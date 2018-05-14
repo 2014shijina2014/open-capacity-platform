@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wjh
@@ -80,5 +83,28 @@ public class ModuleController {
     @PreAuthorize("hasAuthority('sys:module:query')")
     public SysModule get(@PathVariable Long id) {
         return sysModuleDao.getById(id);
+    }
+
+    @ApiOperation(value = "获取所有模块")
+    @GetMapping
+    @PreAuthorize("hasAuthority('sys:module:query')")
+    public List<SysModule> getAll() {
+        return sysModuleDao.getAll();
+    }
+    @ApiOperation(value = "模块treeview")
+    @GetMapping("/treeview")
+    @PreAuthorize("hasAuthority('sys:module:query')")
+    public List<Map<String,Object>> treeview() {
+        List<Map<String,Object>> dataList = new ArrayList<Map<String,Object>>();
+        List<SysModule> list = sysModuleDao.getAll();
+        if(null != list && list.size()>0){
+            for (SysModule sysModule:list ) {
+                HashMap dataRecord = new HashMap();
+                dataRecord.put("id",sysModule.getId());
+                dataRecord.put("text",sysModule.getName());
+                dataList.add(dataRecord);
+            }
+        }
+        return dataList;
     }
 }

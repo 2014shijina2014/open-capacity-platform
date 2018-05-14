@@ -5,7 +5,6 @@ import java.util.List;
 public class Permission extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 6180869216498363919L;
-	private String moduleId;
 	private Long parentId;
 	private String name;
 	private String css;
@@ -78,13 +77,5 @@ public class Permission extends BaseEntity<Long> {
 
 	public void setChild(List<Permission> child) {
 		this.child = child;
-	}
-
-	public String getModuleId() {
-		return moduleId;
-	}
-
-	public void setModuleId(String moduleId) {
-		this.moduleId = moduleId;
 	}
 }

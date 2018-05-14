@@ -119,6 +119,47 @@ function initParentMenuSelect(){
     });
 }
 
+function initModuleSelect(){
+    $.ajax({
+        type : 'get',
+        url : '/sys/module',
+        async : false,
+        success : function(data) {
+            var select = $("#moduleId");
+            select.append("<option value=''>==请选择==</option>");
+            for(var i=0; i<data.length; i++){
+                var d = data[i];
+                var id = d['id'];
+                var name = d['name'];
+                select.append("<option value='"+ id +"'>" +name+"</option>");
+            }
+        }
+    });
+}
+
+function getParentServer() {
+    var moduleId = $("#moduleId option:selected").val();
+    $.ajax({
+        type : 'post',
+        url : '/sys/server/list',
+        dataType:"json",
+        data:{moduleId:moduleId},
+        async:false,
+        cache: false,
+        success : function(data) {
+            var select = $("#parentId");
+            select.html("");
+            select.append("<option value='0'>root</option>");
+            for(var i=0; i<data.length; i++){
+                var d = data[i];
+                var id = d['id'];
+                var name = d['name'];
+                select.append("<option value='"+ id +"'>" +name+"</option>");
+            }
+        }
+    });
+}
+
 function getSettting() {
 	var setting = {
 		check : {
