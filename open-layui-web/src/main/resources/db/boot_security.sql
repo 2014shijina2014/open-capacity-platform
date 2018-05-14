@@ -480,7 +480,12 @@ CREATE TABLE `sys_permission` (
 #
 
 INSERT INTO `sys_permission` VALUES (1,0,'用户管理','fa-users','',1,'',2),(2,1,'用户查询','fa-user','pages/user/userList.html',1,'',3),(3,2,'查询','','',2,'sys:user:query',100),(4,2,'新增','','',2,'sys:user:add',100),(6,0,'修改密码','fa-pencil-square-o','pages/user/changePassword.html',1,'sys:user:password',4),(7,0,'系统设置','fa-gears','',1,'',5),(8,7,'菜单','fa-cog','pages/menu/menuList.html',1,'',6),(9,8,'查询','','',2,'sys:menu:query',100),(10,8,'新增','','',2,'sys:menu:add',100),(11,8,'删除','','',2,'sys:menu:del',100),(12,7,'角色','fa-user-secret','pages/role/roleList.html',1,'',7),(13,12,'查询','','',2,'sys:role:query',100),(14,12,'新增','','',2,'sys:role:add',100),(15,12,'删除','','',2,'sys:role:del',100),(16,0,'文件管理','fa-folder-open','pages/file/fileList.html',1,'',8),(17,16,'查询','','',2,'sys:file:query',100),(18,16,'删除','','',2,'sys:file:del',100),(19,0,'数据源监控','fa-eye','druid/index.html',1,'',9),(20,0,'接口swagger','fa-file-pdf-o','swagger-ui.html',1,'',10),(21,0,'代码生成','fa-wrench','pages/generate/edit.html',1,'generate:edit',11),(22,0,'公告管理','fa-book','pages/notice/noticeList.html',1,'',12),(23,22,'查询','','',2,'notice:query',100),(24,22,'添加','','',2,'notice:add',100),(25,22,'删除','','',2,'notice:del',100),(26,0,'日志查询','fa-reorder','pages/log/logList.html',1,'sys:log:query',13),(27,0,'邮件管理','fa-envelope','pages/mail/mailList.html',1,'',14),(28,27,'发送邮件','','',2,'mail:send',100),(29,27,'查询','','',2,'mail:all:query',100),(30,0,'定时任务管理','fa-tasks','pages/job/jobList.html',1,'',15),(31,30,'查询','','',2,'job:query',100),(32,30,'新增','','',2,'job:add',100),(33,30,'删除','','',2,'job:del',100),(34,0,'excel导出','fa-arrow-circle-down','pages/excel/sql.html',1,'',16),(35,34,'导出','','',2,'excel:down',100),(36,34,'页面显示数据','','',2,'excel:show:datas',100),(37,0,'字典管理','fa-reddit','pages/dict/dictList.html',1,'',17),(38,37,'查询','','',2,'dict:query',100),(39,37,'新增','','',2,'dict:add',100),(40,37,'删除','','',2,'dict:del',100),(41,0,'注册中心','fa-th-list','pages/euraka/euraka.html',1,'',18),(42,0,'配置中心','fa-th-list','http://127.0.0.1:8070',1,'',19),(43,0,'资源管理','fa-users','pages/appList/rosourceList.html',1,'',20),(44,0,'应用管理','fa-users','pages/app/oauthClientDetailsList.html',1,'',21);
-
+INSERT INTO `sys_permission` VALUES ('45', '0', '模块管理', 'fa-file-image-o', '/pages/module/list.html', '1', 'sys:module:query', '22');
+INSERT INTO `sys_permission` VALUES ('50', '45', '新增', '', '', '2', 'sys:module:add', '100');
+INSERT INTO `sys_permission` VALUES ('51', '45', '删除', '', '', '2', 'sys:module:del', '100');
+INSERT INTO `sys_permission` VALUES ('53', '0', '服务管理', 'fa-dashboard', '/pages/server/serverList.html', '1', 'sys:server:query', '23');
+INSERT INTO `sys_permission` VALUES ('54', '53', '新增', 'fa-file-excel-o', '', '2', 'sys:server:add', '100');
+INSERT INTO `sys_permission` VALUES ('55', '53', '删除', '', '', '2', 'sys:server:del', '100');
 #
 # Structure for table "sys_role"
 #
@@ -696,12 +701,31 @@ CREATE TABLE `t_token` (
 
 CREATE TABLE `sys_module` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `version` bigint(20) DEFAULT '0',
-  `description` varchar(200) COLLATE utf8_bin DEFAULT NULL,
-  `image` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  `index_page` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `if_show` varchar(1) COLLATE utf8_bin DEFAULT '1',
-  `sort` int(20) DEFAULT NULL,
+  `version` bigint(20) DEFAULT '0' COMMENT '版本号',
+  `description` varchar(200) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
+  `image` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '图片',
+  `name` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '模块名',
+  `index_page` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '模块首页',
+  `if_show` varchar(1) COLLATE utf8_bin DEFAULT '1' COMMENT '是否显示（1：显示；0：不显示）',
+  `sort` int(20) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='模块表';
+
+CREATE TABLE `sys_server` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parentId` int(11) DEFAULT NULL COMMENT '父ID',
+  `moduleId` int(11) DEFAULT NULL COMMENT '模块ID',
+  `name` varchar(100) DEFAULT NULL COMMENT '服务名称',
+  `path` varchar(100) DEFAULT NULL COMMENT '访问路径',
+  `description` varchar(255) DEFAULT NULL COMMENT '服务描述',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='服务管理表';
+
+CREATE TABLE `sys_client_server` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `clientId` int(11) DEFAULT NULL,
+  `moduleId` int(11) DEFAULT NULL COMMENT '模块ID',
+  `serverId` int(11) DEFAULT NULL COMMENT '服务ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务授权表';
