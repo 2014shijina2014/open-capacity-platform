@@ -1,13 +1,12 @@
 package com.xxl.job.admin.core.util;
 
-import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
+import java.nio.charset.Charset;
+
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.nio.charset.Charset;
 
 /**
  * 邮件发送.Util
@@ -34,19 +33,20 @@ public class MailUtil {
 			//email.setTLS(true);		// 是否TLS校验，，某些邮箱需要TLS安全校验，同理有SSL校验
 			//email.setSSL(true);
 
-			email.setHostName(XxlJobAdminConfig.getAdminConfig().getMailHost());
+			email.setHostName(PropertiesUtil.getString("xxl.job.mail.host"));
 
-			if (XxlJobAdminConfig.getAdminConfig().isMailSSL()) {
-				email.setSslSmtpPort(XxlJobAdminConfig.getAdminConfig().getMailPort());
+			if ("true".equals(PropertiesUtil.getString("xxl.job.mail.ssl"))) {
+				email.setSslSmtpPort(PropertiesUtil.getString("xxl.job.mail.port"));
 				email.setSSLOnConnect(true);
 			} else {
-				email.setSmtpPort(Integer.valueOf(XxlJobAdminConfig.getAdminConfig().getMailPort()));
+				email.setSmtpPort(Integer.valueOf(PropertiesUtil.getString("xxl.job.mail.port")));
 			}
 
-			email.setAuthenticator(new DefaultAuthenticator(XxlJobAdminConfig.getAdminConfig().getMailUsername(), XxlJobAdminConfig.getAdminConfig().getMailPassword()));
+			email.setAuthenticator(new DefaultAuthenticator(PropertiesUtil.getString("xxl.job.mail.username"), 
+					PropertiesUtil.getString("xxl.job.mail.password")));
 			email.setCharset(Charset.defaultCharset().name());
 
-			email.setFrom(XxlJobAdminConfig.getAdminConfig().getMailUsername(), XxlJobAdminConfig.getAdminConfig().getMailSendNick());
+			email.setFrom(PropertiesUtil.getString("xxl.job.mail.username"), PropertiesUtil.getString("xxl.job.mail.sendNick"));
 			email.addTo(toAddress);
 			email.setSubject(mailSubject);
 			email.setMsg(mailBody);

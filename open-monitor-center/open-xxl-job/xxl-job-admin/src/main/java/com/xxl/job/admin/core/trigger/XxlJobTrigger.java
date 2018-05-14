@@ -1,14 +1,5 @@
 package com.xxl.job.admin.core.trigger;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import org.apache.commons.collections4.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.xxl.job.admin.core.enums.ExecutorFailStrategyEnum;
 import com.xxl.job.admin.core.model.XxlJobGroup;
 import com.xxl.job.admin.core.model.XxlJobInfo;
@@ -17,50 +8,39 @@ import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.xxl.job.admin.core.schedule.XxlJobDynamicScheduler;
 import com.xxl.job.admin.core.thread.JobFailMonitorHelper;
 import com.xxl.job.admin.core.util.I18nUtil;
-import com.xxl.job.admin.dao.XxlJobGroupDao;
-import com.xxl.job.admin.dao.XxlJobInfoDao;
-import com.xxl.job.admin.dao.XxlJobLogDao;
-import com.xxl.job.admin.dao.XxlJobRegistryDao;
-import com.xxl.job.core.biz.AdminBiz;
 import com.xxl.job.core.biz.ExecutorBiz;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
 import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import com.xxl.job.core.util.IpUtil;
+import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * xxl-job trigger
  * Created by xuxueli on 17/7/13.
  */
-@Component
 public class XxlJobTrigger {
     private static Logger logger = LoggerFactory.getLogger(XxlJobTrigger.class);
-    @Autowired
-    public XxlJobLogDao xxlJobLogDao;
-    @Autowired
-    public XxlJobInfoDao xxlJobInfoDao;
-    @Autowired
-    public XxlJobRegistryDao xxlJobRegistryDao;
-    @Autowired
-    public XxlJobGroupDao xxlJobGroupDao;
-    @Autowired
-    public AdminBiz adminBiz;
-    @Autowired
-    public XxlJobDynamicScheduler XxlJobDynamicScheduler;
+
     /**
      * trigger job
      *
      * @param jobId
      */
-    public  void trigger(int jobId) {
+    public static void trigger(int jobId) {
 
         // load data
-        XxlJobInfo jobInfo = xxlJobInfoDao.loadById(jobId);              // job info
+        XxlJobInfo jobInfo = XxlJobDynamicScheduler.xxlJobInfoDao.loadById(jobId);              // job info
         if (jobInfo == null) {
-            logger.warn(">>>>>>>>>>>> xxl-job trigger fail, jobId invalid，jobId={}", jobId);
+            logger.warn(">>>>>>>>>>>> trigger fail, jobId invalid，jobId={}", jobId);
             return;
         }
-        XxlJobGroup group = xxlJobGroupDao.load(jobInfo.getJobGroup());  // group info
+        XxlJobGroup group = XxlJobDynamicScheduler.xxlJobGroupDao.load(jobInfo.getJobGroup());  // group info
 
         ExecutorBlockStrategyEnum blockStrategy = ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), ExecutorBlockStrategyEnum.SERIAL_EXECUTION);  // block strategy
         ExecutorFailStrategyEnum failStrategy = ExecutorFailStrategyEnum.match(jobInfo.getExecutorFailStrategy(), ExecutorFailStrategyEnum.FAIL_ALARM);    // fail strategy
@@ -76,7 +56,7 @@ public class XxlJobTrigger {
                 XxlJobLog jobLog = new XxlJobLog();
                 jobLog.setJobGroup(jobInfo.getJobGroup());
                 jobLog.setJobId(jobInfo.getId());
-                xxlJobLogDao.save(jobLog);
+                XxlJobDynamicScheduler.xxlJobLogDao.save(jobLog);
                 logger.debug(">>>>>>>>>>> xxl-job trigger start, jobId:{}", jobLog.getId());
 
                 // 2、prepare trigger-info
@@ -132,7 +112,7 @@ public class XxlJobTrigger {
                 jobLog.setExecutorAddress(triggerResult.getContent());
                 jobLog.setTriggerCode(triggerResult.getCode());
                 jobLog.setTriggerMsg(triggerMsgSb.toString());
-                xxlJobLogDao.updateTriggerInfo(jobLog);
+                XxlJobDynamicScheduler.xxlJobLogDao.updateTriggerInfo(jobLog);
 
                 // 6、monitor trigger
                 JobFailMonitorHelper.monitor(jobLog.getId());
@@ -144,7 +124,7 @@ public class XxlJobTrigger {
             XxlJobLog jobLog = new XxlJobLog();
             jobLog.setJobGroup(jobInfo.getJobGroup());
             jobLog.setJobId(jobInfo.getId());
-            xxlJobLogDao.save(jobLog);
+            XxlJobDynamicScheduler.xxlJobLogDao.save(jobLog);
             logger.debug(">>>>>>>>>>> xxl-job trigger start, jobId:{}", jobLog.getId());
 
             // 2、prepare trigger-info
@@ -200,7 +180,7 @@ public class XxlJobTrigger {
             jobLog.setExecutorAddress(triggerResult.getContent());
             jobLog.setTriggerCode(triggerResult.getCode());
             jobLog.setTriggerMsg(triggerMsgSb.toString());
-            xxlJobLogDao.updateTriggerInfo(jobLog);
+            XxlJobDynamicScheduler.xxlJobLogDao.updateTriggerInfo(jobLog);
 
             // 6、monitor trigger
             JobFailMonitorHelper.monitor(jobLog.getId());
@@ -215,7 +195,7 @@ public class XxlJobTrigger {
      * @param address
      * @return  ReturnT.content: final address
      */
-    public  ReturnT<String> runExecutor(TriggerParam triggerParam, String address){
+    public static ReturnT<String> runExecutor(TriggerParam triggerParam, String address){
         ReturnT<String> runResult = null;
         try {
             ExecutorBiz executorBiz = XxlJobDynamicScheduler.getExecutorBiz(address);
