@@ -6,6 +6,7 @@ target/
 *.tar
 *.tar.gz
 *.class
+*.project
 
 # eclipse ignore
 .settings/
