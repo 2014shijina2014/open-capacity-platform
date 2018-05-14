@@ -14,6 +14,7 @@ import com.open.capacity.quartz.model.JobModel;
 @Mapper
 public interface JobDao {
 
+
 	@Options(useGeneratedKeys = true, keyProperty = "id")
 	@Insert("insert into t_job(jobName, description, cron, springBeanName, methodName, isSysJob, status, createTime, updateTime) values(#{jobName}, #{description}, #{cron}, #{springBeanName}, #{methodName}, #{isSysJob}, 1, now(), now())")
 	int save(JobModel jobModel);
