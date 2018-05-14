@@ -1,24 +1,19 @@
 package com.xxl.job.admin.core.route.strategy;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.xxl.job.admin.core.route.ExecutorRouter;
 import com.xxl.job.admin.core.trigger.XxlJobTrigger;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
 
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by xuxueli on 17/3/10.
  */
-@Component
 public class ExecutorRouteRound extends ExecutorRouter {
-    @Autowired
-    public  XxlJobTrigger XxlJobTrigger;
+
     private static ConcurrentHashMap<Integer, Integer> routeCountEachJob = new ConcurrentHashMap<Integer, Integer>();
     private static long CACHE_VALID_TIME = 0;
     private static int count(int jobId) {

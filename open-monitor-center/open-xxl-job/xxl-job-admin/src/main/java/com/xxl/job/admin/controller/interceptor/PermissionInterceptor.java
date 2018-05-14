@@ -5,8 +5,7 @@ import java.math.BigInteger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -22,17 +21,34 @@ import com.xxl.job.admin.core.util.PropertiesUtil;
  */
 @Component
 public class PermissionInterceptor extends HandlerInterceptorAdapter {
-	private static Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
-	public static final String LOGIN_IDENTITY_KEY = "LOGIN_IDENTITY";
+
+
+	public static final String LOGIN_IDENTITY_KEY = "XXL_JOB_LOGIN_IDENTITY";
 	public static final String LOGIN_IDENTITY_TOKEN;
     static {
-    	String username = PropertiesUtil.getString("xxl.job.login.username");
-		String password = PropertiesUtil.getString("xxl.job.login.password");
-		String temp = username + "_" + password;
-		LOGIN_IDENTITY_TOKEN = new BigInteger(1, temp.getBytes()).toString(16);
-	}
+        String username = PropertiesUtil.getString("xxl.job.login.username");
+        String password = PropertiesUtil.getString("xxl.job.login.password");
 
-	public static boolean login(HttpServletResponse response, boolean ifRemember){
+        // login token
+        String tokenTmp = DigestUtils.md5Hex(username + "_" + password);
+		tokenTmp = new BigInteger(1, tokenTmp.getBytes()).toString(16);
+
+		LOGIN_IDENTITY_TOKEN = tokenTmp;
+    }
+
+
+
+	public static boolean login(HttpServletResponse response, String username, String password, boolean ifRemember){
+
+    	// login token
+		String tokenTmp = DigestUtils.md5Hex(username + "_" + password);
+		tokenTmp = new BigInteger(1, tokenTmp.getBytes()).toString(16);
+
+		if (!LOGIN_IDENTITY_TOKEN.equals(tokenTmp)){
+			return false;
+		}
+
+		// do login
 		CookieUtil.set(response, LOGIN_IDENTITY_KEY, LOGIN_IDENTITY_TOKEN, ifRemember);
 		return true;
 	}
@@ -60,7 +76,6 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 			HandlerMethod method = (HandlerMethod)handler;
 			PermessionLimit permission = method.getMethodAnnotation(PermessionLimit.class);
 			if (permission == null || permission.limit()) {
-				logger.info("Interceptor：跳转到login页面！");
 				response.sendRedirect(request.getContextPath() + "/toLogin");
 				//request.getRequestDispatcher("/toLogin").forward(request, response);
 				return false;

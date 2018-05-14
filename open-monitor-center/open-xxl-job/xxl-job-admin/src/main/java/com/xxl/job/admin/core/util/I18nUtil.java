@@ -1,8 +1,11 @@
 package com.xxl.job.admin.core.util;
 
-import com.xxl.job.admin.core.conf.XxlJobAdminConfig;
-import com.xxl.job.core.util.JacksonUtil;
-import org.apache.commons.lang3.StringUtils;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -10,11 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import com.xxl.job.core.util.JacksonUtil;
 
 /**
  * i18n util
@@ -31,9 +30,7 @@ public class I18nUtil {
         }
         try {
             // build i18n prop
-            String i18n = XxlJobAdminConfig.getAdminConfig().getI18n();
-            i18n = StringUtils.isNotBlank(i18n)?("_"+i18n):i18n;
-            String i18nFile = MessageFormat.format("i18n/message{0}.properties", i18n);
+            String i18nFile = "i18n/message.properties";
 
             // load prop
             Resource resource = new ClassPathResource(i18nFile);

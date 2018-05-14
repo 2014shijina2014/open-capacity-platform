@@ -1,22 +1,17 @@
 package com.xxl.job.admin.core.route.strategy;
 
-import java.util.ArrayList;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.xxl.job.admin.core.route.ExecutorRouter;
 import com.xxl.job.admin.core.trigger.XxlJobTrigger;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
 
+import java.util.ArrayList;
+
 /**
  * Created by xuxueli on 17/3/10.
  */
-@Component
 public class ExecutorRouteFirst extends ExecutorRouter {
-    @Autowired
-    public  XxlJobTrigger XxlJobTrigger;
+
     public String route(int jobId, ArrayList<String> addressList) {
         return addressList.get(0);
     }
