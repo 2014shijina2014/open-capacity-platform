@@ -9,9 +9,9 @@
         content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
   <link rel="stylesheet" href="/lib/layui/css/layui.css">
 
-  <link rel="stylesheet" href="${re.contextPath}/plugin/lenos/main.css">
+  <!--<link rel="stylesheet" href="${re.contextPath}/plugin/lenos/main.css">-->
 
-    <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/lib/layui/layui.all.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/libs/jquery-2.1.1.min.js"></script>
 
   <!--<script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>-->
@@ -99,7 +99,8 @@
     table.render({
       id: 'actList',
       elem: '#actList'
-      , url: 'showAct'
+      , url: '/activiti/showAct'
+      , where : { token : localStorage.getItem("token") }
       , cols: [[
           {checkbox: true, fixed: true, width: '5%'}
         , {field: 'id', title: '编号', width: '15%', sort: true}
@@ -110,7 +111,6 @@
         , {field: 'category', title: '版本', width: '15%', sort: true}
         , {field: 'resourceName', title: '资源名称', width: '10%', sort: true}
         , {field: 'text', title: '操作', width: '10%', toolbar:'#toolBar'}
-
       ]]
       , page: true
       ,  height: 'full-85'

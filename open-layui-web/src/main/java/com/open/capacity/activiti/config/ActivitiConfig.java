@@ -28,8 +28,6 @@ public class ActivitiConfig {
     public ProcessEngineConfiguration processEngineConfiguration(DataSource dataSource, PlatformTransactionManager transactionManager) {
         SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
         processEngineConfiguration.setDataSource(dataSource);
-
-
         //表不存在创建表
         processEngineConfiguration.setDatabaseSchemaUpdate("true");
         //指定数据库

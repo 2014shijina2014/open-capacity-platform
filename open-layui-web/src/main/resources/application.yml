@@ -15,16 +15,18 @@ spring:
   jackson:
       date-format: yyyy-MM-dd HH:mm:ss
       joda-date-time-format: yyyy-MM-dd HH:mm:ss
-      time-zone: GMT+8   
+      time-zone: GMT+8
   mail:
     host: smtp.163.com
-    username: xxxxxxx@163.com
+    username: 18579068155@163.com
     password: 1q2w3e4r
     properties:
         mail.smtp.auth : true
         mail.smtp.timeout : 2000
         mail.smtp.starttls.enable : true
-        mail.smtp.starttls.required : true      
+        mail.smtp.starttls.required : true
+  thymeleaf:
+    cache: false
   http:
     encoding:
       charset:  utf8
@@ -61,7 +63,6 @@ spring:
 #      max-idle: 8     # 连接池中的最大空闲连接
 #      min-idle: 2     # 连接池中的最小空闲连接
 #      max-wait: 100   # 连接池最大阻塞等待时间（使用负值表示没有限制）       
-    
     
 
 mybatis:
