@@ -127,7 +127,15 @@ public class EurekaController {
 			post2get = 1;
 		}
 
-		String url = "http://" + inmap.get("ip") + ":" + inmap.get("port") + "/" + op;
+
+		String name =inmap.get("instance");
+
+		String path= "" ;
+		if("OPEN-EUREKA-CLIENT".equals(name)){
+			path ="/client" ;
+		}
+
+		String url = "http://" + inmap.get("ip") + ":" + inmap.get("port") +path + "/" + op;
 
 		return getoperate(url, post2get, "", "");
 	}

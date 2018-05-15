@@ -61,6 +61,7 @@
 										<tr>
 										</tr>
 										<tr>
+											<th>实例名称</th>
 											<th>主机名称</th>
 											<th>IP地址</th>
 											<th>端口</th>
@@ -249,6 +250,7 @@ function info(id){
             	 },  
         	"dom": "<'dt-toolbar'r>t<'dt-toolbar-footer'<'col-sm-10 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-10' p v>>",	
             "columns": [
+                { "data": "app", "defaultContent": ""} ,
                 { "data": "hostName", "defaultContent": ""} , 
                 { "data": "ipAddr", "defaultContent": ""}  ,
                 { "data": "port.$", "defaultContent": ""}  ,
@@ -269,6 +271,7 @@ function info(id){
                             req.ip = ipAddr;
                             req.port = port;
                             req.status = status;
+                            req.instance = row['app'];
                             var ops = buttonOps(req, "job:add", pers);
                             var refresh = buttonRefresh(req, "job:add", pers);
                             return ops  + refresh  ;
@@ -306,12 +309,13 @@ function del(id){
 
 
 
-function ops(ip,port,ops){
+function ops(app , ip,port,ops){
 	
 	var req = {} ;
 	req.ip = ip ;
 	req.port = port ;
 	req.operate = ops ;
+	req.instance=app ;
 	var str ;
 	if(ops==1){
 		str="暂停";
