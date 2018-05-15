@@ -74,7 +74,9 @@ sts-3.8.0.RELEASE
 
 ![](https://i.imgur.com/os86Yvr.jpg) 
 
- 
+10.定时任务
+
+![](https://i.imgur.com/boiJhNU.jpg)
 
 
 
