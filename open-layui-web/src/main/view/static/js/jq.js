@@ -66,10 +66,10 @@ function buttonOps(data, permission, pers){
  
 	var btn ;
 	if(data.status=='UP'){
-		 btn = $("<button class='layui-btn layui-btn-xs' title='暂停'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+1 +")'><i class='fa fa-pause'>&#xe642;</i></button>");
+		 btn = $("<button class='layui-btn layui-btn-xs' title='暂停'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+1 +")'><i class='layui-icon'>⏸</i></button>");
 		
 	}else{
-		 btn = $("<button class='layui-btn layui-btn-xs' title='启动'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+3 +")'><i class='fa fa-play'>&#xe642;</i></button>");
+		 btn = $("<button class='layui-btn layui-btn-xs' title='启动'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+3 +")'><i class='layui-icon'>▶</i></button>");
 		
 	}
 	
@@ -86,7 +86,7 @@ function buttonRefresh(data, permission, pers){
  
 	var btn ;
 	 
-	btn = $("<button class='layui-btn layui-btn-xs' title='刷新'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+4 +")'><i class='fa fa-refresh'>&#xe642;</i></button>");
+	btn = $("<button class='layui-btn layui-btn-xs' title='刷新'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+4 +")'><i class='layui-icon'>ဂ</i></button>");
 	
 		
 
