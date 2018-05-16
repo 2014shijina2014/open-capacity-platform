@@ -9,7 +9,7 @@ management:
     enabled: false  
 eureka:
   server:
-    enable-self-preservation: true    #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
+    enable-self-preservation: false    #关闭服务器自我保护，客户端心跳检测15分钟内错误达到80%服务会保护，导致别人还认为是好用的服务
     eviction-interval-timer-in-ms: 15000 #清理间隔（单位毫秒，默认是60*1000）5秒将客户端剔除的服务在服务注册列表中剔除# 
   client: 
     register-with-eureka: false  #false:不作为一个客户端注册到注册中心
