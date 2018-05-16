@@ -58,8 +58,9 @@ sts-3.8.0.RELEASE
 ![](https://i.imgur.com/4EJF9By.jpg)
    
 06.注册中心   
+![](https://i.imgur.com/7VNt5ju.png)
 
-![](https://i.imgur.com/ye3kyrJ.jpg)      
+![](https://i.imgur.com/4zfyLCi.png)
 
 07.配置中心   
 ![](https://i.imgur.com/VqK4iZB.jpg)    
