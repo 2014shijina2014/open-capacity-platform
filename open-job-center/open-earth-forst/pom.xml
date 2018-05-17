@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.open.capacity</groupId>
+		<artifactId>open-job-center</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	 <artifactId>open-earth-forst</artifactId>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<snow.version>1.0.0</snow.version>
+		<redisson.version>3.6.4</redisson.version>
+		<spring-boot-admin.version>1.5.7</spring-boot-admin.version>
+		<okhttp.version>3.10.0</okhttp.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<dependency>
+				<groupId>com.open.capacity</groupId>
+				<artifactId>frost-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.open.capacity</groupId>
+				<artifactId>frost-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.open.capacity</groupId>
+				<artifactId>frost-executor</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.open.capacity</groupId>
+				<artifactId>frost-support-redis</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>vip.justlive</groupId>
+				<artifactId>snow-common-base</artifactId>
+				<version>${snow.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>vip.justlive</groupId>
+				<artifactId>snow-common-web</artifactId>
+				<version>${snow.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui</artifactId>
+				<version>${spring-boot-admin.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui-login</artifactId>
+				<version>${spring-boot-admin.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson</artifactId>
+				<version>${redisson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.squareup.okhttp3</groupId>
+				<artifactId>okhttp</artifactId>
+				<version>${okhttp.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+
+	<modules>
+		<module>frost-api</module>
+		<module>frost-core</module>
+		<module>frost-center</module>
+		<module>frost-client</module>
+		<module>frost-executor</module>
+		<module>frost-support-redis</module>
+	</modules>
+</project>
