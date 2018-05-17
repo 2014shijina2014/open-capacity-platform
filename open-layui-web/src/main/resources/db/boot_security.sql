@@ -1,17 +1,11 @@
-/*
-Navicat MySQL Data Transfer
 
-Source Server         : 3306_root
-Source Server Version : 50722
-Source Host           : localhost:3306
-Source Database       : boot_security
+CREATE DATABASE IF NOT EXISTS `boot_security` DEFAULT CHARACTER SET = utf8mb4;
 
-Target Server Type    : MYSQL
-Target Server Version : 50722
-File Encoding         : 65001
+Use `boot_security`;
+ 
 
-Date: 2018-05-15 21:45:03
-*/
+set session  
+sql_mode='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';  
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -872,11 +866,12 @@ CREATE TABLE `properties` (
 -- ----------------------------
 INSERT INTO `properties` VALUES ('1', 'zuul.debug.request', 'false', 'unieap-eureka-config-client', 'dev', 'master');
 
--- ----------------------------
--- Table structure for qrtz_blob_triggers
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_blob_triggers`;
-CREATE TABLE `qrtz_blob_triggers` (
+
+
+
+
+DROP TABLE IF EXISTS `QRTZ_BLOB_TRIGGERS`;
+CREATE TABLE `QRTZ_BLOB_TRIGGERS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -885,14 +880,10 @@ CREATE TABLE `qrtz_blob_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_blob_triggers
+-- Table structure for QRTZ_CALENDARS
 -- ----------------------------
-
--- ----------------------------
--- Table structure for qrtz_calendars
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_calendars`;
-CREATE TABLE `qrtz_calendars` (
+DROP TABLE IF EXISTS `QRTZ_CALENDARS`;
+CREATE TABLE `QRTZ_CALENDARS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `CALENDAR_NAME` varchar(128) COLLATE utf8mb4_bin NOT NULL,
   `CALENDAR` blob NOT NULL,
@@ -900,14 +891,10 @@ CREATE TABLE `qrtz_calendars` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_calendars
+-- Table structure for QRTZ_CRON_TRIGGERS
 -- ----------------------------
-
--- ----------------------------
--- Table structure for qrtz_cron_triggers
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_cron_triggers`;
-CREATE TABLE `qrtz_cron_triggers` (
+DROP TABLE IF EXISTS `QRTZ_CRON_TRIGGERS`;
+CREATE TABLE `QRTZ_CRON_TRIGGERS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -917,14 +904,10 @@ CREATE TABLE `qrtz_cron_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_cron_triggers
+-- Table structure for QRTZ_FIRED_TRIGGERS
 -- ----------------------------
-
--- ----------------------------
--- Table structure for qrtz_fired_triggers
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_fired_triggers`;
-CREATE TABLE `qrtz_fired_triggers` (
+DROP TABLE IF EXISTS `QRTZ_FIRED_TRIGGERS`;
+CREATE TABLE `QRTZ_FIRED_TRIGGERS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `ENTRY_ID` varchar(128) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -942,14 +925,10 @@ CREATE TABLE `qrtz_fired_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_fired_triggers
+-- Table structure for QRTZ_JOB_DETAILS
 -- ----------------------------
-
--- ----------------------------
--- Table structure for qrtz_job_details
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_job_details`;
-CREATE TABLE `qrtz_job_details` (
+DROP TABLE IF EXISTS `QRTZ_JOB_DETAILS`;
+CREATE TABLE `QRTZ_JOB_DETAILS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `JOB_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `JOB_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -964,44 +943,30 @@ CREATE TABLE `qrtz_job_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_job_details
+-- Table structure for QRTZ_LOCKS
 -- ----------------------------
-
--- ----------------------------
--- Table structure for qrtz_locks
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_locks`;
-CREATE TABLE `qrtz_locks` (
+DROP TABLE IF EXISTS `QRTZ_LOCKS`;
+CREATE TABLE `QRTZ_LOCKS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `LOCK_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_locks
+-- Table structure for QRTZ_PAUSED_TRIGGER_GRPS
 -- ----------------------------
-INSERT INTO `qrtz_locks` VALUES ('OpenScheduler', 'STATE_ACCESS');
-INSERT INTO `qrtz_locks` VALUES ('OpenScheduler', 'TRIGGER_ACCESS');
-
--- ----------------------------
--- Table structure for qrtz_paused_trigger_grps
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
-CREATE TABLE `qrtz_paused_trigger_grps` (
+DROP TABLE IF EXISTS `QRTZ_PAUSED_TRIGGER_GRPS`;
+CREATE TABLE `QRTZ_PAUSED_TRIGGER_GRPS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`SCHED_NAME`,`TRIGGER_GROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_paused_trigger_grps
+-- Table structure for QRTZ_SCHEDULER_STATE
 -- ----------------------------
-
--- ----------------------------
--- Table structure for qrtz_scheduler_state
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_scheduler_state`;
-CREATE TABLE `qrtz_scheduler_state` (
+DROP TABLE IF EXISTS `QRTZ_SCHEDULER_STATE`;
+CREATE TABLE `QRTZ_SCHEDULER_STATE` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `INSTANCE_NAME` varchar(128) COLLATE utf8mb4_bin NOT NULL,
   `LAST_CHECKIN_TIME` bigint(13) NOT NULL,
@@ -1010,15 +975,10 @@ CREATE TABLE `qrtz_scheduler_state` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_scheduler_state
+-- Table structure for QRTZ_SIMPLE_TRIGGERS
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('OpenScheduler', 'USER-20180319ZK1526390918290', '1526391903895', '15000');
-
--- ----------------------------
--- Table structure for qrtz_simple_triggers
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_simple_triggers`;
-CREATE TABLE `qrtz_simple_triggers` (
+DROP TABLE IF EXISTS `QRTZ_SIMPLE_TRIGGERS`;
+CREATE TABLE `QRTZ_SIMPLE_TRIGGERS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -1029,14 +989,10 @@ CREATE TABLE `qrtz_simple_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_simple_triggers
+-- Table structure for QRTZ_SIMPROP_TRIGGERS
 -- ----------------------------
-
--- ----------------------------
--- Table structure for qrtz_simprop_triggers
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
-CREATE TABLE `qrtz_simprop_triggers` (
+DROP TABLE IF EXISTS `QRTZ_SIMPROP_TRIGGERS`;
+CREATE TABLE `QRTZ_SIMPROP_TRIGGERS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -1055,14 +1011,10 @@ CREATE TABLE `qrtz_simprop_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
--- Records of qrtz_simprop_triggers
+-- Table structure for QRTZ_TRIGGERS
 -- ----------------------------
-
--- ----------------------------
--- Table structure for qrtz_triggers
--- ----------------------------
-DROP TABLE IF EXISTS `qrtz_triggers`;
-CREATE TABLE `qrtz_triggers` (
+DROP TABLE IF EXISTS `QRTZ_TRIGGERS`;
+CREATE TABLE `QRTZ_TRIGGERS` (
   `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -1083,9 +1035,240 @@ CREATE TABLE `qrtz_triggers` (
   KEY `SCHED_NAME` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+
+
+
+
+#
+# Structure for table "schedule_job"
+#
+
+CREATE TABLE `schedule_job` (
+  `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务id',
+  `bean_name` varchar(200) DEFAULT NULL COMMENT 'spring bean名称',
+  `method_name` varchar(100) DEFAULT NULL COMMENT '方法名',
+  `params` varchar(2000) DEFAULT NULL COMMENT '参数',
+  `cron_expression` varchar(100) DEFAULT NULL COMMENT 'cron表达式',
+  `status` tinyint(4) DEFAULT NULL COMMENT '任务状态',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`job_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务';
+
+#
+# Data for table "schedule_job"
+#
+
+INSERT INTO `schedule_job` VALUES (1,'testTask','test','para','0/5 0 * * * ?',0,'有参数测试','2017-06-01 23:16:46'),(2,'testTask','test2',NULL,'0/5 0 * * * ?',1,'无参数测试','2017-06-03 14:55:56');
+
+#
+# Structure for table "schedule_job_log"
+#
+
+CREATE TABLE `schedule_job_log` (
+  `log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务日志id',
+  `job_id` bigint(20) NOT NULL COMMENT '任务id',
+  `bean_name` varchar(200) DEFAULT NULL COMMENT 'spring bean名称',
+  `method_name` varchar(100) DEFAULT NULL COMMENT '方法名',
+  `params` varchar(2000) DEFAULT NULL COMMENT '参数',
+  `status` tinyint(4) NOT NULL COMMENT '任务状态    0：成功    1：失败',
+  `error` varchar(2000) DEFAULT NULL COMMENT '失败信息',
+  `times` int(11) NOT NULL COMMENT '耗时(单位：毫秒)',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`log_id`),
+  KEY `job_id` (`job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='定时任务日志';
+
+#
+# Data for table "schedule_job_log"
+#
+
+
+#
+# Structure for table "sys_client_server"
+#
+
+CREATE TABLE `sys_client_server` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `clientId` int(11) DEFAULT NULL,
+  `moduleId` int(11) DEFAULT NULL COMMENT '模块ID',
+  `serverId` int(11) DEFAULT NULL COMMENT '服务ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务授权表';
+
+#
+# Data for table "sys_client_server"
+#
+
+
 -- ----------------------------
--- Records of qrtz_triggers
+-- Table structure for QRTZ_BLOB_TRIGGERS
 -- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_BLOB_TRIGGERS`;
+CREATE TABLE `QRTZ_BLOB_TRIGGERS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `BLOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_CALENDARS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_CALENDARS`;
+CREATE TABLE `QRTZ_CALENDARS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `CALENDAR_NAME` varchar(128) COLLATE utf8mb4_bin NOT NULL,
+  `CALENDAR` blob NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`CALENDAR_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_CRON_TRIGGERS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_CRON_TRIGGERS`;
+CREATE TABLE `QRTZ_CRON_TRIGGERS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `CRON_EXPRESSION` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TIME_ZONE_ID` varchar(80) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_FIRED_TRIGGERS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_FIRED_TRIGGERS`;
+CREATE TABLE `QRTZ_FIRED_TRIGGERS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `ENTRY_ID` varchar(128) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `INSTANCE_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `FIRED_TIME` bigint(13) NOT NULL,
+  `SCHED_TIME` bigint(13) NOT NULL,
+  `PRIORITY` int(11) NOT NULL,
+  `STATE` varchar(16) COLLATE utf8mb4_bin NOT NULL,
+  `JOB_NAME` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
+  `JOB_GROUP` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
+  `IS_NONCONCURRENT` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  `REQUESTS_RECOVERY` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`ENTRY_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_JOB_DETAILS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_JOB_DETAILS`;
+CREATE TABLE `QRTZ_JOB_DETAILS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `JOB_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `JOB_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `DESCRIPTION` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `JOB_CLASS_NAME` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `IS_DURABLE` varchar(1) COLLATE utf8mb4_bin NOT NULL,
+  `IS_NONCONCURRENT` varchar(1) COLLATE utf8mb4_bin NOT NULL,
+  `IS_UPDATE_DATA` varchar(1) COLLATE utf8mb4_bin NOT NULL,
+  `REQUESTS_RECOVERY` varchar(1) COLLATE utf8mb4_bin NOT NULL,
+  `JOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_LOCKS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_LOCKS`;
+CREATE TABLE `QRTZ_LOCKS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `LOCK_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`LOCK_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_PAUSED_TRIGGER_GRPS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_PAUSED_TRIGGER_GRPS`;
+CREATE TABLE `QRTZ_PAUSED_TRIGGER_GRPS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_SCHEDULER_STATE
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_SCHEDULER_STATE`;
+CREATE TABLE `QRTZ_SCHEDULER_STATE` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `INSTANCE_NAME` varchar(128) COLLATE utf8mb4_bin NOT NULL,
+  `LAST_CHECKIN_TIME` bigint(13) NOT NULL,
+  `CHECKIN_INTERVAL` bigint(13) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`INSTANCE_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_SIMPLE_TRIGGERS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_SIMPLE_TRIGGERS`;
+CREATE TABLE `QRTZ_SIMPLE_TRIGGERS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `REPEAT_COUNT` bigint(7) NOT NULL,
+  `REPEAT_INTERVAL` bigint(12) NOT NULL,
+  `TIMES_TRIGGERED` bigint(10) NOT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_SIMPROP_TRIGGERS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_SIMPROP_TRIGGERS`;
+CREATE TABLE `QRTZ_SIMPROP_TRIGGERS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `STR_PROP_1` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL,
+  `STR_PROP_2` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL,
+  `STR_PROP_3` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL,
+  `INT_PROP_1` int(11) DEFAULT NULL,
+  `INT_PROP_2` int(11) DEFAULT NULL,
+  `LONG_PROP_1` bigint(20) DEFAULT NULL,
+  `LONG_PROP_2` bigint(20) DEFAULT NULL,
+  `DEC_PROP_1` decimal(13,4) DEFAULT NULL,
+  `DEC_PROP_2` decimal(13,4) DEFAULT NULL,
+  `BOOL_PROP_1` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  `BOOL_PROP_2` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Table structure for QRTZ_TRIGGERS
+-- ----------------------------
+DROP TABLE IF EXISTS `QRTZ_TRIGGERS`;
+CREATE TABLE `QRTZ_TRIGGERS` (
+  `SCHED_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `JOB_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `JOB_GROUP` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `DESCRIPTION` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `NEXT_FIRE_TIME` bigint(13) DEFAULT NULL,
+  `PREV_FIRE_TIME` bigint(13) DEFAULT NULL,
+  `PRIORITY` int(11) DEFAULT NULL,
+  `TRIGGER_STATE` varchar(16) COLLATE utf8mb4_bin NOT NULL,
+  `TRIGGER_TYPE` varchar(8) COLLATE utf8mb4_bin NOT NULL,
+  `START_TIME` bigint(13) NOT NULL,
+  `END_TIME` bigint(13) DEFAULT NULL,
+  `CALENDAR_NAME` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `MISFIRE_INSTR` smallint(2) DEFAULT NULL,
+  `JOB_DATA` blob,
+  PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
+  KEY `SCHED_NAME` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
 
 -- ----------------------------
 -- Table structure for schedule_job
