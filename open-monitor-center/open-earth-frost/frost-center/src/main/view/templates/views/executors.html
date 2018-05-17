@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<div class="container-fluid">
+	<h3>执行器管理</h3>
+	<div>
+		<input placeholder="Filter" class="input-xlarge pull-right" type="search"
+			ng-model="searchFilter" />
+	</div>
+	<table class="table application-list">
+		<thead>
+			<tr>
+				<th class="group-column"
+					title="{{expandAll ? 'collapse' : 'expand'}} all"
+					ng-click="toggleExpandAll()"><i class="fa"
+					ng-class="{'fa-plus': !expandAll, 'fa-minus': expandAll}"></i></th>
+				<th class="name-column"><span>执行器分组</span></th>
+				<th class="name-column"><span>名称</span></th>
+				<th class="info-column">信息</th>
+				<th class="status-column">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat-start="executor in executors | filter : doFilter"
+				ng-show="executor.group.count > 1 && (executor.group.collapsed || executor.group.collapsed == undefined)">
+				<td class="group-column" ng-click="executor.group.collapsed = false"><i
+					class="fa fa-plus"></i></td>
+				<td class="name-column" ng-bind="executor.group.groupKey"></td>
+				<td class="name-column"></td>
+				<td colspan="2"><span class="status-UP"
+					ng-bind="executor.group.count + ' UP'"></span></td>
+			</tr>
+			<tr ng-repeat-end ng-repeat="app in executor.apps"
+				ng-show="executor.group.collapsed == false || executor.group.count <= 1">
+				<td class="group-column" ng-click="executor.group.collapsed = true"
+					ng-class="{'hidden': !$first}" rowspan="{{executor.group.count}}"><i
+					ng-show="executor.group.count > 1" class="fa fa-minus"></i></td>
+				<td class="name-column">{{executor.group.groupKey}}<br /> <span
+					class="muted">{{app.address}}</span></td>
+				<td class="name-column">{{app.name}}</td>
+				<td class="info-column">
+					<div>
+						<span style="display: inherit;" class="status-UNKNOWN">{{app.groups.length}}
+							Jobs <i class="fa fa-caret-{{app.info? 'up':'down'}}" ng-show="app.groups.length > 2"
+							ng-click="app.info = !app.info; "></i>
+						</span>
+						<div style="margin-left: 25px;" ng-repeat="job in app.groups"
+							ng-show="$index < 2">{{job.jobKey}}-{{job.jobDesc}}</div>
+						<div style="margin-left: 25px;" ng-repeat="job in app.groups"
+							ng-show="$index >= 2 && app.info">{{job.jobKey}}-{{job.jobDesc}}</div>
+					</div>
+				</td>
+				<td class="status-column">
+					<div class="btn-group">
+						<a ng-href="javascript:void(0);" ng-click="jumpToLogs(app.id)"
+							class="btn btn-success ng-binding"><i
+							class="fa fa-info fa-fw"></i>详情</a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

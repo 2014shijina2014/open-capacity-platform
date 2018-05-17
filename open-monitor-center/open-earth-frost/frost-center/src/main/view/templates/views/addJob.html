@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<div class="modal-header">
+	<div class="modal-title">{{modalDatas.opt == 1 ? '新增任务' :
+		'修改任务'}}</div>
+</div>
+
+<div class="modal-body">
+	<form class="form-horizontal" name="jobForm">
+		<div class="control-group inline-block">
+			<label class="control-label width100"> 任务类型 </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<select class="input-large width248" ng-model="modalDatas.type">
+						<option value="BEAN">实例模式</option>
+						<option value="SCRIPT">脚本模式</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label width100"> 执行器 </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<select class="input-large width248"
+						ng-change="$ctrl.executorChange()"
+						ng-disabled="modalDatas.type == 'SCRIPT' && !modalDatas.useExecutor"
+						ng-model="modalDatas.groupKey">
+						<option ng-repeat="(k, v) in modalDatas.executorMap"
+							value="{{k}}">{{k}}</option>
+					</select>
+					<div class="checkbox"
+						style="display: inline-block; margin-left: 5px"
+						ng-if="modalDatas.type == 'SCRIPT'">
+						<label> <input type="checkbox"
+							ng-model="modalDatas.useExecutor"> 指定执行器
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label width100"> 任务名称 </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<input type="text" ng-model="modalDatas.name" name="jobName"
+						placeholder="请输入名称" class="input-large width235" required>
+				</div>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label width100"> 执行逻辑 </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<select class="input-large width248" ng-model="modalDatas.jobKey"
+						ng-disabled="modalDatas.type == 'SCRIPT'">
+						<option ng-repeat="job in modalDatas.jobs" value="{{job.jobKey}}">{{job.jobDesc}}({{job.jobKey}})</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label width100"> Cron </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<input type="text" ng-model="modalDatas.cron" name="cron"
+						placeholder="请输入cron" class="input-large width235" required>
+				</div>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label width100"> 子任务 </label>
+			<div class="controls">
+				<div ng-dropdown-multiselect="" options="modalDatas.jobInfos"
+					selected-model="modalDatas.childrenJobs"
+					translation-texts="modalDatas.translationTexts"
+					extra-settings="modalDatas.extraSettings"></div>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label width100"> 参数 </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<input type="text" ng-model="modalDatas.param"
+						placeholder="请输入运行参数" class="input-large width235">
+				</div>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label width100"> 失败处理 </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<select class="input-large width248"
+						ng-model="modalDatas.failStrategy">
+						<option value="NOTIFY">失败通知</option>
+						<option value="RETRY">失败重试</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="control-group inline-block">
+			<label class="control-label width100"> 通知邮件 </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<input type="text" ng-model="modalDatas.notifyMails"
+						placeholder="多个邮件地址逗号分隔" class="input-large width235">
+				</div>
+			</div>
+		</div>
+
+		<div class="control-group inline-block" ng-if="modalDatas.opt == 1">
+			<label class="control-label width100"> 自动运行 </label>
+			<div class="controls">
+				<div class="input-prepend">
+					<input type="checkbox" ng-model="modalDatas.auto">
+				</div>
+			</div>
+		</div>
+
+		<div class="control-group error">
+			<div class="help-inline error-message margin-left180">{{modalDatas.error}}</div>
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-info" type="button" ng-click="$ctrl.ok()"
+		ng-disabled="jobForm.cron.$invalid || jobForm.jobName.$invalid">确定</button>
+	<button class="btn" type="button" ng-click="$ctrl.cancel()">取消</button>
+</div>

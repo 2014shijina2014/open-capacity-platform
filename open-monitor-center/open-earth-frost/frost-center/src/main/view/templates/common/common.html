@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<header class="navbar header--navbar desktop-only">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="#">frost-center</a>
+			<ul class="nav pull-right">
+				<li class="navbar-link {{navActive == 0? 'active':''}}"><a href="#/executors" ng-click="navActive = 0">执行器管理</a></li>
+				<li class="navbar-link {{navActive == 1? 'active':''}}"><a href="#/jobs" ng-click="navActive = 1">任务管理</a></li>
+				<li class="navbar-link {{navActive == 2? 'active':''}}"><a href="#/logs" ng-click="navActive = 2">调度记录</a></li>
+				<li class="navbar-link">
+                    <a class="ng-binding" href="logout"><i class="fa fa-2x fa-sign-out" aria-hidden="true"></i></a>
+                </li>
+			</ul>
+		</div>
+	</div>
+</header>
+
+<footer class="footer">
+	<ul class="inline">
+		<li><a href="https://gitee.com/justlive1/earth-frost"
+			target="_blank">源码地址</a></li>
+		<li>-</li>
+		<li>Copyright © 2018-2018 justlive1</li>
+	</ul>
+</footer>
+

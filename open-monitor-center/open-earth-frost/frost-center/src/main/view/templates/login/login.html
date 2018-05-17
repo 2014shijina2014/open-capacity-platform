@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>frost-center</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<link rel="shortcut icon" type="image/x-icon" href="ui/img/favicon.png" />
+<link rel="stylesheet" type="text/css" href="ui/core.css" />
+<link rel="stylesheet" type="text/css" href="ui/login.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+	<header class="navbar header--navbar desktop-only">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<div class="spring-logo--container">
+					<a class="spring-logo" href="#"><span></span></a>
+				</div>
+				<div class="spring-logo--container">
+					<a class="spring-boot-logo" href="#"><span></span></a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<form class="form-login" action="login" method="post">
+			<h2 class="form-login-heading">frost-center</h2>
+			<div id="login-controls" class="control-group">
+				<input type="text" class="input-block-level" name="username"
+					placeholder="用户名" /> <input type="password"
+					class="input-block-level" name="password" placeholder="密码" />
+				<span class="help-inline error-message">用户名或密码不正确!</span> <input
+					type="submit" class="btn btn-success" value="登录" />
+			</div>
+		</form>
+	</div>
+
+	<script type="text/javascript">
+		if (/\?error/.test(window.location.href)) {
+			document.getElementById("login-controls").classList.add("error")
+		}
+	</script>
+
+	<footer th:replace="common/common.html :: footer"></footer>
+</body>
+
+</html>

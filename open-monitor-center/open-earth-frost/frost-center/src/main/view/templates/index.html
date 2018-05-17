@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>frost-center</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<link rel="shortcut icon" type="image/x-icon" href="ui/img/favicon.png" />
+<link rel="stylesheet" type="text/css" href="ui/core.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="lib/codemirror-5.37.0/lib/codemirror.css" />
+<link rel="stylesheet/less" type="text/css" href="css/glyphicons.less" />
+<script src="js/less.min.js"></script>
+</head>
+
+<body ng-app="frost">
+
+	<header th:replace="common/common.html :: header"></header>
+	<div ui-view></div>
+	<footer th:replace="common/common.html :: footer"></footer>
+
+	<script src="ui/dependencies.js" type="text/javascript"></script>
+	<script src="js/ui-bootstrap-tpls-2.3.2.min.js" type="text/javascript"></script>
+	<script src="js/angularjs-dropdown-multiselect.min.js" type="text/javascript"></script>
+	<script src="js/echarts.min.js" type="text/javascript"></script>
+	<script src="lib/codemirror-5.37.0/lib/codemirror.js"></script>
+	<script src="lib/codemirror-5.37.0/mode/clike/clike.js"></script>
+	<script type="text/ng-template" id="executors.html"
+		th:insert="views/executors.html"></script>
+	<script type="text/ng-template" id="jobs.html"
+		th:insert="views/jobs.html"></script>
+	<script type="text/ng-template" id="addJob.html"
+		th:insert="views/addJob.html"></script>
+	<script type="text/ng-template" id="logs.html"
+		th:insert="views/logs.html"></script>
+	<script type="text/ng-template" id="modal.html"
+		th:insert="views/modal.html"></script>
+	<script type="text/ng-template" id="script.html"
+		th:insert="views/script.html"></script>
+		<script type="text/ng-template" id="statistics.html"
+        th:insert="views/statistics.html"></script>
+	<script type="text/javascript" src="js/frost.js"></script>
+</body>
+
+</html>

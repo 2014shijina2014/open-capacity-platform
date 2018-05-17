@@ -1,0 +1,1026 @@
+.info-panel {
+	border: 1px solid #34302D;
+	border-radius: 4px;
+	margin-bottom: 12px;
+}
+
+.info-panel .info-panel-title {
+	background-color: #34302D;
+	border-color: #34302D;
+	color: #f1f1f1;
+	padding: 8px 15px;
+}
+
+.info-panel-content .table {
+	margin-bottom: 0;
+}
+
+.accordion-heading, .accordion-heading>a, .accordion-heading>a:hover,
+	.accordion-heading>a:focus {
+	background-color: #34302D;
+	border-color: #34302D;
+	color: #f1f1f1;
+}
+
+.accordion-group {
+	border: 1px solid #34302D;
+}
+
+.popover {
+	max-width: none !important;
+}
+
+.ellipsis-expander {
+	padding: 0 2px 2px;
+	color: #333333;
+	vertical-align: middle;
+	background-color: #ddd;
+	border: 1px solid #e1e1e8;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.header--application {
+	margin: -20px 0 20px 0;
+	font-size: 15px;
+}
+
+.header--application .navbar-inner {
+	background-color: #666;
+	background-image: none;
+	border-radius: 0;
+	filter: none;
+	border: none;
+	border-bottom: 1px solid #34302D;
+	box-shadow: none;
+}
+
+.header--application .nav-tabs {
+	border: 0;
+}
+
+.header--application .nav>li>a {
+	color: #c7c7c7;
+}
+
+.header--application .nav>li>a:hover, .header--application .nav>li>a:focus,
+	.header--application .nav-tabs>li>a:hover, .header--application .nav-tabs>li>a:focus
+	{
+	color: #f1f1f1;
+}
+
+.header--application .nav-tabs>li>a, .header--application .nav-tabs>li>a:hover,
+	.header--application .nav-tabs>li>a:focus {
+	background-color: #666;
+	border: 0;
+	padding: 9px 13px 8px 13px;
+	border-bottom: 1px solid transparent;
+}
+
+.header--application .nav-tabs>.active>a, .header--application .nav-tabs>.active>a:hover,
+	.header--application .nav-tabs>.active>a:focus {
+	color: #333333;
+	background-color: #f1f1f1;
+	border-bottom: 1px solid #f1f1f1;
+	border-left: 1px solid #34302D;
+	border-right: 1px solid #34302D;
+	border-top: 4px solid #6db33f;
+	padding: 5px 12px 8px 12px;
+}
+
+.header--application .application--title {
+	color: #f1f1f1;
+	font-size: 24px;
+	line-height: 24px;
+	margin: 20px 20px 0 0;
+	display: inline-block;
+}
+
+.application--urls {
+	list-style: none;
+	text-align: right;
+	font-size: 14px;
+	color: #888;
+	margin: 5px 0 5px 0;
+	display: block;
+	float: right;
+}
+
+.application--urls>li>a {
+	color: #f1f1f1;
+}
+
+.application--urls>li>a:hover, .application--urls>li>a:focus {
+	color: #c7c7c7;
+	text-decoration: none;
+}
+
+.application-list {
+	background-color: #f9f9f9;
+}
+
+table.application-list {
+	table-layout: fixed;
+	width: 100%;
+}
+
+.application-list td.scroll {
+	overflow-x: auto;
+	max-width: 400px;
+}
+
+.application-list .group-column {
+	width: 30px;
+}
+
+.application-list .name-column {
+	width: 300px;
+}
+
+.application-list .version-column {
+	width: 140px;
+}
+
+.application-list .time-column {
+	width: 150px;
+}
+
+.application-list .info-column {
+	width: auto;
+}
+
+.application-list .status-column {
+	width: 240px;
+}
+
+.application-list .cron-column {
+	width: 100px;
+}
+
+.application-list .operation-column {
+	width: 340px;
+}
+
+.application-list td.status-column>div {
+	text-align: center;
+	padding-bottom: 3px;
+}
+
+.application-list td.status-column>div * {
+	text-align: left;
+}
+
+@media ( max-width : 992px) {
+	.application-list .info-column {
+		display: none;
+	}
+	.application-list .name-column {
+		width: auto;
+	}
+}
+
+.application-list td.group-column {
+	border-right: 1px solid #dddddd;
+	color: #999999;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+}
+
+.application-list td.group-column:hover {
+	background-color: #c7c7c7;
+	color: #f9f9f9;
+}
+
+/* ---------- */
+.sortable {
+	cursor: pointer;
+}
+
+.sorted-ascending, .sorted-descending {
+	color: #6db33f;
+}
+
+.sorted-ascending::after {
+	content: " \25B2";
+}
+
+.sorted-descending::after {
+	content: " \25BC";
+}
+
+/* ---------- */
+.status-UP, .status-NORMAL, .status-SUCCESS {
+	color: #00AA00;
+	font-weight: bold;
+}
+
+.status-OFFLINE {
+	color: #000000;
+	font-weight: bold;
+}
+
+.status-DOWN, .status-OUT_OF_SERVICE, .status-FAIL {
+	color: #DD0000;
+	font-weight: bold;
+}
+
+.status-UNKNOWN, .status-PAUSED {
+	font-weight: bold;
+	color: #FF8800;
+}
+
+dl.health-status {
+	margin-top: 0;
+	line-height: 20px;
+}
+
+dl.health-status dt {
+	border-bottom: 1px solid #ddd;
+	background-color: #f9f9f9;
+	padding: 8px;
+	text-transform: capitalize;
+}
+
+dl.health-status dl.health-status {
+	margin-top: 20px !important;
+}
+
+dl.health-status td {
+	border-top: none;
+	border-bottom: 1px solid #ddd;
+	padding: 8px;
+}
+
+#download {
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+}
+
+#top {
+	text-align: right;
+	padding: 5px;
+}
+
+#follow {
+	position: fixed;
+	top: 100px;
+	right: 40px;
+}
+
+.logview {
+	font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+	white-space: pre-wrap;
+	padding: 5px;
+	color: black;
+}
+
+.trace-event {
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	left: 15px;
+	padding-left: 5px;
+}
+
+.trace-event .header {
+	cursor: pointer;
+}
+
+.trace-event .time {
+	position: absolute;
+	left: -120px;
+	margin-left: -25px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: right;
+	width: 120px;
+}
+
+.trace-event:before {
+	box-sizing: border-box;
+	content: ' ';
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 10px;
+	border: 4px solid #6db33f;
+	z-index: 10;
+	position: absolute;
+	left: -6px;
+	margin-left: -15px;
+}
+
+.trace-event.http-4xx:before {
+	border-color: #e0ba2d;
+}
+
+.trace-event.http-4xx>.title>.status {
+	color: #e0ba2d;
+}
+
+.trace-event.http-5xx:before {
+	border-color: #b30000;
+}
+
+.trace-event.http-5xx>.title>.status {
+	color: #b30000;
+}
+
+.trace-event.http-1xx:before, .trace-event.http-2xx:before, .trace-event.http-3xx:before
+	{
+	border-color: #6db33f;
+}
+
+.trace-event.http-1xx>.title>.status, .trace-event.http-2xx>.title>.status,
+	.trace-event.http-3xx>.title>.status {
+	color: #6db33f;
+}
+
+.trace-event.unknown:before {
+	border-color: #999999;
+}
+
+.trace-event.unknown>.title>.status {
+	color: #999999;
+}
+
+.trace-event:hover:before {
+	background: #ccc;
+}
+
+.timeline {
+	position: relative;
+	padding: 1em 0;
+	list-style-type: none;
+	padding-left: 85px;
+}
+
+.timeline:before {
+	position: absolute;
+	top: 0;
+	content: ' ';
+	display: block;
+	width: 6px;
+	height: 100%;
+	margin-left: 0;
+	background: rgb(80, 80, 80);
+	background: -moz-linear-gradient(top, rgba(80, 80, 80, 0) 0%,
+		rgb(80, 80, 80) 8%, rgb(80, 80, 80) 92%, rgba(80, 80, 80, 0) 100%);
+	background: -webkit-linear-gradient(top, rgba(80, 80, 80, 0) 0%,
+		rgb(80, 80, 80) 8%, rgb(80, 80, 80) 92%, rgba(80, 80, 80, 0) 100%);
+	background: -webkit-gradient(top, rgba(80, 80, 80, 0) 0%,
+		rgb(80, 80, 80) 8%, rgb(80, 80, 80) 92%, rgba(80, 80, 80, 0) 100%);
+	background: -o-linear-gradient(top, rgba(80, 80, 80, 0) 0%,
+		rgb(80, 80, 80) 8%, rgb(80, 80, 80) 92%, rgba(80, 80, 80, 0) 100%);
+	background: -ms-linear-gradient(top, rgba(80, 80, 80, 0) 0%,
+		rgb(80, 80, 80) 8%, rgb(80, 80, 80) 92%, rgba(80, 80, 80, 0) 100%);
+	background: linear-gradient(to bottom, rgba(80, 80, 80, 0) 0%,
+		rgb(80, 80, 80) 8%, rgb(80, 80, 80) 92%, rgba(80, 80, 80, 0) 100%);
+	z-index: 5;
+}
+
+.timeline li {
+	padding: 1em 0;
+}
+
+.timeline li:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.auditevent {
+	position: relative;
+	width: 100%;
+	display: inline-block;
+	left: 15px;
+	padding-left: 5px;
+}
+
+.auditevent .header {
+	cursor: pointer;
+}
+
+.auditevent .time {
+	position: absolute;
+	left: -120px;
+	margin-left: -25px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: right;
+	width: 120px;
+}
+
+.auditevent .add-to-filter {
+	color: #5fa134;
+	position: absolute;
+	font-size: 75%;
+	line-height: 0;
+	vertical-align: baseline;
+	cursor: pointer;
+	border: 0;
+	padding: 0;
+	box-shadow: none;
+	background: none;
+	opacity: 0;
+}
+
+.auditevent .title:hover .add-to-filter, .auditevent .add-to-filter:hover
+	{
+	opacity: 100;
+}
+
+.auditevent .header:before {
+	box-sizing: border-box;
+	content: ' ';
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	border-radius: 10px;
+	border: 4px solid #999999;
+	z-index: 10;
+	position: absolute;
+	left: -6px;
+	margin-left: -15px;
+}
+
+.auditevent .header:hover:before {
+	background: #ccc;
+}
+
+.auditevent.failure .header:before {
+	border-color: #b30000;
+}
+
+.auditevent.success .header:before {
+	border-color: #6db33f;
+}
+
+.auditevent.unknown .header:before {
+	border-color: #999999;
+}
+
+.dependencyThreadPools .spacer {
+	width: 100%;
+	margin: 0 auto;
+	padding-top: 4px;
+	clear: both;
+}
+
+.dependencyThreadPools .last {
+	margin-right: 0px;
+}
+
+.dependencyThreadPools span.loading {
+	display: block;
+	padding-top: 6%;
+	padding-bottom: 6%;
+	color: gray;
+	text-align: center;
+}
+
+.dependencyThreadPools span.loading.failed {
+	color: red;
+}
+
+.dependencyThreadPools div.monitor {
+	float: left;
+	margin-right: 5px;
+	/* these are tweaked to look good on desktop and iPad portrait, and fit things densely */
+	margin-top: 5px;
+}
+
+.dependencyThreadPools div.monitor p.name {
+	font-weight: bold;
+	font-size: 10pt;
+	text-align: right;
+	padding-bottom: 5px;
+}
+
+.dependencyThreadPools div.monitor_data {
+	margin: 0 auto;
+}
+
+.dependencyThreadPools span.smaller {
+	font-size: 8pt;
+	color: grey;
+}
+
+.dependencyThreadPools div.tableRow {
+	width: 100%;
+	white-space: nowrap;
+	font-size: 8pt;
+	margin: 0 auto;
+	clear: both;
+}
+
+.dependencyThreadPools div.tableRow .cell {
+	float: left;
+}
+
+.dependencyThreadPools div.tableRow .header {
+	text-align: right;
+	padding-right: 5px;
+}
+
+.dependencyThreadPools div.tableRow .header.left {
+	width: 85px;
+}
+
+.dependencyThreadPools div.tableRow .header.right {
+	width: 75px;
+}
+
+.dependencyThreadPools div.tableRow .data {
+	font-weight: bold;
+	text-align: right;
+}
+
+.dependencyThreadPools div.tableRow .data.left {
+	width: 30px;
+}
+
+.dependencyThreadPools div.tableRow .data.right {
+	width: 45px;
+}
+
+.dependencyThreadPools div.monitor {
+	width: 245px;
+	/* we want a fixed width instead of percentage as I want the boxes to be a set size and then fill in as many as can fit in each row ... this allows 3 columns on an iPad */
+	height: 110px;
+}
+
+/* override the HREF when we have specified it as a tooltip to not act like a link */
+.dependencyThreadPools div.monitor_data a.tooltip {
+	text-decoration: none;
+	cursor: default;
+}
+
+.dependencyThreadPools div.monitor_data a.rate {
+	font-weight: bold;
+	color: black;
+	font-size: 11pt;
+}
+
+.dependencyThreadPools div.rate {
+	padding-top: 1px;
+	clear: both;
+	text-align: right;
+}
+
+.dependencyThreadPools span.rate_value {
+	font-weight: bold;
+}
+
+.dependencyThreadPools div.monitor div.chart {
+	
+}
+
+.dependencyThreadPools div.monitor div.chart svg {
+	
+}
+
+.dependencyThreadPools div.monitor div.chart svg text {
+	fill: white;
+}
+
+.dependencyThreadPools #hidden {
+	width: 1px;
+	height: 1px;
+	background: lightgrey;
+	display: none;
+}
+
+.hystrix-container {
+	padding: 15px;
+	line-height: 1;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+		"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	border-radius: 0 0 4px 4px;
+	background-color: white;
+}
+
+.hystrix-container .tooltip {
+	/*Reset all values from Bootstrap */
+	position: inherit;
+	z-index: inherit;
+	display: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	opacity: inherit;
+}
+
+.spacer {
+	width: 100%;
+	margin: 0 auto;
+	padding-top: 4px;
+	clear: both;
+}
+
+.last {
+	margin-right: 0px;
+}
+
+.success {
+	color: green;
+}
+
+.shortCircuited {
+	color: blue;
+}
+
+.timeout {
+	color: #FF9900; /* shade of orange */
+}
+
+.failure {
+	color: red;
+}
+
+.rejected {
+	color: purple;
+}
+
+.exceptionsThrown {
+	color: brown;
+}
+
+.badRequest {
+	color: lightSeaGreen;
+}
+
+.dependencies .spacer {
+	width: 100%;
+	margin: 0 auto;
+	padding-top: 4px;
+	clear: both;
+}
+
+.dependencies .last {
+	margin-right: 0px;
+}
+
+.dependencies span.loading {
+	display: block;
+	padding-top: 6%;
+	padding-bottom: 6%;
+	color: gray;
+	text-align: center;
+}
+
+.dependencies span.loading.failed {
+	color: red;
+}
+
+.dependencies div.monitor {
+	float: left;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+.dependencies div.monitor p.name {
+	font-weight: bold;
+	font-size: 10pt;
+	text-align: right;
+	padding-bottom: 5px;
+}
+
+.dependencies div.monitor_data {
+	margin: 0 auto;
+}
+
+/* override the HREF when we have specified it as a tooltip to not act like a link */
+.dependencies div.monitor_data a.tooltip {
+	text-decoration: none;
+	cursor: default;
+}
+
+.dependencies div.monitor_data div.counters {
+	text-align: right;
+	padding-bottom: 10px;
+	font-size: 10pt;
+	clear: both;
+}
+
+.dependencies div.monitor_data div.counters div.cell {
+	display: inline;
+	float: right;
+}
+
+.dependencies .borderRight {
+	border-right: 1px solid grey;
+	padding-right: 6px;
+	padding-left: 8px;
+}
+
+.dependencies div.cell .line {
+	display: block;
+}
+
+.dependencies div.monitor_data a, .dependencies span.rate_value {
+	font-weight: bold;
+}
+
+.dependencies span.smaller {
+	font-size: 8pt;
+	color: grey;
+}
+
+.dependencies div.tableRow {
+	width: 100%;
+	white-space: nowrap;
+	font-size: 8pt;
+	margin: 0 auto;
+	clear: both;
+	padding-left: 26%;
+}
+
+.dependencies div.tableRow .cell {
+	float: left;
+}
+
+.dependencies div.tableRow .header {
+	width: 18%;
+	text-align: right;
+	padding-right: 2%;
+}
+
+.dependencies div.tableRow .data {
+	width: 17%;
+	font-weight: bold;
+	text-align: right;
+}
+
+.dependencies div.monitor {
+	width: 245px;
+	/* we want a fixed width instead of percentage as I want the boxes to be a set size and then fill in as many as can fit in each row ... this allows 3 columns on an iPad */
+	height: 160px;
+}
+
+.dependencies .success {
+	color: green;
+}
+
+.dependencies .shortCircuited {
+	color: blue;
+}
+
+.dependencies .timeout {
+	color: #FF9900; /* shade of orange */
+}
+
+.dependencies .failure {
+	color: red;
+}
+
+.dependencies .rejected {
+	color: purple;
+}
+
+.dependencies .exceptionsThrown {
+	color: brown;
+}
+
+.dependencies .badRequest {
+	color: lightSeaGreen;
+}
+
+.dependencies div.monitor_data a.rate {
+	color: black;
+	font-size: 11pt;
+}
+
+.dependencies div.rate {
+	padding-top: 1px;
+	clear: both;
+	text-align: right;
+}
+
+.dependencies .errorPercentage {
+	color: grey;
+}
+
+.dependencies div.cell .errorPercentage {
+	padding-left: 5px;
+	font-size: 12pt !important;
+}
+
+.dependencies div.monitor div.chart {
+	
+}
+
+.dependencies div.monitor div.chart svg {
+	
+}
+
+.dependencies div.monitor div.chart svg text {
+	fill: white;
+}
+
+.dependencies div.circuitStatus {
+	width: 100%;
+	white-space: nowrap;
+	font-size: 9pt;
+	margin: 0 auto;
+	clear: both;
+	text-align: right;
+	padding-top: 4px;
+}
+
+.dependencies #hidden {
+	width: 1px;
+	height: 1px;
+	background: lightgrey;
+	display: none;
+}
+
+/* sparkline */
+.dependencies path {
+	stroke: steelblue;
+	stroke-width: 1;
+	fill: none;
+}
+
+.container {
+	padding-bottom: 90px;
+}
+
+footer {
+	bottom: 0;
+	width: 100%;
+	position: fixed;
+	z-index: 999;
+}
+
+.navbar-inner {
+	min-height: 70px;
+}
+
+.width100 {
+	width: 100px !important;
+}
+
+.width135 {
+	width: 135px !important;
+}
+
+.width155 {
+	width: 155px !important;
+}
+
+.width235 {
+	width: 235px !important;
+}
+
+.width248 {
+	width: 248px !important;
+}
+
+.line-height20 {
+	line-height: 20px !important;
+}
+
+.margin-left60 {
+	margin-left: 60px !important;
+}
+
+.margin-left180 {
+	margin-left: 180px !important;
+}
+
+.modal-body .form-horizontal .controls {
+	margin-left: 140px;
+}
+
+.modal-confirm {
+	width: 250px;
+	margin-left: -125px;
+}
+
+.modal-addJob {
+	width: 850px;
+	margin-left: -425px;
+}
+
+.modal-addJob .modal-body .form-horizontal .controls {
+	margin-left: 110px;
+}
+
+.modal-multi-btn {
+	width: 250px;
+}
+
+.modal-footer-confirm {
+	padding: 5px 15px 5px;
+}
+
+.record.container-fluid {
+	padding-bottom: 100px;
+}
+
+.pop-record-status {
+	max-width: 400px !important;
+}
+
+.pop-record-status .error-msg {
+	word-wrap: break-word;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.nav, .pagination, .carousel, .panel-title a {
+	cursor: pointer;
+}
+
+.pagination {
+	display: inline-block;
+	padding-left: 0;
+	margin: 0 0;
+	border-radius: 4px;
+	float: right;
+}
+
+.pagination>li {
+	display: inline;
+}
+
+.pagination-sm>li:first-child>a, .pagination-sm>li:first-child>span {
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.pagination>li:first-child>a, .pagination>li:first-child>span {
+	margin-left: 0;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover,
+	.pagination>.disabled>span, .pagination>.disabled>span:focus,
+	.pagination>.disabled>span:hover {
+	color: #777;
+	cursor: not-allowed;
+	background-color: #fff;
+	border-color: #ddd;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
+	.pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+	{
+	z-index: 3;
+	color: #fff;
+	cursor: default;
+	background-color: #337ab7;
+	border-color: #337ab7;
+}
+
+.pagination-sm>li>a, .pagination-sm>li>span {
+	padding: 5px 10px;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+.pagination>li>a, .pagination>li>span {
+	position: relative;
+	float: left;
+	padding: 6px 12px;
+	margin-left: -1px;
+	line-height: 1.42857143;
+	color: #337ab7;
+	text-decoration: none;
+	background-color: #fff;
+	border: 1px solid #ddd;
+}
+
+.CodeMirror {
+	height: 500px !important;
+}
+
+.report-bar {
+	text-align: right;
+	padding-right: 10%;
+	margin-bottom: 15px;
+}
+
+.report-total {
+	width: 28%;
+	text-align: center;
+	padding-top: 75px;
+}
+
+.report-total-bar {
+	padding: 15px;
+	text-align: center;
+}
+
+.report-total-bar a {
+	width: 160px;
+}

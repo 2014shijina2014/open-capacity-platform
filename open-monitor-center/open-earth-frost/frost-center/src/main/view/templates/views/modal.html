@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<div class="modal-header">
+	<div class="modal-title" id="modal-title">{{modalDatas.title}}</div>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="control-group" style="text-align: center;">
+		<div>{{modalDatas.msg}}</div>
+	</div>
+	<div class="control-group error" style="text-align: center;">
+		<div class="help-inline error-message">{{modalDatas.error}}</div>
+	</div>
+</div>
+<div class="modal-footer modal-footer-confirm">
+	<button class="btn btn-info" type="button" ng-click="$ctrl.ok()">确定</button>
+	<button class="btn" type="button" ng-click="$ctrl.cancel()">取消</button>
+</div>

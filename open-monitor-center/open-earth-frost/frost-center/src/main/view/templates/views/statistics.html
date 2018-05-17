@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<div class="record container-fluid">
+	<h3>运行报表</h3>
+
+	<div class="control-group inline-block report-total">
+		<div class="report-total-bar">
+			<a class="btn btn-lg btn-success" href="#"> <i
+				class="fa fa-tasks fa-3x pull-left"></i> 任务总数<br> <span>{{totalJobs}}</span>
+			</a>
+		</div>
+		<div class="report-total-bar">
+			<a class="btn btn-lg btn-warning" href="#"> <i
+				class="fa fa-sliders fa-3x pull-left"></i> 在线执行器总数<br> <span>{{totalExecutors}}</span>
+			</a>
+		</div>
+		<div class="report-total-bar">
+			<a class="btn btn-lg btn-info" href="#"> <i
+				class="fa fa-cogs fa-3x pull-left"></i> 调度总次数<br> <span>{{totalDispatches}}</span>
+			</a>
+		</div>
+		<div class="report-total-bar">
+			<a class="btn btn-lg btn-danger" href="#"> <i
+				class="fa fa-spinner fa-3x pull-left"></i> 执行中的任务数<br> <span>{{totalRunningExecutions}}</span>
+			</a>
+		</div>
+	</div>
+	<div class="control-group inline-block"
+		style="width: 70%; float: right;">
+		<div class="report-bar">
+			<div class="control-group inline-block">
+				<input type="text" class="form-control"
+					uib-datepicker-popup="yyyy-MM-dd" ng-model="begin.value"
+					id="beginDate" is-open="begin.opened" ng-required="true"
+					show-button-bar="false" style="margin-bottom: 0;" /> <span
+					class="input-group-btn"> </span>
+			</div>
+			<div class="control-group inline-block">
+				<button type="button" class="btn btn-default"
+					ng-click="begin.opened = true">
+					<i class="fa fa-calendar"></i>
+				</button>
+			</div>
+			<div class="control-group inline-block">
+				<input type="text" class="form-control"
+					uib-datepicker-popup="yyyy-MM-dd" ng-model="end.value" id="endDate"
+					is-open="end.opened" ng-required="true" show-button-bar="false"
+					style="margin-bottom: 0;" /> <span class="input-group-btn">
+				</span>
+			</div>
+			<div class="control-group inline-block">
+				<button type="button" class="btn btn-default"
+					ng-click="end.opened = true">
+					<i class="fa fa-calendar"></i>
+				</button>
+			</div>
+			<div class="control-group inline-block">
+				<button type="button" class="btn btn-info" ng-click="search()">查询</button>
+			</div>
+		</div>
+		<div id="dailyReport" style="width: 100%; height: 400px;"></div>
+	</div>
+
+</div>

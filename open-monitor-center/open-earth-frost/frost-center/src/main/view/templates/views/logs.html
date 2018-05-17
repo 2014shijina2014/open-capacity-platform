@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<div class="record container-fluid">
+	<h3>调度记录</h3>
+	<div>
+		<input placeholder="Filter" class="input-xlarge pull-right"
+			type="search" ng-model="searchFilter" />
+
+		<div class="control-group inline-block">
+			<label class="control-label inline-block"> 执行器 </label>
+			<div class="input-prepend" style="margin-bottom: 0">
+				<select class="input-large width248" ng-change="executorChange()"
+					ng-model="groupKey">
+					<option value="">全部</option>
+					<option ng-repeat="(k, v) in executorMap" value="{{k}}">{{k}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label inline-block"> 执行逻辑 </label>
+			<div class="input-prepend" style="margin-bottom: 0">
+				<select class="input-large width248" ng-model="jobKey">
+					<option value="">全部</option>
+					<option ng-repeat="job in jobs" value="{{job.jobKey}}">{{job.jobDesc}}({{job.jobKey}})</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<label class="control-label inline-block"> 选择任务 </label>
+			<div class="input-prepend" style="margin-bottom: 0">
+				<select class="input-large width248" ng-model="jobId">
+					<option value="">全部</option>
+					<option ng-repeat="info in jobInfos | filter : filterJobs"
+						value="{{info.id}}">{{info.name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group inline-block">
+			<button class="btn btn-info" ng-click="search()">搜索</button>
+		</div>
+	</div>
+
+	<table class="table application-list">
+		<thead>
+			<tr>
+				<th class="name-column">任务编号</th>
+				<th class="time-column">调度时间</th>
+				<th class="cron-column">调度状态</th>
+				<th class="info-column">调度备注</th>
+				<th class="time-column">执行时间</th>
+				<th class="cron-column">执行状态</th>
+				<th class="info-column">执行备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="log in logs | filter : doFilter">
+				<td class="name-column" ng-bind="log.jobId"></td>
+				<td class="time-column" ng-bind="log.dispachTime"></td>
+				<td class="cron-column"><span
+					class="status-{{log.dispachStatus}}">{{log.dispachStatus}}</span></td>
+				<td class="info-column">
+					<button uib-popover-html="log.dispatchDetail"
+						ng-if="log.dispachStatus != null"
+						popover-class="pop-record-status" popover-placement="right"
+						popover-trigger="'outsideClick'" class="btn btn-default">查看</button>
+				</td>
+				<td class="time-column" ng-bind="log.executeTime"></td>
+				<td class="cron-column"><span
+					class="status-{{log.executeStatus}}">{{log.executeStatus}}</span></td>
+				<td class="info-column">
+					<button uib-popover-html="log.executeDetail"
+						ng-if="log.executeStatus != null"
+						popover-class="pop-record-status" popover-placement="left"
+						popover-trigger="'outsideClick'" class="btn btn-default">查看</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<ul uib-pagination total-items="totalCount" ng-change="search()"
+		previous-text="上一页" next-text="下一页" ng-model="pageIndex" max-size="5"
+		class="pagination-sm" boundary-link-numbers="true"></ul>
+</div>

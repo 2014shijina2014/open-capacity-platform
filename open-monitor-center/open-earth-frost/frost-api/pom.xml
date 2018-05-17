@@ -2,16 +2,21 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.open.capacity</groupId>
-    <artifactId>open-capacity-platform</artifactId>
+    <artifactId>open-earth-frost</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>open-monitor-center</artifactId>
-  <description>监控中心</description>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>open-xxl-job</module>
-  	<module>open-zipkin-center</module>
-  	<module>open-admin-server</module>
-  	<module>open-earth-frost</module>
-  </modules>
+  <artifactId>frost-api</artifactId>
+  
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		
+	</dependencies>
 </project>

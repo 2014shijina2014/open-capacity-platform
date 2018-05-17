@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<div class="record container-fluid">
+	<h3>任务管理</h3>
+	<div>
+		<input placeholder="Filter" class="input-xlarge pull-right"
+			type="search" ng-model="searchFilter" />
+		<div class="control-group pull-left">
+			<button class="btn btn-warning" ng-click="addJob()">新增任务</button>
+		</div>
+	</div>
+	<table class="table application-list">
+		<thead>
+			<tr>
+				<th class="name-column"><span>任务编号</span></th>
+				<th class="time-column"><span>名称</span></th>
+				<th class="info-column">分组信息</th>
+				<th class="cron-column">Cron</th>
+				<th class="cron-column">状态</th>
+				<th class="operation-column">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="job in jobs | filter : doFilter">
+				<td class="name-column" ng-bind="job.id"></td>
+				<td class="time-column" ng-bind="job.name"></td>
+				<td class="info-column">[{{job.group.groupKey?job.group.groupKey:'…'}}]-[{{job.group.jobKey?job.group.jobKey:'…'}}]</td>
+				<td class="cron-column" ng-bind="job.cron"></td>
+				<td class="cron-column"><span class="status-{{job.status}}">{{job.status}}</span></td>
+				<td class="operation-column">
+					<button type="button" class="btn" tooltip-placement="bottom"
+						uib-tooltip="触发一次" ng-click="triggleJob(job.id)">
+						<i class="fa fa-play"></i>
+					</button>
+					<button type="button" class="btn" tooltip-placement="bottom"
+						uib-tooltip="暂停" ng-click="pauseJob(job.id)">
+						<i class="fa fa-pause"></i>
+					</button>
+					<button type="button" class="btn" tooltip-placement="bottom"
+						uib-tooltip="恢复" ng-click="resumeJob(job.id)">
+						<i class="fa fa-history"></i>
+					</button>
+					<button type="button" class="btn" tooltip-placement="bottom"
+						uib-tooltip="编辑" ng-click="updateJob(job.id)">
+						<i class="fa fa-file-text-o"></i>
+					</button>
+					<button type="button" class="btn" tooltip-placement="bottom"
+						uib-tooltip="脚本" ng-click="jumpToScript(job.id)"
+						ng-if="job.type == 'SCRIPT'">
+						<i class="fa fa-code"></i>
+					</button>
+					<button type="button" class="btn" tooltip-placement="bottom"
+						uib-tooltip="日志" ng-click="jumpToLogs(job.id)">
+						<i class="fa fa-files-o"></i>
+					</button>
+					<button type="button" class="btn" tooltip-placement="bottom"
+						uib-tooltip="删除" ng-click="removeJob(job.id)">
+						<i class="fa fa-trash"></i>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<ul uib-pagination total-items="totalCount" ng-change="queryJobs()"
+		previous-text="上一页" next-text="下一页" ng-model="pageIndex" max-size="5"
+		class="pagination-sm" boundary-link-numbers="true"></ul>
+</div>
