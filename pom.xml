@@ -37,6 +37,9 @@
 		<!-- 监控中心 -->
 		<module>open-monitor-center</module>
 		
+		<!--任务中心-->
+		<module>open-job-center</module>
+		
 		<!-- cxf框架集成 -->
 		<module>open-cxf-service</module>
 		
@@ -52,7 +55,7 @@
 		<module>apollo</module>
 		<module>apollo-gateway</module>
 		
-		<module>open-job-center</module>
+		
 	</modules>
 	<dependencies>
 		<dependency>
