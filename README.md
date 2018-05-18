@@ -30,7 +30,7 @@ sts-3.8.0.RELEASE
 
 ## 项目组织结构分析 
 
-![](https://i.imgur.com/wRK5uD2.jpg)
+![](https://i.imgur.com/aFptzQl.jpg)
 
 
 
