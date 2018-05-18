@@ -202,7 +202,7 @@
           shadeClose: false,
           shade: 0.4,
           title: '设置流程节点',
-          content: 'goAssignee/'+id
+          content: '/activiti/goAssignee/'+id+"?token="+ localStorage.getItem("token")
         });
     layer.full(index);
   }

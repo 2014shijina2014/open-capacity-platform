@@ -3,13 +3,20 @@ package com.open.capacity.activiti.controller;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.open.capacity.activiti.config.ActPropertiesConfig;
 import com.open.capacity.activiti.service.ActAssigneeService;
+import com.open.capacity.activiti.util.Checkbox;
 import com.open.capacity.activiti.util.JsonUtil;
 import com.open.capacity.activiti.util.ResultType;
+import com.open.capacity.security.dao.RoleDao;
+import com.open.capacity.security.model.Role;
+import com.open.capacity.security.service.RoleService;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import io.swagger.annotations.ApiOperation;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
@@ -23,14 +30,19 @@ import org.activiti.engine.repository.ModelQuery;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.open.capacity.activiti.entity.*;
 
 import javax.xml.transform.Result;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: [gitgeek]
@@ -39,7 +51,7 @@ import java.util.List;
  * @Version: [1.0.0]
  * @Copy: [com.zzg]
  */
-@RestController
+@Controller
 @RequestMapping(value = "/activiti")
 public class ActivitiController {
 
@@ -58,12 +70,18 @@ public class ActivitiController {
     @Autowired
     ActPropertiesConfig actPropertiesConfig;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
+    private RoleDao roleDao;
 
     /**
      * 部署列表
      */
     @GetMapping(value = "/showAct")
     @ApiOperation(value = "列表")
+    @ResponseBody
     public String showAct(org.springframework.ui.Model model, ProcessDefinition definition,
                           String page, String limit){
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
@@ -103,6 +121,7 @@ public class ActivitiController {
      * @return
      */
     @PostMapping("delDeploy")
+    @ResponseBody
     public JsonUtil delDeploy(org.springframework.ui.Model model, String id) {
         JsonUtil j = new JsonUtil();
         try {
@@ -128,6 +147,7 @@ public class ActivitiController {
      * 模型列表
      */
     @GetMapping(value = "showAm")
+    @ResponseBody
     public String showModel(org.springframework.ui.Model model, ActModel actModel, String page,
                             String limit) {
         ModelQuery modelQuery = repositoryService.createModelQuery();
@@ -154,6 +174,7 @@ public class ActivitiController {
     * 发布流程
     */
     @PostMapping(value = "open")
+    @ResponseBody
     public JsonUtil open(String id) {
         String msg = "发布成功";
         JsonUtil j = new JsonUtil();
@@ -211,10 +232,124 @@ public class ActivitiController {
         return j;
     }
 
+    @GetMapping("actUpdate/{id}")
+    public String actUpdate(@PathVariable String id, String token) {
+        return "redirect:/pages/activiti/modeler.html?modelId=" + id+"&token="+token;
+    }
+
+    /**
+     * 方法此有所参考 感谢我参考原作者：liuruijie
+     */
+    @GetMapping(value = "goActiviti")
+    public String goActiviti(String token) throws UnsupportedEncodingException {
+        Model model = repositoryService.newModel();
+
+        String name = "新建流程";
+        String description = "";
+        int revision = 1;
+        String key = "processKey";
+
+        ObjectNode modelNode = objectMapper.createObjectNode();
+        modelNode.put(ModelDataJsonConstants.MODEL_NAME, name);
+        modelNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, description);
+        modelNode.put(ModelDataJsonConstants.MODEL_REVISION, revision);
+
+        model.setName(name);
+        model.setKey(key);
+        model.setMetaInfo(modelNode.toString());
+
+        repositoryService.saveModel(model);
+        String id = model.getId();
+
+        //完善ModelEditorSource
+        ObjectNode editorNode = objectMapper.createObjectNode();
+        editorNode.put("id", "canvas");
+        editorNode.put("resourceId", "canvas");
+        ObjectNode stencilSetNode = objectMapper.createObjectNode();
+        stencilSetNode.put("namespace",
+                "http://b3mn.org/stencilset/bpmn2.0#");
+        editorNode.put("stencilset", stencilSetNode);
+        repositoryService.addModelEditorSource(id, editorNode.toString().getBytes("utf-8"));
+        return "redirect:/pages/activiti/modeler.html?modelId=" + id;
+    }
 
 
+    /**
+     * 根据流程部署id获取节点并且传到前端
+     *
+     * @param deploymentId 部署id
+     * @param model
+     * @return
+     */
+    @GetMapping("goAssignee/{id}")
+    public String goAssignee(@PathVariable("id") String deploymentId, String token,
+                             org.springframework.ui.Model model) {
+
+        /**根据流程实例id查询出所有流程节点*/
+        List<ActivityImpl> activityList = getActivityList(deploymentId);
+
+        /**角色和节点关系封装成list*/
+        Map<String, Object> params = new HashMap<>();
 
 
+        List<Role> list = roleDao.list(params, null, null);
+        List<Checkbox> checkboxes = new ArrayList<>();
+        Checkbox checkbox = null;
+        Map<String, Object> map = null;
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        List<ActAssignee> assigneeList = null;
+        List<Checkbox> checkboxList = null;
+        for (ActivityImpl activiti : activityList) {
+            map = new HashMap<>();
+            String name = (String) activiti.getProperty("name");
+            if (StringUtils.isEmpty(name) || "start".equals(name) || "end".equals(name)) {
+                continue;
+            }
+            //节点id 、name、节点目前关联的角色 封装成进map
+            String nodeId = activiti.getId();
+//            assigneeList = actAssigneeService.selectListByPage(new ActAssignee(nodeId));
+
+
+        }
+
+
+//        List<SysRole> roleList = roleService.selectListByPage(new SysRole());
+//        List<Checkbox> checkboxes = new ArrayList<>();
+//        Checkbox checkbox = null;
+//        Map<String, Object> map = null;
+//        List<Map<String, Object>> mapList = new ArrayList<>();
+//        List<ActAssignee> assigneeList = null;
+//        List<Checkbox> checkboxList = null;
+//        for (ActivityImpl activiti : activityList) {
+//            map = new HashMap<>();
+//            String name = (String) activiti.getProperty("name");
+//            if (StringUtils.isEmpty(name) || "start".equals(name) || "end".equals(name)) {
+//                continue;
+//            }
+//            //节点id 、name、节点目前关联的角色 封装成进map
+//            String nodeId = activiti.getId();
+//            assigneeList = actAssigneeService.selectListByPage(new ActAssignee(nodeId));
+//            List<String> strings = new ArrayList<>();
+//            assigneeList.forEach(actAssignee1 -> strings.add(actAssignee1.getRoleId()));
+//            map.put("id", nodeId);
+//            map.put("name", name);
+//            checkboxList = new ArrayList<>();
+//            for (SysRole role : roleList) {
+//                checkbox = new Checkbox();
+//                checkbox.setId(role.getId());
+//                checkbox.setName(role.getRoleName());
+//                if (strings.contains(role.getId())) {
+//                    checkbox.setCheck(true);
+//                }
+//                checkboxList.add(checkbox);
+//            }
+//            map.put("boxJson", checkboxList);
+//            mapList.add(map);
+//        }
+//        model.addAttribute("actList", mapList);
+
+        return "redirect:/pages/activiti/deploy/act-node.html";
+    }
 
 
 

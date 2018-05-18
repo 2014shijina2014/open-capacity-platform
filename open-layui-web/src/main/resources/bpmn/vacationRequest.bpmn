@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://activiti.org/bpmn20" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="definitions" name="" targetNamespace="http://activiti.org/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="vacationRequest" isClosed="false" name="休假请求" processType="None">
+    <startEvent activiti:initiator="employeeName" id="request">
+      <extensionElements>
+        <activiti:formProperty id="numberOfDays" name="Number of days" required="true" type="long" value="1"/>
+        <activiti:formProperty datePattern="dd-MM-yyyy hh:mm" id="startDate" name="First day of holiday (dd-MM-yyy)" required="true" type="date"/>
+        <activiti:formProperty id="vacationMotivation" name="Motivation" type="string"/>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="request" targetRef="user1"/>
+    <userTask activiti:candidateUsers="张三" activiti:exclusive="true" id="user1" name="请假申请">
+      <documentation id="handleRequest_D_1"><![CDATA[
+        ${employeeName} would like to take ${numberOfDays} day(s) of vacation (Motivation: ${vacationMotivation}).
+      ]]></documentation>
+      <extensionElements>
+        <activiti:formProperty id="vacationApproved" name="Do you approve this vacation" required="true" type="enum">
+          <activiti:value id="true" name="Approve"/>
+          <activiti:value id="false" name="Reject"/>
+        </activiti:formProperty>
+        <activiti:formProperty id="managerMotivation" name="Motivation" type="string"/>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="user1" targetRef="requestApprovedDecision"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="requestApprovedDecision" name="请求批准？"/>
+    <sequenceFlow id="flow3" sourceRef="requestApprovedDecision" targetRef="sendApprovalMail">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vacationApproved == 'true'}]]></conditionExpression>
+    </sequenceFlow>
+    <task activiti:exclusive="true" id="sendApprovalMail" name="通过审批"/>
+    <sequenceFlow id="flow4" sourceRef="sendApprovalMail" targetRef="theEnd1"/>
+    <endEvent id="theEnd1"/>
+    <sequenceFlow id="flow5" sourceRef="requestApprovedDecision" targetRef="adjustVacationRequestTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vacationApproved == 'false'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask activiti:candidateUsers="李四" activiti:exclusive="true" id="adjustVacationRequestTask" name="调整请假请求">
+      <documentation id="adjustVacationRequestTask_D_1"><![CDATA[
+        Your manager has disapproved your vacation request for ${numberOfDays} days.
+        Reason: ${managerMotivation}
+      ]]></documentation>
+      <extensionElements>
+        <activiti:formProperty id="numberOfDays" name="Number of days" required="true" type="long" value="${numberOfDays}"/>
+        <activiti:formProperty datePattern="dd-MM-yyyy hh:mm" id="startDate" name="First day of holiday (dd-MM-yyy)" required="true" type="date" value="${startDate}"/>
+        <activiti:formProperty id="vacationMotivation" name="Motivation" type="string" value="${vacationMotivation}"/>
+        <activiti:formProperty id="resendRequest" name="Resend vacation request to manager?" required="true" type="enum">
+          <activiti:value id="true" name="Yes"/>
+          <activiti:value id="false" name="No"/>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow6" sourceRef="adjustVacationRequestTask" targetRef="resendRequestDecision"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="resendRequestDecision" name="重新请求？"/>
+    <sequenceFlow id="flow7" sourceRef="resendRequestDecision" targetRef="user1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'true'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="resendRequestDecision" targetRef="theEnd2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resendRequest == 'false'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="theEnd2"/>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="vacationRequest">
+      <bpmndi:BPMNShape bpmnElement="theEnd2" id="Shape-theEnd2">
+        <dc:Bounds height="32.0" width="32.0" x="772.0" y="270.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="resendRequestDecision" id="Shape-resendRequestDecision" isMarkerVisible="false">
+        <dc:Bounds height="32.0" width="32.0" x="680.0" y="270.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="adjustVacationRequestTask" id="Shape-adjustVacationRequestTask">
+        <dc:Bounds height="55.0" width="85.0" x="485.0" y="260.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="theEnd1" id="Shape-theEnd1">
+        <dc:Bounds height="32.0" width="32.0" x="665.0" y="145.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendApprovalMail" id="Shape-sendApprovalMail">
+        <dc:Bounds height="55.0" width="85.0" x="475.0" y="135.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="requestApprovedDecision" id="Shape-requestApprovedDecision" isMarkerVisible="false">
+        <dc:Bounds height="32.0" width="32.0" x="285.0" y="200.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="user1" id="Shape-user1">
+        <dc:Bounds height="55.0" width="85.0" x="112.0" y="188.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="request" id="Shape-request">
+        <dc:Bounds height="32.0" width="32.0" x="20.0" y="200.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1" sourceElement="request" targetElement="user1">
+        <di:waypoint x="52.0" y="216.0"/>
+        <di:waypoint x="112.0" y="216.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2" sourceElement="user1" targetElement="requestApprovedDecision">
+        <di:waypoint x="197.0" y="216.0"/>
+        <di:waypoint x="285.0" y="216.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3" sourceElement="requestApprovedDecision" targetElement="sendApprovalMail">
+        <di:waypoint x="300.0" y="201.0"/>
+        <di:waypoint x="300.0" y="150.0"/>
+        <di:waypoint x="475.0" y="150.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4" sourceElement="sendApprovalMail" targetElement="theEnd1">
+        <di:waypoint x="560.0" y="162.5"/>
+        <di:waypoint x="665.0078144082805" y="161.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5" sourceElement="requestApprovedDecision" targetElement="adjustVacationRequestTask">
+        <di:waypoint x="305.0" y="228.0"/>
+        <di:waypoint x="305.0" y="285.0"/>
+        <di:waypoint x="485.0" y="285.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6" sourceElement="adjustVacationRequestTask" targetElement="resendRequestDecision">
+        <di:waypoint x="570.0" y="287.5"/>
+        <di:waypoint x="680.5" y="286.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7" sourceElement="resendRequestDecision" targetElement="user1">
+        <di:waypoint x="696.0" y="303.0"/>
+        <di:waypoint x="285.0" y="335.0"/>
+        <di:waypoint x="154.5" y="244.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8" sourceElement="resendRequestDecision" targetElement="theEnd2">
+        <di:waypoint x="711.5" y="286.5"/>
+        <di:waypoint x="772.0078144082805" y="286.5"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

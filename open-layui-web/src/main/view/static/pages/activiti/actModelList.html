@@ -157,7 +157,7 @@
           shadeClose: false,
           shade: 0.4,
           title: '添加流程',
-          content: 'goActiviti'
+          content: '/activiti/goActiviti?token='+localStorage.getItem("token")
         });
         layer.full(index);
       }
@@ -177,7 +177,7 @@
               shadeClose: false,
               shade: 0.4,
               title: '编辑流程',
-              content: 'actUpdate/'+data.id
+              content: '/activiti/actUpdate/'+data.id+"?token="+localStorage.getItem("token")
             });
         layer.full(index);
       }else if(obj.event === 'del') {
@@ -218,7 +218,7 @@
   }
   function syncdata() {
     $.ajax({
-      url: "syncdata",
+      url: "/activiti/syncdata",
       type: "post",
       dataType: "json", traditional: true,
       success: function (data) {
