@@ -130,6 +130,7 @@ CREATE TABLE `oauth_client_details` (
   `refresh_token_validity` int(11) DEFAULT NULL,
   `additional_information` varchar(4096) DEFAULT NULL,
   `autoapprove` varchar(256) DEFAULT NULL,
+  `lastModifiedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -139,7 +140,7 @@ CREATE TABLE `oauth_client_details` (
 
 
 
-INSERT INTO `oauth_client_details` (`client_id`,`resource_ids`,`client_secret`,`scope`,`authorized_grant_types`,`web_server_redirect_uri`,`authorities`,`access_token_validity`,`refresh_token_validity`,`additional_information`,`autoapprove`,`lastModifiedAt`) VALUES ('app','','app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('hello','','hello','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('mobile','','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('test','','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'); VALUES ('app','','app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('hello','','hello','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('mobile','','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('test','','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00');
+INSERT INTO `oauth_client_details` (`client_id`,`resource_ids`,`client_secret`,`scope`,`authorized_grant_types`,`web_server_redirect_uri`,`authorities`,`access_token_validity`,`refresh_token_validity`,`additional_information`,`autoapprove`,`lastModifiedAt`) VALUES ('app','','app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('hello','','hello','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('mobile','','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('test','','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00');
 
 
 #
