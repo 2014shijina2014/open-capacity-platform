@@ -28,6 +28,10 @@ sts-3.8.0.RELEASE
 ![](http://img1.ph.126.net/WAraEeweVw2SyTUSG1dT6Q==/3887169428474612491.gif) 
 
 
+阿波罗配置中心演示  
+![](http://img2.ph.126.net/-cKtj6Wia_q6YiZKV-IOsQ==/295548725646480248.gif)
+
+
 ## 项目组织结构分析 
 
 ![](https://i.imgur.com/aFptzQl.jpg)
