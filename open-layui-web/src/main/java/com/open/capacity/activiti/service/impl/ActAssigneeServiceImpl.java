@@ -30,4 +30,10 @@ public class ActAssigneeServiceImpl implements ActAssigneeService {
         return actAssigneeMapper.selectListByPage(record);
     }
 
+    @Override
+    public int insertSelective(ActAssignee record) {
+        return actAssigneeMapper.insertSelective(record);
+    }
+
+
 }
