@@ -8,6 +8,11 @@
 	</parent>
 	<artifactId>open-eureka-client</artifactId>
 
+	<properties>
+		<docker.image.prefix>gitgeek</docker.image.prefix>
+	</properties>
+
+
 	<dependencies>
 
 		<dependency>
@@ -59,7 +64,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>1.3.3.RELEASE</version>
 				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
 				</configuration>
 				<executions>
 					<execution>
@@ -69,7 +73,26 @@
 					</execution>
 				</executions>
 			</plugin>
+
+
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
 		</plugins>
+		<finalName>eureka-client</finalName>
 	</build>
 
 </project>

@@ -19,6 +19,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<activiti.version>5.22.0</activiti.version>
+		<docker.image.prefix>gitgeek</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -175,6 +176,8 @@
 		</dependency>
 
 
+
+
 	</dependencies>
 
 
@@ -191,6 +194,24 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+
 		</plugins>
 		<finalName>open-layui-web</finalName>
 	</build>

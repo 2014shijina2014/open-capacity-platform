@@ -42,14 +42,14 @@ spring:
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
       #     192.168.3.150   130.75.131.211  134.224.249.39
-      url: jdbc:mysql://130.75.131.211:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://47.94.252.160:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
-      password: 1q2w3e4r
+      password: root
       filters: stat,wall
 ################### mysq end l##########################
   redis:
 ################### redis 单机版 start ########################## 
-    host: 127.0.0.1
+    host: 47.94.252.160
     port: 6379    
     database: 1
 ################### redis 单机版 end ##########################   
