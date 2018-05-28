@@ -21,14 +21,15 @@ sts-3.8.0.RELEASE
 密码：xqjb
 
 
-
+##  项目地址
+http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 
 ##  ocp项目演示
  
 ![](http://img1.ph.126.net/WAraEeweVw2SyTUSG1dT6Q==/3887169428474612491.gif) 
 
 
-阿波罗配置中心演示  
+## 阿波罗配置中心演示  
 ![](http://img2.ph.126.net/-cKtj6Wia_q6YiZKV-IOsQ==/295548725646480248.gif)
 
 
@@ -105,6 +106,9 @@ sts-3.8.0.RELEASE
 技术交流群:  
 ![](https://i.imgur.com/YowTMtG.jpg)
 
+项目的发展离不开你的支持，请作者喝杯咖啡吧！  
+![](https://i.imgur.com/f0FWF4r.jpg)
+  
 
 
  
