@@ -36,7 +36,8 @@ spring:
 #      min-idle: 2     # 连接池中的最小空闲连接
 #      max-wait: 100   # 连接池最大阻塞等待时间（使用负值表示没有限制）       
     
-    
+docker:
+  ipAddress: 47.94.252.160
 
 mybatis:
   config-location: classpath:mybatis.cfg.xml
@@ -98,11 +99,13 @@ eureka:
       #http://130.75.131.243:1111/eureka/,http://130.75.131.244:1111/eureka/,http://130.75.131.245:1111/eureka/   
   instance:
     prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+#    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
     lease-renewal-interval-in-seconds: 5
     #注册实例文档
-    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html # ${server.port}为该服务的端口号  
-  
+#    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html # ${server.port}为该服务的端口号
+    status-page-url: http://${docker.ipAddress}:${server.port}/swagger-ui.html # ${server.port}为该服务的端口号
+
   
 
 
