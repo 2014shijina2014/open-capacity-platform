@@ -27,6 +27,9 @@ spring:
         mail.smtp.starttls.required : true
   thymeleaf:
     cache: false
+    prefix: classpath:static/pages/
+    mode: LEGACYHTML5
+    content-type: text/html
   http:
     encoding:
       charset:  utf8
@@ -84,6 +87,7 @@ token:
   expire:
     seconds: 7200
   jwtSecret: open-layui-web
+
 
   
  

@@ -35,6 +35,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.open.capacity.activiti.entity.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.Result;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -316,7 +317,7 @@ public class ActivitiController {
                 checkbox = new Checkbox();
                 checkbox.setId(role.getId().toString());
                 checkbox.setName(role.getName());
-                if (strings.contains(role.getId())) {
+                if (strings.contains(role.getId().toString())) {
                     checkbox.setCheck(true);
                 }
                 checkboxList.add(checkbox);
@@ -326,10 +327,45 @@ public class ActivitiController {
         }
         model.addAttribute("actList", mapList);
 
-        return "redirect:/pages/activiti/deploy/act-node.html";
+        return "activiti/deploy/act-node";
     }
 
+    /**
+     * 节点更新配置办理者(人/组)
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("goAssignee/updateNode")
+    @ResponseBody
+    public JsonUtil updateNode(HttpServletRequest request) {
+        JsonUtil j = new JsonUtil();
 
+        Map<String, String[]> map = request.getParameterMap();
+        List<ActAssignee> assigneeList = new ArrayList<>();
+        ActAssignee assignee = null;
+        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+            assignee = new ActAssignee();
+            int sub = entry.getKey().lastIndexOf("_");
+            String nodeId = entry.getKey().substring(0, sub);
+            nodeId = nodeId.substring(nodeId.lastIndexOf("_") + 1, nodeId.length());
+            String nodeName = entry.getKey().substring(entry.getKey().lastIndexOf("_") + 1, entry.getKey().length());
+            //更新进list
+            assignee.setAssigneeType(3);
+            assignee.setRoleId(entry.getValue()[0]);
+            assignee.setSid(nodeId);
+            assignee.setActivtiName(nodeName);
+            //先清除
+            actAssigneeService.deleteByNodeId(nodeId);
+            assigneeList.add(assignee);
+        }
+        //后添加 在map循环里添加 多角色会导致添加了的再次被删除 so 要拿出来
+        for (ActAssignee actAssignee : assigneeList) {
+            actAssigneeService.insertSelective(actAssignee);
+        }
+        j.setMsg("更新成功");
+        return j;
+    }
 
 
 
