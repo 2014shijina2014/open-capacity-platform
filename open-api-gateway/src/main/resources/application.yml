@@ -13,14 +13,14 @@ spring:
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
       #     192.168.3.150   130.75.131.211
-      url: jdbc:mysql://localhost:3306/oauth2-security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://47.94.252.160:3306/oauth2-security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
       password: root
       filters: stat,wall
 ################### mysq end l##########################
   redis:
 ################### redis 单机版 start ########################## 
-    host: 127.0.0.1
+    host: 47.94.252.160
     port: 6379    
     timeout: 3000
     database: 1
@@ -93,7 +93,7 @@ zuul:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:1111/eureka/
+      defaultZone: http://47.94.252.160:1111/eureka/
       #http://192.168.3.170:1111/eureka,http://192.168.3.171:1111/eureka,http://192.168.3.173:1111/eureka
       #http://130.75.131.243:1111/eureka/,http://130.75.131.244:1111/eureka/,http://130.75.131.245:1111/eureka/   
   instance:

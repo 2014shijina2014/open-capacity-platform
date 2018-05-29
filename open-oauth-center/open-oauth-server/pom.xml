@@ -6,7 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>open-oauth-server</artifactId>
-  
+
+	<properties>
+		<docker.image.prefix>gitgeek</docker.image.prefix>
+	</properties>
+
   <dependencies>
   	<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -17,9 +21,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
-		
-	 	 
 		 
   </dependencies>
   
@@ -38,6 +39,24 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+
 		</plugins>
 		<finalName>oauth-server</finalName>
 	</build>
