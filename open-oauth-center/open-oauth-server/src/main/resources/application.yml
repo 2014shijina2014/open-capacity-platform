@@ -68,13 +68,13 @@ eureka:
       #http://127.0.0.1:8761/eureka,http://127.0.0.1:8762/eureka
   instance:
     prefer-ip-address: true
-#    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
-    instance-id: ${spring.application.name}:${eureka.instance.hostname}:${spring.application.instance_id:${server.port}}
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+#    instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
     lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
     lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
     #注册实例文档
-#    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/auth/doc.html # ${server.port}为该服务的端口号
-    status-page-url: http://{eureka.instance.hostname}:${server.port}/auth/doc.html # ${server.port}为该服务的端口号
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/auth/doc.html # ${server.port}为该服务的端口号
+#    status-page-url: http://${docker.ipAddress}:${server.port}/auth/doc.html # ${server.port}为该服务的端口号
 logging:
   level:
     root: INFO
