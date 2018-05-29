@@ -88,7 +88,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		tokenFilter.afterPropertiesSet();
 		http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-
+	
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
