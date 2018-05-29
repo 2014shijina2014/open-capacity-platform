@@ -32,6 +32,11 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 ![](http://img2.ph.126.net/-cKtj6Wia_q6YiZKV-IOsQ==/295548725646480248.gif)
 
 
+## oauth认证方式    
+![](https://i.imgur.com/MUCa4x6.gif)
+## oauth单点登录   
+![](https://i.imgur.com/n8oDvtR.gif)
+
 ## 项目组织结构分析 
 
 ![](https://i.imgur.com/aFptzQl.jpg)
