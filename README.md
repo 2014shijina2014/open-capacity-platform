@@ -5,7 +5,7 @@
 
  
 ##   技术介绍 
-![](https://i.imgur.com/bFPHaj2.jpg)  
+![](https://i.imgur.com/29QKUkG.png)  
 ##   框架设计
 ![](https://i.imgur.com/vn03vIX.jpg)
 
