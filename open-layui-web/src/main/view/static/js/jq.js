@@ -86,7 +86,7 @@ function buttonRefresh(data, permission, pers){
  
 	var btn ;
 	 
-	btn = $("<button class='layui-btn layui-btn-xs' title='刷新'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+4 +")'><i class='layui-icon'>ဂ</i></button>");
+	btn = $("<button class='layui-btn layui-btn-xs' title='刷新'  onclick='ops(\"" + data.app +"\"," + "\"" + data.instanceId +"\","   + "\"" + data.ip +"\"," + data.port+","+4 +")'><i class='layui-icon'>ဂ</i></button>");
 	
 		
 
