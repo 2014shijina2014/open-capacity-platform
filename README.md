@@ -2,10 +2,9 @@
  
 简称ocp是基于layui+springcloud的企业级微服务框架(用户权限管理，配置中心管理，应用管理，....),其核心的设计目标是分离前后端，快速开发部署，学习简单，功能强大，提供快速接入核心接口能力，其目标是帮助企业搭建一套类似百度能力开放平台的框架；
 
-
  
 ##   技术介绍 
-![](https://i.imgur.com/bFPHaj2.jpg)  
+![](https://i.imgur.com/29QKUkG.png)  
 ##   框架设计
 ![](https://i.imgur.com/vn03vIX.jpg)
 
@@ -21,16 +20,22 @@ sts-3.8.0.RELEASE
 密码：xqjb
 
 
-
+##  项目地址
+http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 
 ##  ocp项目演示
  
 ![](http://img1.ph.126.net/WAraEeweVw2SyTUSG1dT6Q==/3887169428474612491.gif) 
 
 
-阿波罗配置中心演示  
+## 阿波罗配置中心演示  
 ![](http://img2.ph.126.net/-cKtj6Wia_q6YiZKV-IOsQ==/295548725646480248.gif)
 
+
+## oauth认证方式    
+![](https://i.imgur.com/MUCa4x6.gif)
+## oauth单点登录   
+![](https://i.imgur.com/n8oDvtR.gif)
 
 ## 项目组织结构分析 
 
@@ -105,6 +110,9 @@ sts-3.8.0.RELEASE
 技术交流群:  
 ![](https://i.imgur.com/YowTMtG.jpg)
 
+项目的发展离不开你的支持，请作者喝杯咖啡吧！  
+![](https://i.imgur.com/f0FWF4r.jpg)
+  
 
 
  

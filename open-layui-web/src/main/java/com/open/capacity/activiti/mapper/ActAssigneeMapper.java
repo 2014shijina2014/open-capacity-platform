@@ -3,6 +3,8 @@ package com.open.capacity.activiti.mapper;
 import com.open.capacity.activiti.entity.ActAssignee;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @Author: [gitgeek]
  * @Date: [2018-05-14 19:53]
@@ -26,6 +28,8 @@ public interface ActAssigneeMapper {
     int updateByPrimaryKey(ActAssignee record);
 
     int deleteByNodeId(String nodeId);
+
+    List<ActAssignee> selectListByPage(ActAssignee record);
 
 
 }

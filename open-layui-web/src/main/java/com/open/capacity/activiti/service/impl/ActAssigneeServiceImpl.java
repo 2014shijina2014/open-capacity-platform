@@ -1,9 +1,12 @@
 package com.open.capacity.activiti.service.impl;
 
+import com.open.capacity.activiti.entity.ActAssignee;
 import com.open.capacity.activiti.mapper.ActAssigneeMapper;
 import com.open.capacity.activiti.service.ActAssigneeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author: [gitgeek]
@@ -21,4 +24,16 @@ public class ActAssigneeServiceImpl implements ActAssigneeService {
     public int deleteByNodeId(String nodeId) {
         return actAssigneeMapper.deleteByNodeId(nodeId);
     }
+
+    @Override
+    public List<ActAssignee> selectListByPage(ActAssignee record) {
+        return actAssigneeMapper.selectListByPage(record);
+    }
+
+    @Override
+    public int insertSelective(ActAssignee record) {
+        return actAssigneeMapper.insertSelective(record);
+    }
+
+
 }

@@ -35,6 +35,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.open.capacity.activiti.entity.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.Result;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -291,7 +292,6 @@ public class ActivitiController {
         /**角色和节点关系封装成list*/
         Map<String, Object> params = new HashMap<>();
 
-
         List<Role> list = roleDao.list(params, null, null);
         List<Checkbox> checkboxes = new ArrayList<>();
         Checkbox checkbox = null;
@@ -307,51 +307,65 @@ public class ActivitiController {
             }
             //节点id 、name、节点目前关联的角色 封装成进map
             String nodeId = activiti.getId();
-//            assigneeList = actAssigneeService.selectListByPage(new ActAssignee(nodeId));
-
-
+            assigneeList = actAssigneeService.selectListByPage(new ActAssignee(nodeId));
+            List<String> strings = new ArrayList<>();
+            assigneeList.forEach(actAssignee1 -> strings.add(actAssignee1.getRoleId()));
+            map.put("id", nodeId);
+            map.put("name", name);
+            checkboxList = new ArrayList<>();
+            for (Role role : list) {
+                checkbox = new Checkbox();
+                checkbox.setId(role.getId().toString());
+                checkbox.setName(role.getName());
+                if (strings.contains(role.getId().toString())) {
+                    checkbox.setCheck(true);
+                }
+                checkboxList.add(checkbox);
+            }
+            map.put("boxJson", checkboxList);
+            mapList.add(map);
         }
+        model.addAttribute("actList", mapList);
 
-
-//        List<SysRole> roleList = roleService.selectListByPage(new SysRole());
-//        List<Checkbox> checkboxes = new ArrayList<>();
-//        Checkbox checkbox = null;
-//        Map<String, Object> map = null;
-//        List<Map<String, Object>> mapList = new ArrayList<>();
-//        List<ActAssignee> assigneeList = null;
-//        List<Checkbox> checkboxList = null;
-//        for (ActivityImpl activiti : activityList) {
-//            map = new HashMap<>();
-//            String name = (String) activiti.getProperty("name");
-//            if (StringUtils.isEmpty(name) || "start".equals(name) || "end".equals(name)) {
-//                continue;
-//            }
-//            //节点id 、name、节点目前关联的角色 封装成进map
-//            String nodeId = activiti.getId();
-//            assigneeList = actAssigneeService.selectListByPage(new ActAssignee(nodeId));
-//            List<String> strings = new ArrayList<>();
-//            assigneeList.forEach(actAssignee1 -> strings.add(actAssignee1.getRoleId()));
-//            map.put("id", nodeId);
-//            map.put("name", name);
-//            checkboxList = new ArrayList<>();
-//            for (SysRole role : roleList) {
-//                checkbox = new Checkbox();
-//                checkbox.setId(role.getId());
-//                checkbox.setName(role.getRoleName());
-//                if (strings.contains(role.getId())) {
-//                    checkbox.setCheck(true);
-//                }
-//                checkboxList.add(checkbox);
-//            }
-//            map.put("boxJson", checkboxList);
-//            mapList.add(map);
-//        }
-//        model.addAttribute("actList", mapList);
-
-        return "redirect:/pages/activiti/deploy/act-node.html";
+        return "activiti/deploy/act-node";
     }
 
+    /**
+     * 节点更新配置办理者(人/组)
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("goAssignee/updateNode")
+    @ResponseBody
+    public JsonUtil updateNode(HttpServletRequest request) {
+        JsonUtil j = new JsonUtil();
 
+        Map<String, String[]> map = request.getParameterMap();
+        List<ActAssignee> assigneeList = new ArrayList<>();
+        ActAssignee assignee = null;
+        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+            assignee = new ActAssignee();
+            int sub = entry.getKey().lastIndexOf("_");
+            String nodeId = entry.getKey().substring(0, sub);
+            nodeId = nodeId.substring(nodeId.lastIndexOf("_") + 1, nodeId.length());
+            String nodeName = entry.getKey().substring(entry.getKey().lastIndexOf("_") + 1, entry.getKey().length());
+            //更新进list
+            assignee.setAssigneeType(3);
+            assignee.setRoleId(entry.getValue()[0]);
+            assignee.setSid(nodeId);
+            assignee.setActivtiName(nodeName);
+            //先清除
+            actAssigneeService.deleteByNodeId(nodeId);
+            assigneeList.add(assignee);
+        }
+        //后添加 在map循环里添加 多角色会导致添加了的再次被删除 so 要拿出来
+        for (ActAssignee actAssignee : assigneeList) {
+            actAssigneeService.insertSelective(actAssignee);
+        }
+        j.setMsg("更新成功");
+        return j;
+    }
 
 
 
