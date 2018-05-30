@@ -41,24 +41,23 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 @Controller
 @RequestMapping("/eureka/")
 public class EurekaController {
-	
    
 	private static final Logger LOGGER = LoggerFactory.getLogger(EurekaController.class);
-
+	
 	@Autowired
 	private DiscoveryClient discoveryClient;
 
 	@ResponseBody
 	@RequestMapping(value = "status", method = RequestMethod.GET)
 	public String status() {
-		String url = "http://47.94.252.160:1111/eureka/status";
+		String url = "http://127.0.0.1:1111/eureka/status";
 		return getinfo(url);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "apps", method = RequestMethod.GET)
 	public String apps() {
-		String url = "http://47.94.252.160:1111/eureka/apps";
+		String url = "http://127.0.0.1:1111/eureka/apps";
 		return getinfo(url);
 	}
 	
@@ -93,14 +92,14 @@ public class EurekaController {
 	@ResponseBody
 	@RequestMapping(value = "appsmd", method = RequestMethod.POST)
 	public String appsmd(@RequestParam(value = "name", required = false) String str) {
-		String url = "http://47.94.252.160:1111/eureka/apps/" + str;
+		String url = "http://127.0.0.1:1111/eureka/apps/" + str;
 		return getinfo(url);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = { "appsmddel" }, method = RequestMethod.POST)
 	public String appsmddel(@RequestParam(value = "name", required = false) String str) {
-		String url = "http://47.94.252.160:1111/metadata/apps/" + str;
+		String url = "http://127.0.0.1:1111/metadata/apps/" + str;
 		return getinfo_del(url);
 	}
 
@@ -128,7 +127,7 @@ public class EurekaController {
 		}
 
 
-		String name =inmap.get("instance");
+		String name =inmap.get("app");
 
 		String path= "" ;
 		if("OPEN-EUREKA-CLIENT".equals(name)){

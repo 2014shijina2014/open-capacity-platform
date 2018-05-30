@@ -66,10 +66,10 @@ function buttonOps(data, permission, pers){
  
 	var btn ;
 	if(data.status=='UP'){
-		 btn = $("<button class='layui-btn layui-btn-xs' title='暂停'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+1 +")'><i class='layui-icon'>⏸</i></button>");
+		 btn = $("<button class='layui-btn layui-btn-xs' title='暂停'  onclick='ops(\"" + data.app +"\"," + "\"" + data.instanceId +"\"," + "\"" + data.ip +"\"," + data.port+","+1 +")'><i class='layui-icon'>⏸</i></button>");
 		
 	}else{
-		 btn = $("<button class='layui-btn layui-btn-xs' title='启动'  onclick='ops(\"" + data.instance +"\"," + "\"" + data.ip +"\"," + data.port+","+3 +")'><i class='layui-icon'>▶</i></button>");
+		 btn = $("<button class='layui-btn layui-btn-xs' title='启动'  onclick='ops(\"" + data.app +"\"," + "\"" + data.instanceId +"\","   + "\"" + data.ip +"\"," + data.port+","+3 +")'><i class='layui-icon'>▶</i></button>");
 		
 	}
 	
