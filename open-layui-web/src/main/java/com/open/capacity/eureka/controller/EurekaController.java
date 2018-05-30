@@ -110,13 +110,16 @@ public class EurekaController {
 		String op = "";
 		int post2get = 0;
 		if (inmap.get("operate").equals("1")) {// 暂停
-			op = "pause";
+			op = "DOWN";
+			post2get =-1 ;
 		}
 		if (inmap.get("operate").equals("2")) {// 挂起
-			op = "pause";
+			op = "DOWN";
+			post2get =-1 ;
 		}
 		if (inmap.get("operate").equals("3")) {// 恢复
-			op = "resume";
+			op = "UP";
+			post2get =-1 ;
 		}
 		if (inmap.get("operate").equals("4")) {// 刷新
 			op = "refresh";
@@ -128,13 +131,23 @@ public class EurekaController {
 
 
 		String name =inmap.get("app");
+		String instance =inmap.get("instanceId");
 
 		String path= "" ;
 		if("OPEN-EUREKA-CLIENT".equals(name)){
 			path ="/client" ;
 		}
-
-		String url = "http://" + inmap.get("ip") + ":" + inmap.get("port") +path + "/" + op;
+		
+		String url =null ;
+		
+		switch (post2get) {
+		case -1:
+			url =  "http://127.0.0.1:1111/eureka/apps/" + name +"/"+instance +"" +"/status?value="+op;
+			break;
+		default:
+			url =  "http://" + inmap.get("ip") + ":" + inmap.get("port") +path + "/" + op;
+			break;
+		}
 
 		return getoperate(url, post2get, "", "");
 	}
@@ -146,6 +159,16 @@ public class EurekaController {
 		try {
 			RequestConfig requestConfig = RequestConfig.custom().setConnectionRequestTimeout(10 * 1000)
 					.setConnectTimeout(10 * 1000).setSocketTimeout(10 * 1000).build();
+			
+			if (post2get == -1) {
+				HttpPut po = new HttpPut(url);
+
+				po.setConfig(requestConfig);
+				CloseableHttpResponse response = httpClient.execute(po);
+				bodyAsString = EntityUtils.toString(response.getEntity());
+				LOGGER.info(bodyAsString.toString());
+				return bodyAsString.toString();
+			}
 			if (post2get == 1) {
 				HttpGet po = new HttpGet(url);
 
