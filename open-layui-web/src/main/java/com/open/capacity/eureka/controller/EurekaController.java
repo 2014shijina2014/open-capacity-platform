@@ -114,7 +114,7 @@ public class EurekaController {
 			post2get =-1 ;
 		}
 		if (inmap.get("operate").equals("2")) {// 挂起
-			op = "DOWN";
+			op = "OUT_OF_SERVICE";
 			post2get =-1 ;
 		}
 		if (inmap.get("operate").equals("3")) {// 恢复
