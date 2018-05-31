@@ -1,5 +1,5 @@
 server:
-  port: 7768
+  port: 7769
   context-path: /client
   tomcat:
     uri-encoding: UTF-8
@@ -17,6 +17,7 @@ spring:
 docker:
   ipAddress: 47.94.252.160
            
+           
 eureka:
   client:
     healthcheck:
@@ -32,10 +33,12 @@ eureka:
     instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
 #    instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
     lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
-    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
+    lease-expiration-duration-in-seconds: 15 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
     #注册实例文档
     status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/client/doc.html # ${server.port}为该服务的端口号
 #    status-page-url: http://${docker.ipAddress}:${server.port}/client/doc.html # ${server.port}为该服务的端口号
+
+
 logging:
   level:
     root: INFO
