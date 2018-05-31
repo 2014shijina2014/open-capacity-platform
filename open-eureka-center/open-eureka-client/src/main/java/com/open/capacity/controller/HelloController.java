@@ -25,7 +25,7 @@ public class HelloController {
 	
 	@GetMapping("/route")
 	public String hello1(){
-		String resp = this.restTemplate.getForObject("http://unieap-eureka-client/hello", String.class);
+		String resp = this.restTemplate.getForObject("http://open-eureka-client/client/hello", String.class);
 		return resp;
 	}
 }
