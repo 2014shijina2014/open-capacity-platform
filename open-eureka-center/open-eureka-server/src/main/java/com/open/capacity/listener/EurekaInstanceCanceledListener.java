@@ -34,7 +34,7 @@ public class EurekaInstanceCanceledListener implements ApplicationListener {
             applications.getRegisteredApplications().forEach((registeredApplication) -> {
                 registeredApplication.getInstances().forEach((instance) -> {
                     if (instance.getInstanceId().equals(event.getServerId())) {
-                        log.info("服务：" + instance.getAppName() + " 挂啦。。。");
+                        log.debug("服务：" + instance.getAppName() + " 挂啦。。。");
                         // // TODO: 2017/9/3 扩展消息提醒 邮件、手机短信、微信等
                     }
                 });
@@ -44,14 +44,14 @@ public class EurekaInstanceCanceledListener implements ApplicationListener {
         }
         if (applicationEvent instanceof EurekaInstanceRegisteredEvent) {
             EurekaInstanceRegisteredEvent event = (EurekaInstanceRegisteredEvent) applicationEvent;
-            log.info("服务：" + event.getInstanceInfo().getAppName() + " 注册成功啦。。。");
+            log.debug("服务：" + event.getInstanceInfo().getAppName() + " 注册成功啦。。。");
         }
         if (applicationEvent instanceof EurekaInstanceRenewedEvent) {
             EurekaInstanceRenewedEvent event = (EurekaInstanceRenewedEvent) applicationEvent;
-            log.info("心跳检测服务：" + event.getInstanceInfo().getAppName() + "。。");
+            log.debug("心跳检测服务：" + event.getInstanceInfo().getAppName() + "。。");
         }
         if (applicationEvent instanceof EurekaRegistryAvailableEvent) {
-            log.info("服务 Aualiable。。");
+            log.debug("服务 Aualiable。。");
         }
 
     }

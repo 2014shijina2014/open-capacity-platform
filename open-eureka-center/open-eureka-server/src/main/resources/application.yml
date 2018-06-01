@@ -25,9 +25,8 @@ eureka:
     lease-expiration-duration-in-seconds: 15 # 续约到期时间（默认90秒）  
 logging:
   level:
-    root: INFO
-    com.drei: DEBUG    
-    org.springframework.web: INFO
+#    root: INFO
+    com.open: DEBUG  
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
