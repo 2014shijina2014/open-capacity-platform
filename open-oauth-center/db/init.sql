@@ -9,7 +9,17 @@ set session
 sql_mode='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';  
 
  
+# Host: 134.224.249.39  (Version 5.7.18)
+# Date: 2018-06-01 15:28:08
+# Generator: MySQL-Front 5.4  (Build 4.153) - http://www.mysqlfront.de/
 
+/*!40101 SET NAMES utf8 */;
+
+#
+# Structure for table "all_services"
+#
+
+DROP TABLE IF EXISTS `all_services`;
 CREATE TABLE `all_services` (
   `create_time` datetime DEFAULT NULL,
   `version` int(11) DEFAULT '0',
@@ -33,6 +43,7 @@ INSERT INTO `all_services` VALUES ('2017-07-26 15:14:15',1,'公共校验-中至�
 # Structure for table "client_services"
 #
 
+DROP TABLE IF EXISTS `client_services`;
 CREATE TABLE `client_services` (
   `service_id` varchar(255) NOT NULL,
   `client_id` varchar(255) NOT NULL,
@@ -55,6 +66,7 @@ INSERT INTO `client_services` VALUES ('1','9hyb3mnDQUd3dSmRhuf5',1,NULL,NULL,NUL
 # Structure for table "gateway_api_define"
 #
 
+DROP TABLE IF EXISTS `gateway_api_define`;
 CREATE TABLE `gateway_api_define` (
   `id` varchar(50) NOT NULL,
   `path` varchar(255) NOT NULL,
@@ -77,6 +89,7 @@ INSERT INTO `gateway_api_define` VALUES ('authentication-center','/auth/**','ope
 # Structure for table "oauth_access_token"
 #
 
+DROP TABLE IF EXISTS `oauth_access_token`;
 CREATE TABLE `oauth_access_token` (
   `token_id` varchar(256) DEFAULT NULL,
   `token` blob,
@@ -97,7 +110,7 @@ CREATE TABLE `oauth_access_token` (
 # Structure for table "oauth_approvals"
 #
 
-
+DROP TABLE IF EXISTS `oauth_approvals`;
 CREATE TABLE `oauth_approvals` (
   `userId` varchar(256) DEFAULT NULL,
   `clientId` varchar(256) DEFAULT NULL,
@@ -112,13 +125,12 @@ CREATE TABLE `oauth_approvals` (
 #
 
 
-
 #
 # Structure for table "oauth_client_details"
 #
 
+DROP TABLE IF EXISTS `oauth_client_details`;
 CREATE TABLE `oauth_client_details` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `client_id` varchar(48) NOT NULL,
   `resource_ids` varchar(256) DEFAULT NULL,
   `client_secret` varchar(256) DEFAULT NULL,
@@ -131,22 +143,20 @@ CREATE TABLE `oauth_client_details` (
   `additional_information` varchar(4096) DEFAULT NULL,
   `autoapprove` varchar(256) DEFAULT NULL,
   `lastModifiedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "oauth_client_details"
 #
 
-
-
-INSERT INTO `oauth_client_details` (`client_id`,`resource_ids`,`client_secret`,`scope`,`authorized_grant_types`,`web_server_redirect_uri`,`authorities`,`access_token_validity`,`refresh_token_validity`,`additional_information`,`autoapprove`,`lastModifiedAt`) VALUES ('app','','app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('hello','','hello','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('mobile','','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('test','','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00'),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00');
-
+INSERT INTO `oauth_client_details` VALUES ('app','','app','app','password,refresh_token',NULL,NULL,1800,1800,'{}','true','0000-00-00 00:00:00'),('hello','','hello','app','password,refresh_token',NULL,NULL,1800,1800,'{}','true','0000-00-00 00:00:00'),('mobile','','mobile','all','password,refresh_token',NULL,NULL,1800,1800,'{}','true','0000-00-00 00:00:00'),('owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login',NULL,1800,1800,'{}','true','0000-00-00 00:00:00'),('test','','test','test','password,refresh_token',NULL,NULL,1800,1800,'{}','true','0000-00-00 00:00:00'),('webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,1800,1800,'{}','true','0000-00-00 00:00:00');
 
 #
 # Structure for table "oauth_client_token"
 #
 
+DROP TABLE IF EXISTS `oauth_client_token`;
 CREATE TABLE `oauth_client_token` (
   `token_id` varchar(256) DEFAULT NULL,
   `token` blob,
@@ -165,6 +175,7 @@ CREATE TABLE `oauth_client_token` (
 # Structure for table "oauth_code"
 #
 
+DROP TABLE IF EXISTS `oauth_code`;
 CREATE TABLE `oauth_code` (
   `code` varchar(256) DEFAULT NULL,
   `authentication` blob
@@ -179,6 +190,7 @@ CREATE TABLE `oauth_code` (
 # Structure for table "oauth_refresh_token"
 #
 
+DROP TABLE IF EXISTS `oauth_refresh_token`;
 CREATE TABLE `oauth_refresh_token` (
   `token_id` varchar(256) DEFAULT NULL,
   `token` blob,

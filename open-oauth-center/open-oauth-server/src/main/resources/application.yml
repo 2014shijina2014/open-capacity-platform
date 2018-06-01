@@ -78,8 +78,8 @@ logging:
     org.hibernate: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
-    com.neusoft: DEBUG     
-    com.netflix: DEBUG                    #用于心跳检测输出的日志
+#    com.neusoft: DEBUG     
+#    com.netflix: DEBUG                    #用于心跳检测输出的日志
     
 
 
