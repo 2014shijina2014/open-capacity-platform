@@ -12,10 +12,10 @@ public class OauthClientDetails extends BaseEntity<Long> {
 	private String authorizedGrantTypes ="authorization_code,password,refresh_token,client_credentials";
 	private String webServerRedirectUri;
 	private String authorities ="";
-	private Integer accessTokenValidity = 18000;
-	private Integer refreshTokenValidity = 18000;
-	private String additionalInformation ="";
-	private String autoapprove ="1";
+	private Integer accessTokenValidity = 1800;
+	private Integer refreshTokenValidity = 1800;
+	private String additionalInformation ="{}";
+	private String autoapprove ="true";
 
 	
 	
