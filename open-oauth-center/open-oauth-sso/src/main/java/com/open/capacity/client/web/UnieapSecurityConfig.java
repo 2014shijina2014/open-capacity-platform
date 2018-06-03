@@ -1,12 +1,14 @@
 package com.open.capacity.client.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.stereotype.Component;
+
+import com.open.capacity.filter.TokenFilter;
 
 /** 
 * @author 作者 owen E-mail: 624191343@qq.com
@@ -39,6 +41,12 @@ public   class UnieapSecurityConfig extends WebSecurityConfigurerAdapter{
                    .logout().logoutUrl("/logout").permitAll()
                    // 退出成功后，跳转到/路径。
                    .logoutSuccessUrl("/login");
+           
+           
+         //新增token过滤器
+   		TokenFilter tokenFilter = new TokenFilter();
+   		tokenFilter.afterPropertiesSet();
+   		http.addFilterAfter(tokenFilter, SecurityContextPersistenceFilter.class);
        }
 }
 	
