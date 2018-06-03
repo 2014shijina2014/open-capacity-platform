@@ -20,7 +20,8 @@ public class HelloController {
 	
 	@GetMapping("/hello")
 	public String hello(  HttpServletRequest request){
-		return  "hello:	" ;
+		
+		return  "hello:	" +request.getHeader("Authorization");
 	}
 	
 	@GetMapping("/route")
