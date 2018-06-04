@@ -1,8 +1,7 @@
 package com.open.capacity.filter;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.util.Enumeration;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -32,7 +31,7 @@ public class TokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		OAuth2Authentication user = (OAuth2Authentication) SecurityContextHolder.getContext()
+		Authentication user =  SecurityContextHolder.getContext()
                 .getAuthentication();
 		
 		
@@ -45,6 +44,7 @@ public class TokenFilter extends OncePerRequestFilter {
 				OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) athentication.getDetails() ;
 				details.getTokenValue() ;
 				 
+				initSession(request) ;
 				 //重新发起sso登录	OAuth2ClientContextFilter redirectUser(redirect, request, response);
 				 
 				 
@@ -56,12 +56,11 @@ public class TokenFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
-	 private String getEncodedUrl(String url) {
-	        try {
-	            return URLEncoder.encode(url, "UTF-8");
-	        } catch (UnsupportedEncodingException e) {
-	            throw new RuntimeException(e);
-	        }
-	    } 
+	private void initSession(HttpServletRequest request){
+		  Enumeration em = request.getSession().getAttributeNames();
+		  while(em.hasMoreElements()){
+		   request.getSession().removeAttribute(em.nextElement().toString());
+		  }
+		 }
 
 }

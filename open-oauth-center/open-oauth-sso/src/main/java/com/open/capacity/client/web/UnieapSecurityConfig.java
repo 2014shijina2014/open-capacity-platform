@@ -1,11 +1,12 @@
 package com.open.capacity.client.web;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.stereotype.Component;
 
 import com.open.capacity.filter.TokenFilter;
@@ -44,10 +45,19 @@ public   class UnieapSecurityConfig extends WebSecurityConfigurerAdapter{
            
            
          //新增token过滤器
-   		TokenFilter tokenFilter = new TokenFilter();
-   		tokenFilter.afterPropertiesSet();
-   		http.addFilterAfter(tokenFilter, SecurityContextPersistenceFilter.class);
+   		
        }
+	   
+	   
+	   @Bean
+		public FilterRegistrationBean mytokenFilter(  SecurityProperties security) {
+			FilterRegistrationBean registration = new FilterRegistrationBean();
+			
+			TokenFilter tokenFilter = new TokenFilter();
+			registration.setFilter(tokenFilter);
+			registration.setOrder(security.getFilterOrder() - 11);
+			return registration;
+		}
 }
 	
 
