@@ -47,7 +47,7 @@ public class AccessFilter extends ZuulFilter {
         try {
         	
         	//解决zuul token传递问题
-        	OAuth2Authentication user = (OAuth2Authentication) SecurityContextHolder.getContext()
+        	Authentication user = SecurityContextHolder.getContext()
                     .getAuthentication();
     		
     		
