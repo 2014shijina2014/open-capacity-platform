@@ -22,6 +22,7 @@ eureka:
   client:
     healthcheck:
       enabled: true
+    instance-info-replication-interval-seconds: 10  
     serviceUrl:
       defaultZone:  http://127.0.0.1:1111/eureka
       #http://130.75.131.241:8761/eureka,http://130.75.131.248:8762/eureka
