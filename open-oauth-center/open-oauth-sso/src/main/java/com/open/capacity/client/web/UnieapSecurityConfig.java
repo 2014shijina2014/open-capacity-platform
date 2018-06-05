@@ -60,7 +60,7 @@ public   class UnieapSecurityConfig extends WebSecurityConfigurerAdapter{
 			registration.setOrder(security.getFilterOrder() - 11);
 			
 			authorizationCodeResourceDetails.setUserAuthorizationUri("http://127.0.0.1:8000/auth/oauth/authorize");
-			authorizationCodeResourceDetails.setAccessTokenUri("http://127.0.0.1:8000/auth/oauth/token");http://127.0.0.1:8000/auth/oauth/authorize
+			authorizationCodeResourceDetails.setAccessTokenUri("http://127.0.0.1:8000/auth/oauth/token");  //http://127.0.0.1:8000/auth/oauth/authorize
 			
 			resourceServerProperties.setTokenInfoUri("http://127.0.0.1:8000/auth/oauth/check_token");
 				
