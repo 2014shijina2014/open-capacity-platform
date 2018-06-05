@@ -2,11 +2,13 @@ package com.open.capacity.client.web;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.stereotype.Component;
 
 import com.open.capacity.filter.TokenFilter;
@@ -50,12 +52,18 @@ public   class UnieapSecurityConfig extends WebSecurityConfigurerAdapter{
 	   
 	   
 	   @Bean
-		public FilterRegistrationBean mytokenFilter(  SecurityProperties security) {
+		public FilterRegistrationBean mytokenFilter(  SecurityProperties security ,AuthorizationCodeResourceDetails authorizationCodeResourceDetails ,ResourceServerProperties resourceServerProperties) {
 			FilterRegistrationBean registration = new FilterRegistrationBean();
 			
 			TokenFilter tokenFilter = new TokenFilter();
 			registration.setFilter(tokenFilter);
 			registration.setOrder(security.getFilterOrder() - 11);
+			
+			authorizationCodeResourceDetails.setUserAuthorizationUri("http://127.0.0.1:8000/auth/oauth/authorize");
+			authorizationCodeResourceDetails.setAccessTokenUri("http://127.0.0.1:8000/auth/oauth/token");http://127.0.0.1:8000/auth/oauth/authorize
+			
+			resourceServerProperties.setTokenInfoUri("http://127.0.0.1:8000/auth/oauth/check_token");
+				
 			return registration;
 		}
 }
