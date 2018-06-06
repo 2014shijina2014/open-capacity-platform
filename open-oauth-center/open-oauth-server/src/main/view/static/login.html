@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>与认证中心连接</title>
+
+
+
+
+
+<script type="text/javascript">
+	if (!-[ 1, ]) {
+		var e = ("abbr,article,aside,audio,canvas,datalist,"
+				+ "details,dialog,eventsource,figure,footer,"
+				+ "header,hgroup,mark,menu,meter,nav,output,"
+				+ "progress,section,time,video").split(','), i = e.length;
+		while (i--) {
+			document.createElement(e[i])
+		}
+	}
+</script>
+
+
+<script type="text/javascript">
+	// alert(window.innerHeight);
+	// alert(navigator.userAgent);
+	var devo = {
+		nowebclient : '',
+		islogin : '',
+		confirm_login : '',
+		quick_user : '0',
+		display : 'popup',
+		is_sso : '',
+		granted_perms : '',
+		disable_third_login : '',
+		login_type : '',
+		is_social : '',
+		req_perms_len : '1',
+		nick_name : '',
+		media_info : '',
+		publicKey : 'BAF11D465A4915BEF8C13862873A8C8BC5DB4473106254E186F25BD74DC901F2336B838B62850CEA97E7C96EBFD7F15F4CA902F0CF33B2415898956FBF1A10BABB58EB3FAB7706BD16CBC1F24E10E7BCE016C8F1446B081B232C13DB4178D48A9ACA579DFC343F2420D670D03BFB15F9EABA8471077EE9B68D022BBDA3DEB63F',
+		prefilled_mobile : '',
+		granted_perms : '',
+		is_dusite : '',
+		close_oversea : '',
+		qrcode : '',
+	};
+</script>
+
+<script>
+	devo.conf = {
+		"page_header" : "与认证中心连接",
+
+		"page_title" : "认证中心",
+
+		"back" : "返回",
+
+		"change_account" : "切换帐号",
+
+		"login_title" : "登录认证中心帐号",
+
+		"regist" : "注册",
+
+		"use_baidu_prefix" : "使用认证中心帐号访问 ",
+
+		"use_baidu_suffix" : " 应用",
+
+		"normal" : "普通登录",
+
+		"quick_user" : "用户名登录",
+
+		"mobile" : "手机号登录",
+
+		"message" : "快捷登录",
+
+		"other_login" : "其他方式登录",
+
+		"name_label" : "帐　号",
+
+		"normal_name" : "邮　箱",
+
+		"quick_user_name" : "用户名",
+
+		"mobile_name" : "手机号",
+
+		"normal_name_placeholder" : "手机号/邮箱/用户名",
+
+		"message_name_placeholder" : "请输入手机号",
+		"normal_pwd_placeholder" : "密码",
+
+		"message_pwd_placeholder" : "动态密码",
+
+		"vcode_placeholder" : "验证码",
+
+		"pwd_label" : "密　码",
+
+		"pwd_placeholder" : "6-14位，字母区分大小写",
+
+		"verify_label" : "验证码",
+
+		"change_verify" : "看不清",
+
+		"login_btn" : "登 录",
+
+		"use_logged_id" : "切换到快速登录模式",
+
+		"forget_pwd" : "忘记密码?",
+
+		"login_error_blank_name" : "请输入帐号",
+
+		"login_error_blank_pwd" : "请输入密码",
+
+		"login_error_blank_verify" : "请输入验证码",
+
+		"login_error_blank_phone" : "请输入手机号",
+
+		"login_error_blank_timeout" : "请求超时",
+
+		"login_error_blank_unknown" : "登录时发生未知错误，请稍后重新输入",
+
+		"login_error_right_phone" : "请输入正确的手机号",
+
+		"send_message_again" : "重新发送",
+
+		"send_code" : "发送动态密码",
+
+		"get_changed" : "换一张",
+
+		"account" : "普通",
+
+		"sms" : "短信",
+
+		"login_allow" : "登录并授权",
+
+		"bind_allow" : "绑定并授权",
+
+		"bind_mobile_title" : "绑定手机号",
+
+		"login_wait" : "登录中...",
+
+		"allow_wait" : "授权中...",
+
+		"other_login_styles" : "使用以下方式登录",
+
+		"login_confirm_head" : "亲爱的用户:",
+
+		"login_confirm_text" : "为了你确保您的账号安全,请确认您输入的帐号是否为手机号后即可登录:",
+
+		"login_confirm_phone" : "手机号",
+
+		"login_confirm_username" : "用户名",
+
+		"auth_desc_prefix" : "允许 ",
+
+		"auth_desc_suffix" : " 应用进行以下操作",
+
+		"auth_ok_btn" : "授 权",
+
+		"auth_is_login" : "检测到您已经登录认证中心可以直接进行授权",
+
+		"auth_is_login_noperm" : "检测到您已经是登录状态，请确认后直接登录",
+
+		"confirm_logged_label" : "用认证中心帐号登录",
+
+		"confirm_logged_desc" : "您已经登录认证中心帐号",
+
+		"confirm_ok_btn" : "登 录",
+
+		"error_code_label" : "错误码：",
+
+		"error_info_label" : "错误信息：",
+
+		"error_info_desc" : "您遇到了错误",
+
+		"developer_desc" : "您现在使用的服务为认证中心连接",
+
+		"fill_desc" : "您还没有用户名，请补充填写一个",
+
+		"fill_ok_btn" : "确 定",
+
+		"fill_username_placeholder" : "用户名：",
+
+		"verifier_desc_prefix" : "您正要授权给 ",
+
+		"verifier_desc_suffix" : " 拥有以下权限",
+
+		"verifier_verify_code" : "授权码",
+
+		"verifier_time_prefix" : "本授权码",
+
+		"verifier_time_suffix" : "一次性有效并将在10分钟后过期",
+
+		"verifier_app_permissions1" : "将授权码加入到",
+
+		"verifier_app_permissions2" : "中，将视为你允许",
+
+		"verifier_app_permissions3" : "访问相关授权权限",
+
+		"device_success" : "您已成功为 ",
+
+		"device_denied" : "您已拒绝为",
+
+		"device_opr" : "授权!",
+
+		"device_auth_end" : "请返回设备继续操作！",
+
+		"device_desc" : "一台设备正在向您的帐号申请授权",
+
+		"device_label" : "请输入设备上显示的用户授权码",
+
+		"device_code_error" : "用户授权码错误，请重试！",
+
+		"device_opr_tip" : '点击“继续”对该设备进行授权设置',
+
+		"device_ok_btn" : "继续",
+
+		"device_code_tip" : "小写字母和数字组成，共8位"
+	}
+</script>
+<link rel="stylesheet" type="text/css" href="css/import_main.css">
+<link rel="stylesheet" type="text/css" href="css/page_all.css">
+
+<script type="text/javascript" charset="UTF-8" src="js/ld.min.js"></script>
+
+</head>
+<body class="popup">
+
+
+	<div class="topbar">
+		<div class="main hd-c clearfix">
+			<strong class="logo">认证中心</strong>
+			<div class="topbar-nav"></div>
+		</div>
+	</div>
+	<section class="g-bd">
+		<div class="g-bd-wp wordwrap clearfix">
+
+
+
+			<div class="two-cols clearfix">
+				<div class="login">
+					<h3 class="title">认证中心帐号登录</h3>
+
+					<div class="psWrapper">
+						<div id="psLogin" class="tang-pass-login">
+							<form id="TANGRAM_3__form" class="pass-form pass-form-normal" action="/auth/user/login"
+								method="POST" autocomplete="off">
+								<p id="TANGRAM_3__errorWrapper" class="pass-generalErrorWrapper">
+									<span id="TANGRAM_3__error"
+										class="pass-generalError pass-generalError-error"></span>
+								</p>
+
+								<p id="TANGRAM_3__userNameWrapper"
+									class="pass-form-item pass-form-item-userName" style="display:">
+									<label for="TANGRAM_3__userName" id="TANGRAM_3__userNameLabel"
+										class="pass-label pass-label-userName">用户名</label><input
+										type="text" style="display: none;"><input
+										id="TANGRAM_3__userName" type="text" name="username"
+										class="pass-text-input pass-text-input-userName"
+										autocomplete="new-password" value="" placeholder="用户名"><span
+										id="TANGRAM_3__userName_clearbtn"
+										class="pass-clearbtn pass-clearbtn-userName"
+										style="display: none;"></span><span
+										id="TANGRAM_3__userNameTip"
+										class="pass-item-tip pass-item-tip-userName"
+										style="display: none"><span
+										id="TANGRAM_3__userNameTipText"
+										class="pass-item-tiptext pass-item-tiptext-userName"></span></span>
+								</p>
+								<p id="TANGRAM_3__passwordWrapper"
+									class="pass-form-item pass-form-item-password" style="display:">
+									<label for="TANGRAM_3__password" id="TANGRAM_3__passwordLabel"
+										class="pass-label pass-label-password">密码</label><input
+										type="password" style="display: none;"><input
+										id="TANGRAM_3__password" type="password" name="password"
+										class="pass-text-input pass-text-input-password"
+										autocomplete="new-password" value="" placeholder="密码"><span
+										id="TANGRAM_3__password_clearbtn"
+										class="pass-clearbtn pass-clearbtn-password"
+										style="display: none;"></span><span
+										id="TANGRAM_3__passwordTip"
+										class="pass-item-tip pass-item-tip-password"
+										style="display: none"><span
+										id="TANGRAM_3__passwordTipText"
+										class="pass-item-tiptext pass-item-tiptext-password"></span></span>
+								</p>
+
+								<p id="TANGRAM_3__submitWrapper"
+									class="pass-form-item pass-form-item-submit">
+									<input id="TANGRAM_3__submit" type="submit" value="登录并授权"
+										class="pass-button pass-button-submit">
+							</form>
+						</div>
+
+					</div>
+				</div>
+				<script src="js/wrapper.js"></script>
+				<script>
+					function setCookie(c_name, value, expiredays) {
+						var exdate = new Date();
+						exdate.setDate(exdate.getDate() + expiredays);
+						document.cookie = c_name
+								+ "="
+								+ escape(value)
+								+ ((expiredays == null) ? "" : ";expires="
+										+ exdate.toGMTString())
+					}
+					function logaback(res) {
+						document.getElementById("etken").value = res.stoken;
+						var bdstokenForm = document.forms['bdstoken'];
+						bdstokenForm && bdstokenForm.submit();
+						document.getElementById("etken").value = null;
+					}
+				</script>
+				<div class="scope">
+					<p class="title">允许 "登录测试" 应用进行以下操作：</p>
+					<form name="scopes" target="_self" method="post" class="scope-form"
+						autocomplete="off">
+						<ul class="scope-list">
+							<li class="first"><input type="checkbox" checked="checked"
+								disabled="" class="checkbox" name="grant_permissions_arr"
+								value="basic" id="scope-basic"><label for="scope-basic">访问您的个人资料等基础信息</label></li>
+						</ul>
+						<input type="hidden" name="bdstoken"
+							value="405d4bb2c92133ffbd8661fc3f5c09f7"> <input
+							type="hidden" name="client_id" value="SaZpR8r6XdIg5fr0qW6Ccasf">
+						<input type="hidden" name="response_type" value="code"> <input
+							type="hidden" name="display" value="popup"> <input
+							type="hidden" name="grant_permissions" value="">
+
+						<p class="rows-split">
+							<label for="agreement" id="agreementLabel"><input
+								type="checkbox" class="checkbox" checked="" name="agreement"
+								value="1" id="agreement">我同意<a
+								href="http://developer.baidu.com/wiki/index.php?title=docs/terms/connect"
+								target="_blank">认证中心帐号连接协议</a></label>
+						</p>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+
+	<p class="page-tip">提示：为了保障帐号安全，请认准本页URL地址必须以open.capcacity.platform开头</p>
+
+
+
+
+</body>
+</html>

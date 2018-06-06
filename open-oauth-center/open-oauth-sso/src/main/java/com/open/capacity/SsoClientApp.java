@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 */
 
 @RestController
-@EnableDiscoveryClient
 @SpringBootApplication
 public class SsoClientApp {
 
