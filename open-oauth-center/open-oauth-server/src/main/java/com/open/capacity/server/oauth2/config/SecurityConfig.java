@@ -15,10 +15,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 /**
  * spring security配置
+ * 
  * @author owen 624191343@qq.com
- * @version 创建时间：2017年11月12日 上午22:57:51
- * 2017年10月16日
- * 在WebSecurityConfigurerAdapter不拦截oauth要开放的资源
+ * @version 创建时间：2017年11月12日 上午22:57:51 2017年10月16日
+ *          在WebSecurityConfigurerAdapter不拦截oauth要开放的资源
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -29,46 +29,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private AuthenticationFailureHandler authenticationFailureHandler;
 	// @Autowired
 	// private LogoutSuccessHandler logoutSuccessHandler;
-	@Autowired(required=false)
+	@Autowired(required = false)
 	private AuthenticationEntryPoint authenticationEntryPoint;
 	@Autowired
 	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**" ,"/doc.html");
-        web.ignoring().antMatchers("/health"); 
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
+				"/swagger-ui.html", "/webjars/**", "/doc.html" , "/index.html");
+		web.ignoring().antMatchers("/health");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 
-		
-		
-		http.authorizeRequests().antMatchers("/user/token" ,"/client/token").permitAll().antMatchers("/oauth/authorize").permitAll()
-		.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
-		.antMatchers("/login").permitAll()
-		.antMatchers("/users" ,"/user/login").permitAll()
+		http.authorizeRequests().antMatchers("/user/token", "/client/token").permitAll().antMatchers("/oauth/authorize")
+				.permitAll()
+				.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
+						"/swagger-ui.html", "/webjars/**")
+				.permitAll().antMatchers("/login").permitAll().antMatchers("/users", "/user/login").permitAll()
 				.anyRequest().authenticated();
 		http.formLogin().loginProcessingUrl("/user/login").successHandler(authenticationSuccessHandler)
 				.failureHandler(authenticationFailureHandler);
-		
+
 		// 基于密码 等模式可以无session,不支持授权码模式
-		if(authenticationEntryPoint!=null){
-			http.exceptionHandling()
-			.authenticationEntryPoint(authenticationEntryPoint);
+		if (authenticationEntryPoint != null) {
+			http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		}else{
-			//授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
+		} else {
+			// 授权码模式单独处理，需要session的支持，此模式可以支持所有oauth2的认证
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 		}
-		
-		
+
 		// http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 		// 解决不允许显示在iframe的问题
 		http.headers().frameOptions().disable();
