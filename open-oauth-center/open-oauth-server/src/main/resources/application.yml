@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: open-auth-server
+  session:
+    store-type: redis  
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
 #      driver-class-name:  oracle.jdbc.OracleDriver
