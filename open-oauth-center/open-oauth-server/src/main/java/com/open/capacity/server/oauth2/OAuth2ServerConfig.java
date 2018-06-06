@@ -127,7 +127,7 @@ public class OAuth2ServerConfig {
 				endpoints.accessTokenConverter(jwtAccessTokenConverter);
 			}
 			
-//			endpoints.authorizationCodeServices(authorizationCodeServices);
+			endpoints.authorizationCodeServices(authorizationCodeServices);
 			
 			endpoints.exceptionTranslator(webResponseExceptionTranslator);
 

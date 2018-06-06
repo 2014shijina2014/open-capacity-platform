@@ -10,12 +10,12 @@ security:
     client:
       client-id: owen
       client-secret: owen 
-      user-authorization-uri: http://127.0.0.1:80100/auth/oauth/authorize    
-      access-token-uri: http://127.0.0.1:80100/auth/oauth/token
+      user-authorization-uri: http://127.0.0.1:9200/auth/oauth/authorize    
+      access-token-uri: http://127.0.0.1:9200/auth/oauth/token
     resource: 
 #        user-info-uri: http://127.0.0.1:8000/auth/users #返回认证服务器检查
 #        prefer-token-info: false
-      token-info-uri: http://127.0.0.1:80100/auth/oauth/check_token
+      token-info-uri: http://127.0.0.1:9200/auth/oauth/check_token
       prefer-token-info: true
  
  
@@ -60,4 +60,16 @@ spring:
 mybatis:
   config-location: classpath:mybatis.cfg.xml
   mapper-locations: classpath*:com/open/**/dao/*.xml  
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka/
+      #http://192.168.3.170:1111/eureka,http://192.168.3.171:1111/eureka,http://192.168.3.173:1111/eureka
+      #http://130.75.131.243:1111/eureka/,http://130.75.131.244:1111/eureka/,http://130.75.131.245:1111/eureka/   
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+#    instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 5
  
