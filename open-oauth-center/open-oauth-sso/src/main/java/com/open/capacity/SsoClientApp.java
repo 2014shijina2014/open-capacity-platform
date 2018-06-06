@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 * @version 创建时间：2017年11月12日 上午22:57:51
 */
 
+
 @RestController
+@EnableDiscoveryClient
 @SpringBootApplication
 public class SsoClientApp {
 

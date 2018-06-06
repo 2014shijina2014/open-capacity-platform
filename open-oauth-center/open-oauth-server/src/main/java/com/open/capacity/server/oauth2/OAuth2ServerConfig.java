@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -22,7 +23,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.approval.ApprovalStore;
+import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -47,6 +52,17 @@ public class OAuth2ServerConfig {
 	@ConditionalOnProperty(prefix = "security.oauth2.token.store", name = "type", havingValue = "redis", matchIfMissing = true)
 	public ClientDetailsService clientDetailsService() {
 		return new JdbcClientDetailsService(dataSource);
+	}
+	
+//	@Bean
+//    public ApprovalStore approvalStore() {
+//        return new JdbcApprovalStore(dataSource);
+//    }
+	
+	
+	@Bean
+	public RandomValueAuthorizationCodeServices authorizationCodeServices(){
+		return new JdbcAuthorizationCodeServices(dataSource);
 	}
 	
 	/**
@@ -84,6 +100,9 @@ public class OAuth2ServerConfig {
 		@Autowired
 		private ClientDetailsService clientDetailsService ;
 		
+		
+		@Autowired(required = false)
+		private RandomValueAuthorizationCodeServices  authorizationCodeServices ;
 
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
@@ -107,6 +126,9 @@ public class OAuth2ServerConfig {
 			if (jwtAccessTokenConverter != null) {
 				endpoints.accessTokenConverter(jwtAccessTokenConverter);
 			}
+			
+//			endpoints.authorizationCodeServices(authorizationCodeServices);
+			
 			endpoints.exceptionTranslator(webResponseExceptionTranslator);
 
 		}
@@ -131,7 +153,7 @@ public class OAuth2ServerConfig {
 			// ;
 			// }
 			clients.withClientDetails(clientDetailsService);
-
+			
 		}
 
 		@Override
