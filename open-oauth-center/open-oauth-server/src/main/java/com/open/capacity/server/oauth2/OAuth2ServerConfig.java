@@ -107,8 +107,6 @@ public class OAuth2ServerConfig {
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
 			
-			logger.info("redisTokenStore===================" + redisTokenStore);
-			
 			if (jwtTokenStore != null) {
 				endpoints.tokenStore(jwtTokenStore).authenticationManager(authenticationManager)
 						.userDetailsService(userDetailsService); // 支持
