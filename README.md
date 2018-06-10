@@ -53,27 +53,26 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 
 02.用户管理
 
-![](https://i.imgur.com/UpDbMdf.jpg)
+![](https://i.imgur.com/eHdbJX3.png)
 
 03.角色管理
 
 ![](https://i.imgur.com/GvI6o9f.jpg)
 
 04.菜单管理
-
-![](https://i.imgur.com/4oCFqfG.jpg)
+![](https://i.imgur.com/EtAhTXd.png)
 
 05.角色菜单管理
 
-![](https://i.imgur.com/4EJF9By.jpg)
-   
+![](https://i.imgur.com/GszH7cC.png)
+
 06.注册中心   
 ![](https://i.imgur.com/7VNt5ju.png)
 
 ![](https://i.imgur.com/4zfyLCi.png)
 
 07.配置中心   
-![](https://i.imgur.com/VqK4iZB.jpg)    
+![](https://i.imgur.com/gYWht1E.png)   
 ![](https://i.imgur.com/h3Z0cfO.jpg)     
 
 
@@ -81,9 +80,10 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 ![](https://i.imgur.com/MB4E3ve.jpg)
 
 
-09.认证服务器-->认证中心
-
-![](https://i.imgur.com/os86Yvr.jpg) 
+09.工作流管理
+![](https://i.imgur.com/oKXmWWN.png)
+![](https://i.imgur.com/xsWJeYR.png)
+![](https://i.imgur.com/AQOqvs5.png)
 
 10.定时任务
 
