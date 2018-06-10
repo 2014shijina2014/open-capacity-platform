@@ -18,7 +18,7 @@ spring:
       time-zone: GMT+8
   mail:
     host: smtp.163.com
-    username: 18579068155@163.com
+    username: xxxxxxx@163.com
     password: 1q2w3e4r
     properties:
         mail.smtp.auth : true
