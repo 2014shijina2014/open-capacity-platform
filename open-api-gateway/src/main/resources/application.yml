@@ -60,6 +60,7 @@ ribbon:
   ReadTimeout: 90000  
   ConnectTimeout: 90000 
 
+
 #设置最大容错超时时间
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 90000
 
@@ -69,13 +70,14 @@ hystrix:
     default:
       execution:
         timeout:
-          enabled: true
+          enabled: false    #设置熔断的超时时间开启 false关闭熔断功能，true开启熔断功能
         isolation:
           thread:
             timeoutInMilliseconds: 90000
 
  
 zuul:
+  retryable: false    #关闭重试
   sensitive-headers: #/oauth/token需要请求头处理
   add-host-header: true
   routes:
