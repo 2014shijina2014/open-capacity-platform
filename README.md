@@ -6,7 +6,6 @@
 ##   技术介绍 
 ![](https://i.imgur.com/29QKUkG.png)  
 ##   框架设计
-![](https://i.imgur.com/iVXg6eY.png)
 ![](https://i.imgur.com/vn03vIX.jpg)
 
 ## 开发环境  
@@ -48,8 +47,7 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 ## 一. open-capacity-platform能力开放平台管理    
    
 01.用户登录
-
-![](https://i.imgur.com/694I3v5.jpg)
+![](https://i.imgur.com/Wpo9STn.png)
 
 02.用户管理
 
