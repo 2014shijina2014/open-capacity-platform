@@ -17,7 +17,7 @@ import com.open.capacity.security.utils.FileUtil;
 @Service
 public class FileServiceImpl implements FileService {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(FileServiceImpl.class);
 
 	@Value("${files.path}")
 	private String filesPath;

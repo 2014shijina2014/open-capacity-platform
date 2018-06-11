@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/users")
 public class UserController {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;

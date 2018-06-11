@@ -19,7 +19,7 @@ import com.open.capacity.security.utils.UserUtil;
 @Service
 public class SysLogServiceImpl implements SysLogService {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(SysLogServiceImpl.class);
 
 	@Autowired
 	private SysLogsDao sysLogsDao;

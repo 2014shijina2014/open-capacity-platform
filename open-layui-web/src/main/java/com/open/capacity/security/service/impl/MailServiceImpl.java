@@ -17,7 +17,7 @@ import com.open.capacity.security.utils.UserUtil;
 @Service
 public class MailServiceImpl implements MailService {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(MailServiceImpl.class);
 
 	@Autowired
 	private SendMailSevice sendMailSevice;

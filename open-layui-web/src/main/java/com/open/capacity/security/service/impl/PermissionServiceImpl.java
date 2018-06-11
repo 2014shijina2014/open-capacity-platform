@@ -13,7 +13,7 @@ import com.open.capacity.security.service.PermissionService;
 @Service
 public class PermissionServiceImpl implements PermissionService {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
 	@Autowired
 	private PermissionDao permissionDao;

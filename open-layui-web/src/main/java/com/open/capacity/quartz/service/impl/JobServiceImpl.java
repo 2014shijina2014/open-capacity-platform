@@ -30,7 +30,7 @@ import com.open.capacity.quartz.service.JobService;
 @Service
 public class JobServiceImpl implements JobService {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(JobServiceImpl.class);
 
 	@Autowired
 	private Scheduler scheduler;

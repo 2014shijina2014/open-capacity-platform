@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/excels")
 public class ExcelController {
 	
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(ExcelController.class);
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

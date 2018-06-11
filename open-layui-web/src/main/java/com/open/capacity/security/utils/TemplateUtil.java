@@ -13,7 +13,7 @@ import com.open.capacity.security.dto.GenerateInput;
 
 public class TemplateUtil {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(TemplateUtil.class);
 
 	public static String getTemplete(String fileName) {
 		return FileUtil.getText(TemplateUtil.class.getClassLoader().getResourceAsStream("generate/" + fileName));
@@ -27,7 +27,7 @@ public class TemplateUtil {
 		List<String> beanFieldType = input.getBeanFieldType();
 		List<String> beanFieldValue = input.getBeanFieldValue();
 
-		String text = getTemplete("java.txt");
+		String text = getTemplete("java.ftl");
 		text = text.replace("{beanPackageName}", beanPackageName).replace("{beanName}", beanName);
 
 		String imports = "";
@@ -113,7 +113,7 @@ public class TemplateUtil {
 		String daoPackageName = input.getDaoPackageName();
 		String daoName = input.getDaoName();
 
-		String text = getTemplete("dao.txt");
+		String text = getTemplete("dao.ftl");
 		text = text.replace("{daoPackageName}", daoPackageName);
 		text = text.replace("{beanPackageName}", beanPackageName);
 		text = text.replace("{daoName}", daoName);
@@ -228,7 +228,7 @@ public class TemplateUtil {
 		String daoPackageName = input.getDaoPackageName();
 		String daoName = input.getDaoName();
 
-		String text = getTemplete("controller.txt");
+		String text = getTemplete("controller.ftl");
 		text = text.replace("{daoPackageName}", daoPackageName);
 		text = text.replace("{beanPackageName}", beanPackageName);
 		text = text.replace("{daoName}", daoName);
@@ -248,7 +248,7 @@ public class TemplateUtil {
 		String beanName = input.getBeanName();
 		String beanParamName = lowerFirstChar(beanName);
 
-		String text = getTemplete("htmlList.txt");
+		String text = getTemplete("htmlList.ftl");
 		text = text.replace("{beanParamName}", beanParamName);
 		text = text.replace("{beanName}", beanName);
 		List<String> beanFieldNames = input.getBeanFieldName();
@@ -258,13 +258,13 @@ public class TemplateUtil {
 		FileUtil.saveTextFile(text, path + File.separator + beanParamName + "List.html");
 		log.debug("生成查询页面：{}模板", beanName);
 
-		text = getTemplete("htmlAdd.txt");
+		text = getTemplete("htmlAdd.ftl");
 		text = text.replace("{beanParamName}", beanParamName);
 		text = text.replace("{addDivs}", getAddDivs(beanFieldNames));
 		FileUtil.saveTextFile(text, path + File.separator + "add" + beanName + ".html");
 		log.debug("生成添加页面：{}模板", beanName);
 
-		text = getTemplete("htmlUpdate.txt");
+		text = getTemplete("htmlUpdate.ftl");
 		text = text.replace("{beanParamName}", beanParamName);
 		text = text.replace("{addDivs}", getAddDivs(beanFieldNames));
 		text = text.replace("{initData}", getInitData(beanFieldNames));

@@ -23,7 +23,7 @@ import com.open.capacity.security.dto.ResponseInfo;
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(ExceptionHandlerAdvice.class);
 
 	@ExceptionHandler({ IllegalArgumentException.class })
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

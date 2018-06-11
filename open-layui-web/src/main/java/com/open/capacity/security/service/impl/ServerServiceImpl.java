@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ServerServiceImpl implements ServerService {
 
-	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+	private static final Logger log = LoggerFactory.getLogger(ServerServiceImpl.class);
 
 	@Autowired
 	private ServerDao serverDao;
