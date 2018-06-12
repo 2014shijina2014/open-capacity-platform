@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -34,6 +35,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.open.capacity.server.oauth2.token.store.RedisAuthorizationCodeServices;
 import com.open.capacity.server.oauth2.token.store.RedisTemplateTokenStore;
 
 /**
@@ -47,6 +49,8 @@ public class OAuth2ServerConfig {
 	
 	@Resource
 	private DataSource dataSource;
+	@Resource
+	private RedisTemplate<String,Object> redisTemplate ;
 	
 	@Bean // 声明 ClientDetails实现
 	@ConditionalOnProperty(prefix = "security.oauth2.token.store", name = "type", havingValue = "redis", matchIfMissing = true)
@@ -62,7 +66,9 @@ public class OAuth2ServerConfig {
 	
 	@Bean
 	public RandomValueAuthorizationCodeServices authorizationCodeServices(){
-		return new JdbcAuthorizationCodeServices(dataSource);
+		RedisAuthorizationCodeServices redisAuthorizationCodeServices = new RedisAuthorizationCodeServices() ;
+		redisAuthorizationCodeServices.setRedisTemplate(redisTemplate);
+		return  redisAuthorizationCodeServices ;
 	}
 	
 	/**
