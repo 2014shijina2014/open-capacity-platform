@@ -51,39 +51,32 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 
 02.用户管理
 
-![](https://i.imgur.com/eHdbJX3.png)
+![](https://i.imgur.com/Ud65k7j.png)
 
 03.角色管理
 
-![](https://i.imgur.com/GvI6o9f.jpg)
+![](https://i.imgur.com/Vl4n8Wr.png)
 
 04.菜单管理
-![](https://i.imgur.com/EtAhTXd.png)
-
-05.角色菜单管理
-
-![](https://i.imgur.com/GszH7cC.png)
-
-06.注册中心   
-![](https://i.imgur.com/7VNt5ju.png)
-
-![](https://i.imgur.com/4zfyLCi.png)
-
-07.配置中心   
-![](https://i.imgur.com/gYWht1E.png)   
-![](https://i.imgur.com/h3Z0cfO.jpg)     
+![](https://i.imgur.com/DXFAsUy.png)
 
 
-08.应用管理  
-![](https://i.imgur.com/MB4E3ve.jpg)
+
+05.注册中心   
+![](https://i.imgur.com/L1RMEoq.png)
+
+ ![](https://i.imgur.com/IKHAQ1c.png)
+
+06.配置中心   
+![](https://i.imgur.com/Q051dGB.png)  
+![](https://i.imgur.com/51q1Qus.png)
 
 
-09.工作流管理
-![](https://i.imgur.com/oKXmWWN.png)
-![](https://i.imgur.com/xsWJeYR.png)
-![](https://i.imgur.com/AQOqvs5.png)
+07.应用管理  
+![](https://i.imgur.com/ED2DSzi.png)
 
-10.定时任务
+
+08.定时任务
 
 ![](https://i.imgur.com/boiJhNU.jpg)
 
