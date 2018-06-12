@@ -214,27 +214,12 @@ $(function() {
       '<span class="' + TAB_JSON.list[0].listIcon + '"></span> ' + TAB_JSON.list[0].listName + ' ' +
       '<span class="' + TAB_JSON.list[0].listRightIcon + ' am-fr am-margin-right ' + TAB_JSON.list[0].listNumberColor + '">' +
       '' + TAB_JSON.list[0].listNumber + '</span></a></li>';
-  
-  
   for (var i = 1; i < TAB_JSON.list.length; i++) {
     if (TAB_JSON.list[i].isHtml == true) {
-      html = html + '<li style="display:none"><a href="javascript:void(0);" iframe-uuid="' + TAB_JSON.list[i].listUuid + '" class="admin-open-new-tab">' +
+      html = html + '<li><a href="javascript:void(0);" iframe-uuid="' + TAB_JSON.list[i].listUuid + '" class="admin-open-new-tab">' +
           '<span class="' + TAB_JSON.list[i].listIcon + '"></span> ' + TAB_JSON.list[i].listName + ' ' +
           '<span class="' + TAB_JSON.list[i].listRightIcon + ' am-fr am-margin-right ' + TAB_JSON.list[i].listNumberColor + '">' +
           '' + TAB_JSON.list[i].listNumber + '</span></a></li>';
-      
-      if(TAB_JSON.list[i].listUrl != null   && TAB_JSON.list[i].listUrl!= ""){
-    	  
-            html = html + ' <li><a href="javascript:void(0);" iframe-url="' + TAB_JSON.list[i].listUrl + '" ' +
-                'iframe-name="' + TAB_JSON.list[i].listName + '" iframe-uuid="' + TAB_JSON.list[i].listUuid + '" class="am-cf admin-open-new-tab">' +
-                '<span class="' + TAB_JSON.list[i].listIcon + '"></span> ' + TAB_JSON.list[i].listName + '' +
-                '<span class="' + TAB_JSON.list[i].listRightIcon + ' am-fr am-margin-right ' + TAB_JSON.list[i].listNumberColor + '">' +
-                '' + TAB_JSON.list[i].listNumber + '</span>' +
-                '</a></li>'
-          html = html + '</li>';
-    	  
-      }
-      
     } else {
       var subListIdName = 'collapse' + i;
       var subListId = "{target: '#" + subListIdName + "'}";

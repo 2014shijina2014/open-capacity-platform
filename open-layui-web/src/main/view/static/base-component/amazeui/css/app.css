@@ -1,0 +1,16 @@
+/* Write your styles */
+html,body{background: #444444;}
+/* 登陆logo */
+.myapp-login { background: #444444; background-size: 100%; height: 100%;}
+.myapp-login-logo-block { width: 100%;}
+.myapp-login-logo {width: 100%; text-align: center; padding-top: 30px;}
+.myapp-login-logo i { color: #eb602e; font-size: 120px;display: inline-block;}
+.myapp-login-logo-text {font-family: "Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif;  color:#fff; font-weight: bold;font-size: 40px; margin-top: -40px; text-align: center; width: 100%;}
+.myapp-login-logo-text span {color: #eb602e;}
+.myapp-login-logo-text .info { padding-bottom: 30px; border-bottom: 1px solid #4d4d4d;font-family: FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif; width: 100%; font-weight: normal; font-size: 14px; color: #fff;}
+.login-font {font-size: 12px; font-family:"wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif; width: 100%; color: #5e5e5e; text-align: center; padding: 20px 0;}
+.login-font i {color: #eb602e; font-style: normal;}
+.login-font span { color: #fff;}
+.login-am-center { margin: 0 auto; float:none;}
+.login-am-center .am-form input { background: #565656; border: none;  font-size: 12px; line-height: 30px; text-indent: 10px;}
+.login-am-center .am-btn-default { width: 100%; background: #eb602e; border: none; color: #fff; font-size: 14px; line-height: 30px;}

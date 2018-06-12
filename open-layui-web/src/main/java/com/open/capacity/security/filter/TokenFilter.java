@@ -27,7 +27,7 @@ import com.open.capacity.security.service.TokenService;
  */
 public class TokenFilter extends OncePerRequestFilter {
 
-	private static final String TOKEN_KEY = "token";
+	private static final String TOKEN_KEY = "access_token";
 
 	private TokenService tokenService;
 	private UserDetailsService userDetailsService;

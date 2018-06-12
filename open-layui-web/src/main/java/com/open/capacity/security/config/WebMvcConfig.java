@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -28,7 +29,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	 * @return
 	 */
 	@Bean
-	//前后分离 ajax跨域调用处理
+	// 前后分离 ajax跨域调用处理
 	public CorsFilter corsFilter() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		final CorsConfiguration config = new CorsConfiguration();
@@ -46,6 +47,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		 */
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
+	}
+
+	@Bean
+	public RequestContextListener requestContextListener() {
+		return new RequestContextListener();
 	}
 
 	/**

@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/lib/**");
 		web.ignoring().antMatchers("/pages/**");
 		web.ignoring().antMatchers("/assets/**");
+		web.ignoring().antMatchers("/base-component/**");
 		// 忽略登录界面
 		web.ignoring().antMatchers("/login.html");
 	}

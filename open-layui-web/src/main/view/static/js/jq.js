@@ -1,7 +1,7 @@
 $.ajaxSetup({
 	cache : false,
 	headers : {
-		"token" : localStorage.getItem("token")
+		"access_token" : localStorage.getItem("token")
 	},
 	error : function(xhr, textStatus, errorThrown) {
 		var msg = xhr.responseText;
