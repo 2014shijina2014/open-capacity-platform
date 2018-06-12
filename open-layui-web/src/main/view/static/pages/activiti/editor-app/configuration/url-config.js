@@ -21,14 +21,14 @@ var KISBPM = KISBPM || {};
 KISBPM.URL = {
 
     getModel: function(modelId) {
-        return ACTIVITI.CONFIG.contextRoot + '/model/' + modelId + '/json'+"?token="+localStorage.getItem("token");
+        return ACTIVITI.CONFIG.contextRoot + '/model/' + modelId + '/json'+"?access_token="+localStorage.getItem("token");
     },
 
     getStencilSet: function() {
-        return ACTIVITI.CONFIG.contextRoot + '/editor/stencilset?version=' + Date.now()+"&token="+localStorage.getItem("token");
+        return ACTIVITI.CONFIG.contextRoot + '/editor/stencilset?version=' + Date.now()+"&access_token="+localStorage.getItem("token");
     },
 
     putModel: function(modelId) {
-        return ACTIVITI.CONFIG.contextRoot + '/model/' + modelId + '/save'+"?token="+localStorage.getItem("token");
+        return ACTIVITI.CONFIG.contextRoot + '/model/' + modelId + '/save'+"?access_token="+localStorage.getItem("token");
     }
 };

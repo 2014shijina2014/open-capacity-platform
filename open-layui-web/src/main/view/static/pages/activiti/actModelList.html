@@ -109,7 +109,7 @@
       id: 'actModelList',
       elem: '#actModelList'
       , url: '/activiti/showAm'
-      , where : { token : localStorage.getItem("token") }
+      , where : { access_token : localStorage.getItem("token") }
       , cols: [[
           {checkbox: true, fixed: true, width: '5%'}
         , {field: 'id', title: '编号', width: '10%', sort: true}
@@ -157,7 +157,7 @@
           shadeClose: false,
           shade: 0.4,
           title: '添加流程',
-          content: '/activiti/goActiviti?token='+localStorage.getItem("token")
+          content: '/activiti/goActiviti?access_token='+localStorage.getItem("token")
         });
         layer.full(index);
       }
@@ -177,7 +177,7 @@
               shadeClose: false,
               shade: 0.4,
               title: '编辑流程',
-              content: '/activiti/actUpdate/'+data.id+"?token="+localStorage.getItem("token")
+              content: '/activiti/actUpdate/'+data.id+"?access_token="+localStorage.getItem("token")
             });
         layer.full(index);
       }else if(obj.event === 'del') {

@@ -101,7 +101,7 @@
       id: 'actList',
       elem: '#actList'
       , url: '/activiti/showAct'
-      , where : { token : localStorage.getItem("token") }
+      , where : { access_token : localStorage.getItem("token") }
       , cols: [[
           {checkbox: true, fixed: true, width: '5%'}
         , {field: 'id', title: '编号', width: '15%', sort: true}
@@ -202,7 +202,7 @@
           shadeClose: false,
           shade: 0.4,
           title: '设置流程节点',
-          content: '/activiti/goAssignee/'+id+"?token="+ localStorage.getItem("token")
+          content: '/activiti/goAssignee/'+id+"?access_token="+ localStorage.getItem("token")
         });
     layer.full(index);
   }
