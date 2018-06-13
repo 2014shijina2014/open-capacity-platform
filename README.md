@@ -68,8 +68,8 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
  ![](https://i.imgur.com/IKHAQ1c.png)
 
 06.配置中心   
-![](https://i.imgur.com/Q051dGB.png)  
-![](https://i.imgur.com/51q1Qus.png)
+![](https://i.imgur.com/PrHbd6P.png)
+![](https://i.imgur.com/Zyy4XjQ.png)
 
 
 07.应用管理  
