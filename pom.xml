@@ -100,6 +100,21 @@
 
 		</dependencies>
 	</dependencyManagement>
+	<repositories>
+		<repository>
+			<id>spring</id>
+			<name>spring.io</name>
+			<url>http://repo.spring.io/plugins-release/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 	<build>
 		<pluginManagement>
 			<plugins>
