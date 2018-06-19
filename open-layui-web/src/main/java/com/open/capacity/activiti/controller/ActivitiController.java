@@ -1,19 +1,14 @@
 package com.open.capacity.activiti.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.open.capacity.activiti.config.ActPropertiesConfig;
-import com.open.capacity.activiti.service.ActAssigneeService;
-import com.open.capacity.activiti.util.Checkbox;
-import com.open.capacity.activiti.util.JsonUtil;
-import com.open.capacity.activiti.util.ResultType;
-import com.open.capacity.security.dao.RoleDao;
-import com.open.capacity.security.model.Role;
-import com.open.capacity.security.service.RoleService;
-import com.sun.corba.se.spi.ior.ObjectKey;
-import io.swagger.annotations.ApiOperation;
+import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -30,20 +25,29 @@ import org.activiti.engine.repository.ModelQuery;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import com.open.capacity.activiti.entity.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.transform.Result;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.open.capacity.activiti.config.ActPropertiesConfig;
+import com.open.capacity.activiti.entity.ActAssignee;
+import com.open.capacity.activiti.entity.ActModel;
+import com.open.capacity.activiti.entity.ProcessDefinition;
+import com.open.capacity.activiti.service.ActAssigneeService;
+import com.open.capacity.activiti.util.Checkbox;
+import com.open.capacity.activiti.util.JsonUtil;
+import com.open.capacity.activiti.util.ResultType;
+import com.open.capacity.security.dao.RoleDao;
+import com.open.capacity.security.model.Role;
+
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @Author: [gitgeek]
