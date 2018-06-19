@@ -93,6 +93,10 @@ zuul:
       path: /client/**
       service-id: open-eureka-client
       strip-prefix: false  
+    auth_client: 
+      path: /auth-client/**
+      service-id: open-auth-client
+      strip-prefix: true   
 eureka:
   client:
     serviceUrl:
