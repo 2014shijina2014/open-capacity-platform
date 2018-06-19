@@ -50,7 +50,7 @@ public class UnieapUserDetailsService implements UserDetailsService {
 		
 		User user = new User(username,password,	  //123456模拟从数据库中查询得到的
 				true,true,true,true, //是否有效，账户是否过期，密码是否过期，是否锁定，
-				AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER,ROLE_ADMIN"));
+				AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER,ROLE_ADMIN,sys:user:add"  ));
 		
 		return user;
 	}

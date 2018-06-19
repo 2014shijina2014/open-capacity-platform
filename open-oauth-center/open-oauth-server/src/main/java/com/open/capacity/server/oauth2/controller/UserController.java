@@ -4,19 +4,13 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.open.capacity.server.oauth2.token.store.RedisTemplateTokenStore;
 
 /**
  * @author owen 624191343@qq.com
@@ -36,11 +30,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = { "/users" }, produces = "application/json") // 获取用户信息。/auth/user
-	public Map<String, Object> user(OAuth2Authentication user) {
+	public Map<String, Object> user( ) {
 		Map<String, Object> userInfo = new HashMap<>();
-		userInfo.put("user", user.getUserAuthentication().getPrincipal());
-		logger.debug("认证详细信息:" + user.getUserAuthentication().getPrincipal().toString());
-		userInfo.put("authorities", AuthorityUtils.authorityListToSet(user.getUserAuthentication().getAuthorities()));
+		userInfo.put("user",SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		logger.debug("认证详细信息:" + SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+		userInfo.put("authorities", AuthorityUtils.authorityListToSet(SecurityContextHolder.getContext().getAuthentication().getAuthorities()));
 		return userInfo;
 	}
 	

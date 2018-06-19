@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class UserController {
 	 
 
 	@GetMapping("/hello")
+	@PreAuthorize("hasAuthority('sys:user:add11')")
 	public String hello() {
 		redisTemplate.opsForValue().set("hello", "owen");
 		return "hello";
