@@ -1,4 +1,4 @@
-package com.open.capacity.eureka.controller;
+package com.open.capacity.security.controller;
 
 import java.io.StringWriter;
 import java.util.HashMap;

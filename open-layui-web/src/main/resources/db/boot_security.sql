@@ -9,9 +9,8 @@ sql_mode='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_A
 
 SET FOREIGN_KEY_CHECKS=0;
 
-
 # Host: 134.224.249.39  (Version 5.7.18)
-# Date: 2018-06-20 14:27:38
+# Date: 2018-06-20 17:44:34
 # Generator: MySQL-Front 5.4  (Build 4.153) - http://www.mysqlfront.de/
 
 /*!40101 SET NAMES utf8 */;
@@ -825,7 +824,7 @@ CREATE TABLE `oauth_client_details` (
 # Data for table "oauth_client_details"
 #
 
-INSERT INTO `oauth_client_details` VALUES (1,'app',NULL,'app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL),(2,'mobile','mobile,test','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL),(3,'test','test','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL),(4,'webApp',NULL,'webApp','app','authorization_code,password,refresh_token,client_credentials',NULL,NULL,NULL,NULL,NULL,NULL),(5,'clientId','','clientSecret','all','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com','',18000,18000,'','1');
+INSERT INTO `oauth_client_details` VALUES (14,'app','','app','app','password,refresh_token','','',1800,1800,'{}','true'),(15,'hello','','hello','app','password,refresh_token','','',1800,1800,'{}','true'),(16,'mobile','','mobile','all','password,refresh_token','','',1800,1800,'{}','true'),(17,'owen','','owen','app','authorization_code,password,refresh_token,client_credentials','http://127.0.0.1:9997/clientOne/login','',1800,1800,'{}','true'),(18,'test','','test','test','password,refresh_token','','',1800,1800,'{}','true'),(19,'webApp','','webApp','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com','',1800,1800,'{}','true');
 
 #
 # Structure for table "oauth_client_token"
@@ -1260,6 +1259,4 @@ CREATE TABLE `user_leave` (
 #
 # Data for table "user_leave"
 #
-
-
 
