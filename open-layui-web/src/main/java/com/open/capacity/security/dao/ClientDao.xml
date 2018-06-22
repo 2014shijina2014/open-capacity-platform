@@ -67,7 +67,7 @@
 		insert into sys_client_permission(clientId, permissionId) values
 		<foreach collection="permissionIds" item="permissionId"
 			separator=",">
-			(#{roleId}, #{permissionId})
+			(#{clientId}, #{permissionId})
 		</foreach>
 	</insert>
 

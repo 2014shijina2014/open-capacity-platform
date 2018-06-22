@@ -7,7 +7,7 @@ function getMenuTree() {
 
 	$.ajax({
 		type : 'get',
-		url : '/permissions/all',
+		url : '/services/all',
 		contentType : "application/json; charset=utf-8",
 		async : false,
 		success : function(data) {
@@ -29,7 +29,7 @@ function getMenuTree() {
 function initMenuDatas(clientId){
 	$.ajax({
 		type : 'get',
-		url : '/permissions?roleId=' + clientId,
+		url : '/services?clientId=' + clientId,
 		success : function(data) {
 			var length = data.length;
 			var ids = [];
@@ -103,7 +103,7 @@ function createNode(d) {
 function initParentMenuSelect(){
 	$.ajax({
         type : 'get',
-        url : '/permissions/parents',
+        url : '/services/parents',
         async : false,
         success : function(data) {
             var select = $("#parentId");

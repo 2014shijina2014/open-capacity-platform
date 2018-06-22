@@ -31,13 +31,13 @@ public class ClientServiceImpl implements ClientService {
 		permissionIds.remove(0L);
 
 		if (role.getId() != null) {// 修改
-			updateRole(role, permissionIds);
+			updateClient(role, permissionIds);
 		} else {// 新增
-			saveRole(role, permissionIds);
+			saveClient(role, permissionIds);
 		}
 	}
 
-	private void saveRole(Client client, List<Long> permissionIds) {
+	private void saveClient(Client client, List<Long> permissionIds) {
 		Client r = clientDao.getClient(client.getClientId());
 		if (r != null) {
 			throw new IllegalArgumentException(client.getClientId() + "已存在");
@@ -50,7 +50,7 @@ public class ClientServiceImpl implements ClientService {
 		log.debug("新增应用{}", client.getClientId());
 	}
 
-	private void updateRole(Client client, List<Long> permissionIds) {
+	private void updateClient(Client client, List<Long> permissionIds) {
 		Client r = clientDao.getClient(client.getClientId());
 		if (r != null && r.getId() != client.getId()) {
 			throw new IllegalArgumentException(client.getClientId() + "已存在");

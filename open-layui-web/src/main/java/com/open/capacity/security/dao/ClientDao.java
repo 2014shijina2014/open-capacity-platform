@@ -26,7 +26,7 @@ public interface ClientDao {
 	List<Client> list(@Param("params") Map<String, Object> params, @Param("offset") Integer offset,
 			@Param("limit") Integer limit);
 
-	@Select("select * from oauth_client_details t where t.id = #{id}")
+	@Select("select id id , client_id clientId , resource_ids resourceIds ,client_secret clientSecret ,web_server_redirect_uri webServerRedirectUri  from oauth_client_details t where t.id = #{id}")
 	Client getById(Long id);
 
 	@Select("select * from oauth_client_details t where t.client_id = #{clientId}")

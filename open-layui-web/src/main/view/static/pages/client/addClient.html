@@ -14,20 +14,28 @@
 		<fieldset>
 			<input type="hidden" id="id" name="id">
 			<div class="form-group">
-				<label class="col-md-2 control-label">角色</label>
+				<label class="col-md-2 control-label">应用标识</label>
 				<div class="col-md-10">
-					<input class="form-control" placeholder="角色" type="text" name="name" id="name"
+					<input class="form-control" placeholder="应用标识" type="text" name="clientId" id="clientId"
 						data-bv-notempty="true"
-						data-bv-notempty-message="角色 不能为空">
+						data-bv-notempty-message="应用标识不能为空">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label class="col-md-2 control-label">描述</label>
+				<label class="col-md-2 control-label">应用密钥</label>
 				<div class="col-md-10">
-					<textarea class="form-control" placeholder="描述" name="description"  id="description"></textarea>
+					<textarea class="form-control" placeholder="应用密钥" name="clientSecret"  id="clientSecret"></textarea>
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<label class="col-md-2 control-label">回调地址</label>
+				<div class="col-md-10">
+					<textarea class="form-control" placeholder="回调地址" name="webServerRedirectUri"  id="webServerRedirectUri"></textarea>
+				</div>
+			</div>
+			
 			<div class="form-group">
 				<label class="col-md-2 control-label">权限</label>
 				<div class="col-md-10">
@@ -73,9 +81,9 @@
 					url : '/clients/'+id,
 					async : false,
 					success : function(data) {
-						$("#id").val(data.id);
-						$("#name").val(data.name);
-						$("#description").val(data.description);
+						$("#clientId").val(data.clientId);
+						$("#clientSecret").val(data.clientSecret);
+						$("#webServerRedirectUri").val(data.webServerRedirectUri);
 					}
 				});
 				

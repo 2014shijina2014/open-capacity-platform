@@ -45,14 +45,14 @@ public class ClientController {
 
 	@LogAnnotation
 	@PostMapping
-	@ApiOperation(value = "保存角色")
+	@ApiOperation(value = "保存应用")
 	@PreAuthorize("hasAuthority('sys:role:add')")
 	public void saveRole(@RequestBody ClientDto clientDto) {
 		clientService.saveClient(clientDto);
 	}
 
 	@GetMapping
-	@ApiOperation(value = "角色列表")
+	@ApiOperation(value = "应用列表")
 	@PreAuthorize("hasAuthority('sys:role:query')")
 	public PageTableResponse listRoles(PageTableRequest request) {
 		return new PageTableHandler(new CountHandler() {
@@ -72,14 +72,14 @@ public class ClientController {
 	}
 
 	@GetMapping("/{id}")
-	@ApiOperation(value = "根据id获取角色")
+	@ApiOperation(value = "根据id获取应用")
 	@PreAuthorize("hasAuthority('sys:role:query')")
 	public Client get(@PathVariable Long id) {
 		return clientDao.getById(id);
 	}
 
 	@GetMapping("/all")
-	@ApiOperation(value = "所有角色")
+	@ApiOperation(value = "所有应用")
 	@PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
 	public List<Client> roles() {
 		return clientDao.list(Maps.newHashMap(), null, null);
@@ -94,7 +94,7 @@ public class ClientController {
 
 	@LogAnnotation
 	@DeleteMapping("/{id}")
-	@ApiOperation(value = "删除角色")
+	@ApiOperation(value = "删除应用")
 	@PreAuthorize("hasAuthority('sys:role:del')")
 	public void delete(@PathVariable Long id) {
 		clientService.deleteClient(id);
