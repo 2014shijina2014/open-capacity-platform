@@ -72,11 +72,15 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 ![](https://i.imgur.com/Zyy4XjQ.png)
 
 
-07.应用管理  
-![](https://i.imgur.com/ED2DSzi.png)
+07.服务管理
+
+![](https://i.imgur.com/eDqMHBF.png)  
+
+08.应用管理  
+![](https://i.imgur.com/BKN06Te.png)
 
 
-08.定时任务
+09.定时任务
 
 ![](https://i.imgur.com/boiJhNU.jpg)
 
