@@ -21,7 +21,7 @@ public interface FileInfoDao {
 	@Insert("insert into file_info(id, contentType, size, path, url, type, createTime, updateTime) values(#{id}, #{contentType}, #{size}, #{path}, #{url}, #{type}, now(), now())")
 	int save(FileInfo fileInfo);
 
-	@Update("update file_info t set t.updateTime = now() where t.id = #{id}")
+	@Update("update file_info t set t.updateTime = now(),t.path=#{path},t.url=#{url} where t.id = #{id}")
 	int update(FileInfo fileInfo);
 
 	@Delete("delete from file_info where id = #{id}")

@@ -27,21 +27,25 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public FileInfo save(MultipartFile file) throws IOException {
 		String fileOrigName = file.getOriginalFilename();
+
 		if (!fileOrigName.contains(".")) {
 			throw new IllegalArgumentException("缺少后缀名");
 		}
 
 		String md5 = FileUtil.fileMd5(file.getInputStream());
 		FileInfo fileInfo = fileInfoDao.getById(md5);
-		if (fileInfo != null) {
-			fileInfoDao.update(fileInfo);
-			return fileInfo;
-		}
 
 		fileOrigName = fileOrigName.substring(fileOrigName.lastIndexOf("."));
 		String pathname = FileUtil.getPath() + md5 + fileOrigName;
 		String fullPath = filesPath + pathname;
 		FileUtil.saveFile(file, fullPath);
+
+		if (fileInfo != null) {
+			fileInfo.setPath(fullPath);
+			fileInfo.setUrl(pathname);
+			fileInfoDao.update(fileInfo);
+			return fileInfo;
+		}
 
 		long size = file.getSize();
 		String contentType = file.getContentType();
