@@ -51,10 +51,10 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	private void updateClient(Client client, List<Long> permissionIds) {
-		Client r = clientDao.getClient(client.getClientId());
-		if (r != null && r.getId() != client.getId()) {
-			throw new IllegalArgumentException(client.getClientId() + "已存在");
-		}
+//		Client r = clientDao.getClient(client.getClientId());
+//		if (r != null && r.getId() != client.getId()) {
+//			throw new IllegalArgumentException(client.getClientId() + "已存在");
+//		}
 
 		clientDao.update(client);
 
