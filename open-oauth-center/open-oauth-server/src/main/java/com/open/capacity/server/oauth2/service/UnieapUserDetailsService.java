@@ -1,9 +1,14 @@
 package com.open.capacity.server.oauth2.service;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import com.open.capacity.server.oauth2.dao.UserDao;
 
  
 
@@ -26,6 +33,9 @@ public class UnieapUserDetailsService implements UserDetailsService {
 	
 	@Resource
 	private PasswordEncoder passwordEncoder ;
+	
+	@Resource
+	private UserDao userDao ;
 	
 //	@Resource  注入查询用户的dao
 //	private dao
@@ -44,9 +54,16 @@ public class UnieapUserDetailsService implements UserDetailsService {
 //				boolean accountNonExpired, boolean credentialsNonExpired,
 //				boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 
-		String password = passwordEncoder.encode("123456") ;
-		logger.info("数据库存储的密码是:"+password);
 		
+		
+		Map sysUser = userDao.getUser(username);
+		
+		if (sysUser == null) {
+			throw new AuthenticationCredentialsNotFoundException("用户名不存在");
+		} 
+		
+		String password = String.valueOf(sysUser.get("password")) ;
+		logger.info("数据库存储的密码是:"+password);
 		
 		User user = new User(username,password,	  //123456模拟从数据库中查询得到的
 				true,true,true,true, //是否有效，账户是否过期，密码是否过期，是否锁定，
