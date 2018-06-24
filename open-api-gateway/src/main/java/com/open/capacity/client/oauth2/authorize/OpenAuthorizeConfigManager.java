@@ -36,6 +36,8 @@ public class OpenAuthorizeConfigManager implements AuthorizeConfigManager {
 //		config
 //		.anyRequest()
 //			.access("@rbacService.hasPermission(request, authentication)");
+		
+		
 	}
 
 }
