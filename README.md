@@ -38,8 +38,7 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 ![](https://i.imgur.com/PwcuvoC.gif)
 
 ## 项目组织结构分析 
-
-![](https://i.imgur.com/aFptzQl.jpg)
+![](https://i.imgur.com/8gBBgnm.png)   
 
 
 
