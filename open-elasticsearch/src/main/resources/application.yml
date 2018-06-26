@@ -1,6 +1,0 @@
-elasticsearch: 
-  ip: 127.0.0.1 
-  port: 9300  #此处如果填写9200会报会No node available错误
-  pool: 10
-  cluster: 
-    name: elasticsearch
