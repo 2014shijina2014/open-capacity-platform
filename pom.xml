@@ -28,11 +28,9 @@
 		<!-- 服务注册中心模块 -->
 		<module>open-eureka-center</module>
 		
-		<!-- 阿波罗配置中心 -->
-		<module>apollo</module>
-		<module>apollo-gateway</module>
+		<!-- 配置中心模块 -->
+		<module>open-config-center</module>
 
-		<!-- 配置中心模块 <module>open-config-center</module>-->
 		<!-- oauth2 模块 -->
 		<module>open-oauth-center</module>
 		
@@ -49,9 +47,8 @@
 
 		<!-- layui后台管理无session模块 -->
 		<module>open-layui-web</module>
-		
-		
-		
+
+
 	</modules>
 	<dependencies>
 		<dependency>
