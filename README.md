@@ -25,6 +25,7 @@
 
 open-capacity-platform
 
+```
 ├    open-db-core  -- 数据库逻辑封装    
 ├    open-eureka-center    -- eureka服务注册发现套件   
 ├       ├── open-eureka-server   --服务注册中心[1111]    
@@ -60,9 +61,12 @@ open-capacity-platform
 ├       ├        └── cachecloud-open-web    
 ├       └─  open-zipkin-center   -- zipkin链路跟踪[9412]  
 ├               ├── open-zipkin-server-kafka   --zipkin链路跟踪服务端
-└               └── open-zipkin-client-kafka    --zipkin链路跟踪客户端     
+└               └── open-zipkin-client-kafka    --zipkin链路跟踪客户端  
 
 ### 
+```
+
+
 
 
 ###   技术介绍 
