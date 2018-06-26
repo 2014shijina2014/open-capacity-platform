@@ -27,10 +27,12 @@
 
 		<!-- 服务注册中心模块 -->
 		<module>open-eureka-center</module>
-
-		<!-- 配置中心模块 -->
-		<module>open-config-center</module>
 		
+		<!-- 阿波罗配置中心 -->
+		<module>apollo</module>
+		<module>apollo-gateway</module>
+
+		<!-- 配置中心模块 <module>open-config-center</module>-->
 		<!-- oauth2 模块 -->
 		<module>open-oauth-center</module>
 		
@@ -40,8 +42,7 @@
 		<!--任务中心-->
 		<module>open-job-center</module>
 		
-		<!-- cxf框架集成 -->
-		<module>open-cxf-service</module>
+		<!-- cxf框架集成 <module>open-cxf-service</module>-->
 		
 		<!-- zuul路由网关模块 -->
 		<module>open-api-gateway</module>
@@ -49,11 +50,6 @@
 		<!-- layui后台管理无session模块 -->
 		<module>open-layui-web</module>
 		
-		
-		
-		<!--加分项 阿波罗配置中心 -->
-		<module>apollo</module>
-		<module>apollo-gateway</module>
 		
 		
 	</modules>
