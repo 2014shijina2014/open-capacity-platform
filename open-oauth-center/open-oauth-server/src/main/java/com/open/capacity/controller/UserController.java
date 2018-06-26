@@ -1,4 +1,4 @@
-package com.open.capacity.server.oauth2.controller;
+package com.open.capacity.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = { "/users" }, produces = "application/json") // 获取用户信息。/auth/user
-	public Map<String, Object> user( ) {
+	public Map<String, Object> getCurrentUserDetail( ) {
 		Map<String, Object> userInfo = new HashMap<>();
 		userInfo.put("user",SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		logger.debug("认证详细信息:" + SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
@@ -39,8 +39,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = { "/user" }, produces = "application/json") // 获取用户信息。/auth/user
-    public Principal user(Principal user) {
-        return user;
+    public Object getCurrentUser( ) {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 	
 	
