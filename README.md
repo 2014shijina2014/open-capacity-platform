@@ -9,17 +9,27 @@
 
 ### 欢迎进群（群内领资料）
 
-一键加群
+`一键加群`
 
 <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=5JSjd5D"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="open-capacity-platform交流" title="open-capacity-platform交流"></a>
 
-![群号](C:\Users\Administrator\Desktop\群号.png)
+![](https://i.imgur.com/kxpc628.png)
 
 
 
 ### 简介
 
-简称ocp是基于layui+springcloud的企业级微服务框架(用户权限管理，配置中心管理，应用管理，....),其核心的设计目标是分离前后端，快速开发部署，学习简单，功能强大，提供快速接入核心接口能力，其目标是帮助企业搭建一套类似百度能力开放平台的框架。
+​        简称ocp是基于layui+springcloud的企业级微服务框架(用户权限管理，配置中心管理，应用管理，....),其核心的设计目标是分离前后端，快速开发部署，学习简单，功能强大，提供快速接入核心接口能力，其目标是帮助企业搭建一套类似百度能力开放平台的框架。
+
+
+
+### 项目地址
+
+http://47.94.252.160:9999/index.html 
+
+用户名/密码：admin/admin
+
+
 
 ### 组织结构
 
@@ -74,19 +84,28 @@ open-capacity-platform
 
 
 
+#### 开发工具:
+
+- MySql: 数据库
+- Tomcat: 应用服务器
+- SVN|Git: 版本管理
+- Nginx: 反向代理服务器
+- IntelliJ IDEA/STS-3.8.0.RELEASE : 开发IDE/STS
+- Navicat for MySQL: 数据库客户端
+
+ 
+
 ### 开发环境  
 
-redis3.X  
-jdk1.8  
-MySQL Server 5.6  
-maven3.3.9  
-sts-3.8.0.RELEASE  
+JDK8+  
+
+READIS 3.X  
+
+MySQL 5.6 + 
+
+MAVEN 3.3.9  
 
 
-###  项目地址
-http://47.94.252.160:9999/index.html 
-
-用户名/密码：admin/admin
 
 ##  ocp项目演示
 
@@ -105,19 +124,13 @@ http://47.94.252.160:9999/index.html
 
 
 
-
-![](https://i.imgur.com/8gBBgnm.png)   
-
-
-
-
 ## 一. open-capacity-platform能力开放平台管理    
 
 01.用户登录
 
 
 
-<img src="https://i.imgur.com/Wpo9STn.png" width="50%" hegiht="230"/><img src="https://i.imgur.com/Ud65k7j.png" width="50%" hegiht="230" />
+<img src="https://i.imgur.com/Wpo9STn.png" />
 
 02.用户管理
 
@@ -172,6 +185,6 @@ http://47.94.252.160:9999/index.html
 
 
 
-  
+
 
 
