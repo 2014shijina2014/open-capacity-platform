@@ -11,7 +11,7 @@
 
 一键加群
 
-<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=64c52f008032db44f5fabbe287cc84aadbef9b40922aedba77fcfd139bb550ef"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="open-capacity-platform交流" title="open-capacity-platform交流"></a>
+<a target="_blank" href="https://jq.qq.com/?_wv=1027&k=5JSjd5D"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="open-capacity-platform交流" title="open-capacity-platform交流"></a>
 
 ![群号](C:\Users\Administrator\Desktop\群号.png)
 
@@ -72,7 +72,7 @@ open-capacity-platform
 ###   框架设计
 ![](https://i.imgur.com/vn03vIX.jpg)
 
-### 
+
 
 ### 开发环境  
 
@@ -82,13 +82,11 @@ MySQL Server 5.6
 maven3.3.9  
 sts-3.8.0.RELEASE  
 
-##  框架使用资料   
-链接：https://pan.baidu.com/s/10Kae9_YotU5GnneaCk_p5Q 
-密码：xqjb
 
+###  项目地址
+http://47.94.252.160:9999/index.html 
 
-##  项目地址
-http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
+用户名/密码：admin/admin
 
 ##  ocp项目演示
 
