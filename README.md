@@ -76,14 +76,6 @@ open-capacity-platform
 
 
 
-
-###   技术介绍 
-![](https://i.imgur.com/29QKUkG.png)  
-###   框架设计
-![](https://i.imgur.com/vn03vIX.jpg)
-
-
-
 #### 开发工具:
 
 - MySql: 数据库
@@ -95,7 +87,7 @@ open-capacity-platform
 
  
 
-### 开发环境  
+### 开发环境
 
 JDK8+  
 
@@ -104,6 +96,14 @@ READIS 3.X
 MySQL 5.6 + 
 
 MAVEN 3.3.9  
+
+
+
+
+###   技术介绍 
+![](https://i.imgur.com/29QKUkG.png)  
+###   框架设计
+![](https://i.imgur.com/vn03vIX.jpg)
 
 
 
