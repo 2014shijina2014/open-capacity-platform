@@ -40,7 +40,7 @@
 		<module>open-monitor-center</module>
 		
 		<!--任务中心-->
-		<module>open-job-center</module>
+		<module>open-xxl-job</module>
 		
 		<!-- cxf框架集成 <module>open-cxf-service</module>-->
 		
