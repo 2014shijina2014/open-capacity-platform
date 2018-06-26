@@ -1,4 +1,4 @@
-# open-capacity-platform 微服务能力开发平台 
+# <p align="center">open-capacity-platform 微服务能力开发平台</p> 
 
 <p align="center">
  <img src="https://img.shields.io/circleci/project/vuejs/vue/dev.svg" alt="Build Status">
