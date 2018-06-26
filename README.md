@@ -62,8 +62,6 @@ open-capacity-platform
 ├       └─  open-zipkin-center   -- zipkin链路跟踪[9412]  
 ├               ├── open-zipkin-server-kafka   --zipkin链路跟踪服务端
 └               └── open-zipkin-client-kafka    --zipkin链路跟踪客户端  
-
-### 
 ```
 
 
