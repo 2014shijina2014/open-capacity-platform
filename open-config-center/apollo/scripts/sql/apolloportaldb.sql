@@ -5,17 +5,18 @@ CREATE DATABASE IF NOT EXISTS ApolloPortalDB DEFAULT CHARACTER SET = utf8mb4;
 
 Use ApolloPortalDB;
 
- # Host: 130.75.131.211  (Version 5.6.39)
-# Date: 2018-04-04 11:48:46
+# Host: 47.94.252.160  (Version 5.7.22)
+# Date: 2018-06-26 20:03:34
 # Generator: MySQL-Front 5.4  (Build 4.153) - http://www.mysqlfront.de/
 
 /*!40101 SET NAMES utf8 */;
 
 #
-# Structure for table "App"
+# Structure for table "app"
 #
 
-CREATE TABLE `App` (
+DROP TABLE IF EXISTS `app`;
+CREATE TABLE `app` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `AppId` varchar(500) NOT NULL DEFAULT 'default' COMMENT 'AppID',
   `Name` varchar(500) NOT NULL DEFAULT 'default' COMMENT '应用名',
@@ -35,16 +36,17 @@ CREATE TABLE `App` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='应用表';
 
 #
-# Data for table "App"
+# Data for table "app"
 #
 
-INSERT INTO `App` VALUES (1,'SampleApp','Sample App','TEST1','样例部门1','apollo','apollo@acme.com',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'zuulservice','zuulservice-dev','TEST1','样例部门1','apollo','apollo@acme.com',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
+INSERT INTO `app` VALUES (1,'SampleApp','Sample App','TEST1','样例部门1','apollo','apollo@acme.com',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'zuulservice','zuulservice-dev','TEST1','样例部门1','apollo','apollo@acme.com',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
 
 #
-# Structure for table "AppNamespace"
+# Structure for table "appnamespace"
 #
 
-CREATE TABLE `AppNamespace` (
+DROP TABLE IF EXISTS `appnamespace`;
+CREATE TABLE `appnamespace` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `Name` varchar(32) NOT NULL DEFAULT '' COMMENT 'namespace名字，注意，需要全局唯一',
   `AppId` varchar(32) NOT NULL DEFAULT '' COMMENT 'app id',
@@ -63,16 +65,17 @@ CREATE TABLE `AppNamespace` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='应用namespace定义';
 
 #
-# Data for table "AppNamespace"
+# Data for table "appnamespace"
 #
 
-INSERT INTO `AppNamespace` VALUES (1,'application','SampleApp','properties',b'0','default app namespace',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'application','zuulservice','properties',b'0','default app namespace',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
+INSERT INTO `appnamespace` VALUES (1,'application','SampleApp','properties',b'0','default app namespace',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'application','zuulservice','properties',b'0','default app namespace',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
 
 #
-# Structure for table "Authorities"
+# Structure for table "authorities"
 #
 
-CREATE TABLE `Authorities` (
+DROP TABLE IF EXISTS `authorities`;
+CREATE TABLE `authorities` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `Username` varchar(50) NOT NULL,
   `Authority` varchar(50) NOT NULL,
@@ -80,16 +83,17 @@ CREATE TABLE `Authorities` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 #
-# Data for table "Authorities"
+# Data for table "authorities"
 #
 
-INSERT INTO `Authorities` VALUES (1,'apollo','ROLE_user');
+INSERT INTO `authorities` VALUES (1,'apollo','ROLE_user');
 
 #
-# Structure for table "Consumer"
+# Structure for table "consumer"
 #
 
-CREATE TABLE `Consumer` (
+DROP TABLE IF EXISTS `consumer`;
+CREATE TABLE `consumer` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `AppId` varchar(500) NOT NULL DEFAULT 'default' COMMENT 'AppID',
   `Name` varchar(500) NOT NULL DEFAULT 'default' COMMENT '应用名',
@@ -108,15 +112,16 @@ CREATE TABLE `Consumer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='开放API消费者';
 
 #
-# Data for table "Consumer"
+# Data for table "consumer"
 #
 
 
 #
-# Structure for table "ConsumerAudit"
+# Structure for table "consumeraudit"
 #
 
-CREATE TABLE `ConsumerAudit` (
+DROP TABLE IF EXISTS `consumeraudit`;
+CREATE TABLE `consumeraudit` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `ConsumerId` int(11) unsigned DEFAULT NULL COMMENT 'Consumer Id',
   `Uri` varchar(1024) NOT NULL DEFAULT '' COMMENT '访问的Uri',
@@ -129,15 +134,16 @@ CREATE TABLE `ConsumerAudit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='consumer审计表';
 
 #
-# Data for table "ConsumerAudit"
+# Data for table "consumeraudit"
 #
 
 
 #
-# Structure for table "ConsumerRole"
+# Structure for table "consumerrole"
 #
 
-CREATE TABLE `ConsumerRole` (
+DROP TABLE IF EXISTS `consumerrole`;
+CREATE TABLE `consumerrole` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `ConsumerId` int(11) unsigned DEFAULT NULL COMMENT 'Consumer Id',
   `RoleId` int(10) unsigned DEFAULT NULL COMMENT 'Role Id',
@@ -153,15 +159,16 @@ CREATE TABLE `ConsumerRole` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='consumer和role的绑定表';
 
 #
-# Data for table "ConsumerRole"
+# Data for table "consumerrole"
 #
 
 
 #
-# Structure for table "ConsumerToken"
+# Structure for table "consumertoken"
 #
 
-CREATE TABLE `ConsumerToken` (
+DROP TABLE IF EXISTS `consumertoken`;
+CREATE TABLE `consumertoken` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `ConsumerId` int(11) unsigned DEFAULT NULL COMMENT 'ConsumerId',
   `Token` varchar(128) NOT NULL DEFAULT '' COMMENT 'token',
@@ -177,15 +184,16 @@ CREATE TABLE `ConsumerToken` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='consumer token表';
 
 #
-# Data for table "ConsumerToken"
+# Data for table "consumertoken"
 #
 
 
 #
-# Structure for table "Favorite"
+# Structure for table "favorite"
 #
 
-CREATE TABLE `Favorite` (
+DROP TABLE IF EXISTS `favorite`;
+CREATE TABLE `favorite` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `UserId` varchar(32) NOT NULL DEFAULT 'default' COMMENT '收藏的用户',
   `AppId` varchar(500) NOT NULL DEFAULT 'default' COMMENT 'AppID',
@@ -202,15 +210,16 @@ CREATE TABLE `Favorite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='应用收藏表';
 
 #
-# Data for table "Favorite"
+# Data for table "favorite"
 #
 
 
 #
-# Structure for table "Permission"
+# Structure for table "permission"
 #
 
-CREATE TABLE `Permission` (
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `PermissionType` varchar(32) NOT NULL DEFAULT '' COMMENT '权限类型',
   `TargetId` varchar(256) NOT NULL DEFAULT '' COMMENT '权限对象类型',
@@ -225,16 +234,17 @@ CREATE TABLE `Permission` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='permission表';
 
 #
-# Data for table "Permission"
+# Data for table "permission"
 #
 
-INSERT INTO `Permission` VALUES (1,'CreateCluster','SampleApp',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'CreateNamespace','SampleApp',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,'AssignRole','SampleApp',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,'ModifyNamespace','SampleApp+application',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(5,'ReleaseNamespace','SampleApp+application',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(6,'CreateCluster','zuulservice',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(7,'CreateNamespace','zuulservice',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(8,'AssignRole','zuulservice',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(9,'ModifyNamespace','zuulservice+application',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(10,'ReleaseNamespace','zuulservice+application',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
+INSERT INTO `permission` VALUES (1,'CreateCluster','SampleApp',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'CreateNamespace','SampleApp',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,'AssignRole','SampleApp',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,'ModifyNamespace','SampleApp+application',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(5,'ReleaseNamespace','SampleApp+application',b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(6,'CreateCluster','zuulservice',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(7,'CreateNamespace','zuulservice',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(8,'AssignRole','zuulservice',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(9,'ModifyNamespace','zuulservice+application',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(10,'ReleaseNamespace','zuulservice+application',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
 
 #
-# Structure for table "Role"
+# Structure for table "role"
 #
 
-CREATE TABLE `Role` (
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `RoleName` varchar(256) NOT NULL DEFAULT '' COMMENT 'Role name',
   `IsDeleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '1: deleted, 0: normal',
@@ -248,16 +258,17 @@ CREATE TABLE `Role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
 
 #
-# Data for table "Role"
+# Data for table "role"
 #
 
-INSERT INTO `Role` VALUES (1,'Master+SampleApp',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'ModifyNamespace+SampleApp+application',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,'ReleaseNamespace+SampleApp+application',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,'Master+zuulservice',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(5,'ModifyNamespace+zuulservice+application',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(6,'ReleaseNamespace+zuulservice+application',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
+INSERT INTO `role` VALUES (1,'Master+SampleApp',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'ModifyNamespace+SampleApp+application',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,'ReleaseNamespace+SampleApp+application',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,'Master+zuulservice',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(5,'ModifyNamespace+zuulservice+application',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(6,'ReleaseNamespace+zuulservice+application',b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
 
 #
-# Structure for table "RolePermission"
+# Structure for table "rolepermission"
 #
 
-CREATE TABLE `RolePermission` (
+DROP TABLE IF EXISTS `rolepermission`;
+CREATE TABLE `rolepermission` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `RoleId` int(10) unsigned DEFAULT NULL COMMENT 'Role Id',
   `PermissionId` int(10) unsigned DEFAULT NULL COMMENT 'Permission Id',
@@ -273,16 +284,17 @@ CREATE TABLE `RolePermission` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='角色和权限的绑定表';
 
 #
-# Data for table "RolePermission"
+# Data for table "rolepermission"
 #
 
-INSERT INTO `RolePermission` VALUES (1,1,1,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,1,2,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,1,3,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,2,4,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(5,3,5,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(6,4,6,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(7,4,7,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(8,4,8,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(9,5,9,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(10,6,10,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
+INSERT INTO `rolepermission` VALUES (1,1,1,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,1,2,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,1,3,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,2,4,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(5,3,5,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(6,4,6,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(7,4,7,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(8,4,8,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(9,5,9,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(10,6,10,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
 
 #
-# Structure for table "ServerConfig"
+# Structure for table "serverconfig"
 #
 
-CREATE TABLE `ServerConfig` (
+DROP TABLE IF EXISTS `serverconfig`;
+CREATE TABLE `serverconfig` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `Key` varchar(64) NOT NULL DEFAULT 'default' COMMENT '配置项Key',
   `Value` varchar(2048) NOT NULL DEFAULT 'default' COMMENT '配置项值',
@@ -298,16 +310,17 @@ CREATE TABLE `ServerConfig` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='配置服务自身配置';
 
 #
-# Data for table "ServerConfig"
+# Data for table "serverconfig"
 #
 
-INSERT INTO `ServerConfig` VALUES (1,'apollo.portal.envs','dev','可支持的环境列表',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'organizations','[{\"orgId\":\"TEST1\",\"orgName\":\"样例部门1\"},{\"orgId\":\"TEST2\",\"orgName\":\"样例部门2\"}]','部门列表',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,'superAdmin','apollo','Portal超级管理员',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,'api.readTimeout','10000','http接口read timeout',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(5,'consumer.token.salt','someSalt','consumer token salt',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10');
+INSERT INTO `serverconfig` VALUES (1,'apollo.portal.envs','dev','可支持的环境列表',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'organizations','[{\"orgId\":\"TEST1\",\"orgName\":\"样例部门1\"},{\"orgId\":\"TEST2\",\"orgName\":\"样例部门2\"}]','部门列表',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,'superAdmin','apollo','Portal超级管理员',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,'api.readTimeout','10000','http接口read timeout',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(5,'consumer.token.salt','someSalt','consumer token salt',b'0','default','2018-04-03 23:21:10','','2018-04-03 23:21:10');
 
 #
-# Structure for table "UserRole"
+# Structure for table "userrole"
 #
 
-CREATE TABLE `UserRole` (
+DROP TABLE IF EXISTS `userrole`;
+CREATE TABLE `userrole` (
   `Id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `UserId` varchar(128) DEFAULT '' COMMENT '用户身份标识',
   `RoleId` int(10) unsigned DEFAULT NULL COMMENT 'Role Id',
@@ -323,16 +336,17 @@ CREATE TABLE `UserRole` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='用户和role的绑定表';
 
 #
-# Data for table "UserRole"
+# Data for table "userrole"
 #
 
-INSERT INTO `UserRole` VALUES (1,'apollo',1,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'apollo',2,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,'apollo',3,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,'apollo',4,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(5,'apollo',5,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(6,'apollo',6,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
+INSERT INTO `userrole` VALUES (1,'apollo',1,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(2,'apollo',2,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(3,'apollo',3,b'0','','2018-04-03 23:21:10','','2018-04-03 23:21:10'),(4,'apollo',4,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(5,'apollo',5,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41'),(6,'apollo',6,b'0','apollo','2018-04-04 00:09:41','apollo','2018-04-04 00:09:41');
 
 #
-# Structure for table "Users"
+# Structure for table "users"
 #
 
-CREATE TABLE `Users` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
   `Id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增Id',
   `Username` varchar(64) NOT NULL DEFAULT 'default' COMMENT '用户名',
   `Password` varchar(64) NOT NULL DEFAULT 'default' COMMENT '密码',
@@ -342,7 +356,7 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
 #
-# Data for table "Users"
+# Data for table "users"
 #
 
-INSERT INTO `Users` VALUES (1,'apollo','$2a$10$7r20uS.BQ9uBpf3Baj3uQOZvMVvB1RN3PYoKE94gtz2.WAOuiiwXS','apollo@acme.com',1);
+INSERT INTO `users` VALUES (1,'apollo','$2a$10$7r20uS.BQ9uBpf3Baj3uQOZvMVvB1RN3PYoKE94gtz2.WAOuiiwXS','apollo@acme.com',1);
