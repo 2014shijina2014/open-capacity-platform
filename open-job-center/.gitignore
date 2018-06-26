@@ -1,0 +1,6 @@
+# eclipse ignore
+.settings/
+.classpath
+target/
+bin/
+open-earth-forst/

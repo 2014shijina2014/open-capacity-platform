@@ -13,6 +13,9 @@ target/
 .classpath
 target/
 bin/
+open-config-center/
+open-cxf-service/
+open-elasticsearch/
 
 
 # idea ignore
