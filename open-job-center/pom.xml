@@ -13,8 +13,7 @@
   
 
   <modules>
-  	<module>open-xxl-job</module>
-  	<module>open-earth-forst</module>
+  	<module>open-xxl-job</module> 
   </modules>
   
 </project>
