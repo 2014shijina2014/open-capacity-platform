@@ -1,14 +1,79 @@
 # open-capacity-platform 微服务能力开发平台 
- 
-简称ocp是基于layui+springcloud的企业级微服务框架(用户权限管理，配置中心管理，应用管理，....),其核心的设计目标是分离前后端，快速开发部署，学习简单，功能强大，提供快速接入核心接口能力，其目标是帮助企业搭建一套类似百度能力开放平台的框架；
 
- 
-##   技术介绍 
+<p align="center">
+ <img src="https://img.shields.io/circleci/project/vuejs/vue/dev.svg" alt="Build Status">
+  <img src="https://img.shields.io/badge/Spring%20Cloud-Edgware.SR3-blue.svg" alt="Coverage Status">
+  <img src="https://img.shields.io/badge/Spring%20Boot-1.5.9-blue.svg" alt="Downloads">
+  <img src="https://img.shields.io/npm/l/vue.svg" alt="License">
+</p>
+
+### 欢迎进群（群内领资料）
+
+一键加群
+
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=64c52f008032db44f5fabbe287cc84aadbef9b40922aedba77fcfd139bb550ef"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="open-capacity-platform交流" title="open-capacity-platform交流"></a>
+
+![群号](C:\Users\Administrator\Desktop\群号.png)
+
+
+
+### 简介
+
+简称ocp是基于layui+springcloud的企业级微服务框架(用户权限管理，配置中心管理，应用管理，....),其核心的设计目标是分离前后端，快速开发部署，学习简单，功能强大，提供快速接入核心接口能力，其目标是帮助企业搭建一套类似百度能力开放平台的框架。
+
+### 组织结构
+
+open-capacity-platform
+
+├    open-db-core  -- 数据库逻辑封装    
+├    open-eureka-center    -- eureka服务注册发现套件   
+├       ├── open-eureka-server   --服务注册中心[1111]    
+├       └── open-eureka-client    --注册服务样例工程[7768]  
+├    open-config-center   -- 配置中心   
+├         ├──  apollo    -- 阿波罗配置中心  
+├         ├       ├── apollo-adminservice      --[8090]    
+├         ├       ├── apollo-assembly     
+├         ├       ├── apollo-biz   
+├         ├       ├── apollo-buildtools    
+├         ├       ├── apollo-client    
+├         ├       ├── apollo-common     
+├         ├       ├── apollo-configservice     --[8080] 
+├         ├       ├── apollo-core  
+├         ├       └── apollo-demo  
+├         └      apollo-gateway  -- 阿波罗整合网关样例工程[9000]  
+├    open-oauth-center --oauth2套件   
+├       ├── open-oauth-server   --oauth认证中心[8000]  
+├       ├── open-oauth-client    --oauth资源服务器样例工程[8100]   
+├       ├── open-capacity-client-two  --oauth资源服务器样例工程[8200]    
+├       └── open-oauth-sso  --oauth sso样例工程[9997]  
+├    open-api-gateway  -- 服务网关[9200]  
+├    open-layui-web  --  基于jwt spring security的layui后台管理系统     
+├    open-xxl-job  -- 分布式调度任务
+├       ├── xxl-job-core  --核心库
+├       ├── xxl-job-admin   --job管理器    
+├       └── xxl-job-demo    --job执行器
+├     open-monitor-center  -- 监控中心
+├       ├── open-admin-server  -- spring boot admin server[9998]  
+├       ├    cachecloud-open-parent  -- 搜狐redis云平台   
+├       ├        ├── cachecloud-open-client    
+├       ├        ├── cachecloud-open-common   
+├       ├        └── cachecloud-open-web    
+├       └─  open-zipkin-center   -- zipkin链路跟踪[9412]  
+├               ├── open-zipkin-server-kafka   --zipkin链路跟踪服务端
+└               └── open-zipkin-client-kafka    --zipkin链路跟踪客户端     
+
+### 
+
+
+###   技术介绍 
 ![](https://i.imgur.com/29QKUkG.png)  
-##   框架设计
+###   框架设计
 ![](https://i.imgur.com/vn03vIX.jpg)
 
-## 开发环境  
+### 
+
+### 开发环境  
+
 redis3.X  
 jdk1.8  
 MySQL Server 5.6  
@@ -24,7 +89,7 @@ sts-3.8.0.RELEASE
 http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 
 ##  ocp项目演示
- 
+
 ![](http://img1.ph.126.net/WAraEeweVw2SyTUSG1dT6Q==/3887169428474612491.gif) 
 
 
@@ -37,16 +102,22 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 ## oauth单点登录   
 ![](https://i.imgur.com/PwcuvoC.gif)
 
-## 项目组织结构分析 
+
+
+
+
 ![](https://i.imgur.com/8gBBgnm.png)   
 
 
 
 
 ## 一. open-capacity-platform能力开放平台管理    
-   
+
 01.用户登录
-![](https://i.imgur.com/Wpo9STn.png)
+
+
+
+<img src="https://i.imgur.com/Wpo9STn.png" width="50%" hegiht="230"/><img src="https://i.imgur.com/Ud65k7j.png" width="50%" hegiht="230" />
 
 02.用户管理
 
@@ -99,13 +170,8 @@ http://47.94.252.160:9999/index.html 用户名/密码：admin/admin
 ![](https://i.imgur.com/H0CiqbD.jpg)
 
 
-待续。。。。。。。。   
 
-
-技术交流群:  
-![](https://i.imgur.com/YowTMtG.jpg)
 
   
 
 
- 
