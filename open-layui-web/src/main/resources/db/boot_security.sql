@@ -822,7 +822,7 @@ CREATE TABLE `oauth_client_details` (
 # Data for table "oauth_client_details"
 #
 
-INSERT INTO `oauth_client_details` VALUES (1,'app',NULL,'app','app','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL),(2,'mobile','mobile,test','mobile','all','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL),(3,'test','test','test','test','password,refresh_token',NULL,NULL,NULL,NULL,NULL,NULL),(4,'webApp',NULL,'webApp','app','authorization_code,password,refresh_token,client_credentials',NULL,NULL,NULL,NULL,NULL,NULL),(5,'clientId','','clientSecret','all','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com','',18000,18000,'','1');
+INSERT INTO `oauth_client_details` VALUES (1,'app',NULL,'app','app','password,refresh_token',NULL,NULL,180000,NULL,'{}','true'),(2,'mobile','mobile,test','mobile','all','password,refresh_token',NULL,NULL,180000,NULL,'{}','true'),(3,'test','test','test','test','password,refresh_token',NULL,NULL,180000,NULL,'{}','true'),(4,'webApp',NULL,'webApp','app','authorization_code,password,refresh_token,client_credentials',NULL,NULL,180000,NULL,'{}','true'),(5,'clientId','','clientSecret','all','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com','',180000,NULL,'{}','true'),(6,'owen',NULL,'owen','app','authorization_code,password,refresh_token,client_credentials','http://www.baidu.com',NULL,180000,NULL,'{}','true');
 
 #
 # Structure for table "oauth_client_token"
