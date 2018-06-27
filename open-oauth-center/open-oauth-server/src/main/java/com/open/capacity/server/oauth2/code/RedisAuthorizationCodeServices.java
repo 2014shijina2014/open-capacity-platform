@@ -1,4 +1,4 @@
-package com.open.capacity.server.oauth2.token.store;
+package com.open.capacity.server.oauth2.code;
 
 import java.util.concurrent.TimeUnit;
 

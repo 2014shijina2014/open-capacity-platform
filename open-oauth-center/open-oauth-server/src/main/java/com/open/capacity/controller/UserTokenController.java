@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
@@ -32,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.open.capacity.server.oauth2.client.RedisClientDetailsService;
 import com.open.capacity.utils.SpringUtil;
 
 import io.swagger.annotations.Api;
@@ -69,7 +69,7 @@ public class UserTokenController {
 				throw new UnapprovedClientAuthenticationException("请求头中无client_secret信息");
 			}
 
-			ClientDetailsService clientDetailsService =SpringUtil.getBean(ClientDetailsService.class);
+			RedisClientDetailsService clientDetailsService =SpringUtil.getBean(RedisClientDetailsService.class);
 			
 			ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 
@@ -151,7 +151,7 @@ public class UserTokenController {
 				throw new UnapprovedClientAuthenticationException("请求参数中无clientSecret信息");
 			}
 
-			ClientDetailsService clientDetailsService =SpringUtil.getBean(ClientDetailsService.class);
+			RedisClientDetailsService clientDetailsService =SpringUtil.getBean(RedisClientDetailsService.class);
 			
 			ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 

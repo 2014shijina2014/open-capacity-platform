@@ -24,10 +24,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.approval.ApprovalStore;
-import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -35,7 +32,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.open.capacity.server.oauth2.token.store.RedisAuthorizationCodeServices;
+import com.open.capacity.server.oauth2.client.RedisClientDetailsService;
+import com.open.capacity.server.oauth2.code.RedisAuthorizationCodeServices;
 import com.open.capacity.server.oauth2.token.store.RedisTemplateTokenStore;
 
 /**
@@ -54,9 +52,12 @@ public class OAuth2ServerConfig {
 	
 	@Bean // 声明 ClientDetails实现
 	@ConditionalOnProperty(prefix = "security.oauth2.token.store", name = "type", havingValue = "redis", matchIfMissing = true)
-	public ClientDetailsService clientDetailsService() {
-		return new JdbcClientDetailsService(dataSource);
+	public RedisClientDetailsService clientDetailsService() {
+		RedisClientDetailsService clientDetailsService = new RedisClientDetailsService(dataSource);
+		clientDetailsService.setRedisTemplate(redisTemplate);
+		return clientDetailsService;
 	}
+	
 	
 //	@Bean
 //    public ApprovalStore approvalStore() {
@@ -104,7 +105,7 @@ public class OAuth2ServerConfig {
 		private WebResponseExceptionTranslator webResponseExceptionTranslator;
 
 		@Autowired
-		private ClientDetailsService clientDetailsService ;
+		private RedisClientDetailsService clientDetailsService ;
 		
 		
 		@Autowired(required = false)
@@ -157,7 +158,7 @@ public class OAuth2ServerConfig {
 			// ;
 			// }
 			clients.withClientDetails(clientDetailsService);
-			
+			clientDetailsService.loadAllClientToCache();
 		}
 
 		@Override
