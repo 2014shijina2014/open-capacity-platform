@@ -19,6 +19,10 @@ public class LoginUser extends SysUser implements UserDetails {
 	private static final long serialVersionUID = -1379274258881257107L;
 
 	private List<Permission> permissions;
+	
+	private String jwtToken ;
+	
+
 	private String token;
 	/** 登陆时间戳（毫秒） */
 	private Long loginTime;
@@ -109,5 +113,12 @@ public class LoginUser extends SysUser implements UserDetails {
 	public void setExpireTime(Long expireTime) {
 		this.expireTime = expireTime;
 	}
+	@JsonIgnore
+	public String getJwtToken() {
+		return jwtToken;
+	}
 
+	public void setJwtToken(String jwtToken) {
+		this.jwtToken = jwtToken;
+	}
 }

@@ -62,12 +62,11 @@ public class TokenServiceImpl implements TokenService {
 	@Override
 	public Token saveToken(LoginUser loginUser) {
 		loginUser.setToken(UUID.randomUUID().toString());
+		String jwtToken = createJWTToken(loginUser);
+		loginUser.setJwtToken(jwtToken);
 		cacheLoginUser(loginUser);
 		// 登陆日志
 		logService.save(loginUser.getId(), "登陆", true, null);
-
-		String jwtToken = createJWTToken(loginUser);
-
 		return new Token(jwtToken, loginUser.getLoginTime());
 	}
 
