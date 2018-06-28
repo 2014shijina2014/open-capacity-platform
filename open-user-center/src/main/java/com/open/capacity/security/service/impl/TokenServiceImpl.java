@@ -53,7 +53,7 @@ public class TokenServiceImpl implements TokenService {
 	/**
 	 * 私钥
 	 */
-	@Value("${token.jwtSecret:open-user-center}")
+	@Value("${token.jwtSecret:open-layui-web}")
 	private String jwtSecret;
 
 	private static Key KEY = null;
