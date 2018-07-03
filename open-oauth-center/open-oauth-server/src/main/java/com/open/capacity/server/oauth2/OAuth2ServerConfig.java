@@ -111,6 +111,7 @@ public class OAuth2ServerConfig {
 		@Autowired(required = false)
 		private RandomValueAuthorizationCodeServices  authorizationCodeServices ;
 
+		 //配置身份认证器，配置认证方式，TokenStore，TokenGranter，OAuth2RequestFactory
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
 			
@@ -139,6 +140,7 @@ public class OAuth2ServerConfig {
 		}
 
 		// 配置应用名称 应用id
+	    //配置OAuth2的客户端相关信息
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
@@ -161,6 +163,7 @@ public class OAuth2ServerConfig {
 			clientDetailsService.loadAllClientToCache();
 		}
 
+		//对应于配置AuthorizationServer安全认证的相关信息，创建ClientCredentialsTokenEndpointFilter核心过滤器
 		@Override
 		public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 

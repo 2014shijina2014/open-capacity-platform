@@ -10,12 +10,12 @@ security:
     client:
       client-id: owen
       client-secret: owen 
-      user-authorization-uri: http://127.0.0.1:9200/auth/oauth/authorize    
-      access-token-uri: http://127.0.0.1:9200/auth/oauth/token
+      user-authorization-uri: http://127.0.0.1:8000/auth/oauth/authorize    
+      access-token-uri: http://127.0.0.1:8000/auth/oauth/token
     resource: 
 #        user-info-uri: http://127.0.0.1:8000/auth/users #返回认证服务器检查
 #        prefer-token-info: false
-      token-info-uri: http://127.0.0.1:9200/auth/oauth/check_token
+      token-info-uri: http://127.0.0.1:8000/auth/oauth/check_token
       prefer-token-info: true
  
  
