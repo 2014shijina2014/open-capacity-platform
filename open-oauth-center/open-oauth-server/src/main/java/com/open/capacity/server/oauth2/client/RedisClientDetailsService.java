@@ -1,59 +1,52 @@
 package com.open.capacity.server.oauth2.client;
 
-import java.util.List;
-
-import javax.sql.DataSource;
-
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.alibaba.fastjson.JSONObject;
-import com.open.capacity.server.oauth2.OAuth2ServerConfig;
+import javax.sql.DataSource;
+import java.util.List;
 
 
-/** 
-* @author owen 624191343@qq.com
-* @version 创建时间：2017年11月12日 上午22:57:51
-* 类说明 
-* 将oauth_client_details表数据缓存到redis，这里做个缓存优化
-* layui模块中有对oauth_client_details的crud， 注意同步redis的数据 
-* 注意对oauth_client_details清楚redis db部分数据的清空
-*/
- 
+/**
+ * @author owen 624191343@qq.com
+ * @version 创建时间：2017年11月12日 上午22:57:51
+ * 类说明
+ * 将oauth_client_details表数据缓存到redis，这里做个缓存优化
+ * layui模块中有对oauth_client_details的crud， 注意同步redis的数据
+ * 注意对oauth_client_details清楚redis db部分数据的清空
+ */
+
 public class RedisClientDetailsService extends JdbcClientDetailsService {
-	
+
     /**
      * 缓存client的redis key，这里是hash结构存储
      */
     private static final String CACHE_CLIENT_KEY = "oauth_client_details";
-    
-    private Logger logger =LoggerFactory.getLogger(RedisClientDetailsService.class) ;
 
-    private RedisTemplate<String,Object> redisTemplate ;
-    
+    private Logger logger = LoggerFactory.getLogger(RedisClientDetailsService.class);
+
+    private RedisTemplate<String, Object> redisTemplate;
+
     public RedisTemplate<String, Object> getRedisTemplate() {
-		return redisTemplate;
-	}
-
-	public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
-		this.redisTemplate = redisTemplate;
-	}
-
-	public RedisClientDetailsService(DataSource dataSource) {
-        super(dataSource);
+        return redisTemplate;
     }
 
+    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    public RedisClientDetailsService(DataSource dataSource) {
+        super(dataSource);
+    }
 
 
     @Override
@@ -81,7 +74,7 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
         // 从数据库读取
         ClientDetails clientDetails = super.loadClientByClientId(clientId);
         if (clientDetails != null) {// 写入redis缓存
-        	redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(clientDetails));
+            redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(clientDetails));
             logger.info("缓存clientId:{},{}", clientId, clientDetails);
         }
 
@@ -112,7 +105,7 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
      * @param clientId
      */
     private void removeRedisCache(String clientId) {
-    	redisTemplate.boundHashOps(CACHE_CLIENT_KEY).delete(clientId);
+        redisTemplate.boundHashOps(CACHE_CLIENT_KEY).delete(clientId);
     }
 
     /**
@@ -126,12 +119,12 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
 
         List<ClientDetails> list = super.listClientDetails();
         if (CollectionUtils.isEmpty(list)) {
-        	logger.error("oauth_client_details表数据为空，请检查");
+            logger.error("oauth_client_details表数据为空，请检查");
             return;
         }
 
         list.parallelStream().forEach(client -> {
-        	redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(client.getClientId(), JSONObject.toJSONString(client));
+            redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(client.getClientId(), JSONObject.toJSONString(client));
         });
     }
 }

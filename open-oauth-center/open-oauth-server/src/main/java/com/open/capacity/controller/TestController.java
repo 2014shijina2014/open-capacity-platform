@@ -18,13 +18,10 @@ public class TestController {
 	
 	@Resource
 	private RedisTemplate< String, Object> redisTemplate ;
-	
-	 
 
 	@GetMapping("/test111")
 	public String hello() {
 		return "hello";
 	}
-
 	 
 }
