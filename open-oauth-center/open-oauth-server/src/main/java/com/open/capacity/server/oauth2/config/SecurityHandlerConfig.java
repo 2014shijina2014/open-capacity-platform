@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,36 +18,28 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.common.exceptions.RedirectMismatchException;
-import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedResponseTypeException;
-import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.OAuth2Request;
-import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
-* @author owen 624191343@qq.com
+ * @author owen 624191343@qq.com
  * @version 创建时间：2017年11月12日 上午22:57:51
  */
 @Component
@@ -67,10 +57,9 @@ public class SecurityHandlerConfig {
 
 	@Autowired(required = false)
 	private AuthenticationEntryPoint authenticationEntryPoint;
-	
 
-	//url匹配器
-	private AntPathMatcher pathMatcher  = new AntPathMatcher();
+	// url匹配器
+	private AntPathMatcher pathMatcher = new AntPathMatcher();
 
 	/**
 	 * 登陆成功，返回Token 装配此bean不支持授权码模式
@@ -89,9 +78,6 @@ public class SecurityHandlerConfig {
 
 				super.onAuthenticationSuccess(request, response, authentication);
 				return;
-				
-				
-				 
 
 			}
 		};
@@ -133,8 +119,6 @@ public class SecurityHandlerConfig {
 
 	}
 
-
-
 	@Bean
 	public WebResponseExceptionTranslator webResponseExceptionTranslator() {
 		return new DefaultWebResponseExceptionTranslator() {
@@ -151,9 +135,9 @@ public class SecurityHandlerConfig {
 					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
 				} else if (e instanceof RedirectMismatchException) {
 					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
-				}else if (e instanceof InvalidScopeException) {
+				} else if (e instanceof InvalidScopeException) {
 					oAuth2Exception = new InvalidGrantException(e.getMessage(), e);
-				}else {
+				} else {
 					oAuth2Exception = new UnsupportedResponseTypeException("服务内部错误", e);
 				}
 
@@ -166,6 +150,11 @@ public class SecurityHandlerConfig {
 			}
 
 		};
+	}
+
+	@Bean
+	public OauthLogoutHandler oauthLogoutHandler() {
+		return new OauthLogoutHandler();
 	}
 
 }

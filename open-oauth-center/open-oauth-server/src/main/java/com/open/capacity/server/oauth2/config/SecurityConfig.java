@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 /**
  * spring security配置
@@ -37,6 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private OauthLogoutHandler oauthLogoutHandler ;
+	
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
@@ -67,6 +72,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 		}
 
+		
+		http.logout()
+        .logoutUrl("/user/logout")
+        .clearAuthentication(true)
+        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+        .addLogoutHandler(oauthLogoutHandler);
+		
 		// http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 		// 解决不允许显示在iframe的问题
 		http.headers().frameOptions().disable();
