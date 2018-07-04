@@ -24,6 +24,12 @@
 
 		<!-- db基础模块 -->
 		<module>open-db-core</module>
+		
+		<!-- 公共模块 -->
+		<module>open-commons</module>
+
+		<!-- 用户中心 -->
+		<module>open-user-center</module>
 
 		<!-- 服务注册中心模块 -->
 		<module>open-eureka-center</module>
@@ -49,6 +55,7 @@
 		<module>open-layui-web</module>
 
 
+		
 	</modules>
 	<dependencies>
 		<dependency>
@@ -76,13 +83,7 @@
 				<scope>import</scope>
 			</dependency>
 
-
-
-			<dependency>
-				<groupId>com.open.capacity</groupId>
-				<artifactId>open-auth-common</artifactId>
-				<version>${core.version}</version>
-			</dependency>
+  
 
 
 			<dependency>
