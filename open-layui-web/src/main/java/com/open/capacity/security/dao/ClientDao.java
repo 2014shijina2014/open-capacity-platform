@@ -32,7 +32,7 @@ public interface ClientDao {
 	@Select("select * from oauth_client_details t where t.client_id = #{clientId}")
 	Client getClient(String clientId);
 
-	@Update("update sys_role t set t.name = #{name}, t.description = #{description}, updateTime = now() where t.id = #{id}")
+	@Update("update oauth_client_details t set t.client_secret = #{clientSecret}  where t.id = #{id}")
 	int update(Client client);
 
 	@Select("select * from sys_role r inner join sys_role_user ru on r.id = ru.roleId where ru.userId = #{userId}")

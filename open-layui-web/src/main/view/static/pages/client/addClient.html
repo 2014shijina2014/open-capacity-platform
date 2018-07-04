@@ -81,9 +81,13 @@
 					url : '/clients/'+id,
 					async : false,
 					success : function(data) {
+						$("#id").val(data.id);
 						$("#clientId").val(data.clientId);
+						//不可编辑clientId
+						$("#clientId").attr("disabled", "disabled");
 						$("#clientSecret").val(data.clientSecret);
 						$("#webServerRedirectUri").val(data.webServerRedirectUri);
+						$("#webServerRedirectUri").attr("disabled", "disabled");
 					}
 				});
 				
