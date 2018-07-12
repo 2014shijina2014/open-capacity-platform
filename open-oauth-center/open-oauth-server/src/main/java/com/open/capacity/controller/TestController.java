@@ -2,10 +2,13 @@ package com.open.capacity.controller;
 
 import javax.annotation.Resource;
 
+import com.open.capacity.fegin.PermissionClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,13 +21,23 @@ public class TestController {
 	
 	@Resource
 	private RedisTemplate< String, Object> redisTemplate ;
-	
-	 
+
+	@Autowired
+	private PermissionClient permissionClient;
 
 	@GetMapping("/test111")
 	public String hello() {
 		return "hello";
 	}
+
+	@GetMapping("/current")
+	public Object permissionsCurrent(){
+		return permissionClient.permissionsCurrent();
+	}
+
+
+
+
 
 	 
 }
