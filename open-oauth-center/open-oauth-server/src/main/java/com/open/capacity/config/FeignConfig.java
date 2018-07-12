@@ -22,8 +22,6 @@ import java.util.Map;
 @Component
 public class FeignConfig implements RequestInterceptor {
 
-    String token = "eyJhbGciOiJIUzI1NiJ9.eyJMT0dJTl9VU0VSX0tFWSI6ImRhNmVkOTNiLWQ3MTgtNDBkMi05YWZmLTM1MDU5ZDZmNGMwZCJ9.5tpbHoGa-TLBNK8TH7V2dm0MCMOVZUSbd5UFbJFuW9Q";
-
     private static final String TOKEN_KEY = "access_token";
 
     @Override

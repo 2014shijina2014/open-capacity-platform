@@ -54,6 +54,14 @@
 				</executions>
 			</plugin>
 
+
+			<!-- 首先加入pom
+
+				${docker.image.prefix} ： 这个是你的dockerhub注册上面的名字 gitgeek 这个是我注册的
+				${project.artifactId}  ： 项目的名称
+				dockerDirectory ： dockerfile的文件路径
+
+			  -->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
