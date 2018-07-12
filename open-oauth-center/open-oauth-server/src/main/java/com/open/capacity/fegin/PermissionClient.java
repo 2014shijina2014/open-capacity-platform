@@ -1,5 +1,6 @@
 package com.open.capacity.fegin;
 
+import com.alibaba.fastjson.JSONArray;
 import com.open.capacity.config.FeignConfig;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,11 @@ public interface PermissionClient {
     @RequestMapping(value = "/permissions/current",method = RequestMethod.GET)
     List permissionsCurrent();
 
+    @RequestMapping(value = "/permissions/all",method = RequestMethod.GET)
+    JSONArray permissionsAll();
 
+    @RequestMapping(value = "/permissions/parents",method = RequestMethod.GET)
+    List parentMenu();
 
 
 }
