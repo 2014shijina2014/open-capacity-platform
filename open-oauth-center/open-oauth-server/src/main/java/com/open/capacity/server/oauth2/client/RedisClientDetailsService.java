@@ -79,11 +79,19 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
      */
     private ClientDetails cacheAndGetClient(String clientId) {
         // 从数据库读取
-        ClientDetails clientDetails = super.loadClientByClientId(clientId);
-        if (clientDetails != null) {// 写入redis缓存
-        	redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(clientDetails));
-            logger.info("缓存clientId:{},{}", clientId, clientDetails);
-        }
+        ClientDetails clientDetails = null ;
+		try {
+			clientDetails = super.loadClientByClientId(clientId);
+			if (clientDetails != null) {// 写入redis缓存
+				redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(clientDetails));
+			    logger.info("缓存clientId:{},{}", clientId, clientDetails);
+			}
+		}catch (NoSuchClientException e){
+			logger.info("clientId:{},{}", clientId, clientId );
+		}catch (InvalidClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         return clientDetails;
     }

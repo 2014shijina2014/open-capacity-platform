@@ -61,11 +61,11 @@ public class UserTokenController {
 
 		try {
 
-			if (clientId == null) {
+			if (clientId == null || "".equals(clientId) ) {
 				throw new UnapprovedClientAuthenticationException("请求头中无client_id信息");
 			}
 
-			if (clientSecret == null) {
+			if (clientSecret == null || "".equals(clientSecret)) {
 				throw new UnapprovedClientAuthenticationException("请求头中无client_secret信息");
 			}
 
@@ -143,11 +143,11 @@ public class UserTokenController {
 
 		try {
 
-			if (clientId == null) {
+			if (clientId == null  || "".equals(clientId)) {
 				throw new UnapprovedClientAuthenticationException("请求参数中无clientId信息");
 			}
 
-			if (clientSecret == null) {
+			if (clientSecret == null || "".equals(clientSecret)) {
 				throw new UnapprovedClientAuthenticationException("请求参数中无clientSecret信息");
 			}
 
