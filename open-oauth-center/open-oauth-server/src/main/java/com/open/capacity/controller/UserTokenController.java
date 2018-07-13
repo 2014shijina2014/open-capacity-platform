@@ -189,9 +189,7 @@ public class UserTokenController {
 		} catch (Exception e) {
 
 			response.setStatus(HttpStatus.UNAUTHORIZED.value());
-
 			response.setContentType("application/json;charset=UTF-8");
-
 			Map<String, String> rsp = new HashMap<>();
 			rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
 			rsp.put("rsp_msg", e.getMessage());

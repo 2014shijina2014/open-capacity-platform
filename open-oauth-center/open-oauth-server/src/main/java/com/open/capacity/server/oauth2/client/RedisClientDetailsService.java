@@ -82,7 +82,8 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
         ClientDetails clientDetails = null ;
 		try {
 			clientDetails = super.loadClientByClientId(clientId);
-			if (clientDetails != null) {// 写入redis缓存
+			if (clientDetails != null) {            
+				// 写入redis缓存
 				redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(clientDetails));
 			    logger.info("缓存clientId:{},{}", clientId, clientDetails);
 			}
