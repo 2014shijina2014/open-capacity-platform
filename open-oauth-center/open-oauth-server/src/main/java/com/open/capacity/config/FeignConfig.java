@@ -1,8 +1,16 @@
 package com.open.capacity.config;
 
+import com.open.capacity.server.oauth2.token.store.RedisTemplateTokenStore;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -28,7 +36,6 @@ public class FeignConfig implements RequestInterceptor {
     public void apply(RequestTemplate requestTemplate) {
         requestTemplate.header("access_token",getToken(getHttpServletRequest()));
     }
-
 
     private HttpServletRequest getHttpServletRequest() {
         try {

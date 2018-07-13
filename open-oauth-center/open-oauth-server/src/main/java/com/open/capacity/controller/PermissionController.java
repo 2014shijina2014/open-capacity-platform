@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/permissions")
 public class PermissionController {
 
-    @Autowired
-    private PermissionClient permissionClient;
-
-    @GetMapping("/current")
-    public Object permissionsCurrent(){
-        return permissionClient.permissionsCurrent();
-    }
-
-    @GetMapping("/all")
-    public Object permissionsAll(){
-        return permissionClient.permissionsAll();
-    }
-
-    @GetMapping("/parents")
-    public Object parents(){
-        return permissionClient.parentMenu();
-    }
+//    @Autowired
+//    private PermissionClient permissionClient;
+//
+//    @GetMapping("/current")
+//    public Object permissionsCurrent(){
+//        return permissionClient.permissionsCurrent();
+//    }
+//
+//    @GetMapping("/all")
+//    public Object permissionsAll(){
+//        return permissionClient.permissionsAll();
+//    }
+//
+//    @GetMapping("/parents")
+//    public Object parents(){
+//        return permissionClient.parentMenu();
+//    }
 
 
 
