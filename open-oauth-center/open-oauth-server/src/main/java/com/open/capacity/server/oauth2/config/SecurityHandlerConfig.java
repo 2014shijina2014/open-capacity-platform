@@ -49,8 +49,8 @@ public class SecurityHandlerConfig {
 	@Resource
 	private ObjectMapper objectMapper; // springmvc启动时自动装配json处理类
 
-	@Autowired
-	private AuthorizationServerTokenServices authorizationServerTokenServices;
+//	@Autowired
+//	private AuthorizationServerTokenServices authorizationServerTokenServices;
 
 	@Autowired
 	private ClientDetailsService clientDetailsService;

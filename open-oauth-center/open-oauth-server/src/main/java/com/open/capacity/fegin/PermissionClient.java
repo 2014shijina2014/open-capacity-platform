@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 //import com.open.capacity.config.FeignConfig;
 import com.open.capacity.config.FeignConfig;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
