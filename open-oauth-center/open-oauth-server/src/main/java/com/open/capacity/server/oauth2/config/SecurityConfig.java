@@ -39,13 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private OauthLogoutHandler oauthLogoutHandler ;
-	
-	
+	private OauthLogoutHandler oauthLogoutHandler;
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
-				"/swagger-ui.html", "/webjars/**", "/doc.html" , "/login.html");
+				"/swagger-ui.html", "/webjars/**", "/doc.html", "/login.html");
 		web.ignoring().antMatchers("/health");
 	}
 
@@ -59,8 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/swagger-ui.html", "/webjars/**")
 				.permitAll().antMatchers("/login").permitAll().antMatchers("/users", "/user/login").permitAll()
 				.anyRequest().authenticated();
-		http.formLogin().loginPage("/login.html").loginProcessingUrl("/user/login").successHandler(authenticationSuccessHandler)
-				.failureHandler(authenticationFailureHandler);
+		http.formLogin().loginPage("/login.html").loginProcessingUrl("/user/login")
+				.successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
 
 		// 基于密码 等模式可以无session,不支持授权码模式
 		if (authenticationEntryPoint != null) {
@@ -72,13 +71,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 		}
 
-		
-		http.logout()
-        .logoutUrl("/user/logout")
-        .clearAuthentication(true)
-        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
-        .addLogoutHandler(oauthLogoutHandler);
-		
+		http.logout().logoutUrl("/user/logout").clearAuthentication(true)
+				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+				.addLogoutHandler(oauthLogoutHandler);
+
 		// http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 		// 解决不允许显示在iframe的问题
 		http.headers().frameOptions().disable();

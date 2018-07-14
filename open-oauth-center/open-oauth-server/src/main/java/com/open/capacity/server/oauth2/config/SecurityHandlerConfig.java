@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -23,18 +22,14 @@ import org.springframework.security.oauth2.common.exceptions.InvalidScopeExcepti
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.common.exceptions.RedirectMismatchException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedResponseTypeException;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -52,14 +47,14 @@ public class SecurityHandlerConfig {
 //	@Autowired
 //	private AuthorizationServerTokenServices authorizationServerTokenServices;
 
-	@Autowired
-	private ClientDetailsService clientDetailsService;
+//	@Autowired
+//	private ClientDetailsService clientDetailsService;
 
-	@Autowired(required = false)
-	private AuthenticationEntryPoint authenticationEntryPoint;
+//	@Autowired(required = false)
+//	private AuthenticationEntryPoint authenticationEntryPoint;
 
 	// url匹配器
-	private AntPathMatcher pathMatcher = new AntPathMatcher();
+//	private AntPathMatcher pathMatcher = new AntPathMatcher();
 
 	/**
 	 * 登陆成功，返回Token 装配此bean不支持授权码模式
