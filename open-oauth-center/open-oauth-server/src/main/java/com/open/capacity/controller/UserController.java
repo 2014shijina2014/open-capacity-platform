@@ -1,7 +1,9 @@
 package com.open.capacity.controller;
 
+import com.open.capacity.fegin.UserClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,9 @@ import java.util.Map;
 @RestController
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
+    private UserClient userClient;
 
 
     @GetMapping("/hello")
@@ -38,6 +43,13 @@ public class UserController {
     public Object getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
+
+
+    @GetMapping("/current")
+    public Object currentUser() {
+        return userClient.currentUser();
+    }
+
 
 
 }

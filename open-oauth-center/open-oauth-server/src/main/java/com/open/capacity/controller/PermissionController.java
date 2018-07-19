@@ -1,12 +1,14 @@
 package com.open.capacity.controller;
 
 import com.open.capacity.fegin.PermissionClient;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * @Author: [gitgeek]
@@ -19,16 +21,14 @@ import javax.annotation.Resource;
 @RequestMapping("/permissions")
 public class PermissionController {
 
-//
-    //先去掉
     @Autowired
     private PermissionClient permissionClient;
-//
+
     @GetMapping("/current")
     public Object permissionsCurrent(){
         return permissionClient.permissionsCurrent();
     }
-//
+
     @GetMapping("/all")
     public Object permissionsAll(){
         return permissionClient.permissionsAll();
@@ -37,6 +37,16 @@ public class PermissionController {
     @GetMapping("/parents")
     public Object parents(){
         return permissionClient.parentMenu();
+    }
+
+    @GetMapping(params = "roleId")
+    public Object listByRoleId(Long roleId ){
+        return permissionClient.listByRoleId(roleId);
+    }
+
+    @GetMapping("/owns")
+    public Set<String> ownsPermission() {
+        return permissionClient.ownsPermission();
     }
 
 
