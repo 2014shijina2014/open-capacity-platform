@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class LeaveOpinion  implements Serializable {
+public class LeaveOpinion implements Serializable {
 
     //审批人id
     private String opId;

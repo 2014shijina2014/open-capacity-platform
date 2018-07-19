@@ -1,20 +1,12 @@
-/**
- * 
- */
-/**
- * @author HP
- *
- */
 package com.open.capacity.client.oauth2.config;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Primary
 @Component

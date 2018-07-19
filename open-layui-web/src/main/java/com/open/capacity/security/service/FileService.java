@@ -1,15 +1,14 @@
 package com.open.capacity.security.service;
 
-import java.io.IOException;
-
+import com.open.capacity.security.model.FileInfo;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.open.capacity.security.model.FileInfo;
+import java.io.IOException;
 
 public interface FileService {
 
-	FileInfo save(MultipartFile file) throws IOException;
+    FileInfo save(MultipartFile file) throws IOException;
 
-	void delete(String id);
+    void delete(String id);
 
 }

@@ -12,9 +12,28 @@ import com.alibaba.fastjson.JSONObject;
 public class JsonUtil {
 
     //默认成功
-    private boolean flag=true;
+    private boolean flag = true;
     private String msg;
     private JSONObject josnObj;
+
+    public JsonUtil() {
+    }
+
+    public JsonUtil(boolean flag, String msg) {
+        this.flag = flag;
+        this.msg = msg;
+    }
+
+    /**
+     * restful 返回
+     */
+    public static JsonUtil error(String msg) {
+        return new JsonUtil(false, msg);
+    }
+
+    public static JsonUtil sucess(String msg) {
+        return new JsonUtil(true, msg);
+    }
 
     public boolean isFlag() {
         return flag;
@@ -38,22 +57,5 @@ public class JsonUtil {
 
     public void setJosnObj(JSONObject josnObj) {
         this.josnObj = josnObj;
-    }
-
-
-    public JsonUtil() {
-    }
-
-    public JsonUtil(boolean flag, String msg) {
-        this.flag = flag;
-        this.msg = msg;
-    }
-
-    /**restful 返回*/
-    public static JsonUtil error(String msg){
-        return new JsonUtil(false,msg);
-    }
-    public  static JsonUtil sucess(String msg){
-        return new JsonUtil(true,msg);
     }
 }

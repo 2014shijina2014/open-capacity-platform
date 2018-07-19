@@ -27,7 +27,7 @@ public class ActPropertiesConfig {
     }
 
     @Bean
-    public ActPropertiesConfig getActPropertiesConfig(){
+    public ActPropertiesConfig getActPropertiesConfig() {
         return new ActPropertiesConfig();
     }
 }

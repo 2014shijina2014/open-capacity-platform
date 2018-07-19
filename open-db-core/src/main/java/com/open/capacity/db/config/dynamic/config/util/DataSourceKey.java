@@ -1,4 +1,5 @@
-package com.open.capacity.db.config.dynamic.config.util; 
+package com.open.capacity.db.config.dynamic.config.util;
+
 /**
  * 数据源定义
  *

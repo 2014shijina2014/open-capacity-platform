@@ -1,5 +1,8 @@
 package com.open.capacity.db.config.dynamic.aop;
 
+import com.open.capacity.db.config.dynamic.annotation.DataSource;
+import com.open.capacity.db.config.dynamic.config.util.DataSourceHolder;
+import com.open.capacity.db.config.dynamic.config.util.DataSourceKey;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -7,10 +10,6 @@ import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
-
-import com.open.capacity.db.config.dynamic.annotation.DataSource;
-import com.open.capacity.db.config.dynamic.config.util.DataSourceHolder;
-import com.open.capacity.db.config.dynamic.config.util.DataSourceKey;
 
 /**
  * 切换数据源Advice

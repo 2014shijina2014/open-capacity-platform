@@ -32,14 +32,15 @@ public class Task {
 
     public Task() {
     }
+
     public Task(org.activiti.engine.task.Task t) {
-        this.id=t.getId();
-        this.name=t.getName();
-        this.createTime=t.getCreateTime();
-        this.assignee=t.getAssignee();
-        this.processInstanceId=t.getProcessInstanceId();
-        this.processDefinitionId=t.getProcessDefinitionId();
-        this.description=t.getDescription();
-        this.category=t.getCategory();
+        this.id = t.getId();
+        this.name = t.getName();
+        this.createTime = t.getCreateTime();
+        this.assignee = t.getAssignee();
+        this.processInstanceId = t.getProcessInstanceId();
+        this.processDefinitionId = t.getProcessDefinitionId();
+        this.description = t.getDescription();
+        this.category = t.getCategory();
     }
 }

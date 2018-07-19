@@ -10,5 +10,4 @@ package com.open.capacity.activiti.service;
 public interface UserLeaveService {
 
 
-
 }
