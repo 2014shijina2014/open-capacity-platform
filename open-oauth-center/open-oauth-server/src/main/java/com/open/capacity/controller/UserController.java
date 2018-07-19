@@ -50,6 +50,9 @@ public class UserController {
         return userClient.currentUser();
     }
 
-
+    @GetMapping(value = "/internal", params = "username")
+    public Object findByUsername(String username) {
+        return userClient.findByUsername(username);
+    }
 
 }

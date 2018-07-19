@@ -3,6 +3,7 @@ package com.open.capacity.fegin;
 import com.open.capacity.config.FeignConfig;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Author: [gitgeek]
@@ -17,6 +18,8 @@ public interface UserClient {
     @GetMapping("/users/current")
     Object currentUser();
 
+    @GetMapping("/users/internal")
+    Object findByUsername(@RequestParam("username") String username);
 
 
 }
