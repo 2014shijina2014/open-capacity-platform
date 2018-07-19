@@ -5,12 +5,12 @@ import com.open.capacity.security.model.SysUser;
 
 public interface UserService {
 
-	SysUser saveUser(UserDto userDto);
+    SysUser saveUser(UserDto userDto);
 
-	SysUser updateUser(UserDto userDto);
+    SysUser updateUser(UserDto userDto);
 
-	SysUser getUser(String username);
+    SysUser getUser(String username);
 
-	void changePassword(String username, String oldPassword, String newPassword);
+    void changePassword(String username, String oldPassword, String newPassword);
 
 }

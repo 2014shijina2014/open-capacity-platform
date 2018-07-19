@@ -17,8 +17,7 @@ public interface ActAssigneeService {
     List<ActAssignee> selectListByPage(ActAssignee record);
 
 
-    int insertSelective( ActAssignee record);
-
+    int insertSelective(ActAssignee record);
 
 
 }

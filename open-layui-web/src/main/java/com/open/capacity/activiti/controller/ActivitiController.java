@@ -1,14 +1,20 @@
 package com.open.capacity.activiti.controller;
 
-import java.io.FileInputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.open.capacity.activiti.config.ActPropertiesConfig;
+import com.open.capacity.activiti.entity.ActAssignee;
+import com.open.capacity.activiti.entity.ActModel;
+import com.open.capacity.activiti.entity.ProcessDefinition;
+import com.open.capacity.activiti.service.ActAssigneeService;
+import com.open.capacity.activiti.util.Checkbox;
+import com.open.capacity.activiti.util.JsonUtil;
+import com.open.capacity.activiti.util.ResultType;
+import com.open.capacity.security.dao.RoleDao;
+import com.open.capacity.security.model.Role;
+import io.swagger.annotations.ApiOperation;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -26,28 +32,15 @@ import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.open.capacity.activiti.config.ActPropertiesConfig;
-import com.open.capacity.activiti.entity.ActAssignee;
-import com.open.capacity.activiti.entity.ActModel;
-import com.open.capacity.activiti.entity.ProcessDefinition;
-import com.open.capacity.activiti.service.ActAssigneeService;
-import com.open.capacity.activiti.util.Checkbox;
-import com.open.capacity.activiti.util.JsonUtil;
-import com.open.capacity.activiti.util.ResultType;
-import com.open.capacity.security.dao.RoleDao;
-import com.open.capacity.security.model.Role;
-
-import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
+import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: [gitgeek]
@@ -88,7 +81,7 @@ public class ActivitiController {
     @ApiOperation(value = "列表")
     @ResponseBody
     public String showAct(org.springframework.ui.Model model, ProcessDefinition definition,
-                          String page, String limit){
+                          String page, String limit) {
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
 
         List<org.activiti.engine.repository.ProcessDefinition> processDefinitionList = null;
@@ -106,7 +99,7 @@ public class ActivitiController {
         List<ProcessDefinition> list = new ArrayList<>();
         processDefinitionList.forEach(processDefinition -> list.add(new ProcessDefinition(processDefinition)));
 
-        ResultType resultType = new ResultType(count,list);
+        ResultType resultType = new ResultType(count, list);
         return JSON.toJSONString(resultType);
     }
 
@@ -169,15 +162,14 @@ public class ActivitiController {
         long count = repositoryService.createModelQuery().count();
         List<ActModel> list = new ArrayList<>();
         models.forEach(mo -> list.add(new ActModel(mo)));
-        ResultType resultType = new ResultType(count,list);
+        ResultType resultType = new ResultType(count, list);
         return JSON.toJSONString(resultType);
     }
 
 
-
     /**
-    * 发布流程
-    */
+     * 发布流程
+     */
     @PostMapping(value = "open")
     @ResponseBody
     public JsonUtil open(String id) {
@@ -239,7 +231,7 @@ public class ActivitiController {
 
     @GetMapping("actUpdate/{id}")
     public String actUpdate(@PathVariable String id, String token) {
-        return "redirect:/pages/activiti/modeler.html?modelId=" + id+"&token="+token;
+        return "redirect:/pages/activiti/modeler.html?modelId=" + id + "&token=" + token;
     }
 
     /**
@@ -370,15 +362,6 @@ public class ActivitiController {
         j.setMsg("更新成功");
         return j;
     }
-
-
-
-
-
-
-
-
-
 
 
 }

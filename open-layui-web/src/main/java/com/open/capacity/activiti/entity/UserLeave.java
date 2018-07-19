@@ -12,34 +12,24 @@ import java.util.List;
  * @Copy: [com.zzg]
  */
 public class UserLeave {
+    private static final long serialVersionUID = 1L;
     private String id;
-
     private String userId;
-
     private String userName;
-
     private Date beginTime;
-
     private Date endTime;
-
     private String reason;
-
     private Integer days;
-
     private String processInstanceId;
-
     private String status;
-
     private Date createDate;
-
     private String createBy;
-
     private Date updateDate;
-
     private String updateBy;
-
     //***实时节点信息
     private String taskName;
+    //请假单审核信息
+    private List<LeaveOpinion> opinionList = new ArrayList<>();
 
     public String getTaskName() {
         return taskName;
@@ -49,13 +39,11 @@ public class UserLeave {
         this.taskName = taskName;
     }
 
-    //请假单审核信息
-    private List<LeaveOpinion> opinionList=new ArrayList<>();
-
-    public void leaveOpAdd(LeaveOpinion leaveOpinion){
+    public void leaveOpAdd(LeaveOpinion leaveOpinion) {
         this.opinionList.add(leaveOpinion);
     }
-    public void leaveOpAddAll(List<LeaveOpinion> leaveOpinionList){
+
+    public void leaveOpAddAll(List<LeaveOpinion> leaveOpinionList) {
         this.opinionList.addAll(leaveOpinionList);
     }
 
@@ -66,8 +54,6 @@ public class UserLeave {
     public void setOpinionList(List<LeaveOpinion> opinionList) {
         this.opinionList = opinionList;
     }
-
-    private static final long serialVersionUID = 1L;
 
     public String getId() {
         return id;

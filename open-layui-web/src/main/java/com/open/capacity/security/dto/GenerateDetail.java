@@ -5,25 +5,25 @@ import java.util.List;
 
 public class GenerateDetail implements Serializable {
 
-	private static final long serialVersionUID = -164567294469931676L;
+    private static final long serialVersionUID = -164567294469931676L;
 
-	private String beanName;
+    private String beanName;
 
-	private List<BeanField> fields;
+    private List<BeanField> fields;
 
-	public String getBeanName() {
-		return beanName;
-	}
+    public String getBeanName() {
+        return beanName;
+    }
 
-	public void setBeanName(String beanName) {
-		this.beanName = beanName;
-	}
+    public void setBeanName(String beanName) {
+        this.beanName = beanName;
+    }
 
-	public List<BeanField> getFields() {
-		return fields;
-	}
+    public List<BeanField> getFields() {
+        return fields;
+    }
 
-	public void setFields(List<BeanField> fields) {
-		this.fields = fields;
-	}
+    public void setFields(List<BeanField> fields) {
+        this.fields = fields;
+    }
 }

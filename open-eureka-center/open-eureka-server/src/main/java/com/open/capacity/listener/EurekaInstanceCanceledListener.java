@@ -1,6 +1,8 @@
 package com.open.capacity.listener;
 
-
+import com.netflix.discovery.shared.Applications;
+import com.netflix.eureka.EurekaServerContextHolder;
+import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.eureka.server.event.EurekaInstanceCanceledEvent;
@@ -11,10 +13,6 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 
-import com.netflix.discovery.shared.Applications;
-import com.netflix.eureka.EurekaServerContextHolder;
-import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
-
 /**
  * 用于监听eureka服务停机通知
  * Created by ace on 2017/7/8.
@@ -22,6 +20,7 @@ import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
 @Configuration
 public class EurekaInstanceCanceledListener implements ApplicationListener {
     private Logger log = LoggerFactory.getLogger(EurekaInstanceCanceledListener.class);
+
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
         // 服务挂掉事件

@@ -31,20 +31,21 @@ public class ProcessDefinition {
 
     public ProcessDefinition() {
     }
+
     public ProcessDefinition(org.activiti.engine.repository.ProcessDefinition p) {
-        this.id=p.getId();
-        this.category=p.getCategory();
-        this.name=p.getName();
-        this.key=p.getKey();
-        this.description=p.getDescription();
-        this.version=p.getVersion();
-        this.resourceName=p.getResourceName();
-        this.deploymentId=p.getDeploymentId();
-        this.diagramResourceName=p.getDiagramResourceName();
-        this.hasStartFormKey=p.hasStartFormKey();
-        this.hasGraphicalNotation=p.hasGraphicalNotation();
-        this.isSuspended=p.isSuspended();
-        this.tenantId=p.getTenantId();
+        this.id = p.getId();
+        this.category = p.getCategory();
+        this.name = p.getName();
+        this.key = p.getKey();
+        this.description = p.getDescription();
+        this.version = p.getVersion();
+        this.resourceName = p.getResourceName();
+        this.deploymentId = p.getDeploymentId();
+        this.diagramResourceName = p.getDiagramResourceName();
+        this.hasStartFormKey = p.hasStartFormKey();
+        this.hasGraphicalNotation = p.hasGraphicalNotation();
+        this.isSuspended = p.isSuspended();
+        this.tenantId = p.getTenantId();
 
     }
 }

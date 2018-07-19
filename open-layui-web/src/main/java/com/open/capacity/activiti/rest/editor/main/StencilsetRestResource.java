@@ -1,13 +1,5 @@
 package com.open.capacity.activiti.rest.editor.main;
 
-/**
- * @Author: [gitgeek]
- * @Date: [2018-05-16 15:51]
- * @Description: [ ]
- * @Version: [1.0.0]
- * @Copy: [com.zzg]
- */
-
 import org.activiti.engine.ActivitiException;
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +16,7 @@ import java.io.InputStream;
 @RequestMapping("service")
 public class StencilsetRestResource {
 
-    @RequestMapping(value="/editor/stencilset", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/editor/stencilset", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     @ResponseBody
     public String getStencilset() {
         InputStream stencilsetStream = this.getClass().getClassLoader().getResourceAsStream("stencilset.json");

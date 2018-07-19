@@ -11,19 +11,20 @@ import java.io.Serializable;
  */
 public class ActAssignee implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private String id;
-
     private String sid;
-
     private String assignee;
-
     private String roleId;
-
     private Integer assigneeType;
-
     private String activtiName;
 
-    private static final long serialVersionUID = 1L;
+    public ActAssignee() {
+    }
+
+    public ActAssignee(String sid) {
+        this.sid = sid;
+    }
 
     public String getId() {
         return id;
@@ -71,12 +72,5 @@ public class ActAssignee implements Serializable {
 
     public void setActivtiName(String activtiName) {
         this.activtiName = activtiName == null ? null : activtiName.trim();
-    }
-
-    public ActAssignee() {
-    }
-
-    public ActAssignee(String sid) {
-        this.sid = sid;
     }
 }

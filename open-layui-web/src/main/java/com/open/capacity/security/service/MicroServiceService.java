@@ -4,9 +4,9 @@ import com.open.capacity.security.model.Permission;
 
 public interface MicroServiceService {
 
-	void save(Permission permission);
+    void save(Permission permission);
 
-	void update(Permission permission);
+    void update(Permission permission);
 
-	void delete(Long id);
+    void delete(Long id);
 }

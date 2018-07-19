@@ -1,12 +1,9 @@
 package com.open.capacity.security.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.open.capacity.security.annotation.LogAnnotation;
+import com.open.capacity.security.utils.ExcelUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,114 +15,114 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.open.capacity.security.annotation.LogAnnotation;
-import com.open.capacity.security.utils.ExcelUtil;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Api(tags = "excel下载")
 @RestController
 @RequestMapping("/excels")
 public class ExcelController {
-	
-	private static final Logger log = LoggerFactory.getLogger(ExcelController.class);
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+    private static final Logger log = LoggerFactory.getLogger(ExcelController.class);
 
-	@ApiOperation("校验sql，并返回sql返回的数量")
-	@PostMapping("/sql-count")
-	public Integer checkSql(String sql) {
-		log.info(sql);
-		sql = getAndCheckSql(sql);
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-		Integer count = 0;
-		try {
-			count = jdbcTemplate.queryForObject("select count(1) from (" + sql + ") t", Integer.class);
-		} catch (Exception e) {
-			throw new IllegalArgumentException(e.getMessage());
-		}
+    @ApiOperation("校验sql，并返回sql返回的数量")
+    @PostMapping("/sql-count")
+    public Integer checkSql(String sql) {
+        log.info(sql);
+        sql = getAndCheckSql(sql);
 
-		return count;
-	}
+        Integer count = 0;
+        try {
+            count = jdbcTemplate.queryForObject("select count(1) from (" + sql + ") t", Integer.class);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
 
-	private String getAndCheckSql(String sql) {
-		sql = sql.trim().toLowerCase();
-		if (sql.endsWith(";") || sql.endsWith("；")) {
-			sql = sql.substring(0, sql.length() - 1);
-		}
-		if (!sql.startsWith("select")) {
-			throw new IllegalArgumentException("仅支持select语句");
-		}
-		return sql;
-	}
+        return count;
+    }
 
-	@LogAnnotation
-	@ApiOperation("根据sql导出excel")
-	@PostMapping
-	@PreAuthorize("hasAuthority('excel:down')")
-	public void downloadExcel(String sql, String fileName, HttpServletResponse response) {
-		sql = getAndCheckSql(sql);
-		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+    private String getAndCheckSql(String sql) {
+        sql = sql.trim().toLowerCase();
+        if (sql.endsWith(";") || sql.endsWith("；")) {
+            sql = sql.substring(0, sql.length() - 1);
+        }
+        if (!sql.startsWith("select")) {
+            throw new IllegalArgumentException("仅支持select语句");
+        }
+        return sql;
+    }
 
-		if (!CollectionUtils.isEmpty(list)) {
-			Map<String, Object> map = list.get(0);
+    @LogAnnotation
+    @ApiOperation("根据sql导出excel")
+    @PostMapping
+    @PreAuthorize("hasAuthority('excel:down')")
+    public void downloadExcel(String sql, String fileName, HttpServletResponse response) {
+        sql = getAndCheckSql(sql);
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 
-			String[] headers = new String[map.size()];
-			int i = 0;
-			for (String key : map.keySet()) {
-				headers[i++] = key;
-			}
+        if (!CollectionUtils.isEmpty(list)) {
+            Map<String, Object> map = list.get(0);
 
-			List<Object[]> datas = new ArrayList<>(list.size());
-			for (Map<String, Object> m : list) {
-				Object[] objects = new Object[headers.length];
-				for (int j = 0; j < headers.length; j++) {
-					objects[j] = m.get(headers[j]);
-				}
+            String[] headers = new String[map.size()];
+            int i = 0;
+            for (String key : map.keySet()) {
+                headers[i++] = key;
+            }
 
-				datas.add(objects);
-			}
+            List<Object[]> datas = new ArrayList<>(list.size());
+            for (Map<String, Object> m : list) {
+                Object[] objects = new Object[headers.length];
+                for (int j = 0; j < headers.length; j++) {
+                    objects[j] = m.get(headers[j]);
+                }
 
-			ExcelUtil.excelExport(
-					fileName == null || fileName.trim().length() <= 0 ? DigestUtils.md5Hex(sql) : fileName, headers,
-					datas, response);
-		}
-	}
+                datas.add(objects);
+            }
 
-	@LogAnnotation
-	@ApiOperation("根据sql在页面显示结果")
-	@PostMapping("/show-datas")
-	@PreAuthorize("hasAuthority('excel:show:datas')")
-	public List<Object[]> showData(String sql) {
-		sql = getAndCheckSql(sql);
-		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+            ExcelUtil.excelExport(
+                    fileName == null || fileName.trim().length() <= 0 ? DigestUtils.md5Hex(sql) : fileName, headers,
+                    datas, response);
+        }
+    }
 
-		if (!CollectionUtils.isEmpty(list)) {
-			Map<String, Object> map = list.get(0);
+    @LogAnnotation
+    @ApiOperation("根据sql在页面显示结果")
+    @PostMapping("/show-datas")
+    @PreAuthorize("hasAuthority('excel:show:datas')")
+    public List<Object[]> showData(String sql) {
+        sql = getAndCheckSql(sql);
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 
-			String[] headers = new String[map.size()];
-			int i = 0;
-			for (String key : map.keySet()) {
-				headers[i++] = key;
-			}
+        if (!CollectionUtils.isEmpty(list)) {
+            Map<String, Object> map = list.get(0);
 
-			List<Object[]> datas = new ArrayList<>(list.size());
-			datas.add(headers);
-			for (Map<String, Object> m : list) {
-				Object[] objects = new Object[headers.length];
-				for (int j = 0; j < headers.length; j++) {
-					objects[j] = m.get(headers[j]);
-				}
+            String[] headers = new String[map.size()];
+            int i = 0;
+            for (String key : map.keySet()) {
+                headers[i++] = key;
+            }
 
-				datas.add(objects);
-			}
+            List<Object[]> datas = new ArrayList<>(list.size());
+            datas.add(headers);
+            for (Map<String, Object> m : list) {
+                Object[] objects = new Object[headers.length];
+                for (int j = 0; j < headers.length; j++) {
+                    objects[j] = m.get(headers[j]);
+                }
 
-			return datas;
-		}
+                datas.add(objects);
+            }
 
-		return Collections.emptyList();
-	}
+            return datas;
+        }
+
+        return Collections.emptyList();
+    }
 
 }
