@@ -1,11 +1,10 @@
 package com.open.capacity.db.config.dynamic.config.util;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
-
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
@@ -13,22 +12,22 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
-	private Map<Object, Object> datasources;
+    private Map<Object, Object> datasources;
 
-	public DynamicDataSource() {
-		datasources = new HashMap<>();
+    public DynamicDataSource() {
+        datasources = new HashMap<>();
 
-		super.setTargetDataSources(datasources);
+        super.setTargetDataSources(datasources);
 
-	}
+    }
 
-	public <T extends DataSource> void addDataSource(DataSourceKey key, T data) {
-		datasources.put(key, data);
-	}
+    public <T extends DataSource> void addDataSource(DataSourceKey key, T data) {
+        datasources.put(key, data);
+    }
 
-	@Override
-	protected Object determineCurrentLookupKey() {
-		return DataSourceHolder.getDataSourceKey();
-	}
+    @Override
+    protected Object determineCurrentLookupKey() {
+        return DataSourceHolder.getDataSourceKey();
+    }
 
 }
