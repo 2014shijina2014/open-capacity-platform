@@ -6,8 +6,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -20,42 +18,25 @@
 	</properties>
 
 	<modules>
-		
-
 		<!-- db基础模块 -->
 		<module>open-db-core</module>
-		
 		<!-- 公共模块 -->
 		<module>open-commons</module>
-
 		<!-- 用户中心 -->
 		<module>open-user-center</module>
-
 		<!-- 服务注册中心模块 -->
 		<module>open-eureka-center</module>
-		
-		<!-- 配置中心模块 -->
-		<module>open-config-center</module>
-
 		<!-- oauth2 模块 -->
 		<module>open-oauth-center</module>
-		
 		<!-- 监控中心 -->
 		<module>open-monitor-center</module>
-		
 		<!--任务中心-->
 		<module>open-xxl-job</module>
-		
 		<!-- cxf框架集成 <module>open-cxf-service</module>-->
-		
 		<!-- zuul路由网关模块 -->
 		<module>open-api-gateway</module>
-
 		<!-- layui后台管理无session模块 -->
 		<module>open-layui-web</module>
-
-
-		
 	</modules>
 	<dependencies>
 		<dependency>
@@ -64,9 +45,7 @@
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
-
 		<dependencies>
-
 			<dependency>
 				<groupId>io.spring.platform</groupId>
 				<artifactId>platform-bom</artifactId>
@@ -82,16 +61,11 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
-  
-
-
 			<dependency>
 				<groupId>com.open.capacity</groupId>
 				<artifactId>open-db-core</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 	<repositories>
@@ -171,5 +145,4 @@
 			</resource>
 		</resources>
 	</build>
-
 </project>
