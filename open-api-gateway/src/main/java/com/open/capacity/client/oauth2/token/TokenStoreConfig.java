@@ -1,8 +1,6 @@
 package com.open.capacity.client.oauth2.token;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
+import com.open.capacity.client.oauth2.token.store.RedisTemplateTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +10,8 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import com.open.capacity.client.oauth2.token.store.RedisTemplateTokenStore;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 /** 
 * @author 作者 owen E-mail: 624191343@qq.com
@@ -22,14 +21,12 @@ import com.open.capacity.client.oauth2.token.store.RedisTemplateTokenStore;
 */
 @Configuration
 public class TokenStoreConfig {
- 
 	@Resource
 	private DataSource dataSource ;
 	
 	@Autowired(required=false)
 	private RedisTemplate<String, Object>  redisTemplate ;
-	
-	
+
 	@Bean
 	@ConditionalOnProperty(prefix="security.oauth2.token.store",name="type" ,havingValue="jdbc" ,matchIfMissing=true)
 	public JdbcTokenStore jdbcTokenStore(){

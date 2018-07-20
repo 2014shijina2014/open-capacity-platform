@@ -16,5 +16,4 @@ public interface ServiceDao {
     @Select("select * from oauth_client_details t where t.client_id = #{clientId}")
     Map getClient(String clientId);
 
-
 }

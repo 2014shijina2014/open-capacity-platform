@@ -18,14 +18,11 @@ public class AuthAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
     @Override
     public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
-
         //免token登录设置
         config.antMatchers("/test163").permitAll();
         config.antMatchers("/auth/**").permitAll();
         config.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll();
         config.antMatchers("/**/v2/api-docs", "/**/configuration/ui", "/**/swagger-resources", "/**/configuration/security", "/**/swagger-ui.html", "/**/webjars/**").permitAll();
-
-
         return true;
     }
 

@@ -50,7 +50,6 @@ public class RedisTemplateTokenStore implements TokenStore {
         this.authenticationKeyGenerator = authenticationKeyGenerator;
     }
 
-
     public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
         String key = authenticationKeyGenerator.extractKey(authentication);
         OAuth2AccessToken accessToken = (OAuth2AccessToken) redisTemplate.opsForValue().get(AUTH_TO_ACCESS + key);
@@ -136,7 +135,6 @@ public class RedisTemplateTokenStore implements TokenStore {
         return clientId + (userName == null ? "" : ":" + userName);
     }
 
-
     public void removeAccessToken(OAuth2AccessToken accessToken) {
         removeAccessToken(accessToken.getValue());
     }
@@ -150,11 +148,9 @@ public class RedisTemplateTokenStore implements TokenStore {
         // Don't remove the refresh token - it's up to the caller to do that
         OAuth2Authentication authentication = (OAuth2Authentication) this.redisTemplate.opsForValue().get(AUTH + tokenValue);
 
-
         this.redisTemplate.delete(AUTH + tokenValue);
         redisTemplate.delete(ACCESS + tokenValue);
         this.redisTemplate.delete(ACCESS_TO_REFRESH + tokenValue);
-
 
         if (authentication != null) {
             this.redisTemplate.delete(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication));

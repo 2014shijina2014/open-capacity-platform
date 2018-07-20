@@ -1,11 +1,11 @@
 package com.open.capacity.client.oauth2.authorize;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /** 
 * @author 作者 owen E-mail: 624191343@qq.com
@@ -36,7 +36,6 @@ public class OpenAuthorizeConfigManager implements AuthorizeConfigManager {
 //		config
 //		.anyRequest()
 //			.access("@rbacService.hasPermission(request, authentication)");
-		
 		
 	}
 
