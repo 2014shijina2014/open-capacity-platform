@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/layui/css/layui.css">
 <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
 </head>
-<body>
+<body style="background-color: #FFFFFF;overflow:hidden">
 	<button type="button" class="layui-btn" id="test1">
 	  <i class="layui-icon">&#xe67c;</i>上传头像
 	</button>
@@ -30,7 +30,7 @@
 				var url = data.headImgUrl;
 				if(url!=null && url!=""){
 					var src = domain + "/statics" + url;
-                    var a = "<a target='_blank' href='" + src +"'><img src='" + src + "'></img></a>";
+                    var a = "<a target='_blank' href='" + src +"'><img height='200' width='200' src='" + src + "'></img></a>";
 					$("#headImgDiv").html(a);
 				}
 			}
