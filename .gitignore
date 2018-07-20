@@ -37,3 +37,4 @@ Thumbs.db
 # else
 .springBeans
 /open-layui-web/logs/
+/open-layui-web/logs
