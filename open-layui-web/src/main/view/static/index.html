@@ -30,7 +30,7 @@
 			</div>
 			<ul class="layui-nav layui-layout-left">
 				<li class="layui-nav-item" lay-unselect>
-					<a title="侧边伸缩"><i class="fa fa-bars" aria-hidden="true"></i></a>
+					<a class="kit-side-fold" title="侧边伸缩"><i class="layui-icon layui-icon-shrink-right"></i></a>
 				</li>
 			</ul>
 			<ul class="layui-nav layui-layout-right">
@@ -99,9 +99,19 @@
 <script src="base-component/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jq.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+
+    $('.kit-side-fold').click(function(){
+        var isExapnd = $('.layui-layout-admin').hasClass('admin-nav-mini');
+        if (isExapnd) {
+            $('.layui-layout-admin').removeClass('admin-nav-mini');
+        } else {
+            $('.layui-layout-admin').addClass('admin-nav-mini');
+        }
+	});
+</script>
+
 </body>
-
-
-
 
 </html>
