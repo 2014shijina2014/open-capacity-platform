@@ -9,8 +9,6 @@
   <description>链路跟踪</description>
   <packaging>pom</packaging>
   <modules>
-  	<module>open-zipkin-kafka-client</module>
-  	<module>open-zipkin-kafka-server</module>
   	<module>open-zipkin-memery-client</module>
   	<module>open-zipkin-memery-server</module>
   </modules>
