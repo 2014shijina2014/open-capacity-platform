@@ -20,8 +20,6 @@
     <modules>
         <!-- db基础模块 -->
         <module>open-db-core</module>
-        <!-- 公共模块 -->
-        <module>open-commons</module>
         <!-- 服务注册中心模块 -->
         <module>open-eureka-center</module>
         <!-- oauth2 模块 -->

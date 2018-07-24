@@ -38,3 +38,4 @@ Thumbs.db
 .springBeans
 /open-layui-web/logs/
 /open-layui-web/logs
+open-db-core/src/main/resources/
