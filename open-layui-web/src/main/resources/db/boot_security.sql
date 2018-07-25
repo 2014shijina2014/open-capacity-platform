@@ -547,31 +547,3 @@ CREATE TABLE `t_token` (
 #
 # Data for table "t_token"
 #
-
-
-#
-# Structure for table "user_leave"
-#
-
-DROP TABLE IF EXISTS `user_leave`;
-CREATE TABLE `user_leave` (
-  `id` varchar(32) NOT NULL,
-  `user_id` varchar(32) NOT NULL,
-  `user_name` varchar(18) DEFAULT NULL,
-  `begin_time` datetime DEFAULT NULL,
-  `end_time` datetime DEFAULT NULL,
-  `reason` varchar(255) DEFAULT NULL,
-  `days` int(11) DEFAULT NULL,
-  `process_instance_Id` varchar(32) DEFAULT NULL,
-  `status` varchar(64) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `create_by` varchar(32) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `update_by` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "user_leave"
-#
-
