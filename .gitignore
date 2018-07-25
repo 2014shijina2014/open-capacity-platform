@@ -11,7 +11,6 @@ target/
 # eclipse ignore
 .settings/
 .classpath
-target/
 bin/
 open-cxf-service/
 open-elasticsearch/
@@ -39,3 +38,4 @@ Thumbs.db
 /open-layui-web/logs/
 /open-layui-web/logs
 open-db-core/src/main/resources/
+/open-api-gateway/target/

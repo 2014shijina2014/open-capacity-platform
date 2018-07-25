@@ -37,24 +37,6 @@ CREATE TABLE `file_info` (
 INSERT INTO `file_info` VALUES ('c5ca69c2971ac9add9efe91115bf500c','image/png',12105,'d:/files/2018/05/28/c5ca69c2971ac9add9efe91115bf500c.png','/2018/05/28/c5ca69c2971ac9add9efe91115bf500c.png',1,'2018-05-28 02:54:47','2018-05-28 02:54:47');
 
 
-#
-# Structure for table "oauth_approvals"
-#
-
-DROP TABLE IF EXISTS `oauth_approvals`;
-CREATE TABLE `oauth_approvals` (
-  `userId` varchar(256) DEFAULT NULL,
-  `clientId` varchar(256) DEFAULT NULL,
-  `scope` varchar(256) DEFAULT NULL,
-  `status` varchar(10) DEFAULT NULL,
-  `expiresAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `lastModifiedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "oauth_approvals"
-#
-
 
 #
 # Structure for table "oauth_client_details"

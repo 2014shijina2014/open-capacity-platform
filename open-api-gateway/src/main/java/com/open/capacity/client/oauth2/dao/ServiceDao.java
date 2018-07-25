@@ -9,7 +9,6 @@ import java.util.Map;
 @Mapper
 public interface ServiceDao {
 
-
     @Select("select p.* from sys_services p inner join sys_client_permission rp on p.id = rp.permissionId where rp.clientId = #{clientId} order by p.sort")
     List<Map> listByClientId(Long clientId);
 

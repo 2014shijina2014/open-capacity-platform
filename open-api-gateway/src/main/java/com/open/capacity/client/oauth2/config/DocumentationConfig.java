@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Swagger 配置类 网关整合
+ * Swagger 配置类 网关整合eureka中的微服务
  *
  * @author caoheyang
  * @date 20180725
