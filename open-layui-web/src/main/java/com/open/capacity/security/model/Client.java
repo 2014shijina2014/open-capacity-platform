@@ -3,9 +3,6 @@ package com.open.capacity.security.model;
 
 public class Client extends BaseEntity<Long> {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -8185413579135897885L;
     private Long id;
     private String clientId;

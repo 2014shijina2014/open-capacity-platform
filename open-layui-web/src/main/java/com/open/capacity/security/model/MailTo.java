@@ -1,5 +1,6 @@
 package com.open.capacity.security.model;
 
+
 public class MailTo extends BaseEntity<Long> {
 
     private static final long serialVersionUID = -8238779033956731073L;

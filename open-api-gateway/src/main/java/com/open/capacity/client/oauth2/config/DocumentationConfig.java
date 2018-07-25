@@ -8,6 +8,12 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Swagger 配置类 网关整合
+ *
+ * @author caoheyang
+ * @date 20180725
+ */
 @Primary
 @Component
 public class DocumentationConfig implements SwaggerResourcesProvider {

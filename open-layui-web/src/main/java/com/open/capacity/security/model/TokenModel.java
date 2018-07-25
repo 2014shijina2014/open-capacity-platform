@@ -2,6 +2,9 @@ package com.open.capacity.security.model;
 
 import java.util.Date;
 
+/**
+ * token 实体类
+ */
 public class TokenModel extends BaseEntity<String> {
 
     private static final long serialVersionUID = 4566334160572911795L;
@@ -10,6 +13,7 @@ public class TokenModel extends BaseEntity<String> {
      * 过期时间
      */
     private Date expireTime;
+
     /**
      * LoginUser的json串
      */
