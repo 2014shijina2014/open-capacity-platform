@@ -26,7 +26,7 @@
 .header-demo .layui-nav{top: 0;}
 .header-demo .layui-nav .layui-nav-item{margin: 0 10px; line-height: 65px;}
 .header-demo .layui-nav .layui-nav-item a{color: #999;}
-.header-demo .layui-nav .layui-this{background-color: #f2f2f2;}
+.header-demo .layui-nav .layui-this{    background-color: #333;  }
 .header-demo .layui-nav .layui-nav-item a:hover, 
 .header-demo .layui-nav .layui-this a{color: #000;}
 .header-demo .layui-nav .layui-this:after, 
