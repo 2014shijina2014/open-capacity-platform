@@ -541,17 +541,13 @@ VALUES
 	( 19, 0, '数据源监控', 'fa-eye', 'druid/index.html', 1, '', 9 ),
 	( 26, 0, '日志查询', 'fa-reorder', 'pages/log/logList.html', 1, 'sys:log:query', 13 ),
 	( 41, 0, '注册中心', 'fa-th-list', 'pages/euraka/euraka.html', 1, '', 18 ),
-	( 42, 0, '配置中心', 'fa-th-list', 'http://127.0.0.1:8070', 1, '', 19 ),
-	( 56, 0, '工作流管理', 'fa-th-list', NULL, 1, NULL, 22 ),
-	( 57, 56, '流程管理', NULL, '/pages/activiti/actList.html', 1, NULL, 21 ),
-	( 58, 56, '模型列表', '', '/pages/activiti/actModelList.html', 1, '', 22 ),
 	( 60, 41, '操作', '', '', 2, 'job:add', 100 ),
-	( 61, 66, '应用管理', '', 'pages/client/clientList.html', 1, '', 10 ),
+	( 61, 66, '应用管理', 'fa-cubes', 'pages/client/clientList.html', 1, '', 10 ),
 	( 62, 61, '查询', '', '', 2, 'sys:role:query', 100 ),
 	( 63, 61, '新增', '', '', 2, 'sys:role:add', 100 ),
 	( 64, 61, '删除', '', '', 2, 'sys:role:del', 100 ),
-	( 65, 66, '服务管理', '', 'pages/service/serviceList.html', 1, '', 1 ),
-	( 66, 0, '资源管理', '', '', 1, '', 100 );#
+	( 65, 66, '服务管理', 'fa-cloud', 'pages/service/serviceList.html', 1, '', 1 ),
+	( 66, 0, '资源管理', 'fa-th', '', 1, '', 100 );#
 
 
 # Structure for table "sys_role"
