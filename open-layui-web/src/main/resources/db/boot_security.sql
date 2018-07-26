@@ -830,10 +830,10 @@ DROP TABLE
 IF
 	EXISTS `t_mail_to`;
 CREATE TABLE `t_mail_to` (
-	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
-	`mailId` INT ( 11 ) NOT NULL,
-	`toUser` VARCHAR ( 128 ) NOT NULL,
-	`status` TINYINT ( 1 ) NOT NULL DEFAULT '1' COMMENT '1成功，0失败',
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT 'id',
+	`mailId` INT ( 11 ) NOT NULL COMMENT '邮件id',
+	`toUser` VARCHAR ( 128 ) NOT NULL COMMENT '收件人邮箱',
+	`status` TINYINT ( 1 ) NOT NULL DEFAULT '1' COMMENT '邮件投递状态 1成功，0失败',
 	PRIMARY KEY ( `id` )
 ) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 

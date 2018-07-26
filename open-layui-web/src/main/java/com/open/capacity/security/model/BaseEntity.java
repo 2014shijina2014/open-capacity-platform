@@ -14,9 +14,11 @@ import java.util.Date;
 public abstract class BaseEntity<ID extends Serializable> implements Serializable {
 
     private static final long serialVersionUID = 2054813493011812469L;
-
+    //主键id
     private ID id;
+    //添加时间
     private Date createTime = new Date();
+    //更改时间
     private Date updateTime = new Date();
 
     /**

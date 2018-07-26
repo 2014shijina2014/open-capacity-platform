@@ -1,5 +1,6 @@
 package com.open.capacity.security.model;
 
+//TODO 删除
 public class Dict extends BaseEntity<Long> {
 
     private static final long serialVersionUID = -2431140186410912787L;

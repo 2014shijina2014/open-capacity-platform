@@ -83,13 +83,9 @@ public class ClientServiceImpl implements ClientService {
             clientDetails = JSONObject.parseObject(value, BaseClientDetails.class);
             clientDetails.setClientSecret(client.getClientSecret());
             redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(clientId, JSONObject.toJSONString(clientDetails));
-
-
         } catch (Exception e) {
 
         }
-
-
         log.debug("修改应用{}", client.getClientId());
     }
 
@@ -101,5 +97,4 @@ public class ClientServiceImpl implements ClientService {
 
         log.debug("删除应用id:{}", id);
     }
-
 }
