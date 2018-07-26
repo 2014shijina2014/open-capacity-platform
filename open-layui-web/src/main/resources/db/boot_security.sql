@@ -1,70 +1,60 @@
-CREATE DATABASE IF NOT EXISTS `boot_security` DEFAULT CHARACTER SET = utf8mb4;
+CREATE DATABASE
+IF
+	NOT EXISTS `boot_security` DEFAULT CHARACTER
+	SET = utf8mb4;
+USE `boot_security`;
 
-Use `boot_security`;
+SET SESSION sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 
-set session
-sql_mode='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
-
-SET FOREIGN_KEY_CHECKS=0;
-
-
-# Host: 192.168.3.150  (Version 5.7.22)
+SET FOREIGN_KEY_CHECKS = 0;# Host: 192.168.3.150  (Version 5.7.22)
 # Date: 2018-06-24 11:52:30
 # Generator: MySQL-Front 5.4  (Build 4.153) - http://www.mysqlfront.de/
+/*!40101
+SET NAMES utf8 */;#
 
-/*!40101 SET NAMES utf8 */;
-#
 # Structure for table "file_info"
-#
-
-DROP TABLE IF EXISTS `file_info`;
+DROP TABLE
+IF
+	EXISTS `file_info`;
 CREATE TABLE `file_info` (
-  `id` varchar(32) NOT NULL COMMENT '文件md5',
-  `contentType` varchar(128) NOT NULL,
-  `size` int(11) NOT NULL,
-  `path` varchar(255) NOT NULL COMMENT '物理路径',
-  `url` varchar(1024) NOT NULL,
-  `type` int(1) NOT NULL,
-  `createTime` datetime NOT NULL,
-  `updateTime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`id` VARCHAR ( 32 ) NOT NULL COMMENT '文件md5',
+	`contentType` VARCHAR ( 128 ) NOT NULL,
+	`size` INT ( 11 ) NOT NULL,
+	`path` VARCHAR ( 255 ) NOT NULL COMMENT '物理路径',
+	`url` VARCHAR ( 1024 ) NOT NULL,
+	`type` INT ( 1 ) NOT NULL,
+	`createTime` datetime NOT NULL,
+	`updateTime` datetime NOT NULL,
+	PRIMARY KEY ( `id` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "file_info"
-#
-
 INSERT INTO `file_info`
 VALUES
-	( 'c5ca69c2971ac9add9efe91115bf500c', 'image/png', 12105, 'd:/files/2018/05/28/c5ca69c2971ac9add9efe91115bf500c.png', '/2018/05/28/c5ca69c2971ac9add9efe91115bf500c.png', 1, '2018-05-28 02:54:47', '2018-05-28 02:54:47' );
+	( 'c5ca69c2971ac9add9efe91115bf500c', 'image/png', 12105, 'd:/files/2018/05/28/c5ca69c2971ac9add9efe91115bf500c.png', '/2018/05/28/c5ca69c2971ac9add9efe91115bf500c.png', 1, '2018-05-28 02:54:47', '2018-05-28 02:54:47' );#
 
 
-
-#
 # Structure for table "oauth_client_details"
-#
-
-DROP TABLE IF EXISTS `oauth_client_details`;
+DROP TABLE
+IF
+	EXISTS `oauth_client_details`;
 CREATE TABLE `oauth_client_details` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `client_id` varchar(48) NOT NULL,
-  `resource_ids` varchar(256) DEFAULT NULL,
-  `client_secret` varchar(256) DEFAULT NULL,
-  `scope` varchar(256) DEFAULT NULL,
-  `authorized_grant_types` varchar(256) DEFAULT NULL,
-  `web_server_redirect_uri` varchar(256) DEFAULT NULL,
-  `authorities` varchar(256) DEFAULT NULL,
-  `access_token_validity` int(11) DEFAULT NULL,
-  `refresh_token_validity` int(11) DEFAULT NULL,
-  `additional_information` varchar(4096) DEFAULT NULL,
-  `autoapprove` varchar(256) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT '主键',
+	`client_id` VARCHAR ( 48 ) NOT NULL COMMENT '应用标识',
+	`resource_ids` VARCHAR ( 256 ) DEFAULT NULL COMMENT '资源限定串(逗号分割)',
+	`client_secret` VARCHAR ( 256 ) DEFAULT NULL COMMENT '应用密钥(bcyt) 加密',
+	`scope` VARCHAR ( 256 ) DEFAULT NULL COMMENT '范围',
+	`authorized_grant_types` VARCHAR ( 256 ) DEFAULT NULL COMMENT '5种oauth授权方式(authorization_code,password,refresh_token,client_credentials)',
+	`web_server_redirect_uri` VARCHAR ( 256 ) DEFAULT NULL COMMENT '回调地址 ',
+	`authorities` VARCHAR ( 256 ) DEFAULT NULL COMMENT '权限',
+	`access_token_validity` INT ( 11 ) DEFAULT NULL COMMENT 'access_token有效期',
+	`refresh_token_validity` INT ( 11 ) DEFAULT NULL COMMENT 'refresh_token有效期',
+	`additional_information` VARCHAR ( 4096 ) DEFAULT NULL COMMENT '{}',
+	`autoapprove` VARCHAR ( 256 ) DEFAULT NULL COMMENT '是否自动授权 是-true',
+	PRIMARY KEY ( `id` )
+) ENGINE = INNODB AUTO_INCREMENT = 8 DEFAULT CHARSET = utf8;#
 
-#
 # Data for table "oauth_client_details"
-#
-
 INSERT INTO `oauth_client_details`
 VALUES
 	( 1, 'app', NULL, 'app', 'app', 'password,refresh_token', NULL, NULL, 180000, NULL, '{}', 'true' ),
@@ -72,23 +62,20 @@ VALUES
 	( 3, 'test', 'test', 'test', 'test', 'password,refresh_token', NULL, NULL, 180000, NULL, '{}', 'true' ),
 	( 4, 'webApp', NULL, 'webApp', 'app', 'authorization_code,password,refresh_token,client_credentials', NULL, NULL, 180000, NULL, '{}', 'true' ),
 	( 5, 'clientId', '', 'clientSecret', 'all', 'authorization_code,password,refresh_token,client_credentials', 'http://www.baidu.com', '', 180000, NULL, '{}', 'true' ),
-	( 6, 'owen', NULL, 'owen', 'app', 'authorization_code,password,refresh_token,client_credentials', 'http://127.0.0.1:9997/clientOne/login', NULL, 180000, NULL, '{}', 'true' );
+	( 6, 'owen', NULL, 'owen', 'app', 'authorization_code,password,refresh_token,client_credentials', 'http://127.0.0.1:9997/clientOne/login', NULL, 180000, NULL, '{}', 'true' );#
 
-#
+
 # Structure for table "sys_client_permission"
-#
-
-DROP TABLE IF EXISTS `sys_client_permission`;
+DROP TABLE
+IF
+	EXISTS `sys_client_permission`;
 CREATE TABLE `sys_client_permission` (
-  `clientId` int(11) NOT NULL,
-  `permissionId` int(11) NOT NULL,
-  PRIMARY KEY (`clientId`,`permissionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`clientId` INT ( 11 ) NOT NULL COMMENT '应用标识',
+	`permissionId` INT ( 11 ) NOT NULL COMMENT '服务权限标识',
+	PRIMARY KEY ( `clientId`, `permissionId` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "sys_client_permission"
-#
-
 INSERT INTO `sys_client_permission`
 VALUES
 	( 1, 71 ),
@@ -115,47 +102,41 @@ VALUES
 	( 5, 72 ),
 	( 5, 73 ),
 	( 5, 74 ),
-	( 5, 75 );
+	( 5, 75 );#
 
-#
+
 # Structure for table "sys_client_server"
-#
-
-DROP TABLE IF EXISTS `sys_client_server`;
+DROP TABLE
+IF
+	EXISTS `sys_client_server`;
 CREATE TABLE `sys_client_server` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `clientId` int(11) DEFAULT NULL,
-  `moduleId` int(11) DEFAULT NULL COMMENT '模块ID',
-  `serverId` int(11) DEFAULT NULL COMMENT '服务ID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务授权表';
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+	`clientId` INT ( 11 ) DEFAULT NULL,
+	`moduleId` INT ( 11 ) DEFAULT NULL COMMENT '模块ID',
+	`serverId` INT ( 11 ) DEFAULT NULL COMMENT '服务ID',
+	PRIMARY KEY ( `id` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '服务授权表';#
 
-#
 # Data for table "sys_client_server"
-#
 
 
-#
 # Structure for table "sys_logs"
-#
-
-DROP TABLE IF EXISTS `sys_logs`;
+DROP TABLE
+IF
+	EXISTS `sys_logs`;
 CREATE TABLE `sys_logs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
-  `module` varchar(50) DEFAULT NULL COMMENT '模块名',
-  `flag` tinyint(4) NOT NULL DEFAULT '1' COMMENT '成功失败',
-  `remark` text COMMENT '备注',
-  `createTime` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `userId` (`userId`),
-  KEY `createTime` (`createTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=362 DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+	`userId` INT ( 11 ) NOT NULL,
+	`module` VARCHAR ( 50 ) DEFAULT NULL COMMENT '模块名',
+	`flag` TINYINT ( 4 ) NOT NULL DEFAULT '1' COMMENT '成功失败',
+	`remark` text COMMENT '备注',
+	`createTime` datetime NOT NULL,
+	PRIMARY KEY ( `id` ),
+	KEY `userId` ( `userId` ),
+	KEY `createTime` ( `createTime` )
+) ENGINE = INNODB AUTO_INCREMENT = 362 DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "sys_logs"
-#
-
 INSERT INTO `sys_logs`
 VALUES
 	( 1, 1, '登陆', 1, NULL, '2018-03-14 03:59:44' ),
@@ -518,29 +499,26 @@ VALUES
 ( 358, 1, '保存应用', 0, 'webApp已存在', '2018-06-22 08:44:47' ),
 ( 359, 1, '保存服务', 1, NULL, '2018-06-22 08:52:37' ),
 ( 360, 1, '修改服务', 1, NULL, '2018-06-22 08:53:04' ),
-( 361, 1, '保存服务', 1, NULL, '2018-06-22 08:53:31' );
+( 361, 1, '保存服务', 1, NULL, '2018-06-22 08:53:31' );#
 
-#
+
 # Structure for table "sys_permission"
-#
-
-DROP TABLE IF EXISTS `sys_permission`;
+DROP TABLE
+IF
+	EXISTS `sys_permission`;
 CREATE TABLE `sys_permission` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parentId` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `css` varchar(30) DEFAULT NULL,
-  `href` varchar(1000) DEFAULT NULL,
-  `type` tinyint(1) NOT NULL,
-  `permission` varchar(50) DEFAULT NULL,
-  `sort` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT '权限ID',
+	`parentId` INT ( 11 ) NOT NULL COMMENT '父权限ID',
+	`name` VARCHAR ( 50 ) NOT NULL COMMENT '权限名称',
+	`css` VARCHAR ( 30 ) DEFAULT NULL,
+	`href` VARCHAR ( 1000 ) DEFAULT NULL COMMENT '链接',
+	`type` TINYINT ( 1 ) NOT NULL COMMENT '资源类型 1菜单 2按钮',
+	`permission` VARCHAR ( 50 ) DEFAULT NULL COMMENT '权限标识符',
+	`sort` INT ( 11 ) NOT NULL COMMENT '排序号',
+	PRIMARY KEY ( `id` )
+) ENGINE = INNODB AUTO_INCREMENT = 67 DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "sys_permission"
-#
-
 INSERT INTO `sys_permission`
 VALUES
 	( 1, 0, '用户管理', 'fa-users', '', 1, '', 2 ),
@@ -573,49 +551,44 @@ VALUES
 	( 63, 61, '新增', '', '', 2, 'sys:role:add', 100 ),
 	( 64, 61, '删除', '', '', 2, 'sys:role:del', 100 ),
 	( 65, 66, '服务管理', '', 'pages/service/serviceList.html', 1, '', 1 ),
-	( 66, 0, '资源管理', '', '', 1, '', 100 );
+	( 66, 0, '资源管理', '', '', 1, '', 100 );#
 
-#
+
 # Structure for table "sys_role"
-#
-
-DROP TABLE IF EXISTS `sys_role`;
+DROP TABLE
+IF
+	EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(100) DEFAULT NULL,
-  `createTime` datetime NOT NULL,
-  `updateTime` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT '主键',
+	`name` VARCHAR ( 50 ) NOT NULL COMMENT '角色名称',
+	`description` VARCHAR ( 100 ) DEFAULT NULL COMMENT '描述',
+	`createTime` datetime NOT NULL COMMENT '创建时间',
+	`updateTime` datetime NOT NULL COMMENT '修改时间',
+	PRIMARY KEY ( `id` ),
+	UNIQUE KEY `name` ( `name` )
+) ENGINE = INNODB AUTO_INCREMENT = 7 DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "sys_role"
-#
-
 INSERT INTO `sys_role`
 VALUES
 	( 1, 'ADMIN', '管理员', '2017-05-01 13:25:39', '2018-06-22 07:46:48' ),
 	( 2, 'USER', '11', '2017-08-01 21:47:31', '2018-06-21 11:09:12' ),
 	( 3, 'test1', 'test1', '2018-03-14 13:03:36', '2018-06-21 11:09:32' ),
 	( 4, 'ttttt', 'ttt1', '2018-04-24 11:09:34', '2018-06-21 11:12:26' ),
-	( 5, '11111', '222222', '2018-04-24 17:47:12', '2018-04-26 10:49:07' );
-#
+	( 5, '11111', '222222', '2018-04-24 17:47:12', '2018-04-26 10:49:07' );#
+
+
 # Structure for table "sys_role_permission"
-#
-
-DROP TABLE IF EXISTS `sys_role_permission`;
+DROP TABLE
+IF
+	EXISTS `sys_role_permission`;
 CREATE TABLE `sys_role_permission` (
-  `roleId` int(11) NOT NULL,
-  `permissionId` int(11) NOT NULL,
-  PRIMARY KEY (`roleId`,`permissionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`roleId` INT ( 11 ) NOT NULL COMMENT '角色',
+	`permissionId` INT ( 11 ) NOT NULL COMMENT '权限',
+	PRIMARY KEY ( `roleId`, `permissionId` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "sys_role_permission"
-#
-
 INSERT INTO `sys_role_permission`
 VALUES
 	( 1, 1 ),
@@ -719,109 +692,113 @@ VALUES
 	( 5, 39 ),
 	( 5, 40 ),
 	( 5, 41 ),
-	( 5, 42 );
+	( 5, 42 );#
 
-#
+
 # Structure for table "sys_role_user"
-#
-
-DROP TABLE IF EXISTS `sys_role_user`;
+DROP TABLE
+IF
+	EXISTS `sys_role_user`;
 CREATE TABLE `sys_role_user` (
-  `userId` int(11) NOT NULL,
-  `roleId` int(11) NOT NULL,
-  PRIMARY KEY (`userId`,`roleId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`userId` INT ( 11 ) NOT NULL COMMENT '用户',
+	`roleId` INT ( 11 ) NOT NULL COMMENT '角色',
+	PRIMARY KEY ( `userId`, `roleId` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "sys_role_user"
-#
+INSERT INTO `sys_role_user`
+VALUES
+	( 1, 1 ),
+	( 1, 2 ),
+	( 1, 3 ),
+	( 1, 4 ),
+	( 1, 5 ),
+	( 2, 1 ),
+	( 2, 2 ),
+	( 2, 3 ),
+	( 2, 4 ),
+	( 2, 5 ),
+	( 3, 1 ),
+	( 3, 2 ),
+	( 4, 3 ),
+	( 5, 1 ),
+	( 5, 2 );#
 
-INSERT INTO `sys_role_user` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(2,1),(2,2),(2,3),(2,4),(2,5),(3,1),(3,2),(4,3),(5,1),(5,2);
 
-
-#
 # Structure for table "sys_services"
-#
-
-DROP TABLE IF EXISTS `sys_services`;
+DROP TABLE
+IF
+	EXISTS `sys_services`;
 CREATE TABLE `sys_services` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parentId` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `css` varchar(30) DEFAULT NULL,
-  `href` varchar(1000) DEFAULT NULL,
-  `type` tinyint(1) NOT NULL,
-  `permission` varchar(50) DEFAULT NULL,
-  `sort` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT '服务ID',
+	`parentId` INT ( 11 ) NOT NULL COMMENT '父服务ID',
+	`name` VARCHAR ( 50 ) NOT NULL COMMENT '服务名称',
+	`css` VARCHAR ( 30 ) DEFAULT NULL COMMENT 'css',
+	`href` VARCHAR ( 1000 ) DEFAULT NULL COMMENT '服务地址',
+	`type` TINYINT ( 1 ) NOT NULL,
+	`permission` VARCHAR ( 50 ) DEFAULT NULL COMMENT '服务权限标识符',
+	`sort` INT ( 11 ) NOT NULL COMMENT '排序',
+	PRIMARY KEY ( `id` )
+) ENGINE = INNODB AUTO_INCREMENT = 74 DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "sys_services"
-#
-
 INSERT INTO `sys_services`
 VALUES
 	( 71, 0, '授权服务', '', '/auth', 1, '', 1 ),
 	( 72, 71, '用户授权token', '', '/auth/user/token', 1, '', 100 ),
 	( 73, 71, '应用申请token', '', '/auth/client/token', 1, '', 100 ),
 	( 74, 0, '测试微服务', '', '/client', 1, '', 100 ),
-	( 75, 74, 'hello接口', '', '/client/hello', 1, '', 100 );
-#
+	( 75, 74, 'hello接口', '', '/client/hello', 1, '', 100 );#
+
+
 # Structure for table "sys_user"
-#
-
-DROP TABLE IF EXISTS `sys_user`;
+DROP TABLE
+IF
+	EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(60) NOT NULL,
-  `nickname` varchar(255) DEFAULT NULL,
-  `headImgUrl` varchar(255) DEFAULT NULL,
-  `phone` varchar(11) DEFAULT NULL,
-  `telephone` varchar(30) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `birthday` date DEFAULT NULL,
-  `sex` tinyint(1) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `createTime` datetime NOT NULL,
-  `updateTime` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT '用户主键',
+	`username` VARCHAR ( 50 ) NOT NULL COMMENT '用户名',
+	`password` VARCHAR ( 60 ) NOT NULL COMMENT '密码',
+	`nickname` VARCHAR ( 255 ) DEFAULT NULL COMMENT '昵称',
+	`headImgUrl` VARCHAR ( 255 ) DEFAULT NULL COMMENT '头像地址',
+	`phone` VARCHAR ( 11 ) DEFAULT NULL COMMENT '电话',
+	`telephone` VARCHAR ( 30 ) DEFAULT NULL COMMENT '手机号',
+	`email` VARCHAR ( 50 ) DEFAULT NULL COMMENT '邮箱',
+	`birthday` date DEFAULT NULL COMMENT '生日',
+	`sex` TINYINT ( 1 ) DEFAULT NULL COMMENT '性别',
+	`status` TINYINT ( 1 ) NOT NULL DEFAULT '1' COMMENT '状态  不可用:0   有效:1  锁定:2 ',
+	`createTime` datetime NOT NULL COMMENT '创建时间',
+	`updateTime` datetime NOT NULL COMMENT '修改时间',
+	PRIMARY KEY ( `id` ),
+	UNIQUE KEY `username` ( `username` )
+) ENGINE = INNODB AUTO_INCREMENT = 6 DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "sys_user"
-#
-
 INSERT INTO `sys_user`
 VALUES
 	( 1, 'admin', '$2a$10$q54rooCXqDTWYkf29d4ZFu/L3zkq5Uoa6jdA/spRNSwpxksEqJYpy', '管理员', NULL, '', '', '', '1998-07-01', 0, 1, '2017-04-10 15:21:38', '2018-05-28 02:49:01' ),
 	( 2, 'user', '$2a$10$ooGb4wjT7Hg3zgU2RhZp6eVu3jvG29i/U4L6VRwiZZ4.DZ0OOEAHu', '用户', NULL, '22222', '2222', '', NULL, 1, 1, '2017-08-01 21:47:18', '2018-06-21 21:05:02' ),
 	( 3, 'test123', '$2a$10$MGxO0dynaARStolVS9tzk.ZGwzlC2WZ2LZ/LzxixWxCUoftU5Xtnq', 'test111', NULL, '18571111111', '221', '22', '2018-03-14', 1, 1, '2018-03-14 08:43:48', '2018-06-21 21:04:47' ),
 	( 4, 'owen', '$2a$10$JTuOh..ec2N1BBi6NOsn1.beg72gN7je7uNvFn.VWbfkrAsPZ3otC', 'test', NULL, '18571111111', '', '11@11.com', '2018-03-20', 0, 1, '2018-03-14 13:02:36', '2018-06-12 20:56:07' ),
-	( 5, '111111111', '$2a$10$mJuBGzs67CyExiTZkk5iLOF9sE09GDK7jLf2O6gosMh.g/fDeKEiS', '111111', NULL, '11111111111', '11111111111', '11@11.com', '2018-04-11', 0, 1, '2018-04-14 21:42:43', '2018-04-14 21:42:43' );
+	( 5, '111111111', '$2a$10$mJuBGzs67CyExiTZkk5iLOF9sE09GDK7jLf2O6gosMh.g/fDeKEiS', '111111', NULL, '11111111111', '11111111111', '11@11.com', '2018-04-11', 0, 1, '2018-04-14 21:42:43', '2018-04-14 21:42:43' );#
 
-#
+
 # Structure for table "t_dict"
-#
-
-DROP TABLE IF EXISTS `t_dict`;
+DROP TABLE
+IF
+	EXISTS `t_dict`;
 CREATE TABLE `t_dict` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(16) NOT NULL,
-  `k` varchar(16) NOT NULL,
-  `val` varchar(64) NOT NULL,
-  `createTime` datetime NOT NULL,
-  `updateTime` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `type` (`type`,`k`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+	`type` VARCHAR ( 16 ) NOT NULL,
+	`k` VARCHAR ( 16 ) NOT NULL,
+	`val` VARCHAR ( 64 ) NOT NULL,
+	`createTime` datetime NOT NULL,
+	`updateTime` datetime NOT NULL,
+	PRIMARY KEY ( `id` ),
+	UNIQUE KEY `type` ( `type`, `k` )
+) ENGINE = INNODB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "t_dict"
-#
-
 INSERT INTO `t_dict`
 VALUES
 	( 1, 'sex', '0', '女', '2017-11-17 09:58:24', '2017-11-18 14:21:05' ),
@@ -832,78 +809,67 @@ VALUES
 	( 6, 'noticeStatus', '0', '草稿', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
 	( 7, 'noticeStatus', '1', '发布', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
 	( 8, 'isRead', '0', '未读', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
-	( 9, 'isRead', '1', '已读', '2017-11-17 16:26:06', '2017-11-17 16:26:09' );
+	( 9, 'isRead', '1', '已读', '2017-11-17 16:26:06', '2017-11-17 16:26:09' );#
 
-#
+
 # Structure for table "t_mail"
-#
-
-DROP TABLE IF EXISTS `t_mail`;
+DROP TABLE
+IF
+	EXISTS `t_mail`;
 CREATE TABLE `t_mail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL COMMENT '发送人',
-  `subject` varchar(255) NOT NULL COMMENT '标题',
-  `content` longtext NOT NULL COMMENT '正文',
-  `createTime` datetime NOT NULL,
-  `updateTime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+	`userId` INT ( 11 ) NOT NULL COMMENT '发送人',
+	`subject` VARCHAR ( 255 ) NOT NULL COMMENT '标题',
+	`content` LONGTEXT NOT NULL COMMENT '正文',
+	`createTime` datetime NOT NULL,
+	`updateTime` datetime NOT NULL,
+	PRIMARY KEY ( `id` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "t_mail"
-#
 
 
-#
 # Structure for table "t_mail_to"
-#
-
-DROP TABLE IF EXISTS `t_mail_to`;
+DROP TABLE
+IF
+	EXISTS `t_mail_to`;
 CREATE TABLE `t_mail_to` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mailId` int(11) NOT NULL,
-  `toUser` varchar(128) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1成功，0失败',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+	`mailId` INT ( 11 ) NOT NULL,
+	`toUser` VARCHAR ( 128 ) NOT NULL,
+	`status` TINYINT ( 1 ) NOT NULL DEFAULT '1' COMMENT '1成功，0失败',
+	PRIMARY KEY ( `id` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "t_mail_to"
-#
 
 
-#
 # Structure for table "t_notice"
-#
-
-DROP TABLE IF EXISTS `t_notice`;
+DROP TABLE
+IF
+	EXISTS `t_notice`;
 CREATE TABLE `t_notice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(128) NOT NULL,
-  `content` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `createTime` datetime NOT NULL,
-  `updateTime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR ( 128 ) NOT NULL,
+	`content` text NOT NULL,
+	`status` TINYINT ( 1 ) NOT NULL DEFAULT '1',
+	`createTime` datetime NOT NULL,
+	`updateTime` datetime NOT NULL,
+	PRIMARY KEY ( `id` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "t_notice"
-#
 
 
-#
 # Structure for table "t_notice_read"
-#
-
-DROP TABLE IF EXISTS `t_notice_read`;
+DROP TABLE
+IF
+	EXISTS `t_notice_read`;
 CREATE TABLE `t_notice_read` (
-  `noticeId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `createTime` datetime NOT NULL,
-  PRIMARY KEY (`noticeId`,`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	`noticeId` INT ( 11 ) NOT NULL,
+	`userId` INT ( 11 ) NOT NULL,
+	`createTime` datetime NOT NULL,
+	PRIMARY KEY ( `noticeId`, `userId` )
+) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
-#
 # Data for table "t_notice_read"
-#
