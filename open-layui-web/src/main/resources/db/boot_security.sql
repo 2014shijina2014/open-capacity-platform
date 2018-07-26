@@ -838,34 +838,3 @@ CREATE TABLE `t_mail_to` (
 ) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
 
 # Data for table "t_mail_to"
-
-
-# Structure for table "t_notice"
-DROP TABLE
-IF
-	EXISTS `t_notice`;
-CREATE TABLE `t_notice` (
-	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
-	`title` VARCHAR ( 128 ) NOT NULL,
-	`content` text NOT NULL,
-	`status` TINYINT ( 1 ) NOT NULL DEFAULT '1',
-	`createTime` datetime NOT NULL,
-	`updateTime` datetime NOT NULL,
-	PRIMARY KEY ( `id` )
-) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
-
-# Data for table "t_notice"
-
-
-# Structure for table "t_notice_read"
-DROP TABLE
-IF
-	EXISTS `t_notice_read`;
-CREATE TABLE `t_notice_read` (
-	`noticeId` INT ( 11 ) NOT NULL,
-	`userId` INT ( 11 ) NOT NULL,
-	`createTime` datetime NOT NULL,
-	PRIMARY KEY ( `noticeId`, `userId` )
-) ENGINE = INNODB DEFAULT CHARSET = utf8mb4;#
-
-# Data for table "t_notice_read"
