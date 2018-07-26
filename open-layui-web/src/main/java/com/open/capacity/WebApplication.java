@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author owen 624191343@qq.com
  */
 @SpringBootApplication
-public class SecurityApplication {
+public class WebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SecurityApplication.class, args);
+        SpringApplication.run(WebApplication.class, args);
     }
 }

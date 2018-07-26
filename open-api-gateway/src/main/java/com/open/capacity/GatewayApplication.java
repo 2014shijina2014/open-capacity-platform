@@ -21,7 +21,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableZuulProxy
 @EnableDiscoveryClient
 @SpringBootApplication
-public class GatewayApp {
+public class GatewayApplication {
 
     @Bean
     @LoadBalanced
@@ -51,7 +51,7 @@ public class GatewayApp {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApp.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
     }
 
 }

@@ -13,8 +13,8 @@ import zipkin.server.EnableZipkinServer;
 @EnableDiscoveryClient
 @EnableZipkinServer
 @SpringBootApplication
-public class OpenZipkinSerApp {
+public class OpenZipkinServerApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(OpenZipkinSerApp.class, args);
+		SpringApplication.run(OpenZipkinServerApplication.class, args);
 	}
 }

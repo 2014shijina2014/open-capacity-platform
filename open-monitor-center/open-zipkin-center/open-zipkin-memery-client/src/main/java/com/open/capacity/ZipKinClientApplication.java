@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 */
 @EnableEurekaClient
 @SpringBootApplication
-public class ZipKinClientApp {
+public class ZipKinClientApplication {
 	
 	@Bean
 	@LoadBalanced
@@ -24,6 +24,6 @@ public class ZipKinClientApp {
 	}
 	
 	public static void main(String[] args) {
-		SpringApplication.run(ZipKinClientApp.class, args);
+		SpringApplication.run(ZipKinClientApplication.class, args);
 	}
 } 

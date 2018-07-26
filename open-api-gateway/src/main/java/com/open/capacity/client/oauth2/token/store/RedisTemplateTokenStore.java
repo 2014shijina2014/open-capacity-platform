@@ -80,7 +80,6 @@ public class RedisTemplateTokenStore implements TokenStore {
 
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
 
-
         this.redisTemplate.opsForValue().set(ACCESS + token.getValue(), token);
         this.redisTemplate.opsForValue().set(AUTH + token.getValue(), authentication);
         this.redisTemplate.opsForValue().set(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication), token);

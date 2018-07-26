@@ -17,10 +17,10 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableFeignClients({"com.open.capacity"})
-public class OpenAuthServerApp {
+public class AuthServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OpenAuthServerApp.class, args);
+        SpringApplication.run(AuthServerApplication.class, args);
     }
 
 }
