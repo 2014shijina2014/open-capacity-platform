@@ -30,7 +30,6 @@ public class DictController {
             throw new IllegalArgumentException("类型和key已存在");
         }
         dictDao.save(dict);
-
         return dict;
     }
 
@@ -54,13 +53,11 @@ public class DictController {
     @ApiOperation(value = "列表")
     public PageTableResponse list(PageTableRequest request) {
         return new PageTableHandler(new CountHandler() {
-
             @Override
             public int count(PageTableRequest request) {
                 return dictDao.count(request.getParams());
             }
         }, new ListHandler() {
-
             @Override
             public List<Dict> list(PageTableRequest request) {
                 return dictDao.list(request.getParams(), request.getOffset(), request.getLimit());

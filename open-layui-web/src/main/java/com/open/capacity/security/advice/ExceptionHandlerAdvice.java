@@ -50,5 +50,4 @@ public class ExceptionHandlerAdvice {
         return new ResponseInfo(HttpStatus.INTERNAL_SERVER_ERROR.value() + "", throwable.getMessage());
 
     }
-
 }
