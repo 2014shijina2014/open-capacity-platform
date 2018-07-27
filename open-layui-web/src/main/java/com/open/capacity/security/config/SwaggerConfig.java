@@ -26,4 +26,5 @@ public class SwaggerConfig {
                         .contact(new Contact("owen", "", "624191343@qq.com")).version("1.0").build())
                 .select().paths(PathSelectors.any()).build();
     }
+
 }

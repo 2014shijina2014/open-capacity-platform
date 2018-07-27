@@ -404,35 +404,3 @@ VALUES
 	( 3, 'test123', '$2a$10$MGxO0dynaARStolVS9tzk.ZGwzlC2WZ2LZ/LzxixWxCUoftU5Xtnq', 'test111', NULL, '18571111111', '221', '22', '2018-03-14', 1, 1, '2018-03-14 08:43:48', '2018-06-21 21:04:47' ),
 	( 4, 'owen', '$2a$10$JTuOh..ec2N1BBi6NOsn1.beg72gN7je7uNvFn.VWbfkrAsPZ3otC', 'test', NULL, '18571111111', '', '11@11.com', '2018-03-20', 0, 1, '2018-03-14 13:02:36', '2018-06-12 20:56:07' ),
 	( 5, '111111111', '$2a$10$mJuBGzs67CyExiTZkk5iLOF9sE09GDK7jLf2O6gosMh.g/fDeKEiS', '111111', NULL, '11111111111', '11111111111', '11@11.com', '2018-04-11', 0, 1, '2018-04-14 21:42:43', '2018-04-14 21:42:43' );#
-
-
-# Structure for table "t_mail"
-DROP TABLE
-IF
-	EXISTS `t_mail`;
-CREATE TABLE `t_mail` (
-	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
-	`userId` INT ( 11 ) NOT NULL COMMENT '发送人',
-	`subject` VARCHAR ( 255 ) NOT NULL COMMENT '标题',
-	`content` LONGTEXT NOT NULL COMMENT '正文',
-	`createTime` datetime NOT NULL,
-	`updateTime` datetime NOT NULL,
-	PRIMARY KEY ( `id` )
-) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COMMENT ='发送邮件表';#
-
-# Data for table "t_mail"
-
-
-# Structure for table "t_mail_to"
-DROP TABLE
-IF
-	EXISTS `t_mail_to`;
-CREATE TABLE `t_mail_to` (
-	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT 'id',
-	`mailId` INT ( 11 ) NOT NULL COMMENT '邮件id',
-	`toUser` VARCHAR ( 128 ) NOT NULL COMMENT '收件人邮箱',
-	`status` TINYINT ( 1 ) NOT NULL DEFAULT '1' COMMENT '邮件投递状态 1成功，0失败',
-	PRIMARY KEY ( `id` )
-) ENGINE = INNODB DEFAULT CHARSET = utf8mb4 COMMENT ='邮件收件人表';#
-
-# Data for table "t_mail_to"
