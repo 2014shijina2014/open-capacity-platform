@@ -8,7 +8,8 @@ import java.util.Date;
 /**
  * Base实体类
  *
- * @param <ID>
+ * @param <ID> 主键id
+ * @author heyang
  */
 @Data
 public abstract class BaseEntity<ID extends Serializable> implements Serializable {
