@@ -66,15 +66,12 @@ public class ClientServiceImpl implements ClientService {
 //		}
 
         clientDao.update(client);
-
-
         clientDao.deleteClientPermission(client.getId());
         if (!CollectionUtils.isEmpty(permissionIds)) {
             clientDao.saveClientPermission(client.getId(), permissionIds);
         }
 
         String clientId = clientDao.getById(client.getId()).getClientId();
-
         BaseClientDetails clientDetails = null;
 
         // 先从redis获取
