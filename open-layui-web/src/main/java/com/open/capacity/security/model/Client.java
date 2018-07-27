@@ -1,7 +1,7 @@
 package com.open.capacity.security.model;
 
 /**
- * 客户端模式的表
+ * OAUTH2客户端模式表
  *
  * @DBTable oauth_client_details
  */

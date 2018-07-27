@@ -3,7 +3,7 @@ package com.open.capacity.security.model;
 import java.util.List;
 
 /**
- * TODO 权限表？
+ * 中台资源权限表
  *
  * @DBTable sys_permission
  */

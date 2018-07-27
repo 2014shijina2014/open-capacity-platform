@@ -1,7 +1,7 @@
 package com.open.capacity.security.model;
 
 /**
- * 角色表
+ * 中台角色表
  *
  * @DBTable sys_role
  */
