@@ -58,9 +58,6 @@ public class FeignConfig implements RequestInterceptor {
         if (StringUtils.isBlank(token)) {
             token = request.getHeader(TOKEN_KEY);
         }
-
         return token;
     }
-
-
 }

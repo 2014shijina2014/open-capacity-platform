@@ -2,7 +2,7 @@ server:
   port: 9200
 spring:
   application:
-    name: open-auth-gateway
+    name: open-api-gateway
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
       driver-class-name:  com.mysql.jdbc.Driver

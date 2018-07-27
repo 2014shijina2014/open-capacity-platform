@@ -12,4 +12,6 @@ import org.springframework.cloud.netflix.feign.FeignClient;
  */
 @FeignClient(value = "open-user-center", configuration = FeignConfig.class)
 public interface RoleClient {
+
 }
+

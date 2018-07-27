@@ -8,7 +8,6 @@ logging:
     root: INFO
     org.springframework.cloud.sleuth: DEBUG #监控行为
 
-
 eureka:
   client:
     serviceUrl:

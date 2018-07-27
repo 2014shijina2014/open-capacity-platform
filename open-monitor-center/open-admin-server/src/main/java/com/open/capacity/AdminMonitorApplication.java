@@ -17,6 +17,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class AdminMonitorApplication {
     public static void main(String[] args) {
         SpringApplication.run(AdminMonitorApplication.class, args);
+        //TODO Spring boot Admin 服务上线下线通知
     }
-
 }

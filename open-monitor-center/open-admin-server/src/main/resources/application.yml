@@ -2,33 +2,15 @@ server:
   port: 9998  
 spring:  
   application:  
-    name: unieap-admin-server
+    name: open-admin-server
   boot:  
-    admin:  
-      notify:  
-        mail:  
-          enabled: true
-          to: 624191343@qq.com  
-          from: 18579068155@163.com  
-#          ignore-changes: UNKNOWN:UP  
-          ignore-changes:  
-            -  
-              "*:UP" #从任何状态到up状态都不要发邮件通知  
+    admin:
       routes:  
         endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
       turbine:
         clusters: default
         #,unieap-eureka-server-single
-        location: turbine  
-  mail:
-    host: smtp.163.com
-    username: 18579068155@163.com
-    password: 1q2w3e4r
-    properties:
-        mail.smtp.auth : true
-        mail.smtp.timeout : 2000
-        mail.smtp.starttls.enable : true
-        mail.smtp.starttls.required : true 
+        location: turbine
 eureka:  
   client:  
     serviceUrl:  

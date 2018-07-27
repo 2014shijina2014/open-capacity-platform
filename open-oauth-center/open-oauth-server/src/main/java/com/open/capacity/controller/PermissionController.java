@@ -23,22 +23,22 @@ public class PermissionController {
     private PermissionClient permissionClient;
 
     @GetMapping("/current")
-    public Object permissionsCurrent(){
+    public Object permissionsCurrent() {
         return permissionClient.permissionsCurrent();
     }
 
     @GetMapping("/all")
-    public Object permissionsAll(){
+    public Object permissionsAll() {
         return permissionClient.permissionsAll();
     }
 
     @GetMapping("/parents")
-    public Object parents(){
+    public Object parents() {
         return permissionClient.parentMenu();
     }
 
     @GetMapping(params = "roleId")
-    public Object listByRoleId(Long roleId ){
+    public Object listByRoleId(Long roleId) {
         return permissionClient.listByRoleId(roleId);
     }
 
@@ -46,8 +46,6 @@ public class PermissionController {
     public Set<String> ownsPermission() {
         return permissionClient.ownsPermission();
     }
-
-
 
 
 }
