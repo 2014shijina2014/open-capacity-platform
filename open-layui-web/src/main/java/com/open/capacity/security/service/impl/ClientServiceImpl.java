@@ -1,7 +1,7 @@
 package com.open.capacity.security.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.open.capacity.security.dao.ClientDao;
+import com.open.capacity.security.dao.OauthClientDetailsDao;
 import com.open.capacity.security.dto.ClientDto;
 import com.open.capacity.security.model.Client;
 import com.open.capacity.security.service.ClientService;
@@ -27,7 +27,7 @@ public class ClientServiceImpl implements ClientService {
     private static final String CACHE_CLIENT_KEY = "oauth_client_details";
 
     @Autowired
-    private ClientDao clientDao;
+    private OauthClientDetailsDao oauthClientDetailsDao;
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -47,31 +47,31 @@ public class ClientServiceImpl implements ClientService {
     }
 
     private void saveClient(Client client, List<Long> permissionIds) {
-        Client r = clientDao.getClient(client.getClientId());
+        Client r = oauthClientDetailsDao.getClient(client.getClientId());
         if (r != null) {
             throw new IllegalArgumentException(client.getClientId() + "已存在");
         }
 
-        clientDao.save(client);
+        oauthClientDetailsDao.save(client);
         if (!CollectionUtils.isEmpty(permissionIds)) {
-            clientDao.saveClientPermission(client.getId(), permissionIds);
+            oauthClientDetailsDao.saveClientPermission(client.getId(), permissionIds);
         }
         log.debug("新增应用{}", client.getClientId());
     }
 
     private void updateClient(Client client, List<Long> permissionIds) {
-//		Client r = clientDao.getClient(client.getClientId());
+//		Client r = oauthClientDetailsDao.getClient(client.getClientId());
 //		if (r != null && r.getId() != client.getId()) {
 //			throw new IllegalArgumentException(client.getClientId() + "已存在");
 //		}
 
-        clientDao.update(client);
-        clientDao.deleteClientPermission(client.getId());
+        oauthClientDetailsDao.update(client);
+        oauthClientDetailsDao.deleteClientPermission(client.getId());
         if (!CollectionUtils.isEmpty(permissionIds)) {
-            clientDao.saveClientPermission(client.getId(), permissionIds);
+            oauthClientDetailsDao.saveClientPermission(client.getId(), permissionIds);
         }
 
-        String clientId = clientDao.getById(client.getId()).getClientId();
+        String clientId = oauthClientDetailsDao.getById(client.getId()).getClientId();
         BaseClientDetails clientDetails = null;
 
         // 先从redis获取
@@ -89,8 +89,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public void deleteClient(Long id) {
-        clientDao.deleteClientPermission(id);
-        clientDao.delete(id);
+        oauthClientDetailsDao.deleteClientPermission(id);
+        oauthClientDetailsDao.delete(id);
 
         log.debug("删除应用id:{}", id);
     }

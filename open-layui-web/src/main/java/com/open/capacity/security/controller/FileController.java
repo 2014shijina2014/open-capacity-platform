@@ -67,13 +67,11 @@ public class FileController {
     @PreAuthorize("hasAuthority('sys:file:query')")
     public PageTableResponse listFiles(PageTableRequest request) {
         return new PageTableHandler(new CountHandler() {
-
             @Override
             public int count(PageTableRequest request) {
                 return fileInfoDao.count(request.getParams());
             }
         }, new ListHandler() {
-
             @Override
             public List<FileInfo> list(PageTableRequest request) {
                 List<FileInfo> list = fileInfoDao.list(request.getParams(), request.getOffset(), request.getLimit());

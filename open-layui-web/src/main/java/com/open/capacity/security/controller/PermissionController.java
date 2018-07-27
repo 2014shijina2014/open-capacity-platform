@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.open.capacity.security.annotation.LogAnnotation;
-import com.open.capacity.security.dao.PermissionDao;
+import com.open.capacity.security.dao.SysPermissionDao;
 import com.open.capacity.security.dto.LoginUser;
 import com.open.capacity.security.model.Permission;
 import com.open.capacity.security.service.PermissionService;
@@ -27,13 +27,13 @@ import java.util.stream.Collectors;
  *
  * @author owen 624191343@qq.com
  */
-@Api(tags = "权限")
+@Api(tags = "中台资源权限")
 @RestController
 @RequestMapping("/permissions")
 public class PermissionController {
 
     @Autowired
-    private PermissionDao permissionDao;
+    private SysPermissionDao sysPermissionDao;
     @Autowired
     private PermissionService permissionService;
 
@@ -44,9 +44,7 @@ public class PermissionController {
         List<Permission> list = loginUser.getPermissions();
         final List<Permission> permissions = list.stream().filter(l -> l.getType().equals(1))
                 .collect(Collectors.toList());
-
         setChild(permissions);
-
         return permissions.stream().filter(p -> p.getParentId().equals(0L)).collect(Collectors.toList());
     }
 
@@ -80,11 +78,9 @@ public class PermissionController {
     @ApiOperation(value = "菜单列表")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public List<Permission> permissionsList() {
-        List<Permission> permissionsAll = permissionDao.listAll();
-
+        List<Permission> permissionsAll = sysPermissionDao.listAll();
         List<Permission> list = Lists.newArrayList();
         setPermissionsList(0L, permissionsAll, list);
-
         return list;
     }
 
@@ -92,10 +88,9 @@ public class PermissionController {
     @ApiOperation(value = "所有菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public JSONArray permissionsAll() {
-        List<Permission> permissionsAll = permissionDao.listAll();
+        List<Permission> permissionsAll = sysPermissionDao.listAll();
         JSONArray array = new JSONArray();
         setPermissionsTree(0L, permissionsAll, array);
-
         return array;
     }
 
@@ -103,8 +98,7 @@ public class PermissionController {
     @ApiOperation(value = "一级菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public List<Permission> parentMenu() {
-        List<Permission> parents = permissionDao.listParents();
-
+        List<Permission> parents = sysPermissionDao.listParents();
         return parents;
     }
 
@@ -135,7 +129,7 @@ public class PermissionController {
     @ApiOperation(value = "根据角色id删除权限")
     @PreAuthorize("hasAnyAuthority('sys:menu:query','sys:role:query')")
     public List<Permission> listByRoleId(Long roleId) {
-        return permissionDao.listByRoleId(roleId);
+        return sysPermissionDao.listByRoleId(roleId);
     }
 
     @LogAnnotation
@@ -143,14 +137,14 @@ public class PermissionController {
     @ApiOperation(value = "保存菜单")
     @PreAuthorize("hasAuthority('sys:menu:add')")
     public void save(@RequestBody Permission permission) {
-        permissionDao.save(permission);
+        sysPermissionDao.save(permission);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据菜单id获取菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public Permission get(@PathVariable Long id) {
-        return permissionDao.getById(id);
+        return sysPermissionDao.getById(id);
     }
 
     @LogAnnotation

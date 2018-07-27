@@ -2,7 +2,7 @@ package com.open.capacity.security.controller;
 
 import com.google.common.collect.Maps;
 import com.open.capacity.security.annotation.LogAnnotation;
-import com.open.capacity.security.dao.RoleDao;
+import com.open.capacity.security.dao.SysRoleDao;
 import com.open.capacity.security.dto.RoleDto;
 import com.open.capacity.security.model.Role;
 import com.open.capacity.security.page.table.PageTableHandler;
@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author owen 624191343@qq.com
  */
-@Api(tags = "角色")
+@Api(tags = "中台角色")
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
@@ -32,7 +32,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
     @Autowired
-    private RoleDao roleDao;
+    private SysRoleDao sysRoleDao;
 
     @LogAnnotation
     @PostMapping
@@ -50,13 +50,13 @@ public class RoleController {
 
             @Override
             public int count(PageTableRequest request) {
-                return roleDao.count(request.getParams());
+                return sysRoleDao.count(request.getParams());
             }
         }, new ListHandler() {
 
             @Override
             public List<Role> list(PageTableRequest request) {
-                List<Role> list = roleDao.list(request.getParams(), request.getOffset(), request.getLimit());
+                List<Role> list = sysRoleDao.list(request.getParams(), request.getOffset(), request.getLimit());
                 return list;
             }
         }).handle(request);
@@ -66,21 +66,21 @@ public class RoleController {
     @ApiOperation(value = "根据id获取角色")
     @PreAuthorize("hasAuthority('sys:role:query')")
     public Role get(@PathVariable Long id) {
-        return roleDao.getById(id);
+        return sysRoleDao.getById(id);
     }
 
     @GetMapping("/all")
     @ApiOperation(value = "所有角色")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
     public List<Role> roles() {
-        return roleDao.list(Maps.newHashMap(), null, null);
+        return sysRoleDao.list(Maps.newHashMap(), null, null);
     }
 
     @GetMapping(params = "userId")
     @ApiOperation(value = "根据用户id获取拥有的角色")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
     public List<Role> roles(Long userId) {
-        return roleDao.listByUserId(userId);
+        return sysRoleDao.listByUserId(userId);
     }
 
     @LogAnnotation

@@ -24,7 +24,6 @@ public class ExceptionHandlerAdvice {
 
     private static final Logger log = LoggerFactory.getLogger(ExceptionHandlerAdvice.class);
 
-
     /**
      * 403 Forbidden
      *

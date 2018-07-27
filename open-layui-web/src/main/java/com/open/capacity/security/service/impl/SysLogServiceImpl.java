@@ -23,13 +23,15 @@ public class SysLogServiceImpl implements SysLogService {
     @Autowired
     private SysLogsDao sysLogsDao;
 
+    /**
+     * @param sysLogs
+     */
     @Override
     public void save(SysLogs sysLogs) {
         SysUser user = UserUtil.getLoginUser();
         if (user == null || user.getId() == null) {
             return;
         }
-
         sysLogs.setUser(user);
         sysLogsDao.save(sysLogs);
     }

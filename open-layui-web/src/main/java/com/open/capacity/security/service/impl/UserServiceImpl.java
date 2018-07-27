@@ -1,6 +1,6 @@
 package com.open.capacity.security.service.impl;
 
-import com.open.capacity.security.dao.UserDao;
+import com.open.capacity.security.dao.SysUserDao;
 import com.open.capacity.security.dto.UserDto;
 import com.open.capacity.security.model.SysUser;
 import com.open.capacity.security.model.SysUser.Status;
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    private UserDao userDao;
+    private SysUserDao sysUserDao;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
         SysUser user = userDto;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(Status.VALID);
-        userDao.save(user);
+        sysUserDao.save(user);
         saveUserRoles(user.getId(), userDto.getRoleIds());
 
         log.debug("新增用户{}", user.getUsername());
@@ -40,21 +40,21 @@ public class UserServiceImpl implements UserService {
 
     private void saveUserRoles(Long userId, List<Long> roleIds) {
         if (roleIds != null) {
-            userDao.deleteUserRole(userId);
+            sysUserDao.deleteUserRole(userId);
             if (!CollectionUtils.isEmpty(roleIds)) {
-                userDao.saveUserRoles(userId, roleIds);
+                sysUserDao.saveUserRoles(userId, roleIds);
             }
         }
     }
 
     @Override
     public SysUser getUser(String username) {
-        return userDao.getUser(username);
+        return sysUserDao.getUser(username);
     }
 
     @Override
     public void changePassword(String username, String oldPassword, String newPassword) {
-        SysUser u = userDao.getUser(username);
+        SysUser u = sysUserDao.getUser(username);
         if (u == null) {
             throw new IllegalArgumentException("用户不存在");
         }
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("旧密码错误");
         }
 
-        userDao.changePassword(u.getId(), passwordEncoder.encode(newPassword));
+        sysUserDao.changePassword(u.getId(), passwordEncoder.encode(newPassword));
 
         log.debug("修改{}的密码", username);
     }
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public SysUser updateUser(UserDto userDto) {
-        userDao.update(userDto);
+        sysUserDao.update(userDto);
         saveUserRoles(userDto.getId(), userDto.getRoleIds());
 
         return userDto;

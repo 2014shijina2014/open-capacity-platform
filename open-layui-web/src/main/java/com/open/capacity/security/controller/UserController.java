@@ -1,7 +1,7 @@
 package com.open.capacity.security.controller;
 
 import com.open.capacity.security.annotation.LogAnnotation;
-import com.open.capacity.security.dao.UserDao;
+import com.open.capacity.security.dao.SysUserDao;
 import com.open.capacity.security.dto.UserDto;
 import com.open.capacity.security.model.SysUser;
 import com.open.capacity.security.page.table.PageTableHandler;
@@ -38,7 +38,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserDao userDao;
+    private SysUserDao sysUserDao;
 
     @LogAnnotation
     @PostMapping
@@ -49,7 +49,6 @@ public class UserController {
         if (u != null) {
             throw new IllegalArgumentException(userDto.getUsername() + "已存在");
         }
-
         return userService.saveUser(userDto);
     }
 
@@ -69,7 +68,6 @@ public class UserController {
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(user, userDto);
         userDto.setHeadImgUrl(headImgUrl);
-
         userService.updateUser(userDto);
         log.debug("{}修改了头像", user.getUsername());
     }
@@ -87,16 +85,15 @@ public class UserController {
     @PreAuthorize("hasAuthority('sys:user:query')")
     public PageTableResponse listUsers(PageTableRequest request) {
         return new PageTableHandler(new CountHandler() {
-
             @Override
             public int count(PageTableRequest request) {
-                return userDao.count(request.getParams());
+                return sysUserDao.count(request.getParams());
             }
         }, new ListHandler() {
 
             @Override
             public List<SysUser> list(PageTableRequest request) {
-                List<SysUser> list = userDao.list(request.getParams(), request.getOffset(), request.getLimit());
+                List<SysUser> list = sysUserDao.list(request.getParams(), request.getOffset(), request.getLimit());
                 return list;
             }
         }).handle(request);
@@ -112,7 +109,7 @@ public class UserController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('sys:user:query')")
     public SysUser user(@PathVariable Long id) {
-        return userDao.getById(id);
+        return sysUserDao.getById(id);
     }
 
 }

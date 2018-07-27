@@ -30,18 +30,15 @@ public class SysLogsController {
     @ApiOperation(value = "日志列表")
     public PageTableResponse list(PageTableRequest request) {
         return new PageTableHandler(new CountHandler() {
-
             @Override
             public int count(PageTableRequest request) {
                 return sysLogsDao.count(request.getParams());
             }
         }, new ListHandler() {
-
             @Override
             public List<SysLogs> list(PageTableRequest request) {
                 return sysLogsDao.list(request.getParams(), request.getOffset(), request.getLimit());
             }
         }).handle(request);
     }
-
 }

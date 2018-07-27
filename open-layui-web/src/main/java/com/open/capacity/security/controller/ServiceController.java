@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.open.capacity.security.annotation.LogAnnotation;
-import com.open.capacity.security.dao.ServiceDao;
+import com.open.capacity.security.dao.SysServicesDao;
 import com.open.capacity.security.dto.LoginUser;
 import com.open.capacity.security.model.Permission;
 import com.open.capacity.security.service.MicroServiceService;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public class ServiceController {
 
     @Autowired
-    private ServiceDao serviceDao;
+    private SysServicesDao sysServicesDao;
     @Autowired
     private MicroServiceService microServiceService;
 
@@ -80,11 +80,9 @@ public class ServiceController {
     @ApiOperation(value = "服务列表")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public List<Permission> permissionsList() {
-        List<Permission> permissionsAll = serviceDao.listAll();
-
+        List<Permission> permissionsAll = sysServicesDao.listAll();
         List<Permission> list = Lists.newArrayList();
         setPermissionsList(0L, permissionsAll, list);
-
         return list;
     }
 
@@ -92,10 +90,9 @@ public class ServiceController {
     @ApiOperation(value = "所有服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public JSONArray permissionsAll() {
-        List<Permission> permissionsAll = serviceDao.listAll();
+        List<Permission> permissionsAll = sysServicesDao.listAll();
         JSONArray array = new JSONArray();
         setPermissionsTree(0L, permissionsAll, array);
-
         return array;
     }
 
@@ -103,8 +100,7 @@ public class ServiceController {
     @ApiOperation(value = "一级服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public List<Permission> parentMenu() {
-        List<Permission> parents = serviceDao.listParents();
-
+        List<Permission> parents = sysServicesDao.listParents();
         return parents;
     }
 
@@ -135,7 +131,7 @@ public class ServiceController {
     @ApiOperation(value = "根据应用id查询权限")
     @PreAuthorize("hasAnyAuthority('sys:menu:query','sys:role:query')")
     public List<Permission> listByRoleId(Long clientId) {
-        return serviceDao.listByClientId(clientId);
+        return sysServicesDao.listByClientId(clientId);
     }
 
     @LogAnnotation
@@ -143,14 +139,14 @@ public class ServiceController {
     @ApiOperation(value = "保存服务")
     @PreAuthorize("hasAuthority('sys:menu:add')")
     public void save(@RequestBody Permission permission) {
-        serviceDao.save(permission);
+        sysServicesDao.save(permission);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据服务id获取服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public Permission get(@PathVariable Long id) {
-        return serviceDao.getById(id);
+        return sysServicesDao.getById(id);
     }
 
     @LogAnnotation

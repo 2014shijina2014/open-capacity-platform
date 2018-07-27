@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 @Mapper
-public interface PermissionDao {
+public interface SysPermissionDao {
 
     @Select("select * from sys_permission t order by t.sort")
     List<Permission> listAll();

@@ -1,6 +1,6 @@
 package com.open.capacity.security.service.impl;
 
-import com.open.capacity.security.dao.PermissionDao;
+import com.open.capacity.security.dao.SysPermissionDao;
 import com.open.capacity.security.dto.LoginUser;
 import com.open.capacity.security.model.Permission;
 import com.open.capacity.security.model.SysUser;
@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
     @Autowired
-    private PermissionDao permissionDao;
+    private SysPermissionDao sysPermissionDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,7 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(sysUser, loginUser);
 
-        List<Permission> permissions = permissionDao.listByUserId(sysUser.getId());
+        List<Permission> permissions = sysPermissionDao.listByUserId(sysUser.getId());
         loginUser.setPermissions(permissions);
 
         return loginUser;

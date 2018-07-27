@@ -140,7 +140,6 @@ public class EurekaController {
     }
 
     private static String getinfo(String url) {
-
         String bodyAsString = "";
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         try {
@@ -228,6 +227,7 @@ public class EurekaController {
     @ResponseBody
     @RequestMapping(value = "status", method = RequestMethod.GET)
     public String status() {
+        //TODO eureka 需要处理
         String url = "http://127.0.0.1:1111/eureka/status";
         return getinfo(url);
     }

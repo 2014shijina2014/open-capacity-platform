@@ -10,7 +10,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class LoginPageConfig {
 
-
     /**
      * 默认跳转到静态登陆页面
      *

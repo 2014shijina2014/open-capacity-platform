@@ -2,7 +2,7 @@ package com.open.capacity.security.controller;
 
 import com.google.common.collect.Maps;
 import com.open.capacity.security.annotation.LogAnnotation;
-import com.open.capacity.security.dao.ClientDao;
+import com.open.capacity.security.dao.OauthClientDetailsDao;
 import com.open.capacity.security.dto.ClientDto;
 import com.open.capacity.security.model.Client;
 import com.open.capacity.security.page.table.PageTableHandler;
@@ -32,11 +32,11 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
     @Autowired
-    private ClientDao clientDao;
+    private OauthClientDetailsDao oauthClientDetailsDao;
 
     @LogAnnotation
     @PostMapping
-    @ApiOperation(value = "保存应用")
+    @ApiOperation(value = "新增应用")
     @PreAuthorize("hasAuthority('sys:role:add')")
     public void saveRole(@RequestBody ClientDto clientDto) {
         clientService.saveClient(clientDto);
@@ -50,13 +50,13 @@ public class ClientController {
 
             @Override
             public int count(PageTableRequest request) {
-                return clientDao.count(request.getParams());
+                return oauthClientDetailsDao.count(request.getParams());
             }
         }, new ListHandler() {
 
             @Override
             public List<Client> list(PageTableRequest request) {
-                List<Client> list = clientDao.list(request.getParams(), request.getOffset(), request.getLimit());
+                List<Client> list = oauthClientDetailsDao.list(request.getParams(), request.getOffset(), request.getLimit());
                 return list;
             }
         }).handle(request);
@@ -66,21 +66,21 @@ public class ClientController {
     @ApiOperation(value = "根据id获取应用")
     @PreAuthorize("hasAuthority('sys:role:query')")
     public Client get(@PathVariable Long id) {
-        return clientDao.getById(id);
+        return oauthClientDetailsDao.getById(id);
     }
 
     @GetMapping("/all")
-    @ApiOperation(value = "所有应用")
+    @ApiOperation(value = "获取所有应用")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
     public List<Client> roles() {
-        return clientDao.list(Maps.newHashMap(), null, null);
+        return oauthClientDetailsDao.list(Maps.newHashMap(), null, null);
     }
 
     @GetMapping(params = "userId")
-    @ApiOperation(value = "根据用户id获取拥有的角色")
+    @ApiOperation(value = "根据用户id获取该用户拥有的角色")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
     public List<Client> roles(Long userId) {
-        return clientDao.listByUserId(userId);
+        return oauthClientDetailsDao.listByUserId(userId);
     }
 
     @LogAnnotation
