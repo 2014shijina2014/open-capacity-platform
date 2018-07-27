@@ -16,6 +16,12 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 public class AsycTaskExecutorConfig {
 
+    /**
+     * 对异步进行配置
+     *
+     * @return
+     * @Description 例如Async 方法
+     */
     @Bean
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();

@@ -26,6 +26,13 @@ public class LogAdvice {
     @Autowired
     private SysLogService logService;
 
+    /**
+     * 记录日志的切面方法
+     *
+     * @param joinPoint
+     * @return
+     * @throws Throwable
+     */
     @Around(value = "@annotation(com.open.capacity.security.annotation.LogAnnotation)")
     public Object logSave(ProceedingJoinPoint joinPoint) throws Throwable {
         SysLogs sysLogs = new SysLogs();
