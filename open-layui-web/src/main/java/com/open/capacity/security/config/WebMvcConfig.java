@@ -29,6 +29,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     /**
      * 跨域支持
+     * TODO 继承到网关后需要去掉
      *
      * @return
      */
