@@ -779,35 +779,6 @@ VALUES
 	( 5, '111111111', '$2a$10$mJuBGzs67CyExiTZkk5iLOF9sE09GDK7jLf2O6gosMh.g/fDeKEiS', '111111', NULL, '11111111111', '11111111111', '11@11.com', '2018-04-11', 0, 1, '2018-04-14 21:42:43', '2018-04-14 21:42:43' );#
 
 
-# Structure for table "t_dict"
-DROP TABLE
-IF
-	EXISTS `t_dict`;
-CREATE TABLE `t_dict` (
-	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
-	`type` VARCHAR ( 16 ) NOT NULL,
-	`k` VARCHAR ( 16 ) NOT NULL,
-	`val` VARCHAR ( 64 ) NOT NULL,
-	`createTime` datetime NOT NULL,
-	`updateTime` datetime NOT NULL,
-	PRIMARY KEY ( `id` ),
-	UNIQUE KEY `type` ( `type`, `k` )
-) ENGINE = INNODB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4;#
-
-# Data for table "t_dict"
-INSERT INTO `t_dict`
-VALUES
-	( 1, 'sex', '0', '女', '2017-11-17 09:58:24', '2017-11-18 14:21:05' ),
-	( 2, 'sex', '1', '男', '2017-11-17 10:03:46', '2017-11-17 10:03:46' ),
-	( 3, 'userStatus', '0', '无效', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
-	( 4, 'userStatus', '1', '正常', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
-	( 5, 'userStatus', '2', '锁定', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
-	( 6, 'noticeStatus', '0', '草稿', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
-	( 7, 'noticeStatus', '1', '发布', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
-	( 8, 'isRead', '0', '未读', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
-	( 9, 'isRead', '1', '已读', '2017-11-17 16:26:06', '2017-11-17 16:26:09' );#
-
-
 # Structure for table "t_mail"
 DROP TABLE
 IF
