@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Amaze UI Examples</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <style type="text/css">
+  	body{
+	    background:url(../img/login/bg.png) no-repeat center;
+	    background-size: cover;
+	}
+  
+  </style>
+</head>
+<body>
+<div class="am-g myapp-login">
+	<div class="myapp-login-logo-block">
+		<div class="myapp-login-logo">
+			<i class="am-icon-jsfiddle"></i>
+		</div>
+		<div class="myapp-login-logo-text">
+			<div class="myapp-login-logo-text">
+				OCP<span>后台管理系统</span>
+				<div class="info">Find the best places in town.</div>
+			</div>
+		</div>
+
+		<div class="am-u-sm-10 login-am-center">
+			<form class="am-form">
+				<fieldset>
+					<div class="am-form-group">
+						<input type="text" class="" id="username" name="username" placeholder="用户名">
+					</div>
+
+					<div class="am-form-group">
+						<input type="password" class=""  id="password" name="password" placeholder="密码">
+					</div>
+					<div class="am-form-group">
+                                    <span id="info" style="color: red"></span>
+                    </div>
+					<p><button type="submit" class="am-btn am-btn-default" onclick="login(this)">登录</button></p>
+				</fieldset>
+			</form>
+		</div>
+		
+		<div class="login-font">
+			  <script src='//gitee.com/owenwangwen/open-capacity-platform/widget_preview'></script>
+		</div>
+	</div>
+</div>
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script type="text/javascript" src="/js/jq.js"></script>
+<script type="text/javascript">
+	if (top != self) {
+		parent.location.href = '/login.html';
+	}
+	
+	var token = localStorage.getItem("token");
+	if (token != null && token.trim().length != 0) {
+		$.ajax({
+			type : 'get',
+			url : '/users/current?token=' + token,
+			success : function(data) {
+				location.href = '/index.html';
+			},
+			error : function(xhr, textStatus, errorThrown) {
+				var msg = xhr.responseText;
+				var response = JSON.parse(msg);
+				var code = response.code;
+				var message = response.message;
+				if (code == 401) {
+					localStorage.removeItem("token");
+				}
+			}
+		});
+	}
+
+	function login(obj) {
+		$(obj).attr("disabled", true);
+
+		var username = $.trim($('#username').val());
+		var password = $.trim($('#password').val());
+		if (username == "" || password == "") {
+			$("#info").html('用户名或者密码不能为空');
+			$(obj).attr("disabled", false);
+		} else {
+			$.ajax({
+				type : 'post',
+				url : '/login',
+				data : "username=" + username +"&password="+password,
+				success : function(data) {
+					localStorage.setItem("token", data.token);
+					location.href = '/index.html';
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					var msg = xhr.responseText;
+					var response = JSON.parse(msg);
+					$("#info").html(response.message);
+					$(obj).attr("disabled", false);
+				}
+			});
+
+		}
+	}
+</script>
+
+<script src="assets/js/amazeui.min.js"></script>
+
+
+
+</body>
+</html>

@@ -1,7 +1,19 @@
 /* Write your styles */
-html,body{background: #444444;}
+/*html,body{background: #444444;}*/
 /* 登陆logo */
-.myapp-login { background: #444444; background-size: 100%; height: 100%;}
+.myapp-login {
+
+    overflow: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+
+
+}
 .myapp-login-logo-block { width: 100%;}
 .myapp-login-logo {width: 100%; text-align: center; padding-top: 30px;}
 .myapp-login-logo i { color: #eb602e; font-size: 120px;display: inline-block;}
@@ -14,3 +26,28 @@ html,body{background: #444444;}
 .login-am-center { margin: 0 auto; float:none;}
 .login-am-center .am-form input { background: #565656; border: none;  font-size: 12px; line-height: 30px; text-indent: 10px;}
 .login-am-center .am-btn-default { width: 100%; background: #eb602e; border: none; color: #fff; font-size: 14px; line-height: 30px;}
+
+
+
+body {
+    background-image: linear-gradient(-180deg, #1a1454 0%, #0e81a5 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+}
+
+.osc_git_box {
+     background-color: #fff;
+     margin-top: 20px;
+ }
+
+
+
+canvas {
+    z-index:-999;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
