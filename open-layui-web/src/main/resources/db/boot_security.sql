@@ -59,12 +59,7 @@ CREATE TABLE `oauth_client_details` (
 # Data for table "oauth_client_details"
 INSERT INTO `oauth_client_details`
 VALUES
-	( 1, 'app', NULL, 'app', 'app', 'password,refresh_token', NULL, NULL, 180000, NULL, '{}', 'true' ),
-	( 2, 'mobile', 'mobile,test', 'mobile', 'all', 'password,refresh_token', NULL, NULL, 180000, NULL, '{}', 'true' ),
-	( 3, 'test', 'test', 'test', 'test', 'password,refresh_token', NULL, NULL, 180000, NULL, '{}', 'true' ),
-	( 4, 'webApp', NULL, 'webApp', 'app', 'authorization_code,password,refresh_token,client_credentials', NULL, NULL, 180000, NULL, '{}', 'true' ),
-	( 5, 'clientId', '', 'clientSecret', 'all', 'authorization_code,password,refresh_token,client_credentials', 'http://www.baidu.com', '', 180000, NULL, '{}', 'true' ),
-	( 6, 'owen', NULL, 'owen', 'app', 'authorization_code,password,refresh_token,client_credentials', 'http://127.0.0.1:9997/clientOne/login', NULL, 180000, NULL, '{}', 'true' );#
+	( 1, 'app', NULL, 'app', 'app', 'password,refresh_token', NULL, NULL, 180000, NULL, '{}', 'true' );#
 
 
 # Structure for table "sys_client_permission"
@@ -80,31 +75,11 @@ CREATE TABLE `sys_client_permission` (
 # Data for table "sys_client_permission"
 INSERT INTO `sys_client_permission`
 VALUES
-	( 1, 71 ),
-	( 1, 72 ),
-	( 1, 73 ),
-	( 1, 74 ),
-	( 1, 75 ),
-	( 2, 71 ),
-	( 2, 72 ),
-	( 2, 73 ),
-	( 2, 74 ),
-	( 2, 75 ),
-	( 3, 71 ),
-	( 3, 72 ),
-	( 3, 73 ),
-	( 3, 74 ),
-	( 3, 75 ),
-	( 4, 71 ),
-	( 4, 72 ),
-	( 4, 73 ),
-	( 4, 74 ),
-	( 4, 75 ),
-	( 5, 71 ),
-	( 5, 72 ),
-	( 5, 73 ),
-	( 5, 74 ),
-	( 5, 75 );#
+	( 1, 1 ),
+	( 1, 2),
+	( 1, 3 ),
+	( 1, 4 ),
+	( 1, 5 );#
 
 
 # Structure for table "sys_logs"
@@ -162,19 +137,23 @@ VALUES
 	( 13, 12, '查询', '', '', 2, 'sys:role:query', 100 ),
 	( 14, 12, '新增', '', '', 2, 'sys:role:add', 100 ),
 	( 15, 12, '删除', '', '', 2, 'sys:role:del', 100 ),
-	( 16, 0, '文件管理', 'fa-folder-open', 'pages/file/fileList.html', 1, '', 8 ),
-	( 17, 16, '查询', '', '', 2, 'sys:file:query', 100 ),
-	( 18, 16, '删除', '', '', 2, 'sys:file:del', 100 ),
-	( 19, 0, '数据源监控', 'fa-eye', 'druid/index.html', 1, '', 9 ),
-	( 26, 0, '日志查询', 'fa-reorder', 'pages/log/logList.html', 1, 'sys:log:query', 13 ),
-	( 41, 0, '注册中心', 'fa-th-list', 'pages/euraka/euraka.html', 1, '', 18 ),
-	( 60, 41, '操作', '', '', 2, 'job:add', 100 ),
-	( 61, 66, '应用管理', 'fa-cubes', 'pages/client/clientList.html', 1, '', 10 ),
-	( 62, 61, '查询', '', '', 2, 'sys:role:query', 100 ),
-	( 63, 61, '新增', '', '', 2, 'sys:role:add', 100 ),
-	( 64, 61, '删除', '', '', 2, 'sys:role:del', 100 ),
-	( 65, 66, '服务管理', 'fa-cloud', 'pages/service/serviceList.html', 1, '', 1 ),
-	( 66, 0, '资源管理', 'fa-th', '', 1, '', 100 );#
+	( 16, 7, '字典库', 'fa-user-secret', 'pages/dict/dictList.html', 1, '', 8 ),
+	( 17, 16, '查询', '', '', 2, 'sys:role:query', 100 ),
+	( 18, 16, '新增', '', '', 2, 'sys:role:add', 100 ),
+	( 19, 16, '删除', '', '', 2, 'sys:role:del', 100 ),
+	( 20, 0, '文件管理', 'fa-folder-open', 'pages/file/fileList.html', 1, '', 8 ),
+	( 21, 20, '查询', '', '', 2, 'sys:file:query', 100 ),
+	( 22, 20, '删除', '', '', 2, 'sys:file:del', 100 ),
+	( 23, 0, '数据源监控', 'fa-eye', 'druid/index.html', 1, '', 9 ),
+	( 24, 0, '日志查询', 'fa-reorder', 'pages/log/logList.html', 1, 'sys:log:query', 13 ),
+	( 25, 0, '注册中心', 'fa-th-list', 'pages/euraka/euraka.html', 1, '', 18 ),
+	( 26, 25, '操作', '', '', 2, 'job:add', 100 ),
+	( 28, 27, '查询', '', '', 2, 'sys:role:query', 100 ),
+	( 29, 27, '新增', '', '', 2, 'sys:role:add', 100 ),
+	( 30, 27, '删除', '', '', 2, 'sys:role:del', 100 ),
+	( 31, 0, '资源管理', 'fa-th', '', 1, '', 100 ),
+	( 32, 31, '服务管理', 'fa-cloud', 'pages/service/serviceList.html', 1, '', 1 ),
+	( 33, 31, '应用管理', 'fa-cubes', 'pages/client/clientList.html', 1, '', 10 );#
 
 
 # Structure for table "sys_role"
@@ -194,11 +173,7 @@ CREATE TABLE `sys_role` (
 # Data for table "sys_role"
 INSERT INTO `sys_role`
 VALUES
-	( 1, 'ADMIN', '管理员', '2017-05-01 13:25:39', '2018-06-22 07:46:48' ),
-	( 2, 'USER', '11', '2017-08-01 21:47:31', '2018-06-21 11:09:12' ),
-	( 3, 'test1', 'test1', '2018-03-14 13:03:36', '2018-06-21 11:09:32' ),
-	( 4, 'ttttt', 'ttt1', '2018-04-24 11:09:34', '2018-06-21 11:12:26' ),
-	( 5, '11111', '222222', '2018-04-24 17:47:12', '2018-04-26 10:49:07' );#
+	( 1, 'ADMIN', '管理员', '2017-05-01 13:25:39', '2018-06-22 07:46:48' );#
 
 
 # Structure for table "sys_role_permission"
@@ -218,6 +193,7 @@ VALUES
 	( 1, 2 ),
 	( 1, 3 ),
 	( 1, 4 ),
+	( 1, 5 ),
 	( 1, 6 ),
 	( 1, 7 ),
 	( 1, 8 ),
@@ -232,90 +208,20 @@ VALUES
 	( 1, 17 ),
 	( 1, 18 ),
 	( 1, 19 ),
+	( 1, 20 ),
+	( 1, 21 ),
+	( 1, 22 ),
+	( 1, 23 ),
+	( 1, 24 ),
+	( 1, 25 ),
 	( 1, 26 ),
-	( 1, 41 ),
-	( 1, 42 ),
-	( 1, 56 ),
-	( 1, 57 ),
-	( 1, 58 ),
-	( 1, 60 ),
-	( 1, 61 ),
-	( 1, 62 ),
-	( 1, 63 ),
-	( 1, 64 ),
-	( 1, 65 ),
-	( 1, 66 ),
-	( 2, 1 ),
-	( 2, 2 ),
-	( 2, 3 ),
-	( 2, 4 ),
-	( 2, 6 ),
-	( 2, 7 ),
-	( 2, 8 ),
-	( 2, 9 ),
-	( 2, 10 ),
-	( 2, 11 ),
-	( 2, 12 ),
-	( 2, 13 ),
-	( 2, 14 ),
-	( 2, 15 ),
-	( 2, 16 ),
-	( 2, 17 ),
-	( 2, 18 ),
-	( 2, 19 ),
-	( 3, 1 ),
-	( 3, 2 ),
-	( 3, 3 ),
-	( 3, 7 ),
-	( 3, 12 ),
-	( 3, 13 ),
-	( 3, 14 ),
-	( 3, 15 ),
-	( 4, 1 ),
-	( 4, 2 ),
-	( 4, 3 ),
-	( 4, 4 ),
-	( 4, 6 ),
-	( 4, 7 ),
-	( 4, 8 ),
-	( 4, 9 ),
-	( 4, 10 ),
-	( 4, 11 ),
-	( 4, 12 ),
-	( 4, 13 ),
-	( 4, 14 ),
-	( 4, 15 ),
-	( 4, 16 ),
-	( 4, 17 ),
-	( 4, 18 ),
-	( 4, 19 ),
-	( 4, 26 ),
-	( 4, 41 ),
-	( 4, 42 ),
-	( 5, 1 ),
-	( 5, 2 ),
-	( 5, 3 ),
-	( 5, 4 ),
-	( 5, 6 ),
-	( 5, 7 ),
-	( 5, 8 ),
-	( 5, 9 ),
-	( 5, 10 ),
-	( 5, 11 ),
-	( 5, 12 ),
-	( 5, 13 ),
-	( 5, 14 ),
-	( 5, 15 ),
-	( 5, 16 ),
-	( 5, 17 ),
-	( 5, 18 ),
-	( 5, 19 ),
-	( 5, 26 ),
-	( 5, 38 ),
-	( 5, 39 ),
-	( 5, 40 ),
-	( 5, 41 ),
-	( 5, 42 );#
+	( 1, 27 ),
+	( 1, 28 ),
+	( 1, 29 ),
+	( 1, 30 ),
+	( 1, 31 ),
+	( 1, 32 ),
+	( 1, 33 );#
 
 
 # Structure for table "sys_role_user"
@@ -331,21 +237,7 @@ CREATE TABLE `sys_role_user` (
 # Data for table "sys_role_user"
 INSERT INTO `sys_role_user`
 VALUES
-	( 1, 1 ),
-	( 1, 2 ),
-	( 1, 3 ),
-	( 1, 4 ),
-	( 1, 5 ),
-	( 2, 1 ),
-	( 2, 2 ),
-	( 2, 3 ),
-	( 2, 4 ),
-	( 2, 5 ),
-	( 3, 1 ),
-	( 3, 2 ),
-	( 4, 3 ),
-	( 5, 1 ),
-	( 5, 2 );#
+	( 1, 1 );#
 
 
 # Structure for table "micro_service"
@@ -365,11 +257,11 @@ CREATE TABLE `micro_service` (
 # Data for table "micro_service"
 INSERT INTO `micro_service`
 VALUES
-	( 71, 0, '授权服务',  '/auth', '', 1 ),
-	( 72, 71, '用户授权token',  '/auth/user/token', '', 100 ),
-	( 73, 71, '应用申请token','/auth/client/token', '', 100 ),
-	( 74, 0, '测试微服务', '/client', '', 100 ),
-	( 75, 74, 'hello接口', '/client/hello', '', 100 );#
+	( 1, 0, '授权服务',  '/auth', '', 1 ),
+	( 2, 1, '用户授权token',  '/auth/user/token', '', 100 ),
+	( 3, 2, '应用申请token','/auth/client/token', '', 100 ),
+	( 4, 0, '测试微服务', '/client', '', 100 ),
+	( 5, 4, 'hello接口', '/client/hello', '', 100 );#
 
 # Structure for table "sys_user"
 DROP TABLE
@@ -396,11 +288,7 @@ CREATE TABLE `sys_user` (
 # Data for table "sys_user"
 INSERT INTO `sys_user`
 VALUES
-	( 1, 'admin', '$2a$10$q54rooCXqDTWYkf29d4ZFu/L3zkq5Uoa6jdA/spRNSwpxksEqJYpy', '管理员', NULL, '', '', '', '1998-07-01', 0, 1, '2017-04-10 15:21:38', '2018-05-28 02:49:01' ),
-	( 2, 'user', '$2a$10$ooGb4wjT7Hg3zgU2RhZp6eVu3jvG29i/U4L6VRwiZZ4.DZ0OOEAHu', '用户', NULL, '22222', '2222', '', NULL, 1, 1, '2017-08-01 21:47:18', '2018-06-21 21:05:02' ),
-	( 3, 'test123', '$2a$10$MGxO0dynaARStolVS9tzk.ZGwzlC2WZ2LZ/LzxixWxCUoftU5Xtnq', 'test111', NULL, '18571111111', '221', '22', '2018-03-14', 1, 1, '2018-03-14 08:43:48', '2018-06-21 21:04:47' ),
-	( 4, 'owen', '$2a$10$JTuOh..ec2N1BBi6NOsn1.beg72gN7je7uNvFn.VWbfkrAsPZ3otC', 'test', NULL, '18571111111', '', '11@11.com', '2018-03-20', 0, 1, '2018-03-14 13:02:36', '2018-06-12 20:56:07' ),
-	( 5, '111111111', '$2a$10$mJuBGzs67CyExiTZkk5iLOF9sE09GDK7jLf2O6gosMh.g/fDeKEiS', '111111', NULL, '11111111111', '11111111111', '11@11.com', '2018-04-11', 0, 1, '2018-04-14 21:42:43', '2018-04-14 21:42:43' );#
+	( 1, 'admin', '$2a$10$q54rooCXqDTWYkf29d4ZFu/L3zkq5Uoa6jdA/spRNSwpxksEqJYpy', '管理员', NULL, '', '', '', '1998-07-01', 0, 1, '2017-04-10 15:21:38', '2018-05-28 02:49:01' );#
 
 #
 # Structure for table "t_dict"
@@ -426,4 +314,4 @@ VALUES
 	( 2, 'sex', '1', '男', '2017-11-17 10:03:46', '2017-11-17 10:03:46' ),
 	( 3, 'userStatus', '0', '无效', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
 	( 4, 'userStatus', '1', '正常', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
-	( 5, 'userStatus', '2', '锁定', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
+	( 5, 'userStatus', '2', '锁定', '2017-11-17 16:26:06', '2017-11-17 16:26:09' );#
