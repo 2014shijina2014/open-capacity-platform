@@ -24,7 +24,7 @@ import java.util.List;
 @Api(tags = "文件")
 @RestController
 @RequestMapping("/files")
-public class FileController {
+public class FileInfoController {
 
     @Autowired
     private FileService fileService;

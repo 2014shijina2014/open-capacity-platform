@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @DBTable sys_permission
  */
-public class Permission extends BaseEntity<Long> {
+public class SysPermission extends BaseEntity<Long> {
 
     private static final long serialVersionUID = 6180869216498363919L;
     //父权限ID
@@ -25,8 +25,8 @@ public class Permission extends BaseEntity<Long> {
     //排序号
     private Integer sort;
 
-    //TODO ？
-    private List<Permission> child;
+    //子资源
+    private List<SysPermission> child;
 
     /**
      * 父权限ID
@@ -154,11 +154,21 @@ public class Permission extends BaseEntity<Long> {
         this.sort = sort;
     }
 
-    public List<Permission> getChild() {
+    /**
+     * 子资源
+     *
+     * @return
+     */
+    public List<SysPermission> getChild() {
         return child;
     }
 
-    public void setChild(List<Permission> child) {
+    /**
+     * 子资源
+     *
+     * @param child
+     */
+    public void setChild(List<SysPermission> child) {
         this.child = child;
     }
 }

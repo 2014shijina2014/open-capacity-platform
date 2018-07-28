@@ -5,7 +5,7 @@ package com.open.capacity.security.model;
  *
  * @DBTable sys_role
  */
-public class Role extends BaseEntity<Long> {
+public class SysRole extends BaseEntity<Long> {
 
     private static final long serialVersionUID = -3802292814767103648L;
 

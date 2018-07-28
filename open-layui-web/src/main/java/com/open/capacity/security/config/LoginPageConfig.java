@@ -6,6 +6,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * 首页配置
+ *
+ * @author caoheyang
+ * @date 20180728
  */
 @Controller
 public class LoginPageConfig {

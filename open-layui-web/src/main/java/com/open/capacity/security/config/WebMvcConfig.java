@@ -17,6 +17,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import java.io.File;
 import java.util.List;
 
+/**
+ * Spring WebMvc 配置
+ *
+ * @author caoheyang
+ * @version 20180728
+ */
 @Component
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {

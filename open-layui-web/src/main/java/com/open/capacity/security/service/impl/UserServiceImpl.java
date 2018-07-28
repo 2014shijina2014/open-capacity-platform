@@ -1,7 +1,7 @@
 package com.open.capacity.security.service.impl;
 
 import com.open.capacity.security.dao.SysUserDao;
-import com.open.capacity.security.dto.UserDto;
+import com.open.capacity.security.dto.SysUserDto;
 import com.open.capacity.security.model.SysUser;
 import com.open.capacity.security.model.SysUser.Status;
 import com.open.capacity.security.service.UserService;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public SysUser saveUser(UserDto userDto) {
+    public SysUser saveUser(SysUserDto userDto) {
         SysUser user = userDto;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(Status.VALID);
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public SysUser updateUser(UserDto userDto) {
+    public SysUser updateUser(SysUserDto userDto) {
         sysUserDao.update(userDto);
         saveUserRoles(userDto.getId(), userDto.getRoleIds());
 

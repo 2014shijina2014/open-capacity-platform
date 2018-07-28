@@ -1,8 +1,8 @@
 package com.open.capacity.security.service.impl;
 
 import com.open.capacity.security.dao.SysRoleDao;
-import com.open.capacity.security.dto.RoleDto;
-import com.open.capacity.security.model.Role;
+import com.open.capacity.security.dto.SysRoleDto;
+import com.open.capacity.security.model.SysRole;
 import com.open.capacity.security.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +23,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public void saveRole(RoleDto roleDto) {
-        Role role = roleDto;
+    public void saveRole(SysRoleDto roleDto) {
+        SysRole role = roleDto;
         List<Long> permissionIds = roleDto.getPermissionIds();
         permissionIds.remove(0L);
 
@@ -35,8 +35,8 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    private void saveRole(Role role, List<Long> permissionIds) {
-        Role r = sysRoleDao.getRole(role.getName());
+    private void saveRole(SysRole role, List<Long> permissionIds) {
+        SysRole r = sysRoleDao.getRole(role.getName());
         if (r != null) {
             throw new IllegalArgumentException(role.getName() + "已存在");
         }
@@ -48,8 +48,8 @@ public class RoleServiceImpl implements RoleService {
         log.debug("新增角色{}", role.getName());
     }
 
-    private void updateRole(Role role, List<Long> permissionIds) {
-        Role r = sysRoleDao.getRole(role.getName());
+    private void updateRole(SysRole role, List<Long> permissionIds) {
+        SysRole r = sysRoleDao.getRole(role.getName());
         if (r != null && r.getId() != role.getId()) {
             throw new IllegalArgumentException(role.getName() + "已存在");
         }

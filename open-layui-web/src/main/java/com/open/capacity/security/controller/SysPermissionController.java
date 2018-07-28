@@ -6,7 +6,7 @@ import com.google.common.collect.Lists;
 import com.open.capacity.security.annotation.LogAnnotation;
 import com.open.capacity.security.dao.SysPermissionDao;
 import com.open.capacity.security.dto.LoginUser;
-import com.open.capacity.security.model.Permission;
+import com.open.capacity.security.model.SysPermission;
 import com.open.capacity.security.service.PermissionService;
 import com.open.capacity.security.utils.UserUtil;
 import io.swagger.annotations.Api;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 @Api(tags = "中台资源权限")
 @RestController
 @RequestMapping("/permissions")
-public class PermissionController {
+public class SysPermissionController {
 
     @Autowired
     private SysPermissionDao sysPermissionDao;
@@ -39,18 +39,18 @@ public class PermissionController {
 
     @ApiOperation(value = "当前登录用户拥有的权限")
     @GetMapping("/current")
-    public List<Permission> permissionsCurrent() {
+    public List<SysPermission> permissionsCurrent() {
         LoginUser loginUser = UserUtil.getLoginUser();
-        List<Permission> list = loginUser.getPermissions();
-        final List<Permission> permissions = list.stream().filter(l -> l.getType().equals(1))
+        List<SysPermission> list = loginUser.getPermissions();
+        final List<SysPermission> permissions = list.stream().filter(l -> l.getType().equals(1))
                 .collect(Collectors.toList());
         setChild(permissions);
         return permissions.stream().filter(p -> p.getParentId().equals(0L)).collect(Collectors.toList());
     }
 
-    private void setChild(List<Permission> permissions) {
+    private void setChild(List<SysPermission> permissions) {
         permissions.parallelStream().forEach(per -> {
-            List<Permission> child = permissions.stream().filter(p -> p.getParentId().equals(per.getId()))
+            List<SysPermission> child = permissions.stream().filter(p -> p.getParentId().equals(per.getId()))
                     .collect(Collectors.toList());
             per.setChild(child);
         });
@@ -63,8 +63,8 @@ public class PermissionController {
      * @param permissionsAll
      * @param list
      */
-    private void setPermissionsList(Long pId, List<Permission> permissionsAll, List<Permission> list) {
-        for (Permission per : permissionsAll) {
+    private void setPermissionsList(Long pId, List<SysPermission> permissionsAll, List<SysPermission> list) {
+        for (SysPermission per : permissionsAll) {
             if (per.getParentId().equals(pId)) {
                 list.add(per);
                 if (permissionsAll.stream().filter(p -> p.getParentId().equals(per.getId())).findAny() != null) {
@@ -77,9 +77,9 @@ public class PermissionController {
     @GetMapping
     @ApiOperation(value = "菜单列表")
     @PreAuthorize("hasAuthority('sys:menu:query')")
-    public List<Permission> permissionsList() {
-        List<Permission> permissionsAll = sysPermissionDao.listAll();
-        List<Permission> list = Lists.newArrayList();
+    public List<SysPermission> permissionsList() {
+        List<SysPermission> permissionsAll = sysPermissionDao.listAll();
+        List<SysPermission> list = Lists.newArrayList();
         setPermissionsList(0L, permissionsAll, list);
         return list;
     }
@@ -88,7 +88,7 @@ public class PermissionController {
     @ApiOperation(value = "所有菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public JSONArray permissionsAll() {
-        List<Permission> permissionsAll = sysPermissionDao.listAll();
+        List<SysPermission> permissionsAll = sysPermissionDao.listAll();
         JSONArray array = new JSONArray();
         setPermissionsTree(0L, permissionsAll, array);
         return array;
@@ -97,8 +97,8 @@ public class PermissionController {
     @GetMapping("/parents")
     @ApiOperation(value = "一级菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
-    public List<Permission> parentMenu() {
-        List<Permission> parents = sysPermissionDao.listParents();
+    public List<SysPermission> parentMenu() {
+        List<SysPermission> parents = sysPermissionDao.listParents();
         return parents;
     }
 
@@ -109,8 +109,8 @@ public class PermissionController {
      * @param permissionsAll
      * @param array
      */
-    private void setPermissionsTree(Long pId, List<Permission> permissionsAll, JSONArray array) {
-        for (Permission per : permissionsAll) {
+    private void setPermissionsTree(Long pId, List<SysPermission> permissionsAll, JSONArray array) {
+        for (SysPermission per : permissionsAll) {
             if (per.getParentId().equals(pId)) {
                 String string = JSONObject.toJSONString(per);
                 JSONObject parent = (JSONObject) JSONObject.parse(string);
@@ -128,7 +128,7 @@ public class PermissionController {
     @GetMapping(params = "roleId")
     @ApiOperation(value = "根据角色id删除权限")
     @PreAuthorize("hasAnyAuthority('sys:menu:query','sys:role:query')")
-    public List<Permission> listByRoleId(Long roleId) {
+    public List<SysPermission> listByRoleId(Long roleId) {
         return sysPermissionDao.listByRoleId(roleId);
     }
 
@@ -136,14 +136,14 @@ public class PermissionController {
     @PostMapping
     @ApiOperation(value = "保存菜单")
     @PreAuthorize("hasAuthority('sys:menu:add')")
-    public void save(@RequestBody Permission permission) {
+    public void save(@RequestBody SysPermission permission) {
         sysPermissionDao.save(permission);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据菜单id获取菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
-    public Permission get(@PathVariable Long id) {
+    public SysPermission get(@PathVariable Long id) {
         return sysPermissionDao.getById(id);
     }
 
@@ -151,7 +151,7 @@ public class PermissionController {
     @PutMapping
     @ApiOperation(value = "修改菜单")
     @PreAuthorize("hasAuthority('sys:menu:add')")
-    public void update(@RequestBody Permission permission) {
+    public void update(@RequestBody SysPermission permission) {
         permissionService.update(permission);
     }
 
@@ -163,13 +163,13 @@ public class PermissionController {
     @GetMapping("/owns")
     @ApiOperation(value = "校验当前用户的权限")
     public Set<String> ownsPermission() {
-        List<Permission> permissions = UserUtil.getLoginUser().getPermissions();
+        List<SysPermission> permissions = UserUtil.getLoginUser().getPermissions();
         if (CollectionUtils.isEmpty(permissions)) {
             return Collections.emptySet();
         }
 
         return permissions.parallelStream().filter(p -> !StringUtils.isEmpty(p.getPermission()))
-                .map(Permission::getPermission).collect(Collectors.toSet());
+                .map(SysPermission::getPermission).collect(Collectors.toSet());
     }
 
     @LogAnnotation

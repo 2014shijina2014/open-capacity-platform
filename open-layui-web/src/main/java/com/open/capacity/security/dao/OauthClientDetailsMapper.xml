@@ -52,7 +52,7 @@
         <include refid="where"/>
     </select>
 
-    <select id="list" resultType="com.open.capacity.security.model.Client">
+    <select id="list" resultType="com.open.capacity.security.model.OauthClientDetails">
         select id id , client_id clientId , resource_ids resourceIds ,
         client_secret clientSecret ,
         web_server_redirect_uri

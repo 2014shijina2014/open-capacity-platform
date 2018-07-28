@@ -4,7 +4,7 @@ import com.open.capacity.security.model.SysUser;
 
 import java.util.List;
 
-public class UserDto extends SysUser {
+public class SysUserDto extends SysUser {
 
     private static final long serialVersionUID = -184009306207076712L;
 

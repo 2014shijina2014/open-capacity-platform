@@ -1,7 +1,7 @@
 package com.open.capacity.security.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.open.capacity.security.model.Permission;
+import com.open.capacity.security.model.SysPermission;
 import com.open.capacity.security.model.SysUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ public class LoginUser extends SysUser implements UserDetails {
 
     private static final long serialVersionUID = -1379274258881257107L;
 
-    private List<Permission> permissions;
+    private List<SysPermission> permissions;
 
     private String jwtToken;
 
@@ -32,11 +32,11 @@ public class LoginUser extends SysUser implements UserDetails {
      */
     private Long expireTime;
 
-    public List<Permission> getPermissions() {
+    public List<SysPermission> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<Permission> permissions) {
+    public void setPermissions(List<SysPermission> permissions) {
         this.permissions = permissions;
     }
 
@@ -54,8 +54,8 @@ public class LoginUser extends SysUser implements UserDetails {
 
         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
 
-        for (Iterator<Permission> it = permissions.iterator(); it.hasNext(); ) {
-            Permission p = it.next();
+        for (Iterator<SysPermission> it = permissions.iterator(); it.hasNext(); ) {
+            SysPermission p = it.next();
 
 
             if (!StringUtils.isEmpty(p.getPermission())) {

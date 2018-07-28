@@ -1,13 +1,13 @@
 package com.open.capacity.security.service;
 
-import com.open.capacity.security.dto.UserDto;
+import com.open.capacity.security.dto.SysUserDto;
 import com.open.capacity.security.model.SysUser;
 
 public interface UserService {
 
-    SysUser saveUser(UserDto userDto);
+    SysUser saveUser(SysUserDto userDto);
 
-    SysUser updateUser(UserDto userDto);
+    SysUser updateUser(SysUserDto userDto);
 
     SysUser getUser(String username);
 

@@ -2,7 +2,7 @@ package com.open.capacity.security.service.impl;
 
 import com.open.capacity.security.dao.SysPermissionDao;
 import com.open.capacity.security.dto.LoginUser;
-import com.open.capacity.security.model.Permission;
+import com.open.capacity.security.model.SysPermission;
 import com.open.capacity.security.model.SysUser;
 import com.open.capacity.security.model.SysUser.Status;
 import com.open.capacity.security.service.UserService;
@@ -45,7 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(sysUser, loginUser);
 
-        List<Permission> permissions = sysPermissionDao.listByUserId(sysUser.getId());
+        List<SysPermission> permissions = sysPermissionDao.listByUserId(sysUser.getId());
         loginUser.setPermissions(permissions);
 
         return loginUser;

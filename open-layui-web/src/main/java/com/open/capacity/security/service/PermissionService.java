@@ -1,12 +1,12 @@
 package com.open.capacity.security.service;
 
-import com.open.capacity.security.model.Permission;
+import com.open.capacity.security.model.SysPermission;
 
 public interface PermissionService {
 
-    void save(Permission permission);
+    void save(SysPermission permission);
 
-    void update(Permission permission);
+    void update(SysPermission permission);
 
     void delete(Long id);
 }

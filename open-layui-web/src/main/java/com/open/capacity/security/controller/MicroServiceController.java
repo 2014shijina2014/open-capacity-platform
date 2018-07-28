@@ -4,9 +4,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.open.capacity.security.annotation.LogAnnotation;
-import com.open.capacity.security.dao.SysServicesDao;
+import com.open.capacity.security.dao.MicroServiceDao;
 import com.open.capacity.security.dto.LoginUser;
-import com.open.capacity.security.model.Permission;
+import com.open.capacity.security.model.MicroService;
+import com.open.capacity.security.model.SysPermission;
 import com.open.capacity.security.service.MicroServiceService;
 import com.open.capacity.security.utils.UserUtil;
 import io.swagger.annotations.Api;
@@ -30,29 +31,27 @@ import java.util.stream.Collectors;
 @Api(tags = "服务")
 @RestController
 @RequestMapping("/services")
-public class ServiceController {
+public class MicroServiceController {
 
     @Autowired
-    private SysServicesDao sysServicesDao;
+    private MicroServiceDao microServiceDao;
     @Autowired
     private MicroServiceService microServiceService;
 
     @ApiOperation(value = "当前登录用户拥有的权限")
     @GetMapping("/current")
-    public List<Permission> permissionsCurrent() {
+    public List<SysPermission> permissionsCurrent() {
         LoginUser loginUser = UserUtil.getLoginUser();
-        List<Permission> list = loginUser.getPermissions();
-        final List<Permission> permissions = list.stream().filter(l -> l.getType().equals(1))
+        List<SysPermission> list = loginUser.getPermissions();
+        final List<SysPermission> permissions = list.stream().filter(l -> l.getType().equals(1))
                 .collect(Collectors.toList());
-
         setChild(permissions);
-
         return permissions.stream().filter(p -> p.getParentId().equals(0L)).collect(Collectors.toList());
     }
 
-    private void setChild(List<Permission> permissions) {
+    private void setChild(List<SysPermission> permissions) {
         permissions.parallelStream().forEach(per -> {
-            List<Permission> child = permissions.stream().filter(p -> p.getParentId().equals(per.getId()))
+            List<SysPermission> child = permissions.stream().filter(p -> p.getParentId().equals(per.getId()))
                     .collect(Collectors.toList());
             per.setChild(child);
         });
@@ -62,15 +61,15 @@ public class ServiceController {
      * 菜单列表
      *
      * @param pId
-     * @param permissionsAll
+     * @param all
      * @param list
      */
-    private void setPermissionsList(Long pId, List<Permission> permissionsAll, List<Permission> list) {
-        for (Permission per : permissionsAll) {
+    private void setPermissionsList(Long pId, List<MicroService> all, List<MicroService> list) {
+        for (MicroService per : all) {
             if (per.getParentId().equals(pId)) {
                 list.add(per);
-                if (permissionsAll.stream().filter(p -> p.getParentId().equals(per.getId())).findAny() != null) {
-                    setPermissionsList(per.getId(), permissionsAll, list);
+                if (all.stream().filter(p -> p.getParentId().equals(per.getId())).findAny() != null) {
+                    setPermissionsList(per.getId(), all, list);
                 }
             }
         }
@@ -79,10 +78,10 @@ public class ServiceController {
     @GetMapping
     @ApiOperation(value = "服务列表")
     @PreAuthorize("hasAuthority('sys:menu:query')")
-    public List<Permission> permissionsList() {
-        List<Permission> permissionsAll = sysServicesDao.listAll();
-        List<Permission> list = Lists.newArrayList();
-        setPermissionsList(0L, permissionsAll, list);
+    public List<MicroService> permissionsList() {
+        List<MicroService> microServices = microServiceDao.listAll();
+        List<MicroService> list = Lists.newArrayList();
+        setPermissionsList(0L, microServices, list);
         return list;
     }
 
@@ -90,17 +89,17 @@ public class ServiceController {
     @ApiOperation(value = "所有服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public JSONArray permissionsAll() {
-        List<Permission> permissionsAll = sysServicesDao.listAll();
+        List<MicroService> all = microServiceDao.listAll();
         JSONArray array = new JSONArray();
-        setPermissionsTree(0L, permissionsAll, array);
+        setPermissionsTree(0L, all, array);
         return array;
     }
 
     @GetMapping("/parents")
     @ApiOperation(value = "一级服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
-    public List<Permission> parentMenu() {
-        List<Permission> parents = sysServicesDao.listParents();
+    public List<MicroService> parentMenu() {
+        List<MicroService> parents = microServiceDao.listParents();
         return parents;
     }
 
@@ -108,20 +107,19 @@ public class ServiceController {
      * 菜单树
      *
      * @param pId
-     * @param permissionsAll
+     * @param all
      * @param array
      */
-    private void setPermissionsTree(Long pId, List<Permission> permissionsAll, JSONArray array) {
-        for (Permission per : permissionsAll) {
+    private void setPermissionsTree(Long pId, List<MicroService> all, JSONArray array) {
+        for (MicroService per : all) {
             if (per.getParentId().equals(pId)) {
                 String string = JSONObject.toJSONString(per);
                 JSONObject parent = (JSONObject) JSONObject.parse(string);
                 array.add(parent);
-
-                if (permissionsAll.stream().filter(p -> p.getParentId().equals(per.getId())).findAny() != null) {
+                if (all.stream().filter(p -> p.getParentId().equals(per.getId())).findAny() != null) {
                     JSONArray child = new JSONArray();
                     parent.put("child", child);
-                    setPermissionsTree(per.getId(), permissionsAll, child);
+                    setPermissionsTree(per.getId(), all, child);
                 }
             }
         }
@@ -130,31 +128,31 @@ public class ServiceController {
     @GetMapping(params = "clientId")
     @ApiOperation(value = "根据应用id查询权限")
     @PreAuthorize("hasAnyAuthority('sys:menu:query','sys:role:query')")
-    public List<Permission> listByRoleId(Long clientId) {
-        return sysServicesDao.listByClientId(clientId);
+    public List<MicroService> listByRoleId(Long clientId) {
+        return microServiceDao.listByClientId(clientId);
     }
 
     @LogAnnotation
     @PostMapping
     @ApiOperation(value = "保存服务")
     @PreAuthorize("hasAuthority('sys:menu:add')")
-    public void save(@RequestBody Permission permission) {
-        sysServicesDao.save(permission);
+    public void save(@RequestBody MicroService microService) {
+        microServiceDao.save(microService);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据服务id获取服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
-    public Permission get(@PathVariable Long id) {
-        return sysServicesDao.getById(id);
+    public MicroService get(@PathVariable Long id) {
+        return microServiceDao.getById(id);
     }
 
     @LogAnnotation
     @PutMapping
     @ApiOperation(value = "修改服务")
     @PreAuthorize("hasAuthority('sys:menu:add')")
-    public void update(@RequestBody Permission permission) {
-        microServiceService.update(permission);
+    public void update(@RequestBody MicroService microService) {
+        microServiceService.update(microService);
     }
 
     /**
@@ -165,13 +163,12 @@ public class ServiceController {
     @GetMapping("/owns")
     @ApiOperation(value = "校验当前用户的权限")
     public Set<String> ownsPermission() {
-        List<Permission> permissions = UserUtil.getLoginUser().getPermissions();
+        List<SysPermission> permissions = UserUtil.getLoginUser().getPermissions();
         if (CollectionUtils.isEmpty(permissions)) {
             return Collections.emptySet();
         }
-
         return permissions.parallelStream().filter(p -> !StringUtils.isEmpty(p.getPermission()))
-                .map(Permission::getPermission).collect(Collectors.toSet());
+                .map(SysPermission::getPermission).collect(Collectors.toSet());
     }
 
     @LogAnnotation

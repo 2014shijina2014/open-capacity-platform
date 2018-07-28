@@ -25,25 +25,9 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-2 control-label">样式</label>
-                <div class="col-md-10">
-                    <button onclick="selectCss()" class="btn btn-primary">选择</button>
-                    <input type="hidden" name="css" id="css"/><i id="cssImg" class="fa"></i>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-md-2 control-label">链接</label>
                 <div class="col-md-10">
                     <input class="form-control" placeholder="链接" name="href" id="href"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">类型</label>
-                <div class="col-md-10">
-                    <select name="type" class="form-control input-sm">
-                        <option value="1">菜单</option>
-                        <option value="2">按钮</option>
-                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -110,17 +94,6 @@
                     location.href = "serviceList.html";
                 });
             }
-        });
-    }
-
-    function selectCss() {
-        layer.open({
-            type: 2,
-            title: "样式",
-            area: ['800px', '400px'],
-            maxmin: true,
-            shadeClose: true,
-            content: ['icon.html']
         });
     }
 </script>

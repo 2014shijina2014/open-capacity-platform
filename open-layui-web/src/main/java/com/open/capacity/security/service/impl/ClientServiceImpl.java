@@ -2,8 +2,8 @@ package com.open.capacity.security.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.open.capacity.security.dao.OauthClientDetailsDao;
-import com.open.capacity.security.dto.ClientDto;
-import com.open.capacity.security.model.Client;
+import com.open.capacity.security.dto.OauthClientDetailsDto;
+import com.open.capacity.security.model.OauthClientDetails;
 import com.open.capacity.security.service.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +34,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
-    public void saveClient(ClientDto clientDto) {
-        Client client = clientDto;
+    public void saveClient(OauthClientDetailsDto clientDto) {
+        OauthClientDetails client = clientDto;
         List<Long> permissionIds = clientDto.getPermissionIds();
         permissionIds.remove(0L);
 
@@ -46,8 +46,8 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
-    private void saveClient(Client client, List<Long> permissionIds) {
-        Client r = oauthClientDetailsDao.getClient(client.getClientId());
+    private void saveClient(OauthClientDetails client, List<Long> permissionIds) {
+        OauthClientDetails r = oauthClientDetailsDao.getClient(client.getClientId());
         if (r != null) {
             throw new IllegalArgumentException(client.getClientId() + "已存在");
         }
@@ -59,8 +59,8 @@ public class ClientServiceImpl implements ClientService {
         log.debug("新增应用{}", client.getClientId());
     }
 
-    private void updateClient(Client client, List<Long> permissionIds) {
-//		Client r = oauthClientDetailsDao.getClient(client.getClientId());
+    private void updateClient(OauthClientDetails client, List<Long> permissionIds) {
+//		OauthClientDetails r = oauthClientDetailsDao.getClient(client.getClientId());
 //		if (r != null && r.getId() != client.getId()) {
 //			throw new IllegalArgumentException(client.getClientId() + "已存在");
 //		}

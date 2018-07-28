@@ -18,8 +18,7 @@ import java.io.IOException;
  * Token过滤器
  *
  * @author owen 624191343@qq.com
- * <p>
- * 2017年10月14日
+ * @version 2018-07-28
  */
 public class TokenFilter extends OncePerRequestFilter {
 
@@ -39,7 +38,6 @@ public class TokenFilter extends OncePerRequestFilter {
         if (StringUtils.isBlank(token)) {
             token = request.getHeader(TOKEN_KEY);
         }
-
         return token;
     }
 
@@ -94,5 +92,4 @@ public class TokenFilter extends OncePerRequestFilter {
         }
         return loginUser;
     }
-
 }

@@ -348,31 +348,28 @@ VALUES
 	( 5, 2 );#
 
 
-# Structure for table "sys_services"
+# Structure for table "micro_service"
 DROP TABLE
 IF
-	EXISTS `sys_services`;
-CREATE TABLE `sys_services` (
+	EXISTS `micro_service`;
+CREATE TABLE `micro_service` (
 	`id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT '服务ID',
 	`parentId` INT ( 11 ) NOT NULL COMMENT '父服务ID',
 	`name` VARCHAR ( 50 ) NOT NULL COMMENT '服务名称',
-	`css` VARCHAR ( 30 ) DEFAULT NULL COMMENT 'css',
 	`href` VARCHAR ( 1000 ) DEFAULT NULL COMMENT '服务地址',
-	`type` TINYINT ( 1 ) NOT NULL,
 	`permission` VARCHAR ( 50 ) DEFAULT NULL COMMENT '服务权限标识符',
 	`sort` INT ( 11 ) NOT NULL COMMENT '排序',
 	PRIMARY KEY ( `id` )
 ) ENGINE = INNODB AUTO_INCREMENT = 74 DEFAULT CHARSET = utf8mb4 COMMENT ='微服务API表';#
 
-# Data for table "sys_services"
-INSERT INTO `sys_services`
+# Data for table "micro_service"
+INSERT INTO `micro_service`
 VALUES
-	( 71, 0, '授权服务', '', '/auth', 1, '', 1 ),
-	( 72, 71, '用户授权token', '', '/auth/user/token', 1, '', 100 ),
-	( 73, 71, '应用申请token', '', '/auth/client/token', 1, '', 100 ),
-	( 74, 0, '测试微服务', '', '/client', 1, '', 100 ),
-	( 75, 74, 'hello接口', '', '/client/hello', 1, '', 100 );#
-
+	( 71, 0, '授权服务',  '/auth', '', 1 ),
+	( 72, 71, '用户授权token',  '/auth/user/token', '', 100 ),
+	( 73, 71, '应用申请token','/auth/client/token', '', 100 ),
+	( 74, 0, '测试微服务', '/client', '', 100 ),
+	( 75, 74, 'hello接口', '/client/hello', '', 100 );#
 
 # Structure for table "sys_user"
 DROP TABLE
@@ -404,3 +401,29 @@ VALUES
 	( 3, 'test123', '$2a$10$MGxO0dynaARStolVS9tzk.ZGwzlC2WZ2LZ/LzxixWxCUoftU5Xtnq', 'test111', NULL, '18571111111', '221', '22', '2018-03-14', 1, 1, '2018-03-14 08:43:48', '2018-06-21 21:04:47' ),
 	( 4, 'owen', '$2a$10$JTuOh..ec2N1BBi6NOsn1.beg72gN7je7uNvFn.VWbfkrAsPZ3otC', 'test', NULL, '18571111111', '', '11@11.com', '2018-03-20', 0, 1, '2018-03-14 13:02:36', '2018-06-12 20:56:07' ),
 	( 5, '111111111', '$2a$10$mJuBGzs67CyExiTZkk5iLOF9sE09GDK7jLf2O6gosMh.g/fDeKEiS', '111111', NULL, '11111111111', '11111111111', '11@11.com', '2018-04-11', 0, 1, '2018-04-14 21:42:43', '2018-04-14 21:42:43' );#
+
+#
+# Structure for table "t_dict"
+#
+DROP TABLE
+IF
+	EXISTS `t_dict`;
+CREATE TABLE `t_dict` (
+`id` INT ( 11 ) NOT NULL AUTO_INCREMENT,
+`type` VARCHAR ( 16 ) NOT NULL COMMENT '字段类型 eg sex',
+`k` VARCHAR ( 16 ) NOT NULL COMMENT 'key值',
+`val` VARCHAR ( 64 ) NOT NULL COMMENT '中文',
+`createTime` datetime NOT NULL COMMENT '添加时间',
+`updateTime` datetime NOT NULL COMMENT '修改时间',
+PRIMARY KEY ( `id` ),
+UNIQUE KEY `type` ( `type`, `k` )
+) ENGINE = INNODB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4 COMMENT='系统字典表';#
+# Data for table "t_dict"
+#
+INSERT INTO `t_dict`
+VALUES
+	( 1, 'sex', '0', '女', '2017-11-17 09:58:24', '2017-11-18 14:21:05' ),
+	( 2, 'sex', '1', '男', '2017-11-17 10:03:46', '2017-11-17 10:03:46' ),
+	( 3, 'userStatus', '0', '无效', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
+	( 4, 'userStatus', '1', '正常', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),
+	( 5, 'userStatus', '2', '锁定', '2017-11-17 16:26:06', '2017-11-17 16:26:09' ),

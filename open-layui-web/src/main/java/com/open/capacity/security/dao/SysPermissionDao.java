@@ -1,6 +1,6 @@
 package com.open.capacity.security.dao;
 
-import com.open.capacity.security.model.Permission;
+import com.open.capacity.security.model.SysPermission;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -10,25 +10,25 @@ import java.util.Set;
 public interface SysPermissionDao {
 
     @Select("select * from sys_permission t order by t.sort")
-    List<Permission> listAll();
+    List<SysPermission> listAll();
 
     @Select("select * from sys_permission t where t.type = 1 order by t.sort")
-    List<Permission> listParents();
+    List<SysPermission> listParents();
 
     @Select("select distinct p.* from sys_permission p inner join sys_role_permission rp on p.id = rp.permissionId inner join sys_role_user ru on ru.roleId = rp.roleId where ru.userId = #{userId} order by p.sort")
-    List<Permission> listByUserId(Long userId);
+    List<SysPermission> listByUserId(Long userId);
 
     @Select("select p.* from sys_permission p inner join sys_role_permission rp on p.id = rp.permissionId where rp.roleId = #{roleId} order by p.sort")
-    List<Permission> listByRoleId(Long roleId);
+    List<SysPermission> listByRoleId(Long roleId);
 
     @Select("select * from sys_permission t where t.id = #{id}")
-    Permission getById(Long id);
+    SysPermission getById(Long id);
 
     @Insert("insert into sys_permission(parentId, name, css, href, type, permission, sort) values(#{parentId}, #{name}, #{css}, #{href}, #{type}, #{permission}, #{sort})")
-    int save(Permission permission);
+    int save(SysPermission permission);
 
     @Update("update sys_permission t set parentId = #{parentId}, name = #{name}, css = #{css}, href = #{href}, type = #{type}, permission = #{permission}, sort = #{sort} where t.id = #{id}")
-    int update(Permission permission);
+    int update(SysPermission permission);
 
     @Delete("delete from sys_permission where id = #{id}")
     int delete(Long id);

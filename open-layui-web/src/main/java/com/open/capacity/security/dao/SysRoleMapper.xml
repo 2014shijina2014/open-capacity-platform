@@ -16,7 +16,7 @@
         <include refid="where"/>
     </select>
 
-    <select id="list" resultType="com.open.capacity.security.model.Role">
+    <select id="list" resultType="com.open.capacity.security.model.SysRole">
         select * from sys_role t
         <include refid="where"/>
         ${params.orderBy}

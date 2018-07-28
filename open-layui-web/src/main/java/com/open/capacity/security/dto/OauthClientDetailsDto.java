@@ -1,12 +1,12 @@
 package com.open.capacity.security.dto;
 
-import com.open.capacity.security.model.Role;
+import com.open.capacity.security.model.OauthClientDetails;
 
 import java.util.List;
 
-public class RoleDto extends Role {
+public class OauthClientDetailsDto extends OauthClientDetails {
 
-    private static final long serialVersionUID = 4218495592167610193L;
+    private static final long serialVersionUID = 1475637288060027265L;
 
     private List<Long> permissionIds;
 

@@ -2,7 +2,7 @@ package com.open.capacity.security.controller;
 
 import com.open.capacity.security.annotation.LogAnnotation;
 import com.open.capacity.security.dao.SysUserDao;
-import com.open.capacity.security.dto.UserDto;
+import com.open.capacity.security.dto.SysUserDto;
 import com.open.capacity.security.model.SysUser;
 import com.open.capacity.security.page.table.PageTableHandler;
 import com.open.capacity.security.page.table.PageTableHandler.CountHandler;
@@ -31,9 +31,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class SysUserController {
 
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private static final Logger log = LoggerFactory.getLogger(SysUserController.class);
 
     @Autowired
     private UserService userService;
@@ -44,7 +44,7 @@ public class UserController {
     @PostMapping
     @ApiOperation(value = "保存用户")
     @PreAuthorize("hasAuthority('sys:user:add')")
-    public SysUser saveUser(@RequestBody UserDto userDto) {
+    public SysUser saveUser(@RequestBody SysUserDto userDto) {
         SysUser u = userService.getUser(userDto.getUsername());
         if (u != null) {
             throw new IllegalArgumentException(userDto.getUsername() + "已存在");
@@ -56,7 +56,7 @@ public class UserController {
     @PutMapping
     @ApiOperation(value = "修改用户")
     @PreAuthorize("hasAuthority('sys:user:add')")
-    public SysUser updateUser(@RequestBody UserDto userDto) {
+    public SysUser updateUser(@RequestBody SysUserDto userDto) {
         return userService.updateUser(userDto);
     }
 
@@ -65,7 +65,7 @@ public class UserController {
     @ApiOperation(value = "修改头像")
     public void updateHeadImgUrl(String headImgUrl) {
         SysUser user = UserUtil.getLoginUser();
-        UserDto userDto = new UserDto();
+        SysUserDto userDto = new SysUserDto();
         BeanUtils.copyProperties(user, userDto);
         userDto.setHeadImgUrl(headImgUrl);
         userService.updateUser(userDto);

@@ -5,7 +5,7 @@ package com.open.capacity.security.model;
  *
  * @DBTable oauth_client_details
  */
-public class Client extends BaseEntity<Long> {
+public class OauthClientDetails extends BaseEntity<Long> {
 
     private static final long serialVersionUID = -8185413579135897885L;
     //主键

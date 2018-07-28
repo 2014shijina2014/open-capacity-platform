@@ -3,8 +3,8 @@ package com.open.capacity.security.controller;
 import com.google.common.collect.Maps;
 import com.open.capacity.security.annotation.LogAnnotation;
 import com.open.capacity.security.dao.OauthClientDetailsDao;
-import com.open.capacity.security.dto.ClientDto;
-import com.open.capacity.security.model.Client;
+import com.open.capacity.security.dto.OauthClientDetailsDto;
+import com.open.capacity.security.model.OauthClientDetails;
 import com.open.capacity.security.page.table.PageTableHandler;
 import com.open.capacity.security.page.table.PageTableHandler.CountHandler;
 import com.open.capacity.security.page.table.PageTableHandler.ListHandler;
@@ -27,7 +27,7 @@ import java.util.List;
 @Api(tags = "应用")
 @RestController
 @RequestMapping("/clients")
-public class ClientController {
+public class OauthClientDetailsController {
 
     @Autowired
     private ClientService clientService;
@@ -38,7 +38,7 @@ public class ClientController {
     @PostMapping
     @ApiOperation(value = "新增应用")
     @PreAuthorize("hasAuthority('sys:role:add')")
-    public void saveRole(@RequestBody ClientDto clientDto) {
+    public void saveRole(@RequestBody OauthClientDetailsDto clientDto) {
         clientService.saveClient(clientDto);
     }
 
@@ -55,8 +55,8 @@ public class ClientController {
         }, new ListHandler() {
 
             @Override
-            public List<Client> list(PageTableRequest request) {
-                List<Client> list = oauthClientDetailsDao.list(request.getParams(), request.getOffset(), request.getLimit());
+            public List<OauthClientDetails> list(PageTableRequest request) {
+                List<OauthClientDetails> list = oauthClientDetailsDao.list(request.getParams(), request.getOffset(), request.getLimit());
                 return list;
             }
         }).handle(request);
@@ -65,21 +65,21 @@ public class ClientController {
     @GetMapping("/{id}")
     @ApiOperation(value = "根据id获取应用")
     @PreAuthorize("hasAuthority('sys:role:query')")
-    public Client get(@PathVariable Long id) {
+    public OauthClientDetails get(@PathVariable Long id) {
         return oauthClientDetailsDao.getById(id);
     }
 
     @GetMapping("/all")
     @ApiOperation(value = "获取所有应用")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
-    public List<Client> roles() {
+    public List<OauthClientDetails> roles() {
         return oauthClientDetailsDao.list(Maps.newHashMap(), null, null);
     }
 
     @GetMapping(params = "userId")
     @ApiOperation(value = "根据用户id获取该用户拥有的角色")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
-    public List<Client> roles(Long userId) {
+    public List<OauthClientDetails> roles(Long userId) {
         return oauthClientDetailsDao.listByUserId(userId);
     }
 

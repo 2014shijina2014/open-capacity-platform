@@ -1,7 +1,7 @@
 package com.open.capacity.security.service.impl;
 
 import com.open.capacity.security.dao.SysPermissionDao;
-import com.open.capacity.security.model.Permission;
+import com.open.capacity.security.model.SysPermission;
 import com.open.capacity.security.service.PermissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +18,14 @@ public class PermissionServiceImpl implements PermissionService {
     private SysPermissionDao sysPermissionDao;
 
     @Override
-    public void save(Permission permission) {
+    public void save(SysPermission permission) {
         sysPermissionDao.save(permission);
 
         log.debug("新增菜单{}", permission.getName());
     }
 
     @Override
-    public void update(Permission permission) {
+    public void update(SysPermission permission) {
         sysPermissionDao.update(permission);
     }
 

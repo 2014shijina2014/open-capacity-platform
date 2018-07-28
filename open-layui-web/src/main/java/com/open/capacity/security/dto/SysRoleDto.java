@@ -1,12 +1,12 @@
 package com.open.capacity.security.dto;
 
-import com.open.capacity.security.model.Client;
+import com.open.capacity.security.model.SysRole;
 
 import java.util.List;
 
-public class ClientDto extends Client {
+public class SysRoleDto extends SysRole {
 
-    private static final long serialVersionUID = 1475637288060027265L;
+    private static final long serialVersionUID = 4218495592167610193L;
 
     private List<Long> permissionIds;
 
