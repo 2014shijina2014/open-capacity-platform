@@ -34,6 +34,11 @@ public class SysRoleController {
     @Autowired
     private SysRoleDao sysRoleDao;
 
+    /**
+     * 保存角色
+     *
+     * @param roleDto 角色
+     */
     @LogAnnotation
     @PostMapping
     @ApiOperation(value = "保存角色")
@@ -42,6 +47,13 @@ public class SysRoleController {
         roleService.saveRole(roleDto);
     }
 
+
+    /**
+     * 角色列表
+     *
+     * @param request 分页查询实体
+     * @return
+     */
     @GetMapping
     @ApiOperation(value = "角色列表")
     @PreAuthorize("hasAuthority('sys:role:query')")
@@ -62,6 +74,12 @@ public class SysRoleController {
         }).handle(request);
     }
 
+    /**
+     * 根据id获取角色
+     *
+     * @param id id
+     * @return
+     */
     @GetMapping("/{id}")
     @ApiOperation(value = "根据id获取角色")
     @PreAuthorize("hasAuthority('sys:role:query')")
@@ -69,6 +87,11 @@ public class SysRoleController {
         return sysRoleDao.getById(id);
     }
 
+    /**
+     * 所有角色
+     *
+     * @return
+     */
     @GetMapping("/all")
     @ApiOperation(value = "所有角色")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
@@ -76,6 +99,12 @@ public class SysRoleController {
         return sysRoleDao.list(Maps.newHashMap(), null, null);
     }
 
+    /**
+     * 根据用户id获取拥有的角色
+     *
+     * @param userId 用户id
+     * @return
+     */
     @GetMapping(params = "userId")
     @ApiOperation(value = "根据用户id获取拥有的角色")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
@@ -83,6 +112,11 @@ public class SysRoleController {
         return sysRoleDao.listByUserId(userId);
     }
 
+    /**
+     * 删除角色
+     *
+     * @param id 角色id
+     */
     @LogAnnotation
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除角色")

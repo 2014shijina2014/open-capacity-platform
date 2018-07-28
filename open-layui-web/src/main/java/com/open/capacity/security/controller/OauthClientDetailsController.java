@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author owen 624191343@qq.com
  */
-@Api(tags = "应用")
+@Api(tags = "应用相关接口")
 @RestController
 @RequestMapping("/clients")
 public class OauthClientDetailsController {
@@ -34,6 +34,11 @@ public class OauthClientDetailsController {
     @Autowired
     private OauthClientDetailsDao oauthClientDetailsDao;
 
+    /**
+     * 新增应用
+     *
+     * @param clientDto 新增数据体
+     */
     @LogAnnotation
     @PostMapping
     @ApiOperation(value = "新增应用")
@@ -42,6 +47,12 @@ public class OauthClientDetailsController {
         clientService.saveClient(clientDto);
     }
 
+    /**
+     * 应用列表
+     *
+     * @param request 分页查询
+     * @return
+     */
     @GetMapping
     @ApiOperation(value = "应用列表")
     @PreAuthorize("hasAuthority('sys:role:query')")
@@ -62,6 +73,12 @@ public class OauthClientDetailsController {
         }).handle(request);
     }
 
+    /**
+     * 根据id获取应用
+     *
+     * @param id 应用id
+     * @return
+     */
     @GetMapping("/{id}")
     @ApiOperation(value = "根据id获取应用")
     @PreAuthorize("hasAuthority('sys:role:query')")
@@ -69,6 +86,11 @@ public class OauthClientDetailsController {
         return oauthClientDetailsDao.getById(id);
     }
 
+    /**
+     * 获取所有应用
+     *
+     * @return
+     */
     @GetMapping("/all")
     @ApiOperation(value = "获取所有应用")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
@@ -76,6 +98,12 @@ public class OauthClientDetailsController {
         return oauthClientDetailsDao.list(Maps.newHashMap(), null, null);
     }
 
+    /**
+     * 根据用户id获取该用户拥有的角色
+     *
+     * @param userId 用户id
+     * @return
+     */
     @GetMapping(params = "userId")
     @ApiOperation(value = "根据用户id获取该用户拥有的角色")
     @PreAuthorize("hasAnyAuthority('sys:user:query','sys:role:query')")
@@ -83,6 +111,11 @@ public class OauthClientDetailsController {
         return oauthClientDetailsDao.listByUserId(userId);
     }
 
+    /**
+     * 删除应用
+     *
+     * @param id 应用id
+     */
     @LogAnnotation
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除应用")

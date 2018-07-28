@@ -37,6 +37,11 @@ public class SysPermissionController {
     @Autowired
     private PermissionService permissionService;
 
+    /**
+     * 当前登录用户拥有的权限
+     *
+     * @return
+     */
     @ApiOperation(value = "当前登录用户拥有的权限")
     @GetMapping("/current")
     public List<SysPermission> permissionsCurrent() {
@@ -46,14 +51,6 @@ public class SysPermissionController {
                 .collect(Collectors.toList());
         setChild(permissions);
         return permissions.stream().filter(p -> p.getParentId().equals(0L)).collect(Collectors.toList());
-    }
-
-    private void setChild(List<SysPermission> permissions) {
-        permissions.parallelStream().forEach(per -> {
-            List<SysPermission> child = permissions.stream().filter(p -> p.getParentId().equals(per.getId()))
-                    .collect(Collectors.toList());
-            per.setChild(child);
-        });
     }
 
     /**
@@ -74,6 +71,11 @@ public class SysPermissionController {
         }
     }
 
+    /**
+     * TODO 与 获取所有一级菜单 parentMenu的区别？
+     *
+     * @return
+     */
     @GetMapping
     @ApiOperation(value = "菜单列表")
     @PreAuthorize("hasAuthority('sys:menu:query')")
@@ -84,8 +86,13 @@ public class SysPermissionController {
         return list;
     }
 
+    /**
+     * 获取所有菜单
+     *
+     * @return
+     */
     @GetMapping("/all")
-    @ApiOperation(value = "所有菜单")
+    @ApiOperation(value = "获取所有菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public JSONArray permissionsAll() {
         List<SysPermission> permissionsAll = sysPermissionDao.listAll();
@@ -94,8 +101,13 @@ public class SysPermissionController {
         return array;
     }
 
+    /**
+     * 获取所有一级菜单
+     *
+     * @return
+     */
     @GetMapping("/parents")
-    @ApiOperation(value = "一级菜单")
+    @ApiOperation(value = "获取所有一级菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public List<SysPermission> parentMenu() {
         List<SysPermission> parents = sysPermissionDao.listParents();
@@ -105,9 +117,9 @@ public class SysPermissionController {
     /**
      * 菜单树
      *
-     * @param pId
-     * @param permissionsAll
-     * @param array
+     * @param pId            父id
+     * @param permissionsAll 所有中台资源
+     * @param array          TODO?
      */
     private void setPermissionsTree(Long pId, List<SysPermission> permissionsAll, JSONArray array) {
         for (SysPermission per : permissionsAll) {
@@ -125,6 +137,12 @@ public class SysPermissionController {
         }
     }
 
+    /**
+     * 根据角色id删除权限
+     *
+     * @param roleId 角色id
+     * @return
+     */
     @GetMapping(params = "roleId")
     @ApiOperation(value = "根据角色id删除权限")
     @PreAuthorize("hasAnyAuthority('sys:menu:query','sys:role:query')")
@@ -132,31 +150,47 @@ public class SysPermissionController {
         return sysPermissionDao.listByRoleId(roleId);
     }
 
+    /**
+     * 新增中台资源菜单
+     *
+     * @param permission 中台资源菜单
+     */
     @LogAnnotation
     @PostMapping
-    @ApiOperation(value = "保存菜单")
+    @ApiOperation(value = "保存中台资源菜单")
     @PreAuthorize("hasAuthority('sys:menu:add')")
     public void save(@RequestBody SysPermission permission) {
         sysPermissionDao.save(permission);
     }
 
+    /**
+     * 根据id获取中台资源菜单
+     *
+     * @param id 中台资源菜单id
+     * @return
+     */
     @GetMapping("/{id}")
-    @ApiOperation(value = "根据菜单id获取菜单")
+    @ApiOperation(value = "根据id获取中台资源菜单")
     @PreAuthorize("hasAuthority('sys:menu:query')")
     public SysPermission get(@PathVariable Long id) {
         return sysPermissionDao.getById(id);
     }
 
+    /**
+     * 修改中台资源菜单
+     *
+     * @param permission
+     */
     @LogAnnotation
     @PutMapping
-    @ApiOperation(value = "修改菜单")
+    @ApiOperation(value = "修改中台资源菜单")
     @PreAuthorize("hasAuthority('sys:menu:add')")
     public void update(@RequestBody SysPermission permission) {
         permissionService.update(permission);
     }
 
     /**
-     * 校验权限
+     * 校验当前用户的权限
      *
      * @return
      */
@@ -172,11 +206,29 @@ public class SysPermissionController {
                 .map(SysPermission::getPermission).collect(Collectors.toSet());
     }
 
+    /**
+     * 删除中台资源菜单
+     *
+     * @param id 中台资源菜单id
+     */
     @LogAnnotation
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "删除菜单")
+    @ApiOperation(value = "删除中台资源菜单")
     @PreAuthorize("hasAuthority('sys:menu:del')")
     public void delete(@PathVariable Long id) {
         permissionService.delete(id);
+    }
+
+    /**
+     * 设置一个菜单的子菜单
+     *
+     * @param permissions
+     */
+    private void setChild(List<SysPermission> permissions) {
+        permissions.parallelStream().forEach(per -> {
+            List<SysPermission> child = permissions.stream().filter(p -> p.getParentId().equals(per.getId()))
+                    .collect(Collectors.toList());
+            per.setChild(child);
+        });
     }
 }

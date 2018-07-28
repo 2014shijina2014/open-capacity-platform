@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(tags = "日志")
+/**
+ * 中台日志相关接口
+ */
+@Api(tags = "中台日志相关接口")
 @RestController
 @RequestMapping("/logs")
 public class SysLogsController {
@@ -25,6 +28,12 @@ public class SysLogsController {
     @Autowired
     private SysLogsDao sysLogsDao;
 
+    /**
+     * 日志列表
+     *
+     * @param request 分页数据
+     * @return
+     */
     @GetMapping
     @PreAuthorize("hasAuthority('sys:log:query')")
     @ApiOperation(value = "日志列表")

@@ -27,8 +27,7 @@ import java.util.List;
  *
  * @author 624191343@qq.com
  */
-@Api(tags = "用户")
-
+@Api(tags = "中台用户相关接口")
 @RestController
 @RequestMapping("/users")
 public class SysUserController {
@@ -40,6 +39,12 @@ public class SysUserController {
     @Autowired
     private SysUserDao sysUserDao;
 
+    /**
+     * 保存用户
+     *
+     * @param userDto 用户
+     * @return
+     */
     @LogAnnotation
     @PostMapping
     @ApiOperation(value = "保存用户")
@@ -52,6 +57,12 @@ public class SysUserController {
         return userService.saveUser(userDto);
     }
 
+    /**
+     * 修改用户
+     *
+     * @param userDto 用户
+     * @return
+     */
     @LogAnnotation
     @PutMapping
     @ApiOperation(value = "修改用户")
@@ -60,6 +71,11 @@ public class SysUserController {
         return userService.updateUser(userDto);
     }
 
+    /**
+     * 修改头像
+     *
+     * @param headImgUrl 头像
+     */
     @LogAnnotation
     @PutMapping(params = "headImgUrl")
     @ApiOperation(value = "修改头像")
@@ -72,6 +88,13 @@ public class SysUserController {
         log.debug("{}修改了头像", user.getUsername());
     }
 
+    /**
+     * 修改密码
+     *
+     * @param username    用户名
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     */
     @LogAnnotation
     @PutMapping("/{username}")
     @ApiOperation(value = "修改密码")
@@ -80,6 +103,12 @@ public class SysUserController {
         userService.changePassword(username, oldPassword, newPassword);
     }
 
+    /**
+     * 用户列表
+     *
+     * @param request 用户分页数据体
+     * @return
+     */
     @GetMapping
     @ApiOperation(value = "用户列表")
     @PreAuthorize("hasAuthority('sys:user:query')")
@@ -90,7 +119,6 @@ public class SysUserController {
                 return sysUserDao.count(request.getParams());
             }
         }, new ListHandler() {
-
             @Override
             public List<SysUser> list(PageTableRequest request) {
                 List<SysUser> list = sysUserDao.list(request.getParams(), request.getOffset(), request.getLimit());
@@ -99,12 +127,23 @@ public class SysUserController {
         }).handle(request);
     }
 
+    /**
+     * 当前登录用户
+     *
+     * @return
+     */
     @ApiOperation(value = "当前登录用户")
     @GetMapping("/current")
     public SysUser currentUser() {
         return UserUtil.getLoginUser();
     }
 
+    /**
+     * 根据用户id获取用户
+     *
+     * @param id 用户id
+     * @return
+     */
     @ApiOperation(value = "根据用户id获取用户")
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('sys:user:query')")

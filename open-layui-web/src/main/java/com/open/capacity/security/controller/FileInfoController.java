@@ -21,7 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-@Api(tags = "文件")
+
+/**
+ * 文件维护相关接口
+ *
+ * @author caoheyang
+ * @version 20180728
+ */
+@Api(tags = "文件相关接口")
 @RestController
 @RequestMapping("/files")
 public class FileInfoController {
@@ -31,6 +38,14 @@ public class FileInfoController {
     @Autowired
     private FileInfoDao fileInfoDao;
 
+    /**
+     * 文件上传
+     *
+     * @param file 文件
+     * @return
+     * @author caoheyang
+     * @version 20180728
+     */
     @LogAnnotation
     @PostMapping
     @ApiOperation(value = "文件上传")
@@ -45,6 +60,8 @@ public class FileInfoController {
      * @param domain
      * @return
      * @throws IOException
+     * @author caoheyang
+     * @version 20180728
      */
     @LogAnnotation
     @PostMapping("/layui")
@@ -62,6 +79,14 @@ public class FileInfoController {
         return layuiFile;
     }
 
+    /**
+     * 文件查询
+     *
+     * @param request 分页数据体
+     * @return
+     * @author caoheyang
+     * @version 20180728
+     */
     @GetMapping
     @ApiOperation(value = "文件查询")
     @PreAuthorize("hasAuthority('sys:file:query')")
@@ -80,6 +105,13 @@ public class FileInfoController {
         }).handle(request);
     }
 
+    /**
+     * 文件删除
+     *
+     * @param id 文件id
+     * @author caoheyang
+     * @version 20180728
+     */
     @LogAnnotation
     @DeleteMapping("/{id}")
     @ApiOperation(value = "文件删除")

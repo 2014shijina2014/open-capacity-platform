@@ -38,6 +38,11 @@ public class MicroServiceController {
     @Autowired
     private MicroServiceService microServiceService;
 
+    /**
+     * 当前登录用户拥有的权限
+     *
+     * @return
+     */
     @ApiOperation(value = "当前登录用户拥有的权限")
     @GetMapping("/current")
     public List<SysPermission> permissionsCurrent() {
@@ -49,20 +54,13 @@ public class MicroServiceController {
         return permissions.stream().filter(p -> p.getParentId().equals(0L)).collect(Collectors.toList());
     }
 
-    private void setChild(List<SysPermission> permissions) {
-        permissions.parallelStream().forEach(per -> {
-            List<SysPermission> child = permissions.stream().filter(p -> p.getParentId().equals(per.getId()))
-                    .collect(Collectors.toList());
-            per.setChild(child);
-        });
-    }
 
     /**
      * 菜单列表
      *
-     * @param pId
-     * @param all
-     * @param list
+     * @param pId  父id
+     * @param all  TODO ?
+     * @param list TODO?
      */
     private void setPermissionsList(Long pId, List<MicroService> all, List<MicroService> list) {
         for (MicroService per : all) {
@@ -75,6 +73,11 @@ public class MicroServiceController {
         }
     }
 
+    /**
+     * 服务列表
+     *
+     * @return
+     */
     @GetMapping
     @ApiOperation(value = "服务列表")
     @PreAuthorize("hasAuthority('sys:menu:query')")
@@ -85,6 +88,11 @@ public class MicroServiceController {
         return list;
     }
 
+    /**
+     * 所有服务
+     *
+     * @return
+     */
     @GetMapping("/all")
     @ApiOperation(value = "所有服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
@@ -95,6 +103,11 @@ public class MicroServiceController {
         return array;
     }
 
+    /**
+     * 一级服务
+     *
+     * @return
+     */
     @GetMapping("/parents")
     @ApiOperation(value = "一级服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
@@ -106,9 +119,9 @@ public class MicroServiceController {
     /**
      * 菜单树
      *
-     * @param pId
-     * @param all
-     * @param array
+     * @param pId   父id
+     * @param all   所有服务
+     * @param array TODO ?
      */
     private void setPermissionsTree(Long pId, List<MicroService> all, JSONArray array) {
         for (MicroService per : all) {
@@ -125,6 +138,12 @@ public class MicroServiceController {
         }
     }
 
+    /**
+     * 根据应用id查询权限
+     *
+     * @param clientId
+     * @return
+     */
     @GetMapping(params = "clientId")
     @ApiOperation(value = "根据应用id查询权限")
     @PreAuthorize("hasAnyAuthority('sys:menu:query','sys:role:query')")
@@ -132,6 +151,11 @@ public class MicroServiceController {
         return microServiceDao.listByClientId(clientId);
     }
 
+    /**
+     * 保存服务
+     *
+     * @param microService 服务
+     */
     @LogAnnotation
     @PostMapping
     @ApiOperation(value = "保存服务")
@@ -140,6 +164,12 @@ public class MicroServiceController {
         microServiceDao.save(microService);
     }
 
+    /**
+     * 根据服务id获取服务
+     *
+     * @param id 服务id
+     * @return
+     */
     @GetMapping("/{id}")
     @ApiOperation(value = "根据服务id获取服务")
     @PreAuthorize("hasAuthority('sys:menu:query')")
@@ -147,6 +177,11 @@ public class MicroServiceController {
         return microServiceDao.getById(id);
     }
 
+    /**
+     * 修改服务
+     *
+     * @param microService 服务数据体
+     */
     @LogAnnotation
     @PutMapping
     @ApiOperation(value = "修改服务")
@@ -156,7 +191,7 @@ public class MicroServiceController {
     }
 
     /**
-     * 校验权限
+     * 校验当前用户的权限
      *
      * @return
      */
@@ -171,11 +206,29 @@ public class MicroServiceController {
                 .map(SysPermission::getPermission).collect(Collectors.toSet());
     }
 
+    /**
+     * 删除服务
+     *
+     * @param id 服务id
+     */
     @LogAnnotation
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除服务")
     @PreAuthorize("hasAuthority('sys:menu:del')")
     public void delete(@PathVariable Long id) {
         microServiceService.delete(id);
+    }
+
+    /**
+     * 设置一个菜单的子菜单
+     *
+     * @param permissions
+     */
+    private void setChild(List<SysPermission> permissions) {
+        permissions.parallelStream().forEach(per -> {
+            List<SysPermission> child = permissions.stream().filter(p -> p.getParentId().equals(per.getId()))
+                    .collect(Collectors.toList());
+            per.setChild(child);
+        });
     }
 }
