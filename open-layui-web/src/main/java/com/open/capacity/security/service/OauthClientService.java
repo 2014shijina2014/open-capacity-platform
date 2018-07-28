@@ -1,10 +1,9 @@
-package com.open.capacity.security.service.impl;
+package com.open.capacity.security.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.open.capacity.security.dao.OauthClientDetailsDao;
 import com.open.capacity.security.dto.OauthClientDetailsDto;
 import com.open.capacity.security.model.OauthClientDetails;
-import com.open.capacity.security.service.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,9 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 @Service
-public class ClientServiceImpl implements ClientService {
+public class OauthClientService {
 
-    private static final Logger log = LoggerFactory.getLogger(ClientServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(OauthClientService.class);
 
     /**
      * 缓存client的redis key，这里是hash结构存储
@@ -32,7 +31,6 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    @Override
     @Transactional
     public void saveClient(OauthClientDetailsDto clientDto) {
         OauthClientDetails client = clientDto;
@@ -86,7 +84,6 @@ public class ClientServiceImpl implements ClientService {
         log.debug("修改应用{}", client.getClientId());
     }
 
-    @Override
     @Transactional
     public void deleteClient(Long id) {
         oauthClientDetailsDao.deleteClientPermission(id);

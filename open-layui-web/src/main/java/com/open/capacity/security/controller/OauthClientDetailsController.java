@@ -10,7 +10,7 @@ import com.open.capacity.security.page.table.PageTableHandler.CountHandler;
 import com.open.capacity.security.page.table.PageTableHandler.ListHandler;
 import com.open.capacity.security.page.table.PageTableRequest;
 import com.open.capacity.security.page.table.PageTableResponse;
-import com.open.capacity.security.service.ClientService;
+import com.open.capacity.security.service.OauthClientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ import java.util.List;
 public class OauthClientDetailsController {
 
     @Autowired
-    private ClientService clientService;
+    private OauthClientService oauthClientService;
     @Autowired
     private OauthClientDetailsDao oauthClientDetailsDao;
 
@@ -44,7 +44,7 @@ public class OauthClientDetailsController {
     @ApiOperation(value = "新增应用")
     @PreAuthorize("hasAuthority('sys:role:add')")
     public void saveRole(@RequestBody OauthClientDetailsDto clientDto) {
-        clientService.saveClient(clientDto);
+        oauthClientService.saveClient(clientDto);
     }
 
     /**
@@ -121,6 +121,6 @@ public class OauthClientDetailsController {
     @ApiOperation(value = "删除应用")
     @PreAuthorize("hasAuthority('sys:role:del')")
     public void delete(@PathVariable Long id) {
-        clientService.deleteClient(id);
+        oauthClientService.deleteClient(id);
     }
 }

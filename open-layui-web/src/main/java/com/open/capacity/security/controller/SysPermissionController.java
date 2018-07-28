@@ -7,7 +7,7 @@ import com.open.capacity.security.annotation.LogAnnotation;
 import com.open.capacity.security.dao.SysPermissionDao;
 import com.open.capacity.security.dto.LoginUser;
 import com.open.capacity.security.model.SysPermission;
-import com.open.capacity.security.service.PermissionService;
+import com.open.capacity.security.service.SysPermissionService;
 import com.open.capacity.security.utils.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +35,7 @@ public class SysPermissionController {
     @Autowired
     private SysPermissionDao sysPermissionDao;
     @Autowired
-    private PermissionService permissionService;
+    private SysPermissionService sysPermissionService;
 
     /**
      * 当前登录用户拥有的权限
@@ -186,7 +186,7 @@ public class SysPermissionController {
     @ApiOperation(value = "修改中台资源菜单")
     @PreAuthorize("hasAuthority('sys:menu:add')")
     public void update(@RequestBody SysPermission permission) {
-        permissionService.update(permission);
+        sysPermissionService.update(permission);
     }
 
     /**
@@ -216,7 +216,7 @@ public class SysPermissionController {
     @ApiOperation(value = "删除中台资源菜单")
     @PreAuthorize("hasAuthority('sys:menu:del')")
     public void delete(@PathVariable Long id) {
-        permissionService.delete(id);
+        sysPermissionService.delete(id);
     }
 
     /**
