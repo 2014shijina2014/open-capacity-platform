@@ -58,13 +58,11 @@ public class OauthClientDetailsController {
     @PreAuthorize("hasAuthority('sys:role:query')")
     public PageTableResponse listRoles(PageTableRequest request) {
         return new PageTableHandler(new CountHandler() {
-
             @Override
             public int count(PageTableRequest request) {
                 return oauthClientDetailsDao.count(request.getParams());
             }
         }, new ListHandler() {
-
             @Override
             public List<OauthClientDetails> list(PageTableRequest request) {
                 List<OauthClientDetails> list = oauthClientDetailsDao.list(request.getParams(), request.getOffset(), request.getLimit());

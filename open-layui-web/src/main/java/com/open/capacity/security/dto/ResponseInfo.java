@@ -2,6 +2,10 @@ package com.open.capacity.security.dto;
 
 import java.io.Serializable;
 
+/**
+ *  Response 类
+ * @author  caoheyang
+ */
 public class ResponseInfo implements Serializable {
 
     private static final long serialVersionUID = -4417715614021482064L;
