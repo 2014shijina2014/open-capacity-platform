@@ -201,7 +201,6 @@ public class SysPermissionController {
         if (CollectionUtils.isEmpty(permissions)) {
             return Collections.emptySet();
         }
-
         return permissions.parallelStream().filter(p -> !StringUtils.isEmpty(p.getPermission()))
                 .map(SysPermission::getPermission).collect(Collectors.toSet());
     }
