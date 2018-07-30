@@ -24,6 +24,12 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    /**
+     * 新增保存用户
+     *
+     * @param userDto
+     * @return
+     */
     @Transactional
     public SysUser saveUser(SysUserDto userDto) {
         SysUser user = userDto;

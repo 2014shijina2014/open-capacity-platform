@@ -22,17 +22,17 @@
     </sql>
 
     <select id="count" resultType="int">
-        select count(1) from t_dict t
+        select count(1) from dict t
         <include refid="where"/>
     </select>
     <select id="list" resultType="com.open.capacity.security.model.Dict">
-        select * from t_dict t
+        select * from dict t
         <include refid="where"/>
         ${params.orderBy}
         limit #{offset}, #{limit}
     </select>
     <update id="update">
-        update t_dict t
+        update dict t
         <set>
             <if test="type != null">
                 type = #{type},

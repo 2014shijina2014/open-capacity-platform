@@ -19,11 +19,12 @@ import java.util.List;
 
 /**
  * spring security登陆处理
+ * <p>实现spring security UserDetailsService接口，重写spring security获取用户的方式</p>
  *
  * @author owen 624191343@qq.com
  */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class SpringSecurityUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userService;
@@ -31,6 +32,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private SysPermissionDao sysPermissionDao;
 
 
+    /**
+     * 重写spring security loadUserByUsername 方法
+     *
+     * @param username 用户名
+     * @return
+     * @throws UsernameNotFoundException
+     */
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser sysUser = userService.getUser(username);
         if (sysUser == null) {
