@@ -14,6 +14,11 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
+/**
+ * 中台登陆用户
+ * @author caoheyang
+ * @version 20180730
+ */
 @Service
 public class UserService {
 
@@ -21,6 +26,7 @@ public class UserService {
 
     @Autowired
     private SysUserDao sysUserDao;
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -42,6 +48,11 @@ public class UserService {
         return user;
     }
 
+    /**
+     * 保存
+     * @param userId
+     * @param roleIds
+     */
     private void saveUserRoles(Long userId, List<Long> roleIds) {
         if (roleIds != null) {
             sysUserDao.deleteUserRole(userId);
@@ -52,11 +63,22 @@ public class UserService {
     }
 
 
+    /**
+     * 根据用户名获取密码
+     * @param username 用户名
+     * @return
+     */
     public SysUser getUser(String username) {
         return sysUserDao.getUser(username);
     }
 
 
+    /**
+     * 修改密码
+     * @param username 用户名
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     */
     public void changePassword(String username, String oldPassword, String newPassword) {
         SysUser u = sysUserDao.getUser(username);
         if (u == null) {
@@ -72,6 +94,11 @@ public class UserService {
         log.debug("修改{}的密码", username);
     }
 
+    /**
+     * 更新用户
+     * @param userDto
+     * @return
+     */
     @Transactional
     public SysUser updateUser(SysUserDto userDto) {
         sysUserDao.update(userDto);

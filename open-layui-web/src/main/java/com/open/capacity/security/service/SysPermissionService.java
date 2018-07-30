@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 中台资源权限
+ */
 @Service
 public class SysPermissionService {
 
@@ -16,19 +19,29 @@ public class SysPermissionService {
     @Autowired
     private SysPermissionDao sysPermissionDao;
 
-
+    /**
+     * 新增资源权限
+     * @param permission  资源权限
+     */
     public void save(SysPermission permission) {
         sysPermissionDao.save(permission);
 
         log.debug("新增菜单{}", permission.getName());
     }
 
-
+    /**
+     * 修改资源权限
+     * @param permission 资源权限
+     */
     public void update(SysPermission permission) {
         sysPermissionDao.update(permission);
     }
 
 
+    /**
+     * 删除资源权限
+     * @param id
+     */
     @Transactional
     public void delete(Long id) {
         sysPermissionDao.deleteRolePermission(id);

@@ -12,6 +12,11 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
+/**
+ * 用户角色的管理逻辑
+ * @author caoheyang
+ * @version 20180730
+ */
 @Service
 public class RoleService {
 
@@ -20,20 +25,28 @@ public class RoleService {
     @Autowired
     private SysRoleDao sysRoleDao;
 
-
+    /**
+     * 操作角色
+     * @param roleDto 角色
+     */
     @Transactional
     public void saveRole(SysRoleDto roleDto) {
         SysRole role = roleDto;
         List<Long> permissionIds = roleDto.getPermissionIds();
         permissionIds.remove(0L);
 
-        if (role.getId() != null) {// 修改
+        if (role.getId() != null) {   // 修改
             updateRole(role, permissionIds);
-        } else {// 新增
+        } else {     // 新增
             saveRole(role, permissionIds);
         }
     }
 
+    /**
+     * 新增
+     * @param role 角色
+     * @param permissionIds 功能点
+     */
     private void saveRole(SysRole role, List<Long> permissionIds) {
         SysRole r = sysRoleDao.getRole(role.getName());
         if (r != null) {
@@ -47,6 +60,11 @@ public class RoleService {
         log.debug("新增角色{}", role.getName());
     }
 
+    /**
+     * 更新
+     * @param role 角色
+     * @param permissionIds  功能点
+     */
     private void updateRole(SysRole role, List<Long> permissionIds) {
         SysRole r = sysRoleDao.getRole(role.getName());
         if (r != null && r.getId() != role.getId()) {
@@ -63,6 +81,10 @@ public class RoleService {
     }
 
 
+    /**
+     * 删除角色
+     * @param id 角色id
+     */
     @Transactional
     public void deleteRole(Long id) {
         sysRoleDao.deleteRolePermission(id);

@@ -45,14 +45,23 @@ public class PageTableHandler {
         return new PageTableResponse(count, count, list);
     }
 
+    /**
+     * 数据Handler
+     */
     public interface ListHandler {
         List<?> list(PageTableRequest request);
     }
 
+    /**
+     * 数量处理器接口
+     */
     public interface CountHandler {
         int count(PageTableRequest request);
     }
 
+    /**
+     * 排序处理器接口
+     */
     public interface OrderHandler {
         PageTableRequest order(PageTableRequest request);
     }

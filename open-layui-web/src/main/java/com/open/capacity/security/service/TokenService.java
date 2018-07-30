@@ -36,21 +36,26 @@ public class TokenService {
     private static final Logger log = LoggerFactory.getLogger(TokenService.class);
     private static final String LOGIN_USER_KEY = "LOGIN_USER_KEY";
     private static Key KEY = null;
-    /**
-     * token过期秒数
-     */
+
+    //token过期秒数
     @Value("${token.expire.seconds}")
     private Integer expireSeconds;
+
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
     @Autowired
     private SysLogService logService;
-    /**
-     * 私钥
-     */
+
+    //私钥
     @Value("${token.jwtSecret}")
     private String jwtSecret;
 
+    /**
+     * 根据登陆用户生成token
+     * @param loginUser 登陆用户
+     * @return
+     */
     public Token saveToken(LoginUser loginUser) {
         loginUser.setToken(UUID.randomUUID().toString());
         String jwtToken = createJWTToken(loginUser);
@@ -64,7 +69,7 @@ public class TokenService {
     /**
      * 生成jwt
      *
-     * @param loginUser
+     * @param loginUser 登陆用户
      * @return
      */
     private String createJWTToken(LoginUser loginUser) {
@@ -77,6 +82,10 @@ public class TokenService {
         return jwtToken;
     }
 
+    /**
+     * 缓存登陆用户的信息
+     * @param loginUser 登陆用户
+     */
     private void cacheLoginUser(LoginUser loginUser) {
         loginUser.setLoginTime(System.currentTimeMillis());
         loginUser.setExpireTime(loginUser.getLoginTime() + expireSeconds * 1000);
@@ -87,21 +96,29 @@ public class TokenService {
     /**
      * 更新缓存的用户信息
      */
-
     public void refresh(LoginUser loginUser) {
         cacheLoginUser(loginUser);
     }
 
+    /**
+     * 根据token获取登陆用户
+     * @param jwtToken token
+     * @return
+     */
     public LoginUser getLoginUser(String jwtToken) {
         String uuid = getUUIDFromJWT(jwtToken);
         if (uuid != null) {
             return (LoginUser) redisTemplate.boundValueOps(getTokenKey(uuid)).get();
         }
-
         return null;
     }
 
 
+    /**
+     * 删除token
+     * @param jwtToken jwtToken
+     * @return
+     */
     public boolean deleteToken(String jwtToken) {
         String uuid = getUUIDFromJWT(jwtToken);
         if (uuid != null) {
@@ -119,10 +136,19 @@ public class TokenService {
         return false;
     }
 
+    /**
+     * 获取token key
+     * @param uuid 用户id
+     * @return
+     */
     private String getTokenKey(String uuid) {
         return "tokens:" + uuid;
     }
 
+    /**
+     * 获取key实力
+     * @return
+     */
     private Key getKeyInstance() {
         if (KEY == null) {
             synchronized (TokenService.class) {
@@ -132,10 +158,14 @@ public class TokenService {
                 }
             }
         }
-
         return KEY;
     }
 
+    /**
+     * 获取jwt的UUID
+     * @param jwtToken
+     * @return
+     */
     private String getUUIDFromJWT(String jwtToken) {
         if ("null".equals(jwtToken) || StringUtils.isBlank(jwtToken)) {
             return null;
@@ -150,7 +180,6 @@ public class TokenService {
         } catch (Exception e) {
             log.error("{}", e);
         }
-
         return null;
     }
 }

@@ -43,7 +43,6 @@ public class SecurityHandlerConfig {
     @Bean
     public AuthenticationSuccessHandler loginSuccessHandler() {
         return new AuthenticationSuccessHandler() {
-
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
@@ -97,7 +96,7 @@ public class SecurityHandlerConfig {
     /**
      * 退出登陆处理
      *
-     * @return
+     * @return 200 OK
      */
     @Bean
     public LogoutSuccessHandler logoutSussHandler() {
@@ -111,7 +110,6 @@ public class SecurityHandlerConfig {
                 ResponseUtil.responseJson(response, HttpStatus.OK.value(), info);//设置返回体
             }
         };
-
     }
 
 }

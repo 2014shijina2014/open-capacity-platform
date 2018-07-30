@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+/**
+ * 系统日志
+ * @author caoheyang
+ * @version 20180730
+ */
 @Service
 public class SysLogService {
 
@@ -23,6 +28,7 @@ public class SysLogService {
     private SysLogsDao sysLogsDao;
 
     /**
+     * 新增日志
      * @param sysLogs
      */
     public void save(SysLogs sysLogs) {
@@ -34,6 +40,13 @@ public class SysLogService {
         sysLogsDao.save(sysLogs);
     }
 
+    /**
+     * 保存日志
+     * @param userId 用户id
+     * @param module 模块编号
+     * @param flag 成功失败
+     * @param remark 备注
+     */
     @Async
     public void save(Long userId, String module, Boolean flag, String remark) {
         SysLogs sysLogs = new SysLogs();
@@ -50,6 +63,9 @@ public class SysLogService {
     }
 
 
+    /**
+     * 删除日志
+     */
     public void deleteLogs() {
         Date date = DateUtils.addMonths(new Date(), -3);
         String time = DateFormatUtils.format(date, DateFormatUtils.ISO_8601_EXTENDED_DATE_FORMAT.getPattern());

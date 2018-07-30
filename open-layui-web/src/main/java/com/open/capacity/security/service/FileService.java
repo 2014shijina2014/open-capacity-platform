@@ -12,6 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+/**
+ * 文件上传业务
+ * @author caoheyang
+ * @version 20180730
+ */
 @Service
 public class FileService {
 
@@ -22,9 +27,14 @@ public class FileService {
     @Autowired
     private FileInfoDao fileInfoDao;
 
+    /**
+     * 文件保存 TODO 根据公司选择文件服务器
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public FileInfo save(MultipartFile file) throws IOException {
         String fileOrigName = file.getOriginalFilename();
-
         if (!fileOrigName.contains(".")) {
             throw new IllegalArgumentException("缺少后缀名");
         }
@@ -55,6 +65,7 @@ public class FileService {
         fileInfo.setUrl(pathname);
         fileInfo.setType(contentType.startsWith("image/") ? 1 : 0);
 
+        //存库
         fileInfoDao.save(fileInfo);
 
         log.debug("上传文件{}", fullPath);
@@ -63,8 +74,13 @@ public class FileService {
 
     }
 
+    /**
+     * 删除文件
+     * @param id
+     */
     public void delete(String id) {
         FileInfo fileInfo = fileInfoDao.getById(id);
+       //判断文件是否存在
         if (fileInfo != null) {
             String fullPath = fileInfo.getPath();
             FileUtil.deleteFile(fullPath);
