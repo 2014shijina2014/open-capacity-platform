@@ -233,11 +233,11 @@ CREATE TABLE `sys_user` (
 INSERT INTO `sys_user` VALUES (1,'admin','$2a$10$q54rooCXqDTWYkf29d4ZFu/L3zkq5Uoa6jdA/spRNSwpxksEqJYpy','管理员',NULL,'','','','1998-07-01',0,1,'2017-04-10 15:21:38','2018-05-28 02:49:01');
 
 #
-# Structure for table "t_dict"
+# Structure for table "dict"
 #
 
-DROP TABLE IF EXISTS `t_dict`;
-CREATE TABLE `t_dict` (
+DROP TABLE IF EXISTS `dict`;
+CREATE TABLE `dict` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(16) NOT NULL COMMENT '字段类型 eg sex',
   `k` varchar(16) NOT NULL COMMENT 'key值',
@@ -249,7 +249,7 @@ CREATE TABLE `t_dict` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='系统字典表';
 
 #
-# Data for table "t_dict"
+# Data for table "dict"
 #
 
-INSERT INTO `t_dict` VALUES (1,'sex','0','女','2017-11-17 09:58:24','2017-11-18 14:21:05'),(2,'sex','1','男','2017-11-17 10:03:46','2017-11-17 10:03:46'),(3,'userStatus','0','无效','2017-11-17 16:26:06','2017-11-17 16:26:09'),(4,'userStatus','1','正常','2017-11-17 16:26:06','2017-11-17 16:26:09'),(5,'userStatus','2','锁定','2017-11-17 16:26:06','2017-11-17 16:26:09');
+INSERT INTO `dict` VALUES (1,'sex','0','女','2017-11-17 09:58:24','2017-11-18 14:21:05'),(2,'sex','1','男','2017-11-17 10:03:46','2017-11-17 10:03:46'),(3,'userStatus','0','无效','2017-11-17 16:26:06','2017-11-17 16:26:09'),(4,'userStatus','1','正常','2017-11-17 16:26:06','2017-11-17 16:26:09'),(5,'userStatus','2','锁定','2017-11-17 16:26:06','2017-11-17 16:26:09');

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 分页、查询参数解析
+ * 自定义分页、查询参数解析器
  *
  * @author 624191343@qq.com
  */
@@ -28,6 +28,16 @@ public class PageTableArgumentResolver implements HandlerMethodArgumentResolver 
         return cla.isAssignableFrom(PageTableRequest.class);
     }
 
+
+    /**
+     * 自定义分页、查询参数解析规则
+     * @param parameter
+     * @param mavContainer
+     * @param webRequest
+     * @param binderFactory
+     * @return
+     * @throws Exception
+     */
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
@@ -67,7 +77,6 @@ public class PageTableArgumentResolver implements HandlerMethodArgumentResolver 
      */
     private void removeParam(PageTableRequest tableRequest) {
         Map<String, Object> map = tableRequest.getParams();
-
         if (!CollectionUtils.isEmpty(map)) {
             Map<String, Object> param = new HashMap<>();
             map.forEach((k, v) -> {
@@ -75,13 +84,12 @@ public class PageTableArgumentResolver implements HandlerMethodArgumentResolver 
                     param.put(k, v);
                 }
             });
-
             tableRequest.setParams(param);
         }
     }
 
     /**
-     * 从datatables分页请求数据中解析排序
+     * 从datatables分页请求数据中解析排序字段规则
      *
      * @param tableRequest
      * @param map
@@ -99,14 +107,11 @@ public class PageTableArgumentResolver implements HandlerMethodArgumentResolver 
                 continue;
             }
             String sort = (String) map.get("order[" + i + "][dir]");
-
             orderBy.append(column).append(" ").append(sort).append(", ");
         }
-
         if (orderBy.length() > 0) {
             tableRequest.getParams().put("orderBy",
                     " order by " + StringUtils.substringBeforeLast(orderBy.toString(), ","));
         }
     }
-
 }
