@@ -11,11 +11,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Author: [gitgeek]
- * @Date: [2018-07-12 11:32]
- * @Description: [ ]
- * @Version: [1.0.0]
- * @Copy: [com.zzg]
+ * feign的请求前置处理
+ *
+ * @author caoheyang
+ * @version 20170731
+ * @deception 创建自定义请求拦截器，在发送请求前增加了一个请求头信息，进行身份校验
  */
 @Component
 @Configuration
@@ -28,6 +28,11 @@ public class FeignConfig implements RequestInterceptor {
         requestTemplate.header("access_token", getToken(getHttpServletRequest()));
     }
 
+    /**
+     * 获取当前请求上下文的HttpServletRequest
+     *
+     * @return HttpServletRequest
+     */
     private HttpServletRequest getHttpServletRequest() {
         try {
             return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

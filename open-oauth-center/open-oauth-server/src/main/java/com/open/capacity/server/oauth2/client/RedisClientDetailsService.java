@@ -17,9 +17,11 @@ import java.util.List;
 
 
 /**
+ * 重写UserDetailsService逻辑
+ *
  * @author owen 624191343@qq.com
  * @version 创建时间：2017年11月12日 上午22:57:51
- * 类说明
+ * <p>
  * 将oauth_client_details表数据缓存到redis，这里做个缓存优化
  * layui模块中有对oauth_client_details的crud， 注意同步redis的数据
  * 注意对oauth_client_details清楚redis db部分数据的清空
