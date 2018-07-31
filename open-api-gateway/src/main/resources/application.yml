@@ -42,7 +42,6 @@ security:
       store:
         type: redis
 
-
 #设置最大超时时间
 ribbon:  
   httpclient:
@@ -55,7 +54,6 @@ ribbon:
 
 #设置最大容错超时时间
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 90000
-
 
 hystrix:
   command:

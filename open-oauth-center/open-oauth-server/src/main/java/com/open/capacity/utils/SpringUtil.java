@@ -17,20 +17,41 @@ public class SpringUtil implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext = null;
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        SpringUtil.applicationContext = applicationContext;
-    }
-
+    /**
+     * 获取某个类型的Bean
+     *
+     * @param cla Bean的type
+     * @param <T> 泛型 返回的bean的类型
+     * @return
+     * @Description 适合单例Bean
+     */
     public static <T> T getBean(Class<T> cla) {
         return applicationContext.getBean(cla);
     }
 
+    /**
+     * 获取Spring容器中Bean
+     *
+     * @param name Bean的name
+     * @param cal  Bean的type
+     * @param <T>  泛型 返回的bean的类型
+     * @return
+     */
     public static <T> T getBean(String name, Class<T> cal) {
         return applicationContext.getBean(name, cal);
     }
 
+    /**
+     * @param key 获取配置文件中的值
+     * @return
+     */
     public static String getProperty(String key) {
         return applicationContext.getBean(Environment.class).getProperty(key);
     }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        SpringUtil.applicationContext = applicationContext;
+    }
 }
+

@@ -82,8 +82,6 @@ public class OauthLogoutHandler implements LogoutHandler {
                 return authHeaderValue;
             }
         }
-
         return null;
     }
-
 }

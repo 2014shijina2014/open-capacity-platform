@@ -44,7 +44,7 @@ public class TokenStorePostProcessor implements BeanPostProcessor {
      * post-processor can decide whether to apply to either the FactoryBean or created
      * objects or both through corresponding {@code bean instanceof FactoryBean} checks.
      * <p>This callback will also be invoked after a short-circuiting triggered by a
-     * {@link InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation} method,
+     * {@link InstantiationAwareBeanPostProcessor # postProcessBeforeInstantiation} method,
      * in contrast to all other BeanPostProcessor callbacks.
      *
      * @param bean     the new bean instance
