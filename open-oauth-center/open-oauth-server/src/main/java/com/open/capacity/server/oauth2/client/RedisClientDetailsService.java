@@ -85,7 +85,6 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return clientDetails;
     }
 
@@ -95,6 +94,11 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
         cacheAndGetClient(clientDetails.getClientId());
     }
 
+    /**
+     * @param clientId
+     * @param secret
+     * @throws NoSuchClientException
+     */
     @Override
     public void updateClientSecret(String clientId, String secret) throws NoSuchClientException {
         super.updateClientSecret(clientId, secret);
@@ -130,7 +134,6 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
             logger.error("oauth_client_details表数据为空，请检查");
             return;
         }
-
         list.parallelStream().forEach(client -> {
             redisTemplate.boundHashOps(CACHE_CLIENT_KEY).put(client.getClientId(), JSONObject.toJSONString(client));
         });

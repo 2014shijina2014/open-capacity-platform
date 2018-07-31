@@ -16,7 +16,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableFeignClients({"com.open.capacity"})
+@EnableFeignClients
 public class AuthServerApplication {
 
     public static void main(String[] args) {

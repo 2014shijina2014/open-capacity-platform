@@ -36,17 +36,6 @@ public class FeignConfig implements RequestInterceptor {
         }
     }
 
-//    private Map<String, String> getHeaders(HttpServletRequest request) {
-//        Map<String, String> map = new LinkedHashMap<>();
-//        Enumeration<String> enumeration = request.getHeaderNames();
-//        while (enumeration.hasMoreElements()) {
-//            String key = enumeration.nextElement();
-//            String value = request.getHeader(key);
-//            map.put(key, value);
-//        }
-//        return map;
-//    }
-
     /**
      * 根据参数或者header获取token
      *

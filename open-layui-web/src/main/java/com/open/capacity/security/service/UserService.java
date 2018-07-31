@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * 中台登陆用户
+ *
  * @author caoheyang
  * @version 20180730
  */
@@ -27,6 +28,7 @@ public class UserService {
     @Autowired
     private SysUserDao sysUserDao;
 
+    //注入 passwordEncoder
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -50,6 +52,7 @@ public class UserService {
 
     /**
      * 保存
+     *
      * @param userId
      * @param roleIds
      */
@@ -65,6 +68,7 @@ public class UserService {
 
     /**
      * 根据用户名获取密码
+     *
      * @param username 用户名
      * @return
      */
@@ -75,7 +79,8 @@ public class UserService {
 
     /**
      * 修改密码
-     * @param username 用户名
+     *
+     * @param username    用户名
      * @param oldPassword 旧密码
      * @param newPassword 新密码
      */
@@ -96,6 +101,7 @@ public class UserService {
 
     /**
      * 更新用户
+     *
      * @param userDto
      * @return
      */
