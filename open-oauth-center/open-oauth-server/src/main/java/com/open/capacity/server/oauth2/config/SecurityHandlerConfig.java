@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *
  * @author owen 624191343@qq.com
  * @version 创建时间：2017年11月12日 上午22:57:51
  */
@@ -46,8 +47,6 @@ public class SecurityHandlerConfig {
     @Bean
     public AuthenticationSuccessHandler loginSuccessHandler() {
         return new SavedRequestAwareAuthenticationSuccessHandler() {
-            private RequestCache requestCache = new HttpSessionRequestCache();
-
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {

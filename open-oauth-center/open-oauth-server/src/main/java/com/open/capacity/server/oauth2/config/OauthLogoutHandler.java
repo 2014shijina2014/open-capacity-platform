@@ -57,6 +57,7 @@ public class OauthLogoutHandler implements LogoutHandler {
     }
 
     /**
+     * TODO ？
      * @param request
      * @return
      */
@@ -77,10 +78,15 @@ public class OauthLogoutHandler implements LogoutHandler {
     }
 
 
+    /**
+     * 从header中获取token
+     * @param request  the http request
+     * @return
+     */
     protected String extractHeaderToken(HttpServletRequest request) {
         Enumeration<String> headers = request.getHeaders("Authorization");
-        while (headers.hasMoreElements()) { // typically there is only one (most
-            // servers enforce that)
+        while (headers.hasMoreElements()) {
+            // typically there is only one (most servers enforce that)
             String value = headers.nextElement();
             if ((value.toLowerCase().startsWith(OAuth2AccessToken.BEARER_TYPE.toLowerCase()))) {
                 String authHeaderValue = value.substring(OAuth2AccessToken.BEARER_TYPE.length()).trim();

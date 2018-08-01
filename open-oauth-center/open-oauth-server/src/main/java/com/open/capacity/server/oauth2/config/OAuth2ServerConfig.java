@@ -37,7 +37,6 @@ import javax.sql.DataSource;
  * @version 创建时间：2017年11月12日 上午22:57:51
  */
 @Configuration
-
 public class OAuth2ServerConfig {
 
     private Logger logger = LoggerFactory.getLogger(OAuth2ServerConfig.class);
@@ -174,8 +173,7 @@ public class OAuth2ServerConfig {
                     // 对请求授权
                     .and().authorizeRequests()
                     .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
-                    // 所有需要restful保护的资源都需要加入到这个requestMatchers，加入到的资源作为资源服务器保护的资源
-                    .and().requestMatchers()
+                    .and().requestMatchers()   // 所有需要restful保护的资源都需要加入到这个requestMatchers，加入到的资源作为资源服务器保护的资源
                     .antMatchers("/users", "/**/users").and().authorizeRequests()
                     .antMatchers("/**/users", "/users").authenticated().anyRequest().authenticated() // 所有的请求认证
                     .and().csrf().disable() // 关闭Could not verify the provided

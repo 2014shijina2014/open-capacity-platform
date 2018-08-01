@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+
     @Autowired
     private AuthenticationFailureHandler authenticationFailureHandler;
     // @Autowired
@@ -41,6 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private OauthLogoutHandler oauthLogoutHandler;
 
+    /**
+     *
+     * @param web
+     * @throws Exception
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
@@ -48,6 +54,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/health");
     }
 
+
+    /**
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -82,6 +94,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    /**
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
