@@ -12,8 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 public class PasswordConfig {
+    /**
+     * 加密密码算法
+     *
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); //BCryptPasswordEncoder 实现Spring的PasswordEncoder接口使用BCrypt强哈希方法
     }
 }

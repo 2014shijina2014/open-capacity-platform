@@ -36,7 +36,6 @@ public class OauthLogoutHandler implements LogoutHandler {
      * @param response       the HTTP response
      * @param authentication the current principal details
      */
-
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         Assert.notNull(tokenStore, "tokenStore must be set");
@@ -57,10 +56,13 @@ public class OauthLogoutHandler implements LogoutHandler {
 
     }
 
+    /**
+     * @param request
+     * @return
+     */
     protected String extractToken(HttpServletRequest request) {
         // first check the header...
         String token = extractHeaderToken(request);
-
         // bearer type allows a request parameter as well
         if (token == null) {
             logger.debug("Token not found in headers. Trying request parameters.");
@@ -71,9 +73,9 @@ public class OauthLogoutHandler implements LogoutHandler {
                 request.setAttribute(OAuth2AuthenticationDetails.ACCESS_TOKEN_TYPE, OAuth2AccessToken.BEARER_TYPE);
             }
         }
-
         return token;
     }
+
 
     protected String extractHeaderToken(HttpServletRequest request) {
         Enumeration<String> headers = request.getHeaders("Authorization");

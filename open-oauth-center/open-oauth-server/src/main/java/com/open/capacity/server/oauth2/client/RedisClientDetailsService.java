@@ -17,17 +17,14 @@ import java.util.List;
 
 
 /**
- * 重写UserDetailsService逻辑
+ * 客户端模式逻辑
  *
- * @author owen 624191343@qq.com
- * @version 创建时间：2017年11月12日 上午22:57:51
- * <p>
- * 将oauth_client_details表数据缓存到redis，这里做个缓存优化
+ * @author caoheyang
+ * @version 20180801
+ * @desception 将oauth_client_details表数据缓存到redis，这里做个缓存优化
  * layui模块中有对oauth_client_details的crud， 注意同步redis的数据
  * 注意对oauth_client_details清楚redis db部分数据的清空
- * </p>
  */
-
 public class RedisClientDetailsService extends JdbcClientDetailsService {
 
     private Logger logger = LoggerFactory.getLogger(RedisClientDetailsService.class);
@@ -50,14 +47,15 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
     }
 
     /**
-     * @param clientId
+     * 根据客户端id加载一个客户端信息
+     *
+     * @param clientId 客户端id
      * @return
      * @throws InvalidClientException
      */
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
         ClientDetails clientDetails = null;
-
         // 先从redis获取
         String value = (String) redisTemplate.boundHashOps(CACHE_CLIENT_KEY).get(clientId);
         if (StringUtils.isBlank(value)) {
@@ -65,7 +63,6 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
         } else {
             clientDetails = JSONObject.parseObject(value, BaseClientDetails.class);
         }
-
         return clientDetails;
     }
 
@@ -95,6 +92,8 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
     }
 
     /**
+     * 更新可兑换
+     *
      * @param clientDetails
      * @throws NoSuchClientException
      */
@@ -105,8 +104,10 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
     }
 
     /**
-     * @param clientId
-     * @param secret
+     * 更新客户端秘钥
+     *
+     * @param clientId 客户端id
+     * @param secret   密钥
      * @throws NoSuchClientException
      */
     @Override
@@ -115,6 +116,12 @@ public class RedisClientDetailsService extends JdbcClientDetailsService {
         cacheAndGetClient(clientId);
     }
 
+    /**
+     * remore 客户端密钥
+     *
+     * @param clientId 客户端id
+     * @throws NoSuchClientException
+     */
     @Override
     public void removeClientDetails(String clientId) throws NoSuchClientException {
         super.removeClientDetails(clientId);

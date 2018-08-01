@@ -14,12 +14,10 @@ import java.util.concurrent.TimeUnit;
  * @version 创建时间：2017年11月12日 上午22:57:51
  * {@link RandomValueAuthorizationCodeServices 一个基础的授权码实现，实现AuthorizationCodeServices接口}
  */
-
 public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCodeServices {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
-
 
     public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
