@@ -15,6 +15,7 @@ spring:
     rxjava:
       schedulers:
         ignoredthreads: HystrixMetricPoller,^RxComputation.*$,^RxIoScheduler.*$ #忽略rxjava相关线程，防止产生无意义的span
+
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 12000 #hystix失败超时时间判定        
       
 logging:

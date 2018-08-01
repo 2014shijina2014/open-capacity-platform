@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 用于监听eureka服务停机通知
- * Created by ace on 2017/7/8.
  */
 @Configuration
 public class EurekaInstanceCanceledListener implements ApplicationListener {
@@ -38,8 +37,6 @@ public class EurekaInstanceCanceledListener implements ApplicationListener {
                     }
                 });
             });
-
-
         }
         if (applicationEvent instanceof EurekaInstanceRegisteredEvent) {
             EurekaInstanceRegisteredEvent event = (EurekaInstanceRegisteredEvent) applicationEvent;
@@ -54,7 +51,5 @@ public class EurekaInstanceCanceledListener implements ApplicationListener {
         }
 
     }
-
-
 }
 

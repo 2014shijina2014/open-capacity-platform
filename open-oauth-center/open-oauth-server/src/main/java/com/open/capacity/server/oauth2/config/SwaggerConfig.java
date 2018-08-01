@@ -30,17 +30,16 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
-
+    /**
+     * @return Swagger 配置
+     */
     @Bean
     public Docket createRestApi() {
-
-
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<>();
         tokenPar.name("Authorization").description("令牌").
                 modelRef(new ModelRef("string")).
                 parameterType("header").required(false).build();
-
 
         ParameterBuilder clientPar = new ParameterBuilder();
         clientPar.name("client_id").description("应用ID").
@@ -75,7 +74,6 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
         resolver.setPrefix("/");
         resolver.setSuffix(".html");
         return resolver;
-
     }
 
     @Bean
@@ -96,6 +94,5 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
-
 
 }

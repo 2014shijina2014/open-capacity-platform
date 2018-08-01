@@ -28,30 +28,14 @@ public class UnieapUserDetailsService implements UserDetailsService {
 
     @Resource
     private PasswordEncoder passwordEncoder;
-
     @Resource
     private UserDao userDao;
-
-//	@Resource  注入查询用户的dao
-//	private dao
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO Auto-generated method stub
-
         System.out.println("页面输入的用户名：" + username);
-//		User user = new User(username,"123456",	//默认密码都123456 
-//			AuthorityUtils.commaSeparatedStringToAuthorityList("admin")); // 第三个参数是授权的,暂时写硬编码AuthorityUtils.commaSeparatedStringToAuthorityList("admin")
-//		
-
-//		public User(String username, String password, boolean enabled,
-//				boolean accountNonExpired, boolean credentialsNonExpired,
-//				boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-
-
         Map sysUser = userDao.getUser(username);
-
         if (sysUser == null) {
             throw new AuthenticationCredentialsNotFoundException("用户名不存在");
         }
@@ -65,6 +49,4 @@ public class UnieapUserDetailsService implements UserDetailsService {
 
         return user;
     }
-
-
 }

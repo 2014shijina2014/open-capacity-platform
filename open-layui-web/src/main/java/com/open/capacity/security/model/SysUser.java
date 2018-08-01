@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 中台登陆用户
  *
- * @DBTable sys_logs
+ * @DBTable sys_userl
  */
 public class SysUser extends BaseEntity<Long> {
 

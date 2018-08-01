@@ -13,10 +13,10 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author owen 624191343@qq.com
- * @version 创建时间：2017年11月12日 上午22:57:51
- * 类说明
  * redis集群存储token
+ *
+ * @author caoehayang
+ * @version 20180731
  */
 
 public class RedisTemplateTokenStore implements TokenStore {
@@ -50,14 +50,11 @@ public class RedisTemplateTokenStore implements TokenStore {
         this.authenticationKeyGenerator = authenticationKeyGenerator;
     }
 
-
     public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
         String key = authenticationKeyGenerator.extractKey(authentication);
         OAuth2AccessToken accessToken = (OAuth2AccessToken) redisTemplate.opsForValue().get(AUTH_TO_ACCESS + key);
         if (accessToken != null
                 && !key.equals(authenticationKeyGenerator.extractKey(readAuthentication(accessToken.getValue())))) {
-            // Keep the stores consistent (maybe the same user is represented by this authentication but the details
-            // have changed)
             storeAccessToken(accessToken, authentication);
         }
         return accessToken;
@@ -80,34 +77,25 @@ public class RedisTemplateTokenStore implements TokenStore {
     }
 
     public void storeAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
-
-
         this.redisTemplate.opsForValue().set(ACCESS + token.getValue(), token);
         this.redisTemplate.opsForValue().set(AUTH + token.getValue(), authentication);
         this.redisTemplate.opsForValue().set(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication), token);
         if (!authentication.isClientOnly()) {
             redisTemplate.opsForList().rightPush(UNAME_TO_ACCESS + getApprovalKey(authentication), token);
         }
-
         redisTemplate.opsForList().rightPush(CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId(), token);
-
         if (token.getExpiration() != null) {
-
             int seconds = token.getExpiresIn();
             redisTemplate.expire(ACCESS + token.getValue(), seconds, TimeUnit.SECONDS);
             redisTemplate.expire(AUTH + token.getValue(), seconds, TimeUnit.SECONDS);
-
             redisTemplate.expire(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication), seconds, TimeUnit.SECONDS);
             redisTemplate.expire(CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId(), seconds, TimeUnit.SECONDS);
             redisTemplate.expire(UNAME_TO_ACCESS + getApprovalKey(authentication), seconds, TimeUnit.SECONDS);
         }
-
         OAuth2RefreshToken refreshToken = token.getRefreshToken();
-
         if (token.getRefreshToken() != null && token.getRefreshToken().getValue() != null) {
             this.redisTemplate.opsForValue().set(REFRESH_TO_ACCESS + token.getRefreshToken().getValue(), token.getValue());
             this.redisTemplate.opsForValue().set(ACCESS_TO_REFRESH + token.getValue(), token.getRefreshToken().getValue());
-
 
             if (refreshToken instanceof ExpiringOAuth2RefreshToken) {
                 ExpiringOAuth2RefreshToken expiringRefreshToken = (ExpiringOAuth2RefreshToken) refreshToken;
@@ -121,8 +109,6 @@ public class RedisTemplateTokenStore implements TokenStore {
 
                 }
             }
-
-
         }
     }
 

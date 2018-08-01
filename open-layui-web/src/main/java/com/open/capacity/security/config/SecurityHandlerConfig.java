@@ -43,12 +43,10 @@ public class SecurityHandlerConfig {
     @Bean
     public AuthenticationSuccessHandler loginSuccessHandler() {
         return new AuthenticationSuccessHandler() {
-
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
                 LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-
                 Token token = tokenService.saveToken(loginUser);
                 ResponseUtil.responseJson(response, HttpStatus.OK.value(), token);
             }
@@ -63,7 +61,6 @@ public class SecurityHandlerConfig {
     @Bean
     public AuthenticationFailureHandler loginFailureHandler() {
         return new AuthenticationFailureHandler() {
-
             @Override
             public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                                 AuthenticationException exception) throws IOException, ServletException {
@@ -77,48 +74,42 @@ public class SecurityHandlerConfig {
                 ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
             }
         };
-
     }
 
     /**
-     * 未登录，返回401
+     * 未登录处理
      *
-     * @return
+     * @return 401 Unauthorized
      */
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new AuthenticationEntryPoint() {
-
             @Override
             public void commence(HttpServletRequest request, HttpServletResponse response,
                                  AuthenticationException authException) throws IOException, ServletException {
                 ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "", "请先登录");
-                ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
+                ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info); //设置返回体
             }
         };
     }
 
     /**
-     * 退出处理
+     * 退出登陆处理
      *
-     * @return
+     * @return 200 OK
      */
     @Bean
     public LogoutSuccessHandler logoutSussHandler() {
         return new LogoutSuccessHandler() {
-
             @Override
             public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
                 ResponseInfo info = new ResponseInfo(HttpStatus.OK.value() + "", "退出成功");
-
-                String token = TokenFilter.getToken(request);
-                tokenService.deleteToken(token);
-
-                ResponseUtil.responseJson(response, HttpStatus.OK.value(), info);
+                String token = TokenFilter.getToken(request); //获取token
+                tokenService.deleteToken(token); //清除token
+                ResponseUtil.responseJson(response, HttpStatus.OK.value(), info);//设置返回体
             }
         };
-
     }
 
 }

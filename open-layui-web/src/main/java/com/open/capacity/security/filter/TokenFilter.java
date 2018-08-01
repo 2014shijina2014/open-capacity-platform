@@ -18,8 +18,7 @@ import java.io.IOException;
  * Token过滤器
  *
  * @author owen 624191343@qq.com
- * <p>
- * 2017年10月14日
+ * @version 2018-07-28
  */
 public class TokenFilter extends OncePerRequestFilter {
 
@@ -39,7 +38,6 @@ public class TokenFilter extends OncePerRequestFilter {
         if (StringUtils.isBlank(token)) {
             token = request.getHeader(TOKEN_KEY);
         }
-
         return token;
     }
 
@@ -59,6 +57,14 @@ public class TokenFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * token 校验逻辑
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -72,7 +78,6 @@ public class TokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 
@@ -94,5 +99,4 @@ public class TokenFilter extends OncePerRequestFilter {
         }
         return loginUser;
     }
-
 }

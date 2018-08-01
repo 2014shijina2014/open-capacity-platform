@@ -1,6 +1,8 @@
 package com.open.capacity.security.model;
 
 /**
+ * 文件表
+ *
  * @DBTable file_info
  * @id String 文件md5
  */

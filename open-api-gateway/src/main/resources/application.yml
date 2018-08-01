@@ -2,22 +2,14 @@ server:
   port: 9200
 spring:
   application:
-    name: open-auth-gateway
+    name: open-api-gateway
   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
-#      driver-class-name:  oracle.jdbc.OracleDriver
-#      url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
-#      username: crm_owner_user
-#      password: bss_crm_test
-#      filters: stat,wall
-################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
-      #     192.168.3.150   130.75.131.211  134.224.249.39  47.94.252.160
       url: jdbc:mysql://127.0.0.1:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
       password: 123456
       filters: stat,wall
-################### mysq end l##########################
   redis:
 ################### redis 单机版 start ########################## 
     host: 127.0.0.1
@@ -50,7 +42,6 @@ security:
       store:
         type: redis
 
-
 #设置最大超时时间
 ribbon:  
   httpclient:
@@ -63,7 +54,6 @@ ribbon:
 
 #设置最大容错超时时间
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 90000
-
 
 hystrix:
   command:
@@ -101,16 +91,12 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://127.0.0.1:1111/eureka/
-      #http://192.168.3.170:1111/eureka,http://192.168.3.171:1111/eureka,http://192.168.3.173:1111/eureka
-      #http://130.75.131.243:1111/eureka/,http://130.75.131.244:1111/eureka/,http://130.75.131.245:1111/eureka/   
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
-#    instance-id: ${spring.application.name}:${docker.ipAddress}:${spring.application.instance_id:${server.port}}
     lease-renewal-interval-in-seconds: 5
     #注册实例文档
     status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/swagger-ui.html # ${server.port}为该服务的端口号
-#    status-page-url: http://${docker.ipAddress}:${server.port}/swagger-ui.html # ${server.port}为该服务的端口号
 
   
 

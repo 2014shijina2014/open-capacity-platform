@@ -34,7 +34,6 @@ public class TokenStoreConfig {
     @Bean
     @ConditionalOnProperty(prefix = "security.oauth2.token.store", name = "type", havingValue = "jdbc", matchIfMissing = false)
     public JdbcTokenStore jdbcTokenStore() {
-
 //		oauth_access_token oauth_refresh_token 创建两张表
 //		return new JdbcTokenStore( dataSource ) ;
         return new JdbcTokenStore(dataSource);
@@ -46,12 +45,9 @@ public class TokenStoreConfig {
     public RedisTemplateTokenStore redisTokenStore() {
 //		return new RedisTokenStore( redisTemplate.getConnectionFactory() ) ; //单台redis服务器
         Assert.state(redisTemplate != null, "RedisTemplate must be provided");
-
         RedisTemplateTokenStore redisTemplateStore = new RedisTemplateTokenStore();
         redisTemplateStore.setRedisTemplate(redisTemplate);
         return redisTemplateStore;
-
-
     }
 
     //使用jwt替换原有的uuid生成token方式
@@ -70,6 +66,5 @@ public class TokenStoreConfig {
             return accessTokenConverter;
         }
     }
-
 
 }

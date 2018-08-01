@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 注册中心
+ *
  * @author 作者 owen E-mail: 624191343@qq.com
  * @version 创建时间：2018年3月20日 下午10:13:18 类说明
  */
@@ -138,7 +140,6 @@ public class EurekaController {
     }
 
     private static String getinfo(String url) {
-
         String bodyAsString = "";
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         try {
@@ -226,6 +227,7 @@ public class EurekaController {
     @ResponseBody
     @RequestMapping(value = "status", method = RequestMethod.GET)
     public String status() {
+        //TODO eureka 需要处理
         String url = "http://127.0.0.1:1111/eureka/status";
         return getinfo(url);
     }

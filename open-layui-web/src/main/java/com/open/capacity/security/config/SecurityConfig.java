@@ -48,6 +48,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
+    /**
+     * Spring Security 身份认证忽略的资源
+     *
+     * @param web
+     * @throws Exception
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/js/**");

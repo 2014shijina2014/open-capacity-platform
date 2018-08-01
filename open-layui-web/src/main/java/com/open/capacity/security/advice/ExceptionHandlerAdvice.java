@@ -14,40 +14,58 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
- * springmvc异常处理
- * * @author 作者 owen E-mail: 624191343@qq.com
+ * 异常处理
  *
- * @version 创建时间：2018年3月20日 下午10:13:18 类说明
+ * @author caoheyang
+ * @version 20180727
  */
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
     private static final Logger log = LoggerFactory.getLogger(ExceptionHandlerAdvice.class);
 
-    @ExceptionHandler({IllegalArgumentException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseInfo badRequestException(IllegalArgumentException exception) {
-        return new ResponseInfo(HttpStatus.BAD_REQUEST.value() + "", exception.getMessage());
-    }
-
+    /**
+     * 403 Forbidden
+     *
+     * @param exception 异常
+     *                  {@link AccessDeniedException}
+     * @return
+     */
     @ExceptionHandler({AccessDeniedException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseInfo badRequestException(AccessDeniedException exception) {
         return new ResponseInfo(HttpStatus.FORBIDDEN.value() + "", exception.getMessage());
     }
 
+    /**
+     * 服务器400
+     *
+     * @param exception 异常
+     *                  {@link MissingServletRequestParameterException}
+     *                  {@link HttpMessageNotReadableException}
+     *                  {@link UnsatisfiedServletRequestParameterException}
+     *                  {@link MethodArgumentTypeMismatchException}
+     *                  {@link IllegalArgumentException}
+     * @return
+     * @Description 服务器不理解请求的语法
+     */
     @ExceptionHandler({MissingServletRequestParameterException.class, HttpMessageNotReadableException.class,
-            UnsatisfiedServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
+            UnsatisfiedServletRequestParameterException.class, MethodArgumentTypeMismatchException.class, IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseInfo badRequestException(Exception exception) {
         return new ResponseInfo(HttpStatus.BAD_REQUEST.value() + "", exception.getMessage());
     }
 
+    /**
+     * 服务器500
+     *
+     * @param throwable
+     * @return
+     */
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseInfo exception(Throwable throwable) {
         log.error("系统异常", throwable);
         return new ResponseInfo(HttpStatus.INTERNAL_SERVER_ERROR.value() + "", throwable.getMessage());
-
     }
 }

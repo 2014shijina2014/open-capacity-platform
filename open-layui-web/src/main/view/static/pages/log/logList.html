@@ -1,68 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" media="screen" href="/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" href="/lib/layui/css/layui.css" media="all" />
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all"/>
 </head>
 <body>
-    <div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div>
+            <header style="height: 100%">
+                <div align="left">
+                    <table style="width: 100%">
+                        <tr>
+                            <td>
+                                <form class="form-inline" onsubmit="return false">
+                                    <div class="form-group">
+                                        昵称：
+                                        <input id="nickname" type="text" class="form-control" placeholder="昵称">
+                                        时间：
+                                        <input type="text" class="form-control" placeholder="开始时间" id="beginTime">
+                                        <input type="text" class="form-control" placeholder="结束时间" id="endTime">
+                                        状态：
+                                        <select class="form-control input-sm" id="flag">
+                                            <option value="">全部</option>
+                                            <option value="1">成功</option>
+                                            <option value="0">失败</option>
+                                        </select>
+                                        <button id="searchBt" class="layui-btn layui-btn-sm" permission="sys:log:query">
+                                            <i class="layui-icon">&#xe615;</i>搜索
+                                        </button>
+                                        <input name="logids" type="hidden">
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </header>
+
             <div>
-                <header style="height: 100%">
-					 <div align="left">
-                        <table style="width: 100%">
-                            <tr>
-                                <td>
-									<form class="form-inline" onsubmit="return false">
-										<div class="form-group">
-											昵称：
-											<input id="nickname" type="text" class="form-control" placeholder="昵称">
-											时间：
-											<input type="text" class="form-control" placeholder="开始时间" id="beginTime">
-											<input type="text" class="form-control" placeholder="结束时间" id="endTime">
-											状态：
-											<select class="form-control input-sm" id="flag">
-												<option value="">全部</option>
-												<option value="1">成功</option>
-												<option value="0">失败</option>
-											</select>
-											<button id="searchBt" class="layui-btn layui-btn-sm" permission="sys:log:query"><i class="layui-icon">&#xe615;</i>搜索</button>
-											<input name="logids" type="hidden">
-										</div>
-									</form>
-								</td>
-                            </tr> 
-                        </table>
-                    </div>
-                </header>
-                
-                <div>
-                    <div class="widget-body no-padding">
-                        <table id="dt-table" class="table table-bordered table-condensed table-hover" style="width:100%">
-                            <thead>
-                                <tr>
-                                </tr>                       
-                                <tr>
-                                	<th><input type="checkbox" name="allChecked" /></th>
-									<th width="5%">id</th>
-									<th width="15%">昵称</th>
-									<th width="20%">模块</th>
-									<th width="5%">状态</th>
-									<th>备注</th>
-									<th width="15%">时间</th>
-                                </tr>
-                            </thead>
-                             <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="widget-body no-padding">
+                    <table id="dt-table" class="table table-bordered table-condensed table-hover" style="width:100%">
+                        <thead>
+                        <tr>
+                        </tr>
+                        <tr>
+                            <th><input type="checkbox" name="allChecked"/></th>
+                            <th width="5%">id</th>
+                            <th width="15%">昵称</th>
+                            <th width="20%">模块</th>
+                            <th width="5%">状态</th>
+                            <th>备注</th>
+                            <th width="15%">时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
 
@@ -73,177 +75,173 @@
 <script type="text/javascript" src="/js/plugin/datatables/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/my/permission.js"></script>
 <script type="text/javascript">
-var pers = checkPermission();
-layui.use(['layer','laydate'], function(){
-    var layer = layui.layer;
-    var laydate = layui.laydate;
-    laydate.render({
-       elem: '#beginTime'
+    var pers = checkPermission();
+    layui.use(['layer', 'laydate'], function () {
+        var layer = layui.layer;
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#beginTime'
+        });
+        laydate.render({
+            elem: '#endTime'
+        });
     });
-    laydate.render({
-       elem: '#endTime'
+
+    var example;
+
+    function init() {
+        example =
+            $('#dt-table').DataTable({
+                "searching": false,
+                "processing": false,
+                "serverSide": true,
+                "language": {
+                    "url": "/js/plugin/datatables/Chinese.lang"
+                },
+                "ajax": {
+                    "url": "/logs",
+                    "type": "get",
+                    "data": function (d) {
+                        d.flag = $('#flag').val();
+                        d.nickname = $('#nickname').val();
+                        d.beginTime = $('#beginTime').val();
+                        d.endTime = $('#endTime').val();
+                    },
+                    "error": function (xhr, textStatus, errorThrown) {
+                        var msg = xhr.responseText;
+                        console.log(msg);
+                        var response = JSON.parse(msg);
+                        var code = response.code;
+                        var message = response.message;
+                        if (code == 400) {
+                            layer.msg(message);
+                        } else if (code == 401) {
+                            localStorage.removeItem("token");
+                            layer.msg("token过期，请先登录", {shift: -1, time: 1000}, function () {
+                                location.href = '/login.html';
+                            });
+                        } else if (code == 403) {
+                            console.log("未授权:" + message);
+                            layer.msg('未授权');
+                        } else if (code == 500) {
+                            layer.msg('系统错误：' + message);
+                        }
+                    }
+                },
+                "dom": "<'dt-toolbar'r>t<'dt-toolbar-footer'<'col-sm-10 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-10' p v>>",
+                "columns": [
+                    {
+                        "data": "id",
+                        "defaultContent": "",
+                        "orderable": false,
+                        "render": function (data, type, full, meta) {
+                            return '<input type="checkbox" value="' + data + '" name="id"/>';
+                        }
+                    },
+                    {"data": "id", "defaultContent": ""},
+                    {
+                        "data": "user",
+                        "defaultContent": "",
+                        "orderable": false,
+                        "render": function (data, type, row) {
+                            var user = row['user'];
+                            return user['nickname'];
+                        }
+                    },
+                    {"data": "module", "defaultContent": ""},
+                    {
+                        "data": "flag",
+                        "defaultContent": "",
+                        "render": function (data, type, row) {
+                            var flag = row['flag'];
+                            return flag ? "成功" : "失败";
+                        }
+                    },
+                    {"data": "remark", "defaultContent": ""},
+                    {"data": "createTime", "defaultContent": ""},
+                ],
+                "order": [[5, "desc"]]
+            });
+    }
+
+    $("#searchBt").click(function () {
+        example.ajax.reload();
     });
-});
 
-var example;
-function init(){
-	example = 
-    	$('#dt-table').DataTable({
-        	"searching": false,
-        	"processing": false,
-        	"serverSide" : true,
-        	"language": {
-                "url": "/js/plugin/datatables/Chinese.lang"
-            },
-        	"ajax": {
-        		"url" : "/logs",
-        		"type":"get",
-        		"data":function(d){
-        			d.flag = $('#flag').val();
-        			d.nickname = $('#nickname').val();
-        			d.beginTime = $('#beginTime').val();
-    				d.endTime = $('#endTime').val();
-        		},
-    			"error":function(xhr, textStatus, errorThrown){
-    				var msg = xhr.responseText;
-    				console.log(msg);
-    				var response = JSON.parse(msg);
-    				var code = response.code;
-    				var message = response.message;
-    				if (code == 400) {
-    					layer.msg(message);
-    				} else if (code == 401) {
-    					localStorage.removeItem("token");
-    					layer.msg("token过期，请先登录", {shift: -1, time: 1000}, function(){
-    						location.href = '/login.html';
-                        });
-    				} else if (code == 403) {
-    					console.log("未授权:" + message);
-    					layer.msg('未授权');
-    				} else if (code == 500) {
-    					layer.msg('系统错误：' + message);
-    				}
-    			}
-        	},
-        	"dom": "<'dt-toolbar'r>t<'dt-toolbar-footer'<'col-sm-10 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-10' p v>>",	
-            "columns": [
-            	{
-					"data" : "id", 
-					"defaultContent" : "",
-					"orderable":false,
-					"render" : function(data, type, full, meta) {
-						return '<input type="checkbox" value="'+ data + '" name="id"/>';
-					}
-				} ,
-				{"data" : "id", "defaultContent" : ""},
-				{
-					"data" : "user", 
-					"defaultContent" : "",
-					"orderable":false,
-					"render": function (data, type, row) {
-                		var user = row['user'];
-                        return user['nickname'];
-                  	}
-				},
-				{"data" : "module", "defaultContent" : ""},
-				{
-					"data" : "flag", 
-					"defaultContent" : "",
-					"render": function (data, type, row) {
-                		var flag = row['flag'];
-                        return flag ? "成功":"失败";
-                  	}
-				},
-				{"data" : "remark", "defaultContent" : ""},
-				{"data" : "createTime", "defaultContent" : ""},
-
-                
-            ],
-           "order": [[ 5, "desc" ]]
-        } );
-}
-
-$("#searchBt").click(function(){
-	example.ajax.reload();
-});
-
-/**
- * 多选选中和取消选中,同时选中第一个单元格单选框,并联动全选单选框
- */
-$('#dt-table tbody').on('click', 'tr', function(event) {
-	var allChecked=$('input[name=allChecked]')[0];//关联全选单选框
-	$($(this).children()[0]).children().each(function(){
-		if(this.type=="checkbox" && (!$(event.target).is(":checkbox") && $(":checkbox",this).trigger("click"))){
-			if(!this.checked){
-				this.checked = true;
-				addValue(this);
-				var selected=example.rows('.selected').data().length;//被选中的行数
-				//全选单选框的状态处理
-				var recordsDisplay=example.page.info().recordsDisplay;//搜索条件过滤后的总行数
-				var iDisplayStart=example.page.info().start;// 起始行数
-				if(selected === example.page.len()||selected === recordsDisplay||selected === (recordsDisplay - iDisplayStart)){
-					allChecked.checked = true;
-				}
-			}else{
-				this.checked = false;
-				cancelValue(this);
-				allChecked.checked = false;
-			}
-		}
-	});
-	$(this).toggleClass('selected');//放在最后处理，以便给checkbox做检测
-});
+    /**
+     * 多选选中和取消选中,同时选中第一个单元格单选框,并联动全选单选框
+     */
+    $('#dt-table tbody').on('click', 'tr', function (event) {
+        var allChecked = $('input[name=allChecked]')[0];//关联全选单选框
+        $($(this).children()[0]).children().each(function () {
+            if (this.type == "checkbox" && (!$(event.target).is(":checkbox") && $(":checkbox", this).trigger("click"))) {
+                if (!this.checked) {
+                    this.checked = true;
+                    addValue(this);
+                    var selected = example.rows('.selected').data().length;//被选中的行数
+                    //全选单选框的状态处理
+                    var recordsDisplay = example.page.info().recordsDisplay;//搜索条件过滤后的总行数
+                    var iDisplayStart = example.page.info().start;// 起始行数
+                    if (selected === example.page.len() || selected === recordsDisplay || selected === (recordsDisplay - iDisplayStart)) {
+                        allChecked.checked = true;
+                    }
+                } else {
+                    this.checked = false;
+                    cancelValue(this);
+                    allChecked.checked = false;
+                }
+            }
+        });
+        $(this).toggleClass('selected');//放在最后处理，以便给checkbox做检测
+    });
 
 
-/**
- * 单选框被选中时将它的value放入隐藏域
- */
-function addValue(para) {
-	var userIds = $("input[name=logids]");
-	if(userIds.val() === ""){
-		userIds.val($(para).val());
-	}else{
-		userIds.val(userIds.val()+","+$(para).val());
-	}
-}
+    /**
+     * 单选框被选中时将它的value放入隐藏域
+     */
+    function addValue(para) {
+        var userIds = $("input[name=logids]");
+        if (userIds.val() === "") {
+            userIds.val($(para).val());
+        } else {
+            userIds.val(userIds.val() + "," + $(para).val());
+        }
+    }
 
-/**
- * 单选框取消选中时将它的value移除隐藏域
- */
-function cancelValue(para){
-	//取消选中checkbox要做的操作
-	var userIds = $("input[name=logids]");
-	var array = userIds.val().split(",");
-	userIds.val("");
-	for (var i = 0; i < array.length; i++) {
-		if (array[i] === $(para).val()) {
-			continue;
-		}
-		if (userIds.val() === "") {
-			userIds.val(array[i]);
-		} else {
-			userIds.val(userIds.val() + "," + array[i]);
-		}
-	}
-}
+    /**
+     * 单选框取消选中时将它的value移除隐藏域
+     */
+    function cancelValue(para) {
+        //取消选中checkbox要做的操作
+        var userIds = $("input[name=logids]");
+        var array = userIds.val().split(",");
+        userIds.val("");
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === $(para).val()) {
+                continue;
+            }
+            if (userIds.val() === "") {
+                userIds.val(array[i]);
+            } else {
+                userIds.val(userIds.val() + "," + array[i]);
+            }
+        }
+    }
 
+    /**
+     * 全选按钮被点击事件
+     */
+    $('input[name=allChecked]').click(function () {
+        if (this.checked) {
+            $('#dt-table tbody tr').each(function () {
+                if (!$(this).hasClass('selected')) {
+                    $(this).click();
+                }
+            });
+        } else {
+            $('#dt-table tbody tr').click();
+        }
+    });
 
-
-/**
- * 全选按钮被点击事件
- */
-$('input[name=allChecked]').click(function(){
-	if(this.checked){
-		$('#dt-table tbody tr').each(function(){
-			if(!$(this).hasClass('selected')){
-				$(this).click();
-			}
-		});
-	}else{
-		$('#dt-table tbody tr').click();
-	}
-});
-
-
-init();
+    init();
 </script>

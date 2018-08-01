@@ -12,8 +12,10 @@ public class PageTableResponse implements Serializable {
 
     private static final long serialVersionUID = 620421858510718076L;
 
+    //总数据数
     private Integer recordsTotal;
     private Integer recordsFiltered;
+    //分数数据体
     private List<?> data;
 
     public PageTableResponse(Integer recordsTotal, Integer recordsFiltered, List<?> data) {
@@ -23,10 +25,18 @@ public class PageTableResponse implements Serializable {
         this.data = data;
     }
 
+    /**
+     * 总数据数
+     * @return
+     */
     public Integer getRecordsTotal() {
         return recordsTotal;
     }
 
+    /**
+     * 总数据数
+     * @param recordsTotal
+     */
     public void setRecordsTotal(Integer recordsTotal) {
         this.recordsTotal = recordsTotal;
     }
@@ -35,14 +45,26 @@ public class PageTableResponse implements Serializable {
         return recordsFiltered;
     }
 
+    /**
+     *
+     * @param recordsFiltered
+     */
     public void setRecordsFiltered(Integer recordsFiltered) {
         this.recordsFiltered = recordsFiltered;
     }
 
+    /**
+     * 分数数据体
+     * @return
+     */
     public List<?> getData() {
         return data;
     }
 
+    /**
+     * 分数数据体
+     * @param data 数据体
+     */
     public void setData(List<?> data) {
         this.data = data;
     }

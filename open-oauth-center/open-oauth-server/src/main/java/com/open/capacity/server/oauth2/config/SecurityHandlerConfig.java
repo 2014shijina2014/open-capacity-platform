@@ -38,18 +38,6 @@ public class SecurityHandlerConfig {
     @Resource
     private ObjectMapper objectMapper; // springmvc启动时自动装配json处理类
 
-//	@Autowired
-//	private AuthorizationServerTokenServices authorizationServerTokenServices;
-
-//	@Autowired
-//	private ClientDetailsService clientDetailsService;
-
-//	@Autowired(required = false)
-//	private AuthenticationEntryPoint authenticationEntryPoint;
-
-    // url匹配器
-//	private AntPathMatcher pathMatcher = new AntPathMatcher();
-
     /**
      * 登陆成功，返回Token 装配此bean不支持授权码模式
      *
@@ -58,16 +46,13 @@ public class SecurityHandlerConfig {
     @Bean
     public AuthenticationSuccessHandler loginSuccessHandler() {
         return new SavedRequestAwareAuthenticationSuccessHandler() {
-
             private RequestCache requestCache = new HttpSessionRequestCache();
 
             @Override
             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                 Authentication authentication) throws IOException, ServletException {
-
                 super.onAuthenticationSuccess(request, response, authentication);
                 return;
-
             }
         };
     }
@@ -80,7 +65,6 @@ public class SecurityHandlerConfig {
     @Bean
     public AuthenticationFailureHandler loginFailureHandler() {
         return new AuthenticationFailureHandler() {
-
             @Override
             public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                                 AuthenticationException exception) throws IOException, ServletException {
@@ -90,19 +74,14 @@ public class SecurityHandlerConfig {
                 } else {
                     msg = exception.getMessage();
                 }
-
                 Map<String, String> rsp = new HashMap<>();
-
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
-
                 rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
                 rsp.put("rsp_msg", msg);
-
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(objectMapper.writeValueAsString(rsp));
                 response.getWriter().flush();
                 response.getWriter().close();
-
             }
         };
 

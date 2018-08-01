@@ -13,10 +13,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
- * 统一日志处理
+ * 统一日志处理切面
+ * 记录中台操作/请求日志
  *
- * @author 作者 owen E-mail: 624191343@qq.com
- * @version 创建时间：2018年3月20日 下午10:13:18 类说明
+ * @author caoheyang
+ * @version 20180727
  */
 @Aspect
 @Component
@@ -25,6 +26,13 @@ public class LogAdvice {
     @Autowired
     private SysLogService logService;
 
+    /**
+     * 记录日志的切面方法
+     *
+     * @param joinPoint
+     * @return
+     * @throws Throwable
+     */
     @Around(value = "@annotation(com.open.capacity.security.annotation.LogAnnotation)")
     public Object logSave(ProceedingJoinPoint joinPoint) throws Throwable {
         SysLogs sysLogs = new SysLogs();
@@ -47,10 +55,8 @@ public class LogAdvice {
 
         try {
             Object object = joinPoint.proceed();
-
             sysLogs.setFlag(true);
             logService.save(sysLogs);
-
             return object;
         } catch (Exception e) {
             sysLogs.setFlag(false);
@@ -58,6 +64,5 @@ public class LogAdvice {
             logService.save(sysLogs);
             throw e;
         }
-
     }
 }

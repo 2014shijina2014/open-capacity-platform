@@ -16,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 
 /**
- * @author keets
- * @date 2017/10/17
+ * Oauth2的登出逻辑
+ *
+ * @author caoheyang
+ * @Description: 实现 {@link LogoutHandler}类，实现自定义的登出逻辑
+ * @date 2018/7/31
  */
 public class OauthLogoutHandler implements LogoutHandler {
 
@@ -26,6 +29,13 @@ public class OauthLogoutHandler implements LogoutHandler {
     @Autowired
     private TokenStore tokenStore;
 
+    /**
+     * Causes a logout to be completed. The method must complete successfully.
+     *
+     * @param request        the HTTP request
+     * @param response       the HTTP response
+     * @param authentication the current principal details
+     */
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         Assert.notNull(tokenStore, "tokenStore must be set");
@@ -46,10 +56,13 @@ public class OauthLogoutHandler implements LogoutHandler {
 
     }
 
+    /**
+     * @param request
+     * @return
+     */
     protected String extractToken(HttpServletRequest request) {
         // first check the header...
         String token = extractHeaderToken(request);
-
         // bearer type allows a request parameter as well
         if (token == null) {
             logger.debug("Token not found in headers. Trying request parameters.");
@@ -60,9 +73,9 @@ public class OauthLogoutHandler implements LogoutHandler {
                 request.setAttribute(OAuth2AuthenticationDetails.ACCESS_TOKEN_TYPE, OAuth2AccessToken.BEARER_TYPE);
             }
         }
-
         return token;
     }
+
 
     protected String extractHeaderToken(HttpServletRequest request) {
         Enumeration<String> headers = request.getHeaders("Authorization");
@@ -82,8 +95,6 @@ public class OauthLogoutHandler implements LogoutHandler {
                 return authHeaderValue;
             }
         }
-
         return null;
     }
-
 }
