@@ -30,7 +30,9 @@ import java.util.List;
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
-
+    /**
+     * @return Swagger 配置
+     */
     @Bean
     public Docket createRestApi() {
         ParameterBuilder tokenPar = new ParameterBuilder();

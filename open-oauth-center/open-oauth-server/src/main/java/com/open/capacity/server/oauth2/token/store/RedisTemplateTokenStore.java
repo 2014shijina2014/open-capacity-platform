@@ -55,8 +55,6 @@ public class RedisTemplateTokenStore implements TokenStore {
         OAuth2AccessToken accessToken = (OAuth2AccessToken) redisTemplate.opsForValue().get(AUTH_TO_ACCESS + key);
         if (accessToken != null
                 && !key.equals(authenticationKeyGenerator.extractKey(readAuthentication(accessToken.getValue())))) {
-            // Keep the stores consistent (maybe the same user is represented by this authentication but the details
-            // have changed)
             storeAccessToken(accessToken, authentication);
         }
         return accessToken;

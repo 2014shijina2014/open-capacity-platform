@@ -29,20 +29,16 @@ public class OAuth2ServerConfig {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
-    @Bean // 声明 ClientDetails实现
+    /**
+     * @return
+     */
+    @Bean
     @ConditionalOnProperty(prefix = "security.oauth2.token.store", name = "type", havingValue = "redis", matchIfMissing = true)
     public RedisClientDetailsService clientDetailsService() {
         RedisClientDetailsService clientDetailsService = new RedisClientDetailsService(dataSource);
         clientDetailsService.setRedisTemplate(redisTemplate);
         return clientDetailsService;
     }
-
-
-//	@Bean
-//    public ApprovalStore approvalStore() {
-//        return new JdbcApprovalStore(dataSource);
-//    }
-
 
     @Bean
     public RandomValueAuthorizationCodeServices authorizationCodeServices() {

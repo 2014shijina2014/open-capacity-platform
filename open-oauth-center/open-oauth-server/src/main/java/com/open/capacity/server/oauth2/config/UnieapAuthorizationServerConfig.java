@@ -69,47 +69,21 @@ public class UnieapAuthorizationServerConfig extends AuthorizationServerConfigur
         if (jwtTokenStore != null) {
             endpoints.tokenStore(jwtTokenStore).authenticationManager(authenticationManager)
                     .userDetailsService(userDetailsService); // 支持
-            // password
-            // grant
-            // type;
         } else if (redisTokenStore != null) {
             endpoints.tokenStore(redisTokenStore).authenticationManager(authenticationManager)
                     .userDetailsService(userDetailsService); // 支持
-            // password
-            // grant
-            // type;
         }
-
         if (jwtAccessTokenConverter != null) {
             endpoints.accessTokenConverter(jwtAccessTokenConverter);
         }
-
         endpoints.authorizationCodeServices(authorizationCodeServices);
-
         endpoints.exceptionTranslator(webResponseExceptionTranslator);
-
     }
 
     // 配置应用名称 应用id
     //配置OAuth2的客户端相关信息
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
-        // if(clientDetailsService!=null){
-        // clients.withClientDetails(clientDetailsService);
-        // }else{
-        // clients.inMemory().withClient("neusoft1").secret("neusoft1")
-        // .authorizedGrantTypes("authorization_code", "password",
-        // "refresh_token").scopes("all")
-        // .resourceIds(SERVER_RESOURCE_ID).accessTokenValiditySeconds(1200)
-        // .refreshTokenValiditySeconds(50000)
-        // .and().withClient("neusoft2").secret("neusoft2")
-        // .authorizedGrantTypes("authorization_code", "password",
-        // "refresh_token").scopes("all")
-        // .resourceIds(SERVER_RESOURCE_ID).accessTokenValiditySeconds(1200)
-        // .refreshTokenValiditySeconds(50000)
-        // ;
-        // }
         clients.withClientDetails(clientDetailsService);
         clientDetailsService.loadAllClientToCache();
     }
@@ -117,18 +91,10 @@ public class UnieapAuthorizationServerConfig extends AuthorizationServerConfigur
     //对应于配置AuthorizationServer安全认证的相关信息，创建ClientCredentialsTokenEndpointFilter核心过滤器
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-
         security.tokenKeyAccess("permitAll()") /// url:/oauth/token_key,exposes
-                /// public key for token
-                /// verification if using
-                /// JWT tokens
                 .checkTokenAccess("isAuthenticated()") // url:/oauth/check_token
-                // allow check token
                 .allowFormAuthenticationForClients();
-
-        // security.allowFormAuthenticationForClients();
-        //// security.tokenKeyAccess("permitAll()");
-        // security.tokenKeyAccess("isAuthenticated()");
+        ;
     }
 
 }
