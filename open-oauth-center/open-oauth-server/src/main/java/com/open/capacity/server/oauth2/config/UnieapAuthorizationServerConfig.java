@@ -1,16 +1,9 @@
 package com.open.capacity.server.oauth2.config;
 
-/**
- * @author caoheyang
- * @Description:
- * @date 2018/8/211:17
- */
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.open.capacity.server.oauth2.client.RedisClientDetailsService;
 import com.open.capacity.server.oauth2.token.store.RedisTemplateTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,28 +16,28 @@ import org.springframework.security.oauth2.provider.code.RandomValueAuthorizatio
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 /**
  * 授权服务器配置
+ *
+ * @author caoheyang
+ * @Description:
+ * @date 2018/8/211:17
  */
-//@Component
 @Configuration
 @EnableAuthorizationServer
-@AutoConfigureAfter(AuthorizationServerEndpointsConfigurer.class)
 public class UnieapAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    //注入authenticationManager 来支持 password grant type
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;  //认证管理器
 
     @Resource
     private ObjectMapper objectMapper; // springmvc启动时自动装配json处理类
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;  //用户信息相关的实现
 
     @Autowired(required = false)
     private RedisTemplateTokenStore redisTokenStore;
