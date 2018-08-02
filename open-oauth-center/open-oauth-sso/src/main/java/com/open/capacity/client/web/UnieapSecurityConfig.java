@@ -46,11 +46,11 @@ public class UnieapSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 // 退出的URL是/logout
                 .logout().logoutUrl("/logout")
-//                .clearAuthentication(true)
-//				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
-//				.addLogoutHandler(oauthLogoutHandler).permitAll()
-//				.deleteCookies("JSESSIONID","FP-UID")
-//                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+				.addLogoutHandler(oauthLogoutHandler).permitAll()
+				.deleteCookies("JSESSIONID","FP-UID")
+                .invalidateHttpSession(true)
                 // 退出成功后，跳转到/路径。
                 .logoutSuccessUrl("/login");
 

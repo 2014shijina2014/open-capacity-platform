@@ -74,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.logout().logoutUrl("/user/logout").clearAuthentication(true)
 		.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
 		.addLogoutHandler(oauthLogoutHandler)
-//		.deleteCookies("JSESSIONID","FP-UID")
-//        .invalidateHttpSession(true) 
+		.deleteCookies("JSESSIONID","FP-UID")
+        .invalidateHttpSession(true) 
         // 退出成功后，跳转到/路径。
         .logoutSuccessUrl("/login");
 
