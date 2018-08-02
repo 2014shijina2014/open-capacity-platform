@@ -72,8 +72,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		}
 
 		http.logout().logoutUrl("/user/logout").clearAuthentication(true)
-				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
-				.addLogoutHandler(oauthLogoutHandler);
+		.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+		.addLogoutHandler(oauthLogoutHandler)
+//		.deleteCookies("JSESSIONID","FP-UID")
+//        .invalidateHttpSession(true) 
+        // 退出成功后，跳转到/路径。
+        .logoutSuccessUrl("/login");
 
 		// http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 		// 解决不允许显示在iframe的问题

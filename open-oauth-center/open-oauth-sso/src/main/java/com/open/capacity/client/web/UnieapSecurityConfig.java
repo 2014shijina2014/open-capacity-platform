@@ -1,6 +1,6 @@
 package com.open.capacity.client.web;
 
-import com.open.capacity.filter.TokenFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
@@ -10,7 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.stereotype.Component;
+
+import com.open.capacity.client.config.OauthLogoutHandler;
+import com.open.capacity.filter.TokenFilter;
 
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
@@ -25,6 +29,9 @@ import org.springframework.stereotype.Component;
 @EnableOAuth2Sso
 public class UnieapSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private OauthLogoutHandler oauthLogoutHandler;
+	
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.formLogin().and()
@@ -38,7 +45,12 @@ public class UnieapSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 那样我还得写一个界面，发送post请求
                 .csrf().disable()
                 // 退出的URL是/logout
-                .logout().logoutUrl("/logout").permitAll()
+                .logout().logoutUrl("/logout")
+//                .clearAuthentication(true)
+//				.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+//				.addLogoutHandler(oauthLogoutHandler).permitAll()
+//				.deleteCookies("JSESSIONID","FP-UID")
+//                .invalidateHttpSession(true)
                 // 退出成功后，跳转到/路径。
                 .logoutSuccessUrl("/login");
 
