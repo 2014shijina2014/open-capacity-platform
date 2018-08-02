@@ -15,8 +15,6 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -120,8 +118,8 @@ public class SecurityHandlerConfig {
     }
 
     @Bean
-    public OauthLogoutHandler oauthLogoutHandler() {
-        return new OauthLogoutHandler();
+    public Oauth2LogoutHandler oauthLogoutHandler() {
+        return new Oauth2LogoutHandler();
     }
 
 }

@@ -22,9 +22,9 @@ import java.util.Enumeration;
  * @Description: 实现 {@link LogoutHandler}类，实现自定义的登出逻辑
  * @date 2018/7/31
  */
-public class OauthLogoutHandler implements LogoutHandler {
+public class Oauth2LogoutHandler implements LogoutHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(OauthLogoutHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(Oauth2LogoutHandler.class);
 
     @Autowired
     private TokenStore tokenStore;

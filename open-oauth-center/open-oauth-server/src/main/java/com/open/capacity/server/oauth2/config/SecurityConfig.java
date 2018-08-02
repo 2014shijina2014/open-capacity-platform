@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private OauthLogoutHandler oauthLogoutHandler;
+    private Oauth2LogoutHandler oauthLogoutHandler;
 
     /**
      *
