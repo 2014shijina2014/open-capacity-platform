@@ -15,6 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 
+
+/**
+ * https://blog.csdn.net/qq_33460562/article/details/79351938
+ * https://www.jianshu.com/p/c274f4acadb5
+ * https://juejin.im/entry/5a5484a7f265da3e3b7a652a
+ */
+
 /**
  * Oauth2的登出逻辑
  *
@@ -57,6 +64,7 @@ public class Oauth2LogoutHandler implements LogoutHandler {
 
     /**
      * TODO ？
+     *
      * @param request
      * @return
      */
@@ -79,7 +87,8 @@ public class Oauth2LogoutHandler implements LogoutHandler {
 
     /**
      * 从header中获取token
-     * @param request  the http request
+     *
+     * @param request the http request
      * @return
      */
     protected String extractHeaderToken(HttpServletRequest request) {
