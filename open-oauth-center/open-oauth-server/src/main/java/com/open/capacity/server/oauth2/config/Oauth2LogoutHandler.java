@@ -53,7 +53,6 @@ public class Oauth2LogoutHandler implements LogoutHandler {
             tokenStore.removeAccessToken(existingAccessToken);
         }
         return;
-
     }
 
     /**
