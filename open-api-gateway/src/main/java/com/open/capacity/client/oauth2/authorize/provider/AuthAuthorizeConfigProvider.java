@@ -16,6 +16,10 @@ import org.springframework.stereotype.Component;
 @Order(Integer.MAX_VALUE - 1)
 public class AuthAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
+    /**
+     * @param config
+     * @return
+     */
     @Override
     public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
         //免token登录设置

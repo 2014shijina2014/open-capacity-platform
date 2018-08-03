@@ -25,11 +25,11 @@ import com.open.capacity.client.oauth2.token.store.RedisTemplateTokenStore;
 @RestController
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Resource
 	private RedisTemplate< String, Object> redisTemplate ;
-	
-	 
+
+
 
 	@GetMapping("/hello")
 	public String hello() {
@@ -45,13 +45,13 @@ public class UserController {
 		userInfo.put("authorities", AuthorityUtils.authorityListToSet(user.getUserAuthentication().getAuthorities()));
 		return userInfo;
 	}
-	
+
 	@RequestMapping(value = { "/user" }, produces = "application/json") // 获取用户信息。/auth/user
-    public Principal user(Principal user) {
-        return user;
-    }
-	
-	
+	public Principal user(Principal user) {
+		return user;
+	}
+
+
 	@GetMapping("/del/{accessToken}/{refreshToken}")
 	public String hello2(@PathVariable String accessToken,@PathVariable String refreshToken) {
 		RedisTemplateTokenStore redisTemplateStore = new RedisTemplateTokenStore();

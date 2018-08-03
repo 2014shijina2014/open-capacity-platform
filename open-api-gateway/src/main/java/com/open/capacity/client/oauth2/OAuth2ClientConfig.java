@@ -1,9 +1,8 @@
 
 package com.open.capacity.client.oauth2;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.open.capacity.client.oauth2.authorize.AuthorizeConfigManager;
-import com.open.capacity.client.oauth2.filter.IPFilter;
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -22,7 +21,9 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.open.capacity.client.oauth2.authorize.AuthorizeConfigManager;
+import com.open.capacity.client.oauth2.filter.IPFilter;
 
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
@@ -72,7 +73,7 @@ public class OAuth2ClientConfig extends ResourceServerConfigurerAdapter {
         }
         resources.stateless(true);
 
-        resources.authenticationEntryPoint(authenticationEntryPoint);
+        resources.authenticationEntryPoint(authenticationEntryPoint) ;
 
         resources.expressionHandler(expressionHandler);
         resources.accessDeniedHandler(oAuth2AccessDeniedHandler);

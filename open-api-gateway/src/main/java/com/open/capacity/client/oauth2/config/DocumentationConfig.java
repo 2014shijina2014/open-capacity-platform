@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Swagger 配置类 网关整合eureka中的微服务
+ * TODO 不这么做
  *
  * @author caoheyang
  * @date 20180725

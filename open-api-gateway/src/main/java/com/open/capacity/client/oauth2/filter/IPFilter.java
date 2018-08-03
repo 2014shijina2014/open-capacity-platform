@@ -47,15 +47,20 @@ public class IPFilter extends OncePerRequestFilter implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet(); // 初始化其他bean参数
+
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
         String accessToken = null;
+
         accessToken = extractToken(request);
+
+
 //		if(!pathMatcher.match("/auth/**", request.getRequestURI())){
-//			
+//
 //			if (accessToken == null) {
 //				authenticationFailureHandler.onAuthenticationFailure(request, response,
 //						new AuthenticationException("token 不存在") {
@@ -88,6 +93,7 @@ public class IPFilter extends OncePerRequestFilter implements InitializingBean {
     protected String extractToken(HttpServletRequest request) {
         // first check the header...
         String token = extractHeaderToken(request);
+
         // bearer type allows a request parameter as well
         if (token == null) {
             logger.debug("Token not found in headers. Trying request parameters.");
@@ -98,6 +104,7 @@ public class IPFilter extends OncePerRequestFilter implements InitializingBean {
                 request.setAttribute(OAuth2AuthenticationDetails.ACCESS_TOKEN_TYPE, OAuth2AccessToken.BEARER_TYPE);
             }
         }
+
         return token;
     }
 
@@ -125,6 +132,7 @@ public class IPFilter extends OncePerRequestFilter implements InitializingBean {
                 return authHeaderValue;
             }
         }
+
         return null;
     }
 
