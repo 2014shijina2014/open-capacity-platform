@@ -1,14 +1,6 @@
 package com.open.capacity.client.oauth2.config;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +14,13 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -35,7 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class SecurityHandlerConfig {
 
     @Resource
-    private ObjectMapper objectMapper ; //springmvc启动时自动装配json处理类
+    private ObjectMapper objectMapper; //springmvc启动时自动装配json处理类
 
 
     /**
@@ -68,12 +66,10 @@ public class SecurityHandlerConfig {
                 response.getWriter().write(objectMapper.writeValueAsString(rsp));
                 response.getWriter().flush();
                 response.getWriter().close();
-
             }
         };
 
     }
-
 
 
     /**
@@ -89,12 +85,12 @@ public class SecurityHandlerConfig {
             public void commence(HttpServletRequest request, HttpServletResponse response,
                                  AuthenticationException authException) throws IOException, ServletException {
 
-                Map<String ,String > rsp =new HashMap<>();
+                Map<String, String> rsp = new HashMap<>();
 
-                response.setStatus(HttpStatus.UNAUTHORIZED.value() );
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
-                rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "") ;
-                rsp.put("resp_msg", authException.getMessage()) ;
+                rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
+                rsp.put("resp_msg", authException.getMessage());
 
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(objectMapper.writeValueAsString(rsp));
@@ -114,19 +110,19 @@ public class SecurityHandlerConfig {
     }
 
     @Bean
-    public OAuth2AccessDeniedHandler oAuth2AccessDeniedHandler(){
-        return new OAuth2AccessDeniedHandler(){
+    public OAuth2AccessDeniedHandler oAuth2AccessDeniedHandler() {
+        return new OAuth2AccessDeniedHandler() {
 
             @Override
             public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) throws IOException, ServletException {
 
-                Map<String ,String > rsp =new HashMap<>();
+                Map<String, String> rsp = new HashMap<>();
                 response.setContentType("application/json;charset=UTF-8");
 
-                response.setStatus(HttpStatus.UNAUTHORIZED.value() );
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
-                rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "") ;
-                rsp.put("resp_msg", authException.getMessage()) ;
+                rsp.put("resp_code", HttpStatus.UNAUTHORIZED.value() + "");
+                rsp.put("resp_msg", authException.getMessage());
 
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(objectMapper.writeValueAsString(rsp));

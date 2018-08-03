@@ -7,10 +7,10 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.stereotype.Component;
 
 /**
+ * 白名单
+ *
  * @author 作者 owen E-mail: 624191343@qq.com
  * @version 创建时间：2018年1月31日 下午9:11:36
- * 类说明
- * 白名单
  */
 @Component
 @Order(Integer.MAX_VALUE - 1)

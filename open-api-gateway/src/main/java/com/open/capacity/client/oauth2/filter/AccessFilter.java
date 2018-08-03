@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class AccessFilter extends ZuulFilter {
 
-
     @Override
     public String filterType() {
         return "pre";
@@ -36,27 +35,17 @@ public class AccessFilter extends ZuulFilter {
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
-
         try {
-
             //解决zuul token传递问题
             Authentication user = SecurityContextHolder.getContext()
                     .getAuthentication();
-
-
             if (user != null) {
-
                 if (user instanceof OAuth2Authentication) {
-
                     Authentication athentication = (Authentication) user;
-
                     OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) athentication.getDetails();
                     ctx.addZuulRequestHeader("Authorization", "bearer " + details.getTokenValue());
                 }
-
             }
-
-
         } catch (Exception e) {
 
         }
