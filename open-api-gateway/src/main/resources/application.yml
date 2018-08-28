@@ -13,7 +13,7 @@ spring:
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
       #     192.168.3.150   130.75.131.211  134.224.249.39  47.94.252.160
-      url: jdbc:mysql://134.224.249.39:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://192.168.3.150:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
       password: root
       filters: stat,wall
@@ -75,6 +75,10 @@ hystrix:
           thread:
             timeoutInMilliseconds: 90000
 
+swagger:
+  butler:
+    api-docs-path:  v2/api-docs
+    auto-generate-from-zuul-routes: true
  
 zuul:
   retryable: false    #关闭重试
@@ -87,12 +91,12 @@ zuul:
     auth:  
       path: /auth/**
       service-id: open-auth-server 
-      strip-prefix: false   
+      strip-prefix: true   
       custom-sensitive-headers: true  #http://blog.didispace.com/spring-cloud-zuul-cookie-redirect/ zuul授权码跳转问题
     client:  
       path: /client/**
       service-id: open-eureka-client
-      strip-prefix: false  
+      strip-prefix: true  
     auth_client: 
       path: /auth-client/**
       service-id: open-auth-client

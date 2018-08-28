@@ -10,12 +10,12 @@ security:
     client:
       client-id: owen
       client-secret: owen 
-      user-authorization-uri: http://127.0.0.1:8000/auth/oauth/authorize    
-      access-token-uri: http://127.0.0.1:8000/auth/oauth/token
+      user-authorization-uri: http://127.0.0.1:8000/oauth/authorize    
+      access-token-uri: http://127.0.0.1:8000/oauth/token
     resource: 
 #        user-info-uri: http://127.0.0.1:8000/auth/users #返回认证服务器检查
 #        prefer-token-info: false
-      token-info-uri: http://127.0.0.1:8000/auth/oauth/check_token
+      token-info-uri: http://127.0.0.1:8000/oauth/check_token
       prefer-token-info: true
  
  
@@ -31,8 +31,8 @@ spring:
 #      filters: stat,wall
 ################## mysql start ############################
       driver-class-name:  com.mysql.jdbc.Driver
-      #     192.168.3.150   130.75.131.211  47.94.252.160 134.224.249.39
-      url: jdbc:mysql://134.224.249.39:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+      #     192.168.3.150   130.75.131.211  134.224.249.39  47.94.252.160
+      url: jdbc:mysql://192.168.3.150:3306/boot_security?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
       username: root
       password: root
       filters: stat,wall
