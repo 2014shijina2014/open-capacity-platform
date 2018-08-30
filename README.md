@@ -25,7 +25,7 @@
 
 ### 基于OCP的企业微服务体验地址
 
-http://127.0.0.1:8066/
+http://47.94.252.160:8066
 
 用户名/密码：admin/admin
 
@@ -85,7 +85,7 @@ open-capacity-platform
 - IntelliJ IDEA/STS-3.8.0.RELEASE : 开发IDE/STS
 - Navicat for MySQL: 数据库客户端
 
- 
+
 
 ### 开发环境
 
